@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="org.flexlabs.widgets.transformerbattery"
+          android:versionCode="1"
+          android:versionName="0.1">
+    <uses-sdk android:targetSdkVersion="11" android:minSdkVersion="11" />
+    <supports-screens android:smallScreens="false"
+                      android:normalScreens="false"
+                      android:largeScreens="false"
+                      android:xlargeScreens="true" />
+    <application android:icon="@drawable/icon" android:label="@string/app_name" android:name=".BatteryApplication">
+        <receiver android:name=".BatteryWidget" android:label="@string/widget_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="org.flexlabs.action.WIDGET_UPDATE" />
+                <action android:name="org.flexlabs.action.BATTERY_CHANGED" />
+                <action android:name="org.flexlabs.action.DOCK_EVENT" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                       android:resource="@xml/widget_info" />
+        </receiver>
+    </application>
+    <uses-permission android:name="android.permission.BATTERY_STATS" />
+	<uses-permission android:name="android.permission.DEVICE_POWER" />
+</manifest>
