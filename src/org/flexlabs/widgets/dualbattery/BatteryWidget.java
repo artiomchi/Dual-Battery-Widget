@@ -1,4 +1,4 @@
-package org.flexlabs.widgets.transformerbattery;
+package org.flexlabs.widgets.dualbattery;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;

@@ -1,4 +1,4 @@
-package org.flexlabs.widgets.transformerbattery;
+package org.flexlabs.widgets.dualbattery;
 
 /**
  * Created by IntelliJ IDEA.

@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package org.flexlabs.widgets.transformerbattery;
+package org.flexlabs.widgets.dualbattery;
 
 public final class R {
     public static final class attr {
@@ -18,9 +18,10 @@ public final class R {
         public static final int medium=0x7f020004;
     }
     public static final class id {
-        public static final int batteryDock=0x7f060002;
+        public static final int batteryDock=0x7f060003;
         public static final int batteryTab=0x7f060000;
-        public static final int statusDock=0x7f060003;
+        public static final int dockFrame=0x7f060002;
+        public static final int statusDock=0x7f060004;
         public static final int statusTab=0x7f060001;
     }
     public static final class layout {

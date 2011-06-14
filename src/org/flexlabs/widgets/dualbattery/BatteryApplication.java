@@ -1,4 +1,4 @@
-package org.flexlabs.widgets.transformerbattery;
+package org.flexlabs.widgets.dualbattery;
 
 import android.app.Application;
 import android.content.BroadcastReceiver;
