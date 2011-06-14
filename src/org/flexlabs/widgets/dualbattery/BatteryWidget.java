@@ -6,6 +6,7 @@ import android.content.*;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.RemoteViews;
 
 /**
@@ -63,11 +64,16 @@ public class BatteryWidget extends AppWidgetProvider {
                 views.setTextViewText(R.id.statusTab, "n/a");
             views.setImageViewResource(R.id.batteryTab, getBatteryResource(BatteryApplication.batteryTab));
 
-            if (BatteryApplication.batteryDock != null)
-                views.setTextViewText(R.id.statusDock, String.valueOf(BatteryApplication.batteryDock) + "%");
-            else
-                views.setTextViewText(R.id.statusDock, "n/a");
-            views.setImageViewResource(R.id.batteryDock, getBatteryResource(BatteryApplication.batteryDock));
+            if (BatteryApplication.hasDock) {
+                views.setViewVisibility(R.id.dockFrame, View.VISIBLE);
+                if (BatteryApplication.batteryDock != null)
+                    views.setTextViewText(R.id.statusDock, String.valueOf(BatteryApplication.batteryDock) + "%");
+                else
+                    views.setTextViewText(R.id.statusDock, "n/a");
+                views.setImageViewResource(R.id.batteryDock, getBatteryResource(BatteryApplication.batteryDock));
+            } else {
+                views.setViewVisibility(R.id.dockFrame, View.GONE);
+            }
 
             appWidgetManager.updateAppWidget(widgetId, views);
         }

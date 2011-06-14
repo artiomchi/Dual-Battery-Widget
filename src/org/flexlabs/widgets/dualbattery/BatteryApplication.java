@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
+import android.os.Bundle;
 import android.util.Log;
 
 /**
@@ -28,26 +29,36 @@ public class BatteryApplication extends Application {
     public static Integer batteryDock;
     public static int status = BatteryManager.BATTERY_STATUS_UNKNOWN;
     public static int dockStatus = DOCK_STATE_UNKNOWN;
+    public static boolean hasDock = false;
 
     private static final BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            Bundle extras = intent.getExtras();
+            if (extras == null)
+                return;
+
             if (Intent.ACTION_BATTERY_CHANGED.equals(intent.getAction())) {
-                batteryTab = intent.getIntExtra("level", -1);
+                status = extras.getInt("status", BatteryManager.BATTERY_HEALTH_UNKNOWN);
+                batteryTab = extras.getInt("level", -1);
                 if (batteryTab < 0)
                     batteryTab = null;
-                batteryDock = intent.getIntExtra("dock_level", -1);
-                if (batteryDock < 0)
+                hasDock = extras.containsKey("dock_level");
+                if (hasDock) {
+                    batteryDock = extras.getInt("dock_level", -1);
+                    if (batteryDock < 0)
+                        batteryDock = null;
+                    dockStatus = extras.getInt("dock_status", DOCK_STATE_UNKNOWN);
+                    if (dockStatus == DOCK_STATE_UNDOCKED || dockStatus == DOCK_STATE_UNKNOWN)
+                        batteryDock = null;
+                } else {
                     batteryDock = null;
-                status = intent.getIntExtra("status", BatteryManager.BATTERY_HEALTH_UNKNOWN);
-                dockStatus = intent.getIntExtra("dock_status", DOCK_STATE_UNKNOWN);
-                if (dockStatus == DOCK_STATE_UNDOCKED || dockStatus == DOCK_STATE_UNKNOWN)
-                    batteryDock = null;
+                }
 
                 context.sendBroadcast(new Intent(ACTION_WIDGET_UPDATE));
 
             } else if (Intent.ACTION_DOCK_EVENT.equals(intent.getAction())) {
-                dockStatus = intent.getIntExtra("status", 0);
+                dockStatus = extras.getInt("status", 0);
                 if (dockStatus == Intent.EXTRA_DOCK_STATE_UNDOCKED) {
                     dockStatus = DOCK_STATE_UNDOCKED;
                     batteryDock = null;
