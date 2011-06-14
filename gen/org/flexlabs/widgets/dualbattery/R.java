@@ -8,30 +8,56 @@
 package org.flexlabs.widgets.dualbattery;
 
 public final class R {
+    public static final class array {
+        public static final int textPosition_labels=0x7f050001;
+        public static final int textPosition_values=0x7f050000;
+    }
     public static final class attr {
     }
     public static final class drawable {
-        public static final int critical=0x7f020000;
-        public static final int empty=0x7f020001;
-        public static final int full=0x7f020002;
-        public static final int icon=0x7f020003;
-        public static final int medium=0x7f020004;
+        public static final int charged=0x7f020000;
+        public static final int charging=0x7f020001;
+        public static final int critical=0x7f020002;
+        public static final int empty=0x7f020003;
+        public static final int full=0x7f020004;
+        public static final int icon=0x7f020005;
+        public static final int medium=0x7f020006;
     }
     public static final class id {
-        public static final int batteryDock=0x7f060003;
-        public static final int batteryTab=0x7f060000;
-        public static final int dockFrame=0x7f060002;
-        public static final int statusDock=0x7f060004;
-        public static final int statusTab=0x7f060001;
+        public static final int batteryDock=0x7f080007;
+        public static final int batteryDockCharging=0x7f080008;
+        public static final int batteryTab=0x7f080000;
+        public static final int batteryTabCharged=0x7f080002;
+        public static final int batteryTabCharging=0x7f080001;
+        public static final int dockFrame=0x7f080006;
+        public static final int statusDockBottom=0x7f08000b;
+        public static final int statusDockMiddle=0x7f08000a;
+        public static final int statusDockTop=0x7f080009;
+        public static final int statusTabBottom=0x7f080005;
+        public static final int statusTabMiddle=0x7f080004;
+        public static final int statusTabTop=0x7f080003;
     }
     public static final class layout {
         public static final int widget=0x7f030000;
     }
     public static final class string {
-        public static final int app_name=0x7f050000;
-        public static final int widget_name=0x7f050001;
+        public static final int app_name=0x7f060000;
+        public static final int prop_autoHideDock=0x7f060004;
+        public static final int prop_autoHideDock_summary=0x7f060005;
+        public static final int prop_dockTitle=0x7f060003;
+        public static final int prop_showNotDockedMsg=0x7f060006;
+        public static final int prop_showNotDockedMsg_summary=0x7f060007;
+        public static final int prop_textPosition=0x7f060008;
+        public static final int prop_textPosition_summary=0x7f060009;
+        public static final int prop_textSize=0x7f06000a;
+        public static final int undocked=0x7f060002;
+        public static final int widget_name=0x7f060001;
+    }
+    public static final class style {
+        public static final int batteryStatusText=0x7f070000;
     }
     public static final class xml {
         public static final int widget_info=0x7f040000;
+        public static final int widget_properties=0x7f040001;
     }
 }

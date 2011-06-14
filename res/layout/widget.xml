@@ -7,22 +7,44 @@
                      android:layout_weight="1">
             <ImageView android:id="@+id/batteryTab"
                        android:layout_width="fill_parent" android:layout_height="fill_parent"
-                       android:layout_weight="1"
                        android:src="@drawable/empty" />
-            <TextView android:id="@+id/statusTab" android:layout_width="fill_parent" android:layout_height="fill_parent"
+            <ImageView android:id="@+id/batteryTabCharging"
+                       android:layout_width="fill_parent" android:layout_height="fill_parent"
+                       android:visibility="gone"
+                       android:src="@drawable/charging" />
+            <ImageView android:id="@+id/batteryTabCharged"
+                       android:layout_width="fill_parent" android:layout_height="fill_parent"
+                       android:visibility="gone"
+                       android:src="@drawable/charged" />
+            <TextView android:id="@+id/statusTabTop" android:layout_width="fill_parent" android:layout_height="fill_parent"
+                      android:gravity="top|center_horizontal"
+                      style="@style/batteryStatusText" android:visibility="gone" />
+            <TextView android:id="@+id/statusTabMiddle" android:layout_width="fill_parent" android:layout_height="fill_parent"
                       android:gravity="center_vertical|center_horizontal"
-                      android:textColor="#FFFFFF"/>
+                      style="@style/batteryStatusText" android:visibility="gone" />
+            <TextView android:id="@+id/statusTabBottom" android:layout_width="fill_parent" android:layout_height="fill_parent"
+                      android:gravity="bottom|center_horizontal"
+                      style="@style/batteryStatusText" android:visibility="gone" />
         </FrameLayout>
         <FrameLayout android:id="@+id/dockFrame"
                      android:layout_width="fill_parent" android:layout_height="fill_parent"
                      android:layout_weight="1">
             <ImageView android:id="@+id/batteryDock"
                        android:layout_width="fill_parent" android:layout_height="fill_parent"
-                       android:layout_weight="1"
                        android:src="@drawable/empty" />
-            <TextView android:id="@+id/statusDock" android:layout_width="fill_parent" android:layout_height="fill_parent"
+            <ImageView android:id="@+id/batteryDockCharging"
+                       android:layout_width="fill_parent" android:layout_height="fill_parent"
+                       android:visibility="gone"
+                       android:src="@drawable/charging" />
+            <TextView android:id="@+id/statusDockTop" android:layout_width="fill_parent" android:layout_height="fill_parent"
+                      android:gravity="top|center_horizontal"
+                      style="@style/batteryStatusText" android:visibility="gone" />
+            <TextView android:id="@+id/statusDockMiddle" android:layout_width="fill_parent" android:layout_height="fill_parent"
                       android:gravity="center_vertical|center_horizontal"
-                      android:textColor="#FFFFFF"/>
+                      style="@style/batteryStatusText" android:visibility="gone" />
+            <TextView android:id="@+id/statusDockBottom" android:layout_width="fill_parent" android:layout_height="fill_parent"
+                      android:gravity="bottom|center_horizontal"
+                      style="@style/batteryStatusText" android:visibility="gone" />
         </FrameLayout>
     </LinearLayout>
 </LinearLayout>

@@ -1,0 +1,9 @@
+<resources>
+    <style name="batteryStatusText">
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">1.5</item>
+        <item name="android:shadowDy">1.5</item>
+        <item name="android:shadowRadius">1.5</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+</resources>

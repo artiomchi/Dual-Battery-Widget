@@ -1,0 +1,14 @@
+<resources>
+    <string-array name="textPosition_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    <string-array name="textPosition_labels">
+        <item>Invisible</item>
+        <item>Top</item>
+        <item>Middle</item>
+        <item>Bottom</item>
+    </string-array>
+</resources>

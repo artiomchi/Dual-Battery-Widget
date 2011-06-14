@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">Dual Battery Widget</string>
     <string name="widget_name">Dual Battery Widget</string>
+
+    <string name="undocked">not docked</string>
+
+    <string name="prop_dockTitle">Secondary dock battery options</string>
+    <string name="prop_autoHideDock">Auto hide dock battery</string>
+    <string name="prop_autoHideDock_summary">Hide the secondary dock battery when not docked</string>
+    <string name="prop_showNotDockedMsg">Show status when not docked</string>
+    <string name="prop_showNotDockedMsg_summary">Show a message stating that the secondary battery is not connected when not docked</string>
+    <string name="prop_textPosition">Text position</string>
+    <string name="prop_textPosition_summary">Where to display the battery status</string>
+    <string name="prop_textSize">Text size</string>
 </resources>

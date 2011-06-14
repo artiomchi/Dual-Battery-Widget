@@ -4,10 +4,14 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.*;
 import android.os.BatteryManager;
-import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.RemoteViews;
+import android.widget.TextView;
+
+import java.io.File;
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,6 +20,15 @@ import android.widget.RemoteViews;
  * Time: 20:13
  */
 public class BatteryWidget extends AppWidgetProvider {
+    private static final String SETTING_AUTOHIDE = "autoHideDock";
+    private static final boolean SETTING_AUTOHIDE_DEFAULT = false;
+    private static final String SETTING_TEXTPOS = "textPosition";
+    private static final String SETTING_TEXTPOS_DEFAULT = "2";
+    private static final String SETTING_TEXTSIZE = "textSize";
+    private static final String SETTING_TEXTSIZE_DEFAULT = "14";
+    private static final String SETTING_SHOW_NOTDOCKED = "showNotDockedMessage";
+    private static final boolean SETTING_SHOW_NOTDOCKED_DEFAULT = true;
+
     @Override
     public void onEnabled(Context context) {
         super.onEnabled(context);
@@ -26,6 +39,17 @@ public class BatteryWidget extends AppWidgetProvider {
     public void onDisabled(Context context) {
         super.onDisabled(context);
         BatteryApplication.unregisterReceiver(context);
+    }
+
+    @Override
+    public void onDeleted(Context context, int[] appWidgetIds) {
+        super.onDeleted(context, appWidgetIds);
+        for (int i : appWidgetIds) {
+            String file = Constants.SETTINGS_PREFIX + i;
+            context.getSharedPreferences(file, Context.MODE_PRIVATE)
+                    .edit().clear().commit();
+            new File(context.getFilesDir() + "/../shared_prefs/" + file + ".xml").delete();
+        }
     }
 
     @Override
@@ -48,31 +72,85 @@ public class BatteryWidget extends AppWidgetProvider {
         BatteryApplication.registerReceiver(context);
 
         final int n = appWidgetIds.length;
+        Log.d("FlexLabs", "Widget count: " + appWidgetIds.length);
         for (int i = 0; i < n; i++) {
             int widgetId = appWidgetIds[i];
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
+            SharedPreferences pref = context.getSharedPreferences(Constants.SETTINGS_PREFIX + widgetId, Context.MODE_PRIVATE);
+            boolean autoHide = pref.getBoolean(SETTING_AUTOHIDE, SETTING_AUTOHIDE_DEFAULT);
+            boolean showNotDocked = pref.getBoolean(SETTING_SHOW_NOTDOCKED, SETTING_SHOW_NOTDOCKED_DEFAULT);
+            int textSize = Integer.valueOf(pref.getString(SETTING_TEXTSIZE, SETTING_TEXTSIZE_DEFAULT));
+            int textPositionCode = Integer.valueOf(pref.getString(SETTING_TEXTPOS, SETTING_TEXTPOS_DEFAULT));
+            int textStatusTab = 0, textStatusDock = 0;
+            switch (textPositionCode) {
+                case 1:
+                    textStatusTab = R.id.statusTabTop;
+                    textStatusDock = R.id.statusDockTop;
+                    break;
+
+                case 2:
+                    textStatusTab = R.id.statusTabMiddle;
+                    textStatusDock = R.id.statusDockMiddle;
+                    break;
+
+                case 3:
+                    textStatusTab = R.id.statusTabBottom;
+                    textStatusDock = R.id.statusDockBottom;
+            }
+            for (int id : new int[] {R.id.statusTabBottom,R.id.statusTabMiddle,R.id.statusTabTop,
+                                     R.id.statusDockBottom,R.id.statusDockMiddle,R.id.statusDockTop}) {
+                views.setViewVisibility(id, View.GONE);
+            }
+            views.setViewVisibility(textStatusTab, View.VISIBLE);
+            views.setViewVisibility(textStatusDock, View.VISIBLE);
 
             /*BatteryApplication.batteryTab = 15;
             BatteryApplication.batteryDock = null;
 
-            /*BatteryApplication.batteryTab = 33;
-            BatteryApplication.batteryDock = 72;*/
+            /*BatteryApplication.batteryTab = 86;
+            BatteryApplication.status = BatteryManager.BATTERY_STATUS_CHARGING;
+            BatteryApplication.batteryDock = 30;*/
 
-            if (BatteryApplication.batteryTab != null)
-                views.setTextViewText(R.id.statusTab, String.valueOf(BatteryApplication.batteryTab) + "%");
-            else
-                views.setTextViewText(R.id.statusTab, "n/a");
-            views.setImageViewResource(R.id.batteryTab, getBatteryResource(BatteryApplication.batteryTab));
-
-            if (BatteryApplication.hasDock) {
-                views.setViewVisibility(R.id.dockFrame, View.VISIBLE);
-                if (BatteryApplication.batteryDock != null)
-                    views.setTextViewText(R.id.statusDock, String.valueOf(BatteryApplication.batteryDock) + "%");
+            if (textPositionCode > 0) {
+                views.setFloat(textStatusTab, "setTextSize", textSize);
+                if (BatteryApplication.batteryTab != null)
+                    views.setTextViewText(textStatusTab, "\n" + BatteryApplication.batteryTab + "%\n");
                 else
-                    views.setTextViewText(R.id.statusDock, "n/a");
+                    views.setTextViewText(textStatusTab, "\nn/a\n");
+            }
+            views.setImageViewResource(R.id.batteryTab, getBatteryResource(BatteryApplication.batteryTab));
+            if (BatteryApplication.status == BatteryManager.BATTERY_STATUS_CHARGING)
+                views.setViewVisibility(R.id.batteryTabCharging, View.VISIBLE);
+            else
+                views.setViewVisibility(R.id.batteryTabCharging, View.GONE);
+            /*if (BatteryApplication.status == BatteryManager.BATTERY_PLUGGED_AC)
+                views.setViewVisibility(R.id.batteryTabCharged, View.VISIBLE);
+            else
+                views.setViewVisibility(R.id.batteryTabCharged, View.GONE);*/
+
+            int dockVisible = BatteryApplication.hasDock && (BatteryApplication.batteryDock != null || !autoHide)
+                ? View.VISIBLE
+                : View.GONE;
+            views.setViewVisibility(R.id.dockFrame, dockVisible);
+            if (BatteryApplication.hasDock) {
+                if (textPositionCode > 0) {
+                    views.setFloat(textStatusDock, "setTextSize", textSize);
+                    if (BatteryApplication.batteryDock != null) {
+                        views.setTextViewText(textStatusDock, "\n" + BatteryApplication.batteryDock + "%\n");
+                    } else if (BatteryApplication.dockStatus == BatteryApplication.DOCK_STATE_UNDOCKED) {
+                        if (showNotDocked)
+                            views.setTextViewText(textStatusDock, "\n" + context.getString(R.string.undocked) + "\n");
+                        else
+                            views.setViewVisibility(textStatusDock, View.GONE);
+                    } else {
+                        views.setTextViewText(textStatusDock, "\nn/a\n");
+                    }
+                }
                 views.setImageViewResource(R.id.batteryDock, getBatteryResource(BatteryApplication.batteryDock));
-            } else {
-                views.setViewVisibility(R.id.dockFrame, View.GONE);
+                if (BatteryApplication.dockStatus == BatteryApplication.DOCK_STATE_CHARGING)
+                    views.setViewVisibility(R.id.batteryDockCharging, View.VISIBLE);
+                else
+                    views.setViewVisibility(R.id.batteryDockCharging, View.GONE);
             }
 
             appWidgetManager.updateAppWidget(widgetId, views);
@@ -87,5 +165,13 @@ public class BatteryWidget extends AppWidgetProvider {
         if (status <= 70)
             return R.drawable.medium;
         return R.drawable.full;
+    }
+
+    private int getTextGravity(int value) {
+        if (value == 1)
+            return Gravity.CENTER_HORIZONTAL | Gravity.TOP;
+        if (value == 3)
+            return Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
+        return Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL;
     }
 }
