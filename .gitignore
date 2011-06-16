@@ -1,0 +1,9 @@
+# Compiled binaries #
+#####################
+out
+*.apk
+
+# Workspace files #
+###################
+*.iws
+asdsa
