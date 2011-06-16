@@ -27,29 +27,12 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
 
         getPreferenceManager().setSharedPreferencesName(Constants.SETTINGS_PREFIX + appWidgetId);
         addPreferencesFromResource(R.xml.widget_properties);
-
-        setWidgetResult(RESULT_CANCELED);
     }
 
     @Override
-    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-        if (preference.getKey().equals("save")) {
-            setWidgetResult(RESULT_OK);
-            finish();
-            return true;
-        }
-        return super.onPreferenceTreeClick(preferenceScreen, preference);
-    }
-
-    private void setWidgetResult(int result) {
-        Intent data = new Intent();
-        data.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-        setResult(result, data);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onPause() {
+        super.onPause();
         sendBroadcast(new Intent(BatteryApplication.ACTION_WIDGET_UPDATE));
+        finish();
     }
 }

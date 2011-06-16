@@ -1,5 +1,6 @@
 package org.flexlabs.widgets.dualbattery;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.*;
@@ -152,6 +153,13 @@ public class BatteryWidget extends AppWidgetProvider {
                 else
                     views.setViewVisibility(R.id.batteryDockCharging, View.GONE);
             }
+
+            ComponentName toLaunch = new ComponentName("com.android.settings", "com.android.settings.BatteryInfo");
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+            intent.setComponent(toLaunch);
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+            views.setOnClickPendingIntent(R.id.widget, pendingIntent);
 
             appWidgetManager.updateAppWidget(widgetId, views);
         }

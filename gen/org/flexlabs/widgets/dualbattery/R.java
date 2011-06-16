@@ -24,18 +24,19 @@ public final class R {
         public static final int medium=0x7f020006;
     }
     public static final class id {
-        public static final int batteryDock=0x7f080007;
-        public static final int batteryDockCharging=0x7f080008;
-        public static final int batteryTab=0x7f080000;
-        public static final int batteryTabCharged=0x7f080002;
-        public static final int batteryTabCharging=0x7f080001;
-        public static final int dockFrame=0x7f080006;
-        public static final int statusDockBottom=0x7f08000b;
-        public static final int statusDockMiddle=0x7f08000a;
-        public static final int statusDockTop=0x7f080009;
-        public static final int statusTabBottom=0x7f080005;
-        public static final int statusTabMiddle=0x7f080004;
-        public static final int statusTabTop=0x7f080003;
+        public static final int batteryDock=0x7f080008;
+        public static final int batteryDockCharging=0x7f080009;
+        public static final int batteryTab=0x7f080001;
+        public static final int batteryTabCharged=0x7f080003;
+        public static final int batteryTabCharging=0x7f080002;
+        public static final int dockFrame=0x7f080007;
+        public static final int statusDockBottom=0x7f08000c;
+        public static final int statusDockMiddle=0x7f08000b;
+        public static final int statusDockTop=0x7f08000a;
+        public static final int statusTabBottom=0x7f080006;
+        public static final int statusTabMiddle=0x7f080005;
+        public static final int statusTabTop=0x7f080004;
+        public static final int widget=0x7f080000;
     }
     public static final class layout {
         public static final int widget=0x7f030000;
