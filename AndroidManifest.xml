@@ -15,7 +15,7 @@
             <meta-data android:name="android.appwidget.provider"
                        android:resource="@xml/widget_info" />
         </receiver>
-        <activity android:name=".WidgetProperties">
+        <activity android:name=".WidgetPropertiesActivity">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
@@ -23,4 +23,5 @@
     </application>
     <uses-permission android:name="android.permission.BATTERY_STATS" />
 	<uses-permission android:name="android.permission.DEVICE_POWER" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 </manifest>

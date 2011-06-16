@@ -6,4 +6,4 @@
                     android:label="@string/widget_name"
                     android:updatePeriodMillis="5000"
                     android:resizeMode="horizontal|vertical"
-                    android:configure="org.flexlabs.widgets.dualbattery.WidgetProperties" />
+                    android:configure="org.flexlabs.widgets.dualbattery.WidgetPropertiesActivity" />

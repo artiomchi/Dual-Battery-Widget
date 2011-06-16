@@ -15,4 +15,5 @@
                             android:title="@string/prop_showNotDockedMsg" android:summary="@string/prop_showNotDockedMsg_summary"
                             android:defaultValue="true" />
     </PreferenceCategory>
+    <Preference android:key="save" android:title="Save" />
 </PreferenceScreen>
