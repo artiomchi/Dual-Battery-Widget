@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="org.flexlabs.widgets.dualbattery"
-          android:versionCode="3"
-          android:versionName="0.5">
+          android:versionCode="4"
+          android:versionName="0.5.2">
     <uses-sdk android:targetSdkVersion="11" android:minSdkVersion="4" />
     <application android:icon="@drawable/icon" android:label="@string/app_name" android:name=".BatteryApplication">
         <receiver android:name=".BatteryWidget" android:label="@string/widget_name">
@@ -24,5 +24,4 @@
     </application>
     <uses-permission android:name="android.permission.BATTERY_STATS" />
 	<uses-permission android:name="android.permission.DEVICE_POWER" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 </manifest>
