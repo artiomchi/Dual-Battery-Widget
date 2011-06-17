@@ -21,6 +21,8 @@
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
+        <activity android:name=".WidgetPropertiesHCActivity"/>
+        <activity android:name=".AboutActivity"/>
     </application>
     <uses-permission android:name="android.permission.BATTERY_STATS" />
 	<uses-permission android:name="android.permission.DEVICE_POWER" />

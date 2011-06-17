@@ -7,12 +7,4 @@
                     android:title="@string/prop_textPosition" android:summary="@string/prop_textPosition_summary"
                     android:entries="@array/textPosition_labels" android:entryValues="@array/textPosition_values"
                     android:defaultValue="2" />
-    <PreferenceCategory android:title="@string/prop_dockTitle">
-        <CheckBoxPreference android:key="autoHideDock"
-                            android:title="@string/prop_autoHideDock" android:summary="@string/prop_autoHideDock_summary"
-                            android:defaultValue="false" />
-        <CheckBoxPreference android:key="showNotDockedMessage"
-                            android:title="@string/prop_showNotDockedMsg" android:summary="@string/prop_showNotDockedMsg_summary"
-                            android:defaultValue="true" />
-    </PreferenceCategory>
 </PreferenceScreen>

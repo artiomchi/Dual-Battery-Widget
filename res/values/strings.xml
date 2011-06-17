@@ -5,11 +5,41 @@
     <string name="undocked">not docked</string>
 
     <string name="prop_dockTitle">Secondary dock battery options</string>
-    <string name="prop_autoHideDock">Auto hide dock battery</string>
-    <string name="prop_autoHideDock_summary">Hide the secondary dock battery when not docked</string>
+    <string name="prop_alwaysShowDock">Always show dock battery</string>
+    <string name="prop_alwaysShowDock_summary">Show the dock battery gauge even when not docked</string>
     <string name="prop_showNotDockedMsg">Show status when not docked</string>
     <string name="prop_showNotDockedMsg_summary">Show a message stating that the secondary battery is not connected when not docked</string>
     <string name="prop_textPosition">Text position</string>
     <string name="prop_textPosition_summary">Where to display the battery status</string>
     <string name="prop_textSize">Text size</string>
+
+    <string name="battery_info_status_label">Battery status:</string>
+    <string name="battery_info_scale_label">Battery scale:</string>
+    <string name="battery_info_level_label">Battery level:</string>
+    <string name="battery_info_health_label">Battery health:</string>
+    <string name="battery_info_technology_label">Battery technology:</string>
+    <string name="battery_info_voltage_label">Battery voltage:</string>
+    <string name="battery_info_voltage_units">mV</string>
+    <string name="battery_info_temperature_label">Battery temperature:</string>
+    <string name="battery_info_temperature_units">\u00B0 C</string>
+    <string name="battery_info_uptime">Time since boot:</string>
+    <string name="battery_info_awake_battery">Awake time on battery:</string>
+    <string name="battery_info_awake_plugged">Awake time when charging:</string>
+    <string name="battery_info_screen_on">Screen ON time:</string>
+
+
+    <string name="battery_info_status_unknown">Unknown</string>
+    <string name="battery_info_status_charging">Charging</string>
+    <string name="battery_info_status_charging_ac">(AC)</string>
+    <string name="battery_info_status_charging_usb">(USB)</string>
+    <string name="battery_info_status_discharging">Discharging</string>
+    <string name="battery_info_status_not_charging">Not charging</string>
+    <string name="battery_info_status_full">Full</string>
+
+    <string name="battery_info_health_unknown">Unknown</string>
+    <string name="battery_info_health_good">Good</string>
+    <string name="battery_info_health_overheat">Overheat</string>
+    <string name="battery_info_health_dead">Dead</string>
+    <string name="battery_info_health_over_voltage">Over voltage</string>
+    <string name="battery_info_health_unspecified_failure">Unknown error</string>
 </resources>

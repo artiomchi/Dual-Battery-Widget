@@ -3,6 +3,7 @@ package org.flexlabs.widgets.dualbattery;
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -17,7 +18,7 @@ import android.widget.ListView;
  * Time: 19:22
  */
 public class WidgetPropertiesActivity extends PreferenceActivity {
-    private int appWidgetId;
+    public int appWidgetId;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +28,7 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
 
         getPreferenceManager().setSharedPreferencesName(Constants.SETTINGS_PREFIX + appWidgetId);
         addPreferencesFromResource(R.xml.widget_properties);
+        addPreferencesFromResource(R.xml.widget_properties_dock);
     }
 
     @Override

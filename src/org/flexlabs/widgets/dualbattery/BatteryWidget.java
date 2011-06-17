@@ -5,6 +5,7 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.*;
 import android.os.BatteryManager;
+import android.os.Build;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -23,6 +24,8 @@ import java.io.File;
 public class BatteryWidget extends AppWidgetProvider {
     private static final String SETTING_AUTOHIDE = "autoHideDock";
     private static final boolean SETTING_AUTOHIDE_DEFAULT = false;
+    private static final String SETTING_ALWAYSSHOWDOCK = "alwaysShowDock";
+    private static final boolean SETTING_ALWAYSSHOWDOCK_DEFAULT = true;
     private static final String SETTING_TEXTPOS = "textPosition";
     private static final String SETTING_TEXTPOS_DEFAULT = "2";
     private static final String SETTING_TEXTSIZE = "textSize";
@@ -78,7 +81,8 @@ public class BatteryWidget extends AppWidgetProvider {
             int widgetId = appWidgetIds[i];
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
             SharedPreferences pref = context.getSharedPreferences(Constants.SETTINGS_PREFIX + widgetId, Context.MODE_PRIVATE);
-            boolean autoHide = pref.getBoolean(SETTING_AUTOHIDE, SETTING_AUTOHIDE_DEFAULT);
+            boolean autoHideOld = pref.getBoolean(SETTING_AUTOHIDE, SETTING_AUTOHIDE_DEFAULT); // legacy reasons.. for widgets added before v0.6
+            boolean alwaysShow = pref.getBoolean(SETTING_ALWAYSSHOWDOCK, SETTING_ALWAYSSHOWDOCK_DEFAULT && !autoHideOld);
             boolean showNotDocked = pref.getBoolean(SETTING_SHOW_NOTDOCKED, SETTING_SHOW_NOTDOCKED_DEFAULT);
             int textSize = Integer.valueOf(pref.getString(SETTING_TEXTSIZE, SETTING_TEXTSIZE_DEFAULT));
             int textPositionCode = Integer.valueOf(pref.getString(SETTING_TEXTPOS, SETTING_TEXTPOS_DEFAULT));
@@ -129,7 +133,7 @@ public class BatteryWidget extends AppWidgetProvider {
             else
                 views.setViewVisibility(R.id.batteryTabCharged, View.GONE);*/
 
-            int dockVisible = BatteryApplication.hasDock && (BatteryApplication.batteryDock != null || !autoHide)
+            int dockVisible = BatteryApplication.hasDock && (BatteryApplication.batteryDock != null || alwaysShow)
                 ? View.VISIBLE
                 : View.GONE;
             views.setViewVisibility(R.id.dockFrame, dockVisible);
@@ -154,11 +158,16 @@ public class BatteryWidget extends AppWidgetProvider {
                     views.setViewVisibility(R.id.batteryDockCharging, View.GONE);
             }
 
+            /* Starting the battery info directly
             ComponentName toLaunch = new ComponentName("com.android.settings", "com.android.settings.BatteryInfo");
             Intent intent = new Intent(Intent.ACTION_MAIN);
             intent.addCategory(Intent.CATEGORY_LAUNCHER);
-            intent.setComponent(toLaunch);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+            intent.setComponent(toLaunch); */
+            Intent intent = Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB
+                ? new Intent(context, WidgetPropertiesActivity.class)
+                : new Intent(context, WidgetPropertiesHCActivity.class);
+            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, widgetId, intent, 0);
             views.setOnClickPendingIntent(R.id.widget, pendingIntent);
 
             appWidgetManager.updateAppWidget(widgetId, views);
