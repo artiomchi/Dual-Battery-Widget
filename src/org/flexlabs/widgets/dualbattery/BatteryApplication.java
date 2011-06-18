@@ -23,7 +23,6 @@ public class BatteryApplication extends Application {
     public static final int DOCK_STATE_CHARGING = 2;
     public static final int DOCK_STATE_DOCKED = 3;
     public static final int DOCK_STATE_DISCHARGING = 4;
-    public static final String ACTION_WIDGET_UPDATE = "org.flexlabs.action.WIDGET_UPDATE";
 
     public static Integer batteryTab;
     public static Integer batteryDock;
@@ -55,9 +54,9 @@ public class BatteryApplication extends Application {
                     batteryDock = null;
                 }
 
-                context.sendBroadcast(new Intent(ACTION_WIDGET_UPDATE));
+                context.sendBroadcast(new Intent(Constants.ACTION_WIDGET_UPDATE));
 
-            } else if (Intent.ACTION_DOCK_EVENT.equals(intent.getAction())) {
+            } /*else if (Intent.ACTION_DOCK_EVENT.equals(intent.getAction())) {
                 dockStatus = extras.getInt("status", 0);
                 if (dockStatus == Intent.EXTRA_DOCK_STATE_UNDOCKED) {
                     dockStatus = DOCK_STATE_UNDOCKED;
@@ -67,7 +66,7 @@ public class BatteryApplication extends Application {
                 }
 
                 context.sendBroadcast(new Intent(ACTION_WIDGET_UPDATE));
-            }
+            }*/
         }
     };
 
@@ -75,7 +74,7 @@ public class BatteryApplication extends Application {
         if (!isRegistered) {
             Context appContext = context.getApplicationContext();
             appContext.registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-            appContext.registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_DOCK_EVENT));
+            //appContext.registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_DOCK_EVENT));
             isRegistered = true;
         }
     }
@@ -88,12 +87,9 @@ public class BatteryApplication extends Application {
     }
 
     @Override
-    public void onTerminate() {
-        super.onTerminate();
-    }
-
-    @Override
     public void onCreate() {
         super.onCreate();
+        //Useful for debugging builds
+        Thread.setDefaultUncaughtExceptionHandler(new CustomExceptionHandler(getFilesDir().getAbsolutePath()));
     }
 }

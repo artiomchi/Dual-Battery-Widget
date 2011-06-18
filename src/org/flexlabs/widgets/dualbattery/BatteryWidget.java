@@ -58,7 +58,7 @@ public class BatteryWidget extends AppWidgetProvider {
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
 
-        if (BatteryApplication.ACTION_WIDGET_UPDATE.equals(intent.getAction())) {
+        if (Constants.ACTION_WIDGET_UPDATE.equals(intent.getAction())) {
             updateWidget(context);
         }
     }
@@ -158,7 +158,8 @@ public class BatteryWidget extends AppWidgetProvider {
 
             Intent intent = new Intent(context, WidgetPropertiesActivity.class);
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, widgetId, intent, 0);
+            intent.putExtra(Constants.EXTRA_WIDGET_OLD, true);
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, widgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             views.setOnClickPendingIntent(R.id.widget, pendingIntent);
 
             appWidgetManager.updateAppWidget(widgetId, views);

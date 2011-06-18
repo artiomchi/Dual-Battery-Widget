@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Path;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 import android.text.Html;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
 import android.util.Log;
@@ -22,6 +24,7 @@ import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.R;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
@@ -36,28 +39,45 @@ import java.util.regex.Pattern;
  */
 public class WidgetPropertiesActivity extends PreferenceActivity {
     public static final String TAG = "FlexLabs.WidgetProperties";
+    public static final String KEY_FEEDBACK = "feedback";
+    public static final String KEY_REPORT = "crashReport";
+    public static final String KEY_ABOUT = "about";
     public static final int DIALOG_ABOUT = 0;
 
     public int appWidgetId;
+    public boolean widgetIsOld;
+
+    private void ensureIntentSettings() {
+        Bundle extras = getIntent().getExtras();
+        widgetIsOld = extras.getBoolean(Constants.EXTRA_WIDGET_OLD, false);
+        appWidgetId = extras.getInt(
+                AppWidgetManager.EXTRA_APPWIDGET_ID,
+                AppWidgetManager.INVALID_APPWIDGET_ID);
+    }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        appWidgetId = getIntent().getIntExtra(
-                AppWidgetManager.EXTRA_APPWIDGET_ID,
-                AppWidgetManager.INVALID_APPWIDGET_ID);
+        ensureIntentSettings();
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB || !widgetIsOld) {
             getPreferenceManager().setSharedPreferencesName(Constants.SETTINGS_PREFIX + appWidgetId);
             addPreferencesFromResource(R.xml.widget_properties_general);
             addPreferencesFromResource(R.xml.widget_properties_dock);
             addPreferencesFromResource(R.xml.widget_properties_other);
+
+            File crashReport = new File(getFilesDir(), Constants.STACKTRACE_FILENAME);
+            if (crashReport == null || !crashReport.exists()) {
+                Preference pref = findPreference(KEY_REPORT);
+                pref.setEnabled(false);
+            }
         }
     }
 
     @Override
     public void onBuildHeaders(List<Header> target) {
         super.onBuildHeaders(target);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+        ensureIntentSettings();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB && widgetIsOld) {
             loadHeadersFromResource(R.xml.widget_properties_headers, target);
         }
     }
@@ -84,7 +104,7 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        sendBroadcast(new Intent(BatteryApplication.ACTION_WIDGET_UPDATE));
+        sendBroadcast(new Intent(Constants.ACTION_WIDGET_UPDATE));
     }
 
     @Override
@@ -95,16 +115,24 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
     }
 
     public boolean onPreferenceClicked(String key) {
-        if ("about".equals(key)) {
+        if (KEY_ABOUT.equals(key)) {
             this.showDialog(DIALOG_ABOUT);
             return true;
         }
-        if ("crashReport".equals(key)) {
+        if (KEY_REPORT.equals(key)) {
+            File stacktrace = new File(getFilesDir(), Constants.STACKTRACE_FILENAME);
+            if (stacktrace != null && stacktrace.exists()) {
+                Intent intent = new Intent(Intent.ACTION_SEND, Uri.parse("mailto:"));
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[] { Constants.FeedbackDestination });
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Dual Battery Widget Feedback");
+                intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.report_detailrequest) + "\n");
+                intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + stacktrace.getAbsolutePath()));
+                intent.setType("message/rfc822");
+                startActivity(Intent.createChooser(intent, "Email"));
+            }
             return true;
         }
-        if ("feedback".equals(key)) {
-            Intent i = registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-
+        if (KEY_FEEDBACK.equals(key)) {
             Intent intent = new Intent(Intent.ACTION_SEND, Uri.parse("mailto:"));
             intent.putExtra(Intent.EXTRA_EMAIL, new String[] { Constants.FeedbackDestination });
             intent.putExtra(Intent.EXTRA_SUBJECT, "Dual Battery Widget Feedback");
@@ -123,6 +151,13 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
         sb.append("<br />\n<b>Device:</b> " + Build.DEVICE);
         sb.append("<br />\n<b>Android version:</b> " + Build.VERSION.RELEASE);
         sb.append("<br />\n<b>Version details:</b> " + Build.VERSION.INCREMENTAL);
+
+        Intent intent = registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        Bundle extras = intent.getExtras();
+        String allKeys = TextUtils.join(", ", extras.keySet());
+        sb.append("<br />\n<b>Battery intent keys:</b> " + allKeys);
+        sb.append("<br />\n<b>Battery dock status</b> " + extras.get("dock_status"));
+
         sb.append("<br />\n<b>Kernel:</b> " + getFormattedKernelVersion().replace("\n", "<br />\n"));
         return sb.toString();
     }

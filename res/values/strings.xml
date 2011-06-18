@@ -51,6 +51,7 @@
         \n
         If you have any issues, use the feedback option inside the aplication settings window, or send me an e-mail to android@flexlabs.org
     </string>
+    <string name="report_detailrequest">Please explain in a few words what did you do when the application crashed:</string>
 
 
     <string name="battery_info_status_label">Battery status:</string>
@@ -63,10 +64,8 @@
     <string name="battery_info_temperature_label">Battery temperature:</string>
     <string name="battery_info_temperature_units">\u00B0 C</string>
     <string name="battery_info_uptime">Time since boot:</string>
-    <string name="battery_info_awake_battery">Awake time on battery:</string>
-    <string name="battery_info_awake_plugged">Awake time when charging:</string>
-    <string name="battery_info_screen_on">Screen ON time:</string>
-
+    <string name="battery_info_dock_status_label">Dock battery status:</string>
+    <string name="battery_info_dock_level_label">Dock battery level:</string>
 
     <string name="battery_info_status_unknown">Unknown</string>
     <string name="battery_info_status_charging">Charging</string>
@@ -82,4 +81,10 @@
     <string name="battery_info_health_dead">Dead</string>
     <string name="battery_info_health_over_voltage">Over voltage</string>
     <string name="battery_info_health_unspecified_failure">Unknown error</string>
+
+    <string name="battery_info_dock_status_unknown">Unknown</string>
+    <string name="battery_info_dock_status_charging">Charging</string>
+    <string name="battery_info_dock_status_discharging">Discharging</string>
+    <string name="battery_info_dock_status_docked">Docked</string>
+    <string name="battery_info_dock_status_undocked">Not docked</string>
 </resources>

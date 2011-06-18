@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import org.flexlabs.widgets.dualbattery.BatteryApplication;
 import org.flexlabs.widgets.dualbattery.R;
 
 /**
@@ -18,8 +19,24 @@ import org.flexlabs.widgets.dualbattery.R;
  * User: Flexer
  * Date: 17/06/11
  * Time: 18:53
- * Based on: http://android.git.kernel.org/?p=platform/packages/apps/Settings.git;a=blob;f=src/com/android/settings/BatteryInfo.java
+ * Source partially based on: http://android.git.kernel.org/?p=platform/packages/apps/Settings.git;a=blob;f=src/com/android/settings/BatteryInfo.java
  */
+/* Copyright from the original code
+**
+** Copyright 2006, The Android Open Source Project
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+**     http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+*/
 public class BatteryInfoFragment extends Fragment {
     private TextView mStatus;
     private TextView mLevel;
@@ -29,11 +46,8 @@ public class BatteryInfoFragment extends Fragment {
     private TextView mTemperature;
     private TextView mTechnology;
     private TextView mUptime;
-    private TextView mAwakeBattery;
-    private TextView mAwakePlugged;
-    private TextView mScreenOn;
-    //private IBatteryStats mBatteryStats;
-    //private IPowerManager mScreenStats;
+    private TextView mDockStatus;
+    private TextView mDockLevel;
 
     private static final int EVENT_TICK = 1;
 
@@ -115,6 +129,23 @@ public class BatteryInfoFragment extends Fragment {
                     healthString = getString(R.string.battery_info_health_unknown);
                 }
                 mHealth.setText(healthString);
+
+                int dockStatus = intent.getIntExtra("dock_status", BatteryApplication.DOCK_STATE_UNKNOWN);
+                String dockStatusString;
+                if (dockStatus == BatteryApplication.DOCK_STATE_UNDOCKED) {
+                    dockStatusString = getString(R.string.battery_info_dock_status_undocked);
+                } else if (dockStatus == BatteryApplication.DOCK_STATE_DOCKED) {
+                    dockStatusString = getString(R.string.battery_info_dock_status_docked);
+                } else if (dockStatus == BatteryApplication.DOCK_STATE_CHARGING) {
+                    dockStatusString = getString(R.string.battery_info_dock_status_charging);
+                } else if (dockStatus == BatteryApplication.DOCK_STATE_DISCHARGING) {
+                    dockStatusString = getString(R.string.battery_info_dock_status_discharging);
+                } else {
+                    dockStatusString = getString(R.string.battery_info_dock_status_unknown);
+                }
+                mDockStatus.setText(dockStatusString);
+
+                mDockLevel.setText("" + intent.getIntExtra("dock_level", 0));
             }
         }
     };
@@ -122,22 +153,6 @@ public class BatteryInfoFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
-        /*mStatus = (TextView)findViewById(R.id.status);
-        mLevel = (TextView)findViewById(R.id.level);
-        mScale = (TextView)findViewById(R.id.scale);
-        mHealth = (TextView)findViewById(R.id.health);
-        mTechnology = (TextView)findViewById(R.id.technology);
-        mVoltage = (TextView)findViewById(R.id.voltage);
-        mTemperature = (TextView)findViewById(R.id.temperature);
-        mUptime = (TextView) findViewById(R.id.uptime);
-        mAwakeBattery = (TextView) findViewById(R.id.awakeBattery);
-        mAwakePlugged = (TextView) findViewById(R.id.awakePlugged);
-        mScreenOn = (TextView) findViewById(R.id.screenOn); */
-
-        // Get awake time plugged in and on battery
-        //mBatteryStats = IBatteryStats.Stub.asInterface(ServiceManager.getService("batteryinfo"));
-        //mScreenStats = IPowerManager.Stub.asInterface(ServiceManager.getService(POWER_SERVICE));
         mHandler.sendEmptyMessageDelayed(EVENT_TICK, 1000);
 
         getActivity().registerReceiver(mIntentReceiver, mIntentFilter);
@@ -145,7 +160,7 @@ public class BatteryInfoFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.battery_info, null);
+        View view = inflater.inflate(R.layout.battery_info_table, null);
         mStatus = (TextView)view.findViewById(R.id.status);
         mLevel = (TextView)view.findViewById(R.id.level);
         mScale = (TextView)view.findViewById(R.id.scale);
@@ -154,9 +169,8 @@ public class BatteryInfoFragment extends Fragment {
         mVoltage = (TextView)view.findViewById(R.id.voltage);
         mTemperature = (TextView)view.findViewById(R.id.temperature);
         mUptime = (TextView) view.findViewById(R.id.uptime);
-        mAwakeBattery = (TextView) view.findViewById(R.id.awakeBattery);
-        mAwakePlugged = (TextView) view.findViewById(R.id.awakePlugged);
-        mScreenOn = (TextView) view.findViewById(R.id.screenOn);
+        mDockStatus = (TextView) view.findViewById(R.id.dock_status);
+        mDockLevel = (TextView) view.findViewById(R.id.dock_level);
 
         mIntentFilter = new IntentFilter();
         mIntentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);
@@ -175,27 +189,5 @@ public class BatteryInfoFragment extends Fragment {
     private void updateBatteryStats() {
         long uptime = SystemClock.elapsedRealtime();
         mUptime.setText(DateUtils.formatElapsedTime(uptime / 1000));
-
-        /*if (mBatteryStats != null) {
-            try {
-                long awakeTimeBattery = mBatteryStats.getAwakeTimeBattery();
-                long awakeTimePluggedIn = mBatteryStats.getAwakeTimePlugged();
-                mAwakeBattery.setText(DateUtils.formatElapsedTime(awakeTimeBattery / 1000)
-                        + " (" + (100 * awakeTimeBattery / uptime) + "%)");
-                mAwakePlugged.setText(DateUtils.formatElapsedTime(awakeTimePluggedIn / 1000)
-                        + " (" + (100 * awakeTimePluggedIn / uptime) + "%)");
-            } catch (RemoteException re) {
-                mAwakeBattery.setText("Unknown");
-                mAwakePlugged.setText("Unknown");
-            }
-        }
-        if (mScreenStats != null) {
-            try {
-                long screenOnTime = mScreenStats.getScreenOnTime();
-                mScreenOn.setText(DateUtils.formatElapsedTime(screenOnTime / 1000));
-            } catch (RemoteException re) {
-                mScreenOn.setText("Unknown");
-            }
-        }*/
     }
 }

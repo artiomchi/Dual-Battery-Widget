@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
+import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.R;
 
+import java.io.File;
 import java.lang.annotation.Retention;
 
 /**
@@ -20,9 +22,13 @@ public class WidgetOtherFragment extends PreferenceFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         addPreferencesFromResource(R.xml.widget_properties_other);
+
+        File crashReport = new File(getActivity().getFilesDir(), Constants.STACKTRACE_FILENAME);
+        if (crashReport == null || !crashReport.exists()) {
+            Preference pref = findPreference(WidgetPropertiesActivity.KEY_REPORT);
+            pref.setEnabled(false);
+        }
     }
-
-
 
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
