@@ -1,10 +1,25 @@
 <resources>
     <string name="app_name">Dual Battery Widget</string>
     <string name="widget_name">Dual Battery Widget</string>
+    <string name="link_market">https://market.android.com/details?id=org.flexlabs.widgets.dualbattery</string>
 
     <string name="undocked">not docked</string>
 
-    <string name="prop_dockTitle">Secondary dock battery options</string>
+    <string name="propHeader_BatteryInfo">Battery Information</string>
+    <string name="propHeader_Main">Widget properties</string>
+    <string name="propHeader_Other">Other details</string>
+    <string name="propHeader_Other_summary">Feedback and error reports, about widget</string>
+
+    <string name="propTitle_General">General</string>
+    <string name="propTitle_Dock">Second (dock) battery options</string>
+    <string name="propTitle_Other">Other</string>
+    <string name="propTitle_About">About Dual Battery Widget</string>
+    <string name="propTitle_Feedback">Send Feedback</string>
+    <string name="propTitle_SendCrashReport">Send Crash Report</string>
+    <string name="propTitle_BatteryInfo">Show Battery Info</string>
+    <string name="propTitle_BatteryInfo_summary">Show the Android Battery Info dialog</string>
+    <string name="propTitle_MarketLink">View in Android Market</string>
+
     <string name="prop_alwaysShowDock">Always show dock battery</string>
     <string name="prop_alwaysShowDock_summary">Show the dock battery gauge even when not docked</string>
     <string name="prop_showNotDockedMsg">Show status when not docked</string>
@@ -12,6 +27,31 @@
     <string name="prop_textPosition">Text position</string>
     <string name="prop_textPosition_summary">Where to display the battery status</string>
     <string name="prop_textSize">Text size</string>
+
+    <string name="about_full">
+        The Dual Battery Widget was initially created for the Asus Eee Pad Transformer,
+        a device that has a second battery in the dock station. Unfortunately, the standard Android tools
+        do not provide any way of displaying the status of a second battery, so this widget was created
+        to fill this gap. \n
+        \n
+        The author of this widget is Artiom Chilaru, and it was initially posted on the xda-developers forum.
+        It is distributed for free on the Android Market. If you paid for it, or downloaded it from any other place,
+        I would strongly recommend uninstalling your copy, and installing it from the market. This way you can make
+        sure that your copy has no malware attached to it, and you will get free updates to the latest version
+        as soon as it\'s released!  \n
+        \n
+        You can install the widget from the marketplace here:
+        https://market.android.com/details?id=org.flexlabs.widgets.dualbattery \n
+        \n
+        To find more about the author, you can check out my website http://www.flexlabs.org or my twitter account @artiom_chi \n
+        https://twitter.com/artiom_chi \n
+        \n
+        You can also check out the topic on the xda-developers forum here: \n
+        http://forum.xda-developers.com/showthread.php?t=1123363 \n
+        \n
+        If you have any issues, use the feedback option inside the aplication settings window, or send me an e-mail to android@flexlabs.org
+    </string>
+
 
     <string name="battery_info_status_label">Battery status:</string>
     <string name="battery_info_scale_label">Battery scale:</string>

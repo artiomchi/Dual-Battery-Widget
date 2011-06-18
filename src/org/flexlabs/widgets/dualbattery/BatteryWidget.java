@@ -5,13 +5,11 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.*;
 import android.os.BatteryManager;
-import android.os.Build;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewStub;
 import android.widget.RemoteViews;
-import android.widget.TextView;
+import org.flexlabs.widgets.dualbattery.settings.WidgetPropertiesActivity;
 
 import java.io.File;
 
@@ -158,14 +156,7 @@ public class BatteryWidget extends AppWidgetProvider {
                     views.setViewVisibility(R.id.batteryDockCharging, View.GONE);
             }
 
-            /* Starting the battery info directly
-            ComponentName toLaunch = new ComponentName("com.android.settings", "com.android.settings.BatteryInfo");
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            intent.addCategory(Intent.CATEGORY_LAUNCHER);
-            intent.setComponent(toLaunch); */
-            Intent intent = Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB
-                ? new Intent(context, WidgetPropertiesActivity.class)
-                : new Intent(context, WidgetPropertiesHCActivity.class);
+            Intent intent = new Intent(context, WidgetPropertiesActivity.class);
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, widgetId, intent, 0);
             views.setOnClickPendingIntent(R.id.widget, pendingIntent);

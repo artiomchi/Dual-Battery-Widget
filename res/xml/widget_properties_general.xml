@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/propTitle_General">
+        <EditTextPreference android:key="textSize"
+                            android:title="@string/prop_textSize"
+                            android:defaultValue="14" android:inputType="number" android:numeric="integer" />
+        <ListPreference android:key="textPosition"
+                        android:title="@string/prop_textPosition" android:summary="@string/prop_textPosition_summary"
+                        android:entries="@array/textPosition_labels" android:entryValues="@array/textPosition_values"
+                        android:defaultValue="2" />
+    </PreferenceCategory>
+</PreferenceScreen>

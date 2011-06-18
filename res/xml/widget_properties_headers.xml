@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
-    <header android:fragment="org.flexlabs.widgets.dualbattery.WidgetPropertiesFragment"
-            android:title="Main Settings">
-
-    </header>
-    <header android:fragment="org.flexlabs.widgets.dualbattery.BatteryInfoFragment"
-            android:title="Test fragment"></header>
+    <header android:fragment="org.flexlabs.widgets.dualbattery.settings.BatteryInfoFragment"
+            android:title="@string/propHeader_BatteryInfo"></header>
+    <header android:fragment="org.flexlabs.widgets.dualbattery.settings.WidgetPropertiesFragment"
+            android:title="@string/propHeader_Main" />
+    <header android:fragment="org.flexlabs.widgets.dualbattery.settings.WidgetOtherFragment"
+            android:title="@string/propHeader_Other" android:summary="@string/propHeader_Other_summary" />
 </preference-headers>

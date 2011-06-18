@@ -7,7 +7,6 @@ package org.flexlabs.widgets.dualbattery;
  * Time: 21:34
  */
 public class Constants {
-    public static final String ACTION_DOCK_EVENT = "org.flexlabs.action.DOCK_EVENT";
-    public static final String ACTION_BATTERY_CHANGED = "org.flexlabs.action.BATTERY_CHANGED";
     public static final String SETTINGS_PREFIX = "widgetPref_";
+    public static final String FeedbackDestination = "Android @ FlexLabs <android@flexlabs.org>";
 }

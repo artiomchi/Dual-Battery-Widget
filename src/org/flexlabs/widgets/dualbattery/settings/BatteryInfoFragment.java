@@ -1,4 +1,4 @@
-package org.flexlabs.widgets.dualbattery;
+package org.flexlabs.widgets.dualbattery.settings;
 
 import android.app.Fragment;
 import android.content.BroadcastReceiver;
@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import org.flexlabs.widgets.dualbattery.R;
 
 /**
  * Created by IntelliJ IDEA.
@@ -156,6 +157,9 @@ public class BatteryInfoFragment extends Fragment {
         mAwakeBattery = (TextView) view.findViewById(R.id.awakeBattery);
         mAwakePlugged = (TextView) view.findViewById(R.id.awakePlugged);
         mScreenOn = (TextView) view.findViewById(R.id.screenOn);
+
+        mIntentFilter = new IntentFilter();
+        mIntentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);
         return view;
     }
 

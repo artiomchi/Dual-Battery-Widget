@@ -1,7 +1,9 @@
-package org.flexlabs.widgets.dualbattery;
+package org.flexlabs.widgets.dualbattery.settings;
 
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+import org.flexlabs.widgets.dualbattery.Constants;
+import org.flexlabs.widgets.dualbattery.R;
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,11 +18,11 @@ public class WidgetPropertiesFragment extends PreferenceFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        WidgetPropertiesHCActivity activity = (WidgetPropertiesHCActivity)getActivity();
+        WidgetPropertiesActivity activity = (WidgetPropertiesActivity)getActivity();
         appWidgetId = activity.appWidgetId;
 
         getPreferenceManager().setSharedPreferencesName(Constants.SETTINGS_PREFIX + appWidgetId);
-        addPreferencesFromResource(R.xml.widget_properties);
+        addPreferencesFromResource(R.xml.widget_properties_general);
         addPreferencesFromResource(R.xml.widget_properties_dock);
     }
 }

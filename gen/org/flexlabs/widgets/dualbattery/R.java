@@ -54,42 +54,56 @@ public final class R {
         public static final int widget=0x7f030001;
     }
     public static final class string {
+        public static final int about_full=0x7f060018;
         public static final int app_name=0x7f060000;
-        public static final int battery_info_awake_battery=0x7f060015;
-        public static final int battery_info_awake_plugged=0x7f060016;
-        public static final int battery_info_health_dead=0x7f060022;
-        public static final int battery_info_health_good=0x7f060020;
-        public static final int battery_info_health_label=0x7f06000e;
-        public static final int battery_info_health_over_voltage=0x7f060023;
-        public static final int battery_info_health_overheat=0x7f060021;
-        public static final int battery_info_health_unknown=0x7f06001f;
-        public static final int battery_info_health_unspecified_failure=0x7f060024;
-        public static final int battery_info_level_label=0x7f06000d;
-        public static final int battery_info_scale_label=0x7f06000c;
-        public static final int battery_info_screen_on=0x7f060017;
-        public static final int battery_info_status_charging=0x7f060019;
-        public static final int battery_info_status_charging_ac=0x7f06001a;
-        public static final int battery_info_status_charging_usb=0x7f06001b;
-        public static final int battery_info_status_discharging=0x7f06001c;
-        public static final int battery_info_status_full=0x7f06001e;
-        public static final int battery_info_status_label=0x7f06000b;
-        public static final int battery_info_status_not_charging=0x7f06001d;
-        public static final int battery_info_status_unknown=0x7f060018;
-        public static final int battery_info_technology_label=0x7f06000f;
-        public static final int battery_info_temperature_label=0x7f060012;
-        public static final int battery_info_temperature_units=0x7f060013;
-        public static final int battery_info_uptime=0x7f060014;
-        public static final int battery_info_voltage_label=0x7f060010;
-        public static final int battery_info_voltage_units=0x7f060011;
-        public static final int prop_alwaysShowDock=0x7f060004;
-        public static final int prop_alwaysShowDock_summary=0x7f060005;
-        public static final int prop_dockTitle=0x7f060003;
-        public static final int prop_showNotDockedMsg=0x7f060006;
-        public static final int prop_showNotDockedMsg_summary=0x7f060007;
-        public static final int prop_textPosition=0x7f060008;
-        public static final int prop_textPosition_summary=0x7f060009;
-        public static final int prop_textSize=0x7f06000a;
-        public static final int undocked=0x7f060002;
+        public static final int battery_info_awake_battery=0x7f060023;
+        public static final int battery_info_awake_plugged=0x7f060024;
+        public static final int battery_info_health_dead=0x7f060030;
+        public static final int battery_info_health_good=0x7f06002e;
+        public static final int battery_info_health_label=0x7f06001c;
+        public static final int battery_info_health_over_voltage=0x7f060031;
+        public static final int battery_info_health_overheat=0x7f06002f;
+        public static final int battery_info_health_unknown=0x7f06002d;
+        public static final int battery_info_health_unspecified_failure=0x7f060032;
+        public static final int battery_info_level_label=0x7f06001b;
+        public static final int battery_info_scale_label=0x7f06001a;
+        public static final int battery_info_screen_on=0x7f060025;
+        public static final int battery_info_status_charging=0x7f060027;
+        public static final int battery_info_status_charging_ac=0x7f060028;
+        public static final int battery_info_status_charging_usb=0x7f060029;
+        public static final int battery_info_status_discharging=0x7f06002a;
+        public static final int battery_info_status_full=0x7f06002c;
+        public static final int battery_info_status_label=0x7f060019;
+        public static final int battery_info_status_not_charging=0x7f06002b;
+        public static final int battery_info_status_unknown=0x7f060026;
+        public static final int battery_info_technology_label=0x7f06001d;
+        public static final int battery_info_temperature_label=0x7f060020;
+        public static final int battery_info_temperature_units=0x7f060021;
+        public static final int battery_info_uptime=0x7f060022;
+        public static final int battery_info_voltage_label=0x7f06001e;
+        public static final int battery_info_voltage_units=0x7f06001f;
+        public static final int link_market=0x7f060002;
+        public static final int propHeader_BatteryInfo=0x7f060004;
+        public static final int propHeader_Main=0x7f060005;
+        public static final int propHeader_Other=0x7f060006;
+        public static final int propHeader_Other_summary=0x7f060007;
+        public static final int propTitle_About=0x7f06000b;
+        public static final int propTitle_BatteryInfo=0x7f06000e;
+        public static final int propTitle_BatteryInfo_summary=0x7f06000f;
+        public static final int propTitle_Dock=0x7f060009;
+        public static final int propTitle_Feedback=0x7f06000c;
+        public static final int propTitle_General=0x7f060008;
+        public static final int propTitle_MarketLink=0x7f060010;
+        public static final int propTitle_Other=0x7f06000a;
+        public static final int propTitle_SendCrashReport=0x7f06000d;
+        public static final int prop_alwaysShowDock=0x7f060011;
+        public static final int prop_alwaysShowDock_summary=0x7f060012;
+        public static final int prop_showNotDockedMsg=0x7f060013;
+        public static final int prop_showNotDockedMsg_summary=0x7f060014;
+        public static final int prop_textPosition=0x7f060015;
+        public static final int prop_textPosition_summary=0x7f060016;
+        public static final int prop_textSize=0x7f060017;
+        public static final int undocked=0x7f060003;
         public static final int widget_name=0x7f060001;
     }
     public static final class style {
@@ -104,8 +118,9 @@ public final class R {
     }
     public static final class xml {
         public static final int widget_info=0x7f040000;
-        public static final int widget_properties=0x7f040001;
-        public static final int widget_properties_dock=0x7f040002;
+        public static final int widget_properties_dock=0x7f040001;
+        public static final int widget_properties_general=0x7f040002;
         public static final int widget_properties_headers=0x7f040003;
+        public static final int widget_properties_other=0x7f040004;
     }
 }

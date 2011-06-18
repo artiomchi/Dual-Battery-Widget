@@ -3,8 +3,8 @@ package org.flexlabs.widgets.dualbattery;
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
+import org.flexlabs.widgets.dualbattery.settings.WidgetPropertiesActivity;
 
 /**
  * Created by IntelliJ IDEA.
@@ -22,9 +22,7 @@ public class DummyConfigurationActivity extends Activity {
         data.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
         setResult(RESULT_OK, data);
 
-        Intent intent = Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB
-            ? new Intent(this, WidgetPropertiesActivity.class)
-            : new Intent(this, WidgetPropertiesHCActivity.class);
+        Intent intent = new Intent(this, WidgetPropertiesActivity.class);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
         startActivity(intent);
         finish();
