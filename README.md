@@ -8,6 +8,19 @@ You can install it from the android market here: https://market.android.com/deta
 
 **Note:** On the current release of Honeycomb, it is possible that the widget will not immediately appear in the widget list after installation. To refresh the widget list, you should either restart your device, or restart the launcher app (Settings -> Applications -> Manage applications -> All -> Launcher -> Force stop)
 
+**Update 2011-06-19: v0.6**
+[+] Showing battery info / widget properties / other info on widget click
+[+] Option to select which battery to display
+[-] Removing the battery dock options on devices without the dock
+[+] Stack trace catcher (for the error reports)
+[!] not recognizing dock on first boot
+[+] Feedback form
+[+] About dialog
+
+**Update 2011-06-06: v0.5.2**
+[!] Fixed the bug when the widget wasn't added to the user's homescreen
+[+] Showing the battery info when the widget is tapped
+
 **Update 2011-06-15: v0.5**
 New features added:  
 

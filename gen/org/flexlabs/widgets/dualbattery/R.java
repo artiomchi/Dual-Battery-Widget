@@ -124,7 +124,8 @@ public final class R {
         public static final int widget_info=0x7f040000;
         public static final int widget_properties_dock=0x7f040001;
         public static final int widget_properties_general=0x7f040002;
-        public static final int widget_properties_headers=0x7f040003;
-        public static final int widget_properties_other=0x7f040004;
+        public static final int widget_properties_header_batteryinfo=0x7f040003;
+        public static final int widget_properties_headers=0x7f040004;
+        public static final int widget_properties_other=0x7f040005;
     }
 }

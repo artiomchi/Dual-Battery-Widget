@@ -60,7 +60,7 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
         super.onCreate(savedInstanceState);
         ensureIntentSettings();
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB || !widgetIsOld) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
             getPreferenceManager().setSharedPreferencesName(Constants.SETTINGS_PREFIX + appWidgetId);
             addPreferencesFromResource(R.xml.widget_properties_general);
             if (BatteryApplication.isDockSupported(this)) {
@@ -84,7 +84,10 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
     public void onBuildHeaders(List<Header> target) {
         super.onBuildHeaders(target);
         ensureIntentSettings();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB && widgetIsOld) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            if (widgetIsOld) {
+                loadHeadersFromResource(R.xml.widget_properties_header_batteryinfo, target);
+            }
             loadHeadersFromResource(R.xml.widget_properties_headers, target);
         }
     }
