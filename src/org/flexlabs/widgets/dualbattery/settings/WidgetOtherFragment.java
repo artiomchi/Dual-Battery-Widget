@@ -10,6 +10,7 @@ import org.flexlabs.widgets.dualbattery.R;
 
 import java.io.File;
 import java.lang.annotation.Retention;
+import java.util.Date;
 
 /**
  * Created by IntelliJ IDEA.
@@ -24,10 +25,14 @@ public class WidgetOtherFragment extends PreferenceFragment {
         addPreferencesFromResource(R.xml.widget_properties_other);
 
         File crashReport = new File(getActivity().getFilesDir(), Constants.STACKTRACE_FILENAME);
-        if (crashReport == null || !crashReport.exists()) {
             Preference pref = findPreference(WidgetPropertiesActivity.KEY_REPORT);
-            pref.setEnabled(false);
-        }
+            if (crashReport == null || !crashReport.exists()) {
+                pref.setEnabled(false);
+            } else {
+                pref.setSummary(
+                        getString(R.string.propTitle_SendCrashReport_summaryPrefix) + " " +
+                        new Date(crashReport.lastModified()).toString());
+            }
     }
 
     @Override

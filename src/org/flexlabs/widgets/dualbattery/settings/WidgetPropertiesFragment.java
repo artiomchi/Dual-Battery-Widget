@@ -5,6 +5,8 @@ import android.preference.PreferenceFragment;
 import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.R;
 
+import java.io.NotSerializableException;
+
 /**
  * Created by IntelliJ IDEA.
  * User: Flexer

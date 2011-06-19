@@ -27,6 +27,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -66,9 +67,13 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
             addPreferencesFromResource(R.xml.widget_properties_other);
 
             File crashReport = new File(getFilesDir(), Constants.STACKTRACE_FILENAME);
+            Preference pref = findPreference(KEY_REPORT);
             if (crashReport == null || !crashReport.exists()) {
-                Preference pref = findPreference(KEY_REPORT);
                 pref.setEnabled(false);
+            } else {
+                pref.setSummary(
+                        getString(R.string.propTitle_SendCrashReport_summaryPrefix) + " " +
+                        new Date(crashReport.lastModified()).toString());
             }
         }
     }
@@ -122,11 +127,12 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
         if (KEY_REPORT.equals(key)) {
             File stacktrace = new File(getFilesDir(), Constants.STACKTRACE_FILENAME);
             if (stacktrace != null && stacktrace.exists()) {
+                stacktrace.setReadable(true, false);
                 Intent intent = new Intent(Intent.ACTION_SEND, Uri.parse("mailto:"));
                 intent.putExtra(Intent.EXTRA_EMAIL, new String[] { Constants.FeedbackDestination });
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Dual Battery Widget Feedback");
                 intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.report_detailrequest) + "\n");
-                intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + stacktrace.getAbsolutePath()));
+                intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///mnt/sdcard/../.." + stacktrace.getAbsolutePath()));
                 intent.setType("message/rfc822");
                 startActivity(Intent.createChooser(intent, "Email"));
             }

@@ -16,6 +16,7 @@
     <string name="propTitle_About">About Dual Battery Widget</string>
     <string name="propTitle_Feedback">Send Feedback</string>
     <string name="propTitle_SendCrashReport">Send Crash Report</string>
+    <string name="propTitle_SendCrashReport_summaryPrefix">Last modified: </string>
     <string name="propTitle_BatteryInfo">Show Battery Info</string>
     <string name="propTitle_BatteryInfo_summary">Show the Android Battery Info dialog</string>
     <string name="propTitle_MarketLink">View in Android Market</string>
