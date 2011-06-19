@@ -12,6 +12,10 @@
             <intent android:action="android.intent.action.VIEW"
                     android:data="@string/link_market" />
         </Preference>
+        <Preference android:title="@string/propTitle_Donate">
+            <intent android:action="android.intent.action.VIEW"
+                    android:data="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=6UHRDDAPAMSTL&amp;lc=GB&amp;item_name=Donation%20for%20Artiom%20Chilaru&amp;currency_code=GBP&amp;bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted" />
+        </Preference>
         <Preference android:key="about" android:title="@string/propTitle_About" />
     </PreferenceCategory>
 </PreferenceScreen>

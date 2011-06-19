@@ -20,6 +20,7 @@
     <string name="propTitle_BatteryInfo">Show Battery Info</string>
     <string name="propTitle_BatteryInfo_summary">Show the Android Battery Info dialog</string>
     <string name="propTitle_MarketLink">View in Android Market</string>
+    <string name="propTitle_Donate">Donate :)</string>
 
     <string name="prop_batterySelection">Battery to display</string>
     <string name="prop_alwaysShowDock">Always show dock battery</string>
