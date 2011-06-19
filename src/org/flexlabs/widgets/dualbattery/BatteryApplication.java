@@ -30,6 +30,11 @@ public class BatteryApplication extends Application {
     public static int dockStatus = DOCK_STATE_UNKNOWN;
     public static boolean hasDock = false;
 
+    public static boolean isDockSupported(Context context) {
+        Intent intent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        return intent.getExtras().containsKey("dock_status");
+    }
+
     private static final BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {

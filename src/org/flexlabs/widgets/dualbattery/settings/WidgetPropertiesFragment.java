@@ -2,6 +2,7 @@ package org.flexlabs.widgets.dualbattery.settings;
 
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+import org.flexlabs.widgets.dualbattery.BatteryApplication;
 import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.R;
 
@@ -25,6 +26,8 @@ public class WidgetPropertiesFragment extends PreferenceFragment {
 
         getPreferenceManager().setSharedPreferencesName(Constants.SETTINGS_PREFIX + appWidgetId);
         addPreferencesFromResource(R.xml.widget_properties_general);
-        addPreferencesFromResource(R.xml.widget_properties_dock);
+        if (BatteryApplication.isDockSupported(getActivity())) {
+            addPreferencesFromResource(R.xml.widget_properties_dock);
+        }
     }
 }

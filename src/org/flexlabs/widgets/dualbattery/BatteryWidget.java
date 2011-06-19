@@ -30,6 +30,11 @@ public class BatteryWidget extends AppWidgetProvider {
     private static final String SETTING_TEXTSIZE_DEFAULT = "14";
     private static final String SETTING_SHOW_NOTDOCKED = "showNotDockedMessage";
     private static final boolean SETTING_SHOW_NOTDOCKED_DEFAULT = true;
+    private static final String SETTING_SHOW_SELECTION = "batterySelection";
+    private static final String SETTING_SHOW_SELECTION_DEFAULT = "0";
+    private static final int BATTERY_SELECTION_BOTH = 0;
+    private static final int BATTERY_SELECTION_MAIN = 1;
+    private static final int BATTERY_SELECTION_SECOND = 2;
 
     @Override
     public void onEnabled(Context context) {
@@ -84,6 +89,8 @@ public class BatteryWidget extends AppWidgetProvider {
             boolean showNotDocked = pref.getBoolean(SETTING_SHOW_NOTDOCKED, SETTING_SHOW_NOTDOCKED_DEFAULT);
             int textSize = Integer.valueOf(pref.getString(SETTING_TEXTSIZE, SETTING_TEXTSIZE_DEFAULT));
             int textPositionCode = Integer.valueOf(pref.getString(SETTING_TEXTPOS, SETTING_TEXTPOS_DEFAULT));
+            int batterySelection = Integer.valueOf(pref.getString(SETTING_SHOW_SELECTION, SETTING_SHOW_SELECTION_DEFAULT));
+
             int textStatusTab = 0, textStatusDock = 0;
             switch (textPositionCode) {
                 case 1:
@@ -107,6 +114,7 @@ public class BatteryWidget extends AppWidgetProvider {
             views.setViewVisibility(textStatusTab, View.VISIBLE);
             views.setViewVisibility(textStatusDock, View.VISIBLE);
 
+            // This is here just for the screenshots ;)
             /*BatteryApplication.batteryTab = 15;
             BatteryApplication.batteryDock = null;
 
@@ -114,27 +122,33 @@ public class BatteryWidget extends AppWidgetProvider {
             BatteryApplication.status = BatteryManager.BATTERY_STATUS_CHARGING;
             BatteryApplication.batteryDock = 30;*/
 
-            if (textPositionCode > 0) {
-                views.setFloat(textStatusTab, "setTextSize", textSize);
-                if (BatteryApplication.batteryTab != null)
-                    views.setTextViewText(textStatusTab, "\n" + BatteryApplication.batteryTab + "%\n");
+            if (batterySelection == BATTERY_SELECTION_BOTH || batterySelection == BATTERY_SELECTION_MAIN) {
+                views.setViewVisibility(R.id.batteryFrame_main, View.VISIBLE);
+                if (textPositionCode > 0) {
+                    views.setFloat(textStatusTab, "setTextSize", textSize);
+                    if (BatteryApplication.batteryTab != null)
+                        views.setTextViewText(textStatusTab, "\n" + BatteryApplication.batteryTab + "%\n");
+                    else
+                        views.setTextViewText(textStatusTab, "\nn/a\n");
+                }
+                views.setImageViewResource(R.id.batteryTab, getBatteryResource(BatteryApplication.batteryTab));
+                if (BatteryApplication.status == BatteryManager.BATTERY_STATUS_CHARGING)
+                    views.setViewVisibility(R.id.batteryTabCharging, View.VISIBLE);
                 else
-                    views.setTextViewText(textStatusTab, "\nn/a\n");
+                    views.setViewVisibility(R.id.batteryTabCharging, View.GONE);
+                /*if (BatteryApplication.status == BatteryManager.BATTERY_PLUGGED_AC)
+                    views.setViewVisibility(R.id.batteryTabCharged, View.VISIBLE);
+                else
+                    views.setViewVisibility(R.id.batteryTabCharged, View.GONE);*/
+            } else {
+                views.setViewVisibility(R.id.batteryFrame_main, View.GONE);
             }
-            views.setImageViewResource(R.id.batteryTab, getBatteryResource(BatteryApplication.batteryTab));
-            if (BatteryApplication.status == BatteryManager.BATTERY_STATUS_CHARGING)
-                views.setViewVisibility(R.id.batteryTabCharging, View.VISIBLE);
-            else
-                views.setViewVisibility(R.id.batteryTabCharging, View.GONE);
-            /*if (BatteryApplication.status == BatteryManager.BATTERY_PLUGGED_AC)
-                views.setViewVisibility(R.id.batteryTabCharged, View.VISIBLE);
-            else
-                views.setViewVisibility(R.id.batteryTabCharged, View.GONE);*/
 
-            int dockVisible = BatteryApplication.hasDock && (BatteryApplication.batteryDock != null || alwaysShow)
+            int dockVisible = BatteryApplication.hasDock && (BatteryApplication.batteryDock != null || alwaysShow) &&
+                    (batterySelection == BATTERY_SELECTION_BOTH || batterySelection == BATTERY_SELECTION_SECOND)
                 ? View.VISIBLE
                 : View.GONE;
-            views.setViewVisibility(R.id.dockFrame, dockVisible);
+            views.setViewVisibility(R.id.batteryFrame_dock, dockVisible);
             if (BatteryApplication.hasDock) {
                 if (textPositionCode > 0) {
                     views.setFloat(textStatusDock, "setTextSize", textSize);

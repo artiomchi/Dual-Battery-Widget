@@ -4,7 +4,8 @@
               android:orientation="vertical">
     <LinearLayout android:id="@+id/widget"
                   android:layout_width="fill_parent" android:layout_height="fill_parent">
-        <FrameLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+        <FrameLayout android:id="@+id/batteryFrame_main"
+                     android:layout_width="fill_parent" android:layout_height="fill_parent"
                      android:layout_weight="1">
             <ImageView android:id="@+id/batteryTab"
                        android:layout_width="fill_parent" android:layout_height="fill_parent"
@@ -27,7 +28,7 @@
                       android:gravity="bottom|center_horizontal"
                       style="@style/batteryStatusText" android:visibility="gone" />
         </FrameLayout>
-        <FrameLayout android:id="@+id/dockFrame"
+        <FrameLayout android:id="@+id/batteryFrame_dock"
                      android:layout_width="fill_parent" android:layout_height="fill_parent"
                      android:layout_weight="1">
             <ImageView android:id="@+id/batteryDock"

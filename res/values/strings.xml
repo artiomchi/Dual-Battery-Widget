@@ -21,8 +21,12 @@
     <string name="propTitle_BatteryInfo_summary">Show the Android Battery Info dialog</string>
     <string name="propTitle_MarketLink">View in Android Market</string>
 
+    <string name="prop_batterySelection">Battery to display</string>
     <string name="prop_alwaysShowDock">Always show dock battery</string>
-    <string name="prop_alwaysShowDock_summary">Show the dock battery gauge even when not docked</string>
+    <string name="prop_alwaysShowDock_summary">
+        Show the dock battery gauge even when not docked \n
+        May be overridden by the previous setting
+    </string>
     <string name="prop_showNotDockedMsg">Show status when not docked</string>
     <string name="prop_showNotDockedMsg_summary">Show a message stating that the secondary battery is not connected when not docked</string>
     <string name="prop_textPosition">Text position</string>
@@ -40,6 +44,13 @@
         I would strongly recommend uninstalling your copy, and installing it from the market. This way you can make
         sure that your copy has no malware attached to it, and you will get free updates to the latest version
         as soon as it\'s released!  \n
+        \n
+        <b>Note:</b> <u>If you use a custom rom</u>, there is a high chance that this widget will not be able to identify
+        the dock status, or even register that your device supports it at all.. This is a restriction of most custom
+        kernels at this moment, not of this application. \n
+        This is because Asus extended their Android kernel build to send extra information about the dock and the
+        dock battery along with battery status notifications. Unless this change has been merged in the custom kernel,
+        it will not be sending these notifications \n
         \n
         You can install the widget from the marketplace here:
         https://market.android.com/details?id=org.flexlabs.widgets.dualbattery \n

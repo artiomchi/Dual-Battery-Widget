@@ -11,4 +11,14 @@
         <item>Middle</item>
         <item>Bottom</item>
     </string-array>
+    <string-array name="batterySelection_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="batterySelection_labels">
+        <item>Both</item>
+        <item>Main battery only</item>
+        <item>Second battery only</item>
+    </string-array>
 </resources>

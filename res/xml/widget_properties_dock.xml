@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="@string/propTitle_Dock">
+        <ListPreference android:key="batterySelection"
+                        android:title="@string/prop_batterySelection"
+                        android:entries="@array/batterySelection_labels" android:entryValues="@array/batterySelection_values"
+                        android:defaultValue="0" />
         <CheckBoxPreference android:key="alwaysShowDock"
                             android:title="@string/prop_alwaysShowDock" android:summary="@string/prop_alwaysShowDock_summary"
                             android:defaultValue="true" />

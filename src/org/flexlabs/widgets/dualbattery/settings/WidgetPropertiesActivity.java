@@ -63,7 +63,9 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB || !widgetIsOld) {
             getPreferenceManager().setSharedPreferencesName(Constants.SETTINGS_PREFIX + appWidgetId);
             addPreferencesFromResource(R.xml.widget_properties_general);
-            addPreferencesFromResource(R.xml.widget_properties_dock);
+            if (BatteryApplication.isDockSupported(this)) {
+                addPreferencesFromResource(R.xml.widget_properties_dock);
+            }
             addPreferencesFromResource(R.xml.widget_properties_other);
 
             File crashReport = new File(getFilesDir(), Constants.STACKTRACE_FILENAME);
@@ -162,6 +164,7 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
         Bundle extras = intent.getExtras();
         String allKeys = TextUtils.join(", ", extras.keySet());
         sb.append("<br />\n<b>Battery intent keys:</b> " + allKeys);
+        sb.append("<br />\n<b>Is Dock supported:</b> " + BatteryApplication.isDockSupported(this));
         sb.append("<br />\n<b>Battery dock status</b> " + extras.get("dock_status"));
 
         sb.append("<br />\n<b>Kernel:</b> " + getFormattedKernelVersion().replace("\n", "<br />\n"));
