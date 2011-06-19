@@ -182,12 +182,26 @@ public class BatteryWidget extends AppWidgetProvider {
 
     private int getBatteryResource(Integer status) {
         if (status == null)
-            return R.drawable.empty;
-        if (status <= 15)
-            return R.drawable.critical;
+            return R.drawable.batt_0;
+        if (status <= 10)
+            return R.drawable.batt_10;
+        if (status <= 20)
+            return R.drawable.batt_20;
+        if (status <= 30)
+            return R.drawable.batt_30;
+        if (status <= 40)
+            return R.drawable.batt_40;
+        if (status <= 50)
+            return R.drawable.batt_50;
+        if (status <= 60)
+            return R.drawable.batt_60;
         if (status <= 70)
-            return R.drawable.medium;
-        return R.drawable.full;
+            return R.drawable.batt_70;
+        if (status <= 80)
+            return R.drawable.batt_80;
+        if (status <= 90)
+            return R.drawable.batt_90;
+        return R.drawable.batt_100;
     }
 
     private int getTextGravity(int value) {

@@ -7,7 +7,7 @@ package org.flexlabs.widgets.dualbattery;
  * Time: 21:34
  */
 public class Constants {
-    public static final String ACTION_WIDGET_UPDATE = "org.flexlabs.action.WIDGET_UPDATE";
+    public static final String ACTION_WIDGET_UPDATE = "org.flexlabs.action.BATTERY_UPDATED";
     public static final String EXTRA_WIDGET_OLD = "WidgetAlreadySetup";
     public static final String SETTINGS_PREFIX = "widgetPref_";
     public static final String FeedbackDestination = "Android @ FlexLabs <android@flexlabs.org>";

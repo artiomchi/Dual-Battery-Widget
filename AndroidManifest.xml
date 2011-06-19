@@ -9,7 +9,7 @@
         <receiver android:name=".BatteryWidget" android:label="@string/widget_name">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="org.flexlabs.action.WIDGET_UPDATE" />
+                <action android:name="org.flexlabs.action.BATTERY_UPDATED" />
             </intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_info" />
         </receiver>

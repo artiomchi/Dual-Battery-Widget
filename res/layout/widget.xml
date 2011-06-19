@@ -9,15 +9,13 @@
                      android:layout_weight="1">
             <ImageView android:id="@+id/batteryTab"
                        android:layout_width="fill_parent" android:layout_height="fill_parent"
-                       android:src="@drawable/empty" />
+                       android:src="@drawable/batt_0" />
+            <ImageView android:layout_width="fill_parent" android:layout_height="fill_parent"
+                       android:src="@drawable/batt_shape" />
             <ImageView android:id="@+id/batteryTabCharging"
                        android:layout_width="fill_parent" android:layout_height="fill_parent"
                        android:visibility="gone"
                        android:src="@drawable/charging" />
-            <ImageView android:id="@+id/batteryTabCharged"
-                       android:layout_width="fill_parent" android:layout_height="fill_parent"
-                       android:visibility="gone"
-                       android:src="@drawable/charged" />
             <TextView android:id="@+id/statusTabTop" android:layout_width="fill_parent" android:layout_height="fill_parent"
                       android:gravity="top|center_horizontal"
                       style="@style/batteryStatusText" android:visibility="gone" />
@@ -33,7 +31,9 @@
                      android:layout_weight="1">
             <ImageView android:id="@+id/batteryDock"
                        android:layout_width="fill_parent" android:layout_height="fill_parent"
-                       android:src="@drawable/empty" />
+                       android:src="@drawable/batt_0" />
+            <ImageView android:layout_width="fill_parent" android:layout_height="fill_parent"
+                       android:src="@drawable/batt_shape" />
             <ImageView android:id="@+id/batteryDockCharging"
                        android:layout_width="fill_parent" android:layout_height="fill_parent"
                        android:visibility="gone"

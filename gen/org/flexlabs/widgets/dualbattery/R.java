@@ -17,21 +17,27 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int charged=0x7f020000;
-        public static final int charging=0x7f020001;
-        public static final int critical=0x7f020002;
-        public static final int empty=0x7f020003;
-        public static final int full=0x7f020004;
-        public static final int icon=0x7f020005;
-        public static final int medium=0x7f020006;
+        public static final int batt_0=0x7f020000;
+        public static final int batt_10=0x7f020001;
+        public static final int batt_100=0x7f020002;
+        public static final int batt_20=0x7f020003;
+        public static final int batt_30=0x7f020004;
+        public static final int batt_40=0x7f020005;
+        public static final int batt_50=0x7f020006;
+        public static final int batt_60=0x7f020007;
+        public static final int batt_70=0x7f020008;
+        public static final int batt_80=0x7f020009;
+        public static final int batt_90=0x7f02000a;
+        public static final int batt_shape=0x7f02000b;
+        public static final int charging=0x7f02000c;
+        public static final int icon=0x7f02000d;
     }
     public static final class id {
-        public static final int batteryDock=0x7f080013;
-        public static final int batteryDockCharging=0x7f080014;
-        public static final int batteryFrame_dock=0x7f080012;
+        public static final int batteryDock=0x7f080012;
+        public static final int batteryDockCharging=0x7f080013;
+        public static final int batteryFrame_dock=0x7f080011;
         public static final int batteryFrame_main=0x7f08000b;
         public static final int batteryTab=0x7f08000c;
-        public static final int batteryTabCharged=0x7f08000e;
         public static final int batteryTabCharging=0x7f08000d;
         public static final int dock_level=0x7f080009;
         public static final int dock_status=0x7f080008;
@@ -39,12 +45,12 @@ public final class R {
         public static final int level=0x7f080001;
         public static final int scale=0x7f080002;
         public static final int status=0x7f080000;
-        public static final int statusDockBottom=0x7f080017;
-        public static final int statusDockMiddle=0x7f080016;
-        public static final int statusDockTop=0x7f080015;
-        public static final int statusTabBottom=0x7f080011;
-        public static final int statusTabMiddle=0x7f080010;
-        public static final int statusTabTop=0x7f08000f;
+        public static final int statusDockBottom=0x7f080016;
+        public static final int statusDockMiddle=0x7f080015;
+        public static final int statusDockTop=0x7f080014;
+        public static final int statusTabBottom=0x7f080010;
+        public static final int statusTabMiddle=0x7f08000f;
+        public static final int statusTabTop=0x7f08000e;
         public static final int technology=0x7f080006;
         public static final int temperature=0x7f080005;
         public static final int uptime=0x7f080007;
