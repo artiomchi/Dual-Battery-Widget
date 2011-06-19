@@ -19,6 +19,9 @@ This is because Asus extended their Android kernel build to send extra informati
 dock battery along with battery status notifications. Unless this change has been merged in the custom kernel,
 it will not be sending these notifications
 
+**Update 2011-06-19: v0.6.5**  
+[+] New 10-step icons for the batteries  
+
 **Update 2011-06-19: v0.6**  
 [+] Showing battery info / widget properties / other info on widget click  
 [+] Option to select which battery to display  
