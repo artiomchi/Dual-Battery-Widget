@@ -3,9 +3,10 @@ package org.flexlabs.widgets.dualbattery.settings;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.appwidget.AppWidgetManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Path;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,7 +20,7 @@ import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
 import android.util.Log;
 import android.widget.TextView;
-import org.flexlabs.widgets.dualbattery.BatteryApplication;
+import org.flexlabs.widgets.dualbattery.BatteryMonitorService;
 import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.R;
 
@@ -43,7 +44,10 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
     public static final String KEY_FEEDBACK = "feedback";
     public static final String KEY_REPORT = "crashReport";
     public static final String KEY_ABOUT = "about";
+    private static final String PREF_FILE = "global";
+    private static final String PREF_KERNEL_NO_NOTIFY = "IKnowAboutMyKernel";
     public static final int DIALOG_ABOUT = 0;
+    public static final int DIALOG_KERNEL_PROB = 1;
 
     public int appWidgetId;
     public boolean widgetIsOld;
@@ -59,11 +63,12 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ensureIntentSettings();
+        tryCheckKernelCompatibility();
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
             getPreferenceManager().setSharedPreferencesName(Constants.SETTINGS_PREFIX + appWidgetId);
             addPreferencesFromResource(R.xml.widget_properties_general);
-            if (BatteryApplication.isDockSupported(this)) {
+            if (BatteryMonitorService.isDockSupported(this)) {
                 addPreferencesFromResource(R.xml.widget_properties_dock);
             }
             addPreferencesFromResource(R.xml.widget_properties_other);
@@ -76,6 +81,15 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
                 pref.setSummary(
                         getString(R.string.propTitle_SendCrashReport_summaryPrefix) + " " +
                         new Date(crashReport.lastModified()).toString());
+            }
+        }
+    }
+
+    private void tryCheckKernelCompatibility() {
+        if (Constants.SUPPORTED_DOCK_DEVICE.equals(Build.DEVICE) && !BatteryMonitorService.isDockSupported(this)) {
+            SharedPreferences pref = getSharedPreferences(PREF_FILE, MODE_PRIVATE);
+            if (!pref.getBoolean(PREF_KERNEL_NO_NOTIFY, false)) {
+                showDialog(DIALOG_KERNEL_PROB);
             }
         }
     }
@@ -95,7 +109,7 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
     @Override
     protected Dialog onCreateDialog(int id) {
         switch (id) {
-            case DIALOG_ABOUT:
+            case DIALOG_ABOUT :
                 final SpannableString s = new SpannableString(getText(R.string.about_full));
                 Linkify.addLinks(s, Linkify.ALL);
 
@@ -107,6 +121,24 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
                 result.show();
                 ((TextView)result.findViewById(android.R.id.message))
                         .setMovementMethod(LinkMovementMethod.getInstance());
+
+            case DIALOG_KERNEL_PROB :
+                return new AlertDialog.Builder(this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle(R.string.kernelAlert_title)
+                        .setMessage(R.string.kernelAlert_message)
+                        .setPositiveButton("OK", null)
+                        .setNegativeButton(R.string.kernelAlert_forgetIt, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                getSharedPreferences(PREF_FILE, MODE_PRIVATE)
+                                        .edit()
+                                        .putBoolean(PREF_KERNEL_NO_NOTIFY, true)
+                                        .commit();
+                            }
+                        })
+                        .show();
+
             default: return null;
         }
     }
@@ -167,7 +199,7 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
         Bundle extras = intent.getExtras();
         String allKeys = TextUtils.join(", ", extras.keySet());
         sb.append("<br />\n<b>Battery intent keys:</b> " + allKeys);
-        sb.append("<br />\n<b>Is Dock supported:</b> " + BatteryApplication.isDockSupported(this));
+        sb.append("<br />\n<b>Is Dock supported:</b> " + BatteryMonitorService.isDockSupported(this));
         sb.append("<br />\n<b>Battery dock status</b> " + extras.get("dock_status"));
 
         sb.append("<br />\n<b>Kernel:</b> " + getFormattedKernelVersion().replace("\n", "<br />\n"));

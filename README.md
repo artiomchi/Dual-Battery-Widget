@@ -19,8 +19,10 @@ This is because Asus extended their Android kernel build to send extra informati
 dock battery along with battery status notifications. Unless this change has been merged in the custom kernel,
 it will not be sending these notifications
 
-**Update 2011-06-20: v0.6.6**  
-[!] Battery saving mode was too aggressive... now updating batt status after standby  
+**Update 2011-06-20: v0.7**  
+[!] Battery saving mode was too aggressive... Android killing widget.. Battery status monitor service added  
+[+] Monitoring the last time that the dock was connected (shown in the batt info screen)  
+[+] Displaying an alert if your device doesn't seem to support the dock notifications  
 
 **Update 2011-06-19: v0.6.5**  
 [+] New 10-step icons for the batteries  
@@ -37,19 +39,6 @@ it will not be sending these notifications
 **Update 2011-06-06: v0.5.2**  
 [!] Fixed the bug when the widget wasn't added to the user's homescreen  
 [+] Showing the battery info when the widget is tapped  
-
-**Update 2011-06-19: v0.6**
-[+] Showing battery info / widget properties / other info on widget click
-[+] Option to select which battery to display
-[-] Removing the battery dock options on devices without the dock
-[+] Stack trace catcher (for the error reports)
-[!] not recognizing dock on first boot
-[+] Feedback form
-[+] About dialog
-
-**Update 2011-06-06: v0.5.2**
-[!] Fixed the bug when the widget wasn't added to the user's homescreen
-[+] Showing the battery info when the widget is tapped
 
 **Update 2011-06-15: v0.5**
 New features added:  

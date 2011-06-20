@@ -39,13 +39,13 @@ public class BatteryWidget extends AppWidgetProvider {
     @Override
     public void onEnabled(Context context) {
         super.onEnabled(context);
-        BatteryApplication.registerReceiver(context);
+        context.startService(new Intent(context, BatteryMonitorService.class));
     }
 
     @Override
     public void onDisabled(Context context) {
         super.onDisabled(context);
-        BatteryApplication.unregisterReceiver(context);
+        context.stopService(new Intent(context, BatteryMonitorService.class));
     }
 
     @Override
@@ -76,7 +76,8 @@ public class BatteryWidget extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        BatteryApplication.registerReceiver(context);
+        // ensuring the service is still running, even if it was killed
+        context.startService(new Intent(context, BatteryMonitorService.class));
 
         final int n = appWidgetIds.length;
         Log.d("FlexLabs", "Widget count: " + appWidgetIds.length);
@@ -126,13 +127,13 @@ public class BatteryWidget extends AppWidgetProvider {
                 views.setViewVisibility(R.id.batteryFrame_main, View.VISIBLE);
                 if (textPositionCode > 0) {
                     views.setFloat(textStatusTab, "setTextSize", textSize);
-                    if (BatteryApplication.batteryTab != null)
-                        views.setTextViewText(textStatusTab, "\n" + BatteryApplication.batteryTab + "%\n");
+                    if (BatteryMonitorService.batteryTab != null)
+                        views.setTextViewText(textStatusTab, "\n" + BatteryMonitorService.batteryTab + "%\n");
                     else
                         views.setTextViewText(textStatusTab, "\nn/a\n");
                 }
-                views.setImageViewResource(R.id.batteryTab, getBatteryResource(BatteryApplication.batteryTab));
-                if (BatteryApplication.status == BatteryManager.BATTERY_STATUS_CHARGING)
+                views.setImageViewResource(R.id.batteryTab, getBatteryResource(BatteryMonitorService.batteryTab));
+                if (BatteryMonitorService.status == BatteryManager.BATTERY_STATUS_CHARGING)
                     views.setViewVisibility(R.id.batteryTabCharging, View.VISIBLE);
                 else
                     views.setViewVisibility(R.id.batteryTabCharging, View.GONE);
@@ -144,17 +145,17 @@ public class BatteryWidget extends AppWidgetProvider {
                 views.setViewVisibility(R.id.batteryFrame_main, View.GONE);
             }
 
-            int dockVisible = BatteryApplication.hasDock && (BatteryApplication.batteryDock != null || alwaysShow) &&
+            int dockVisible = BatteryMonitorService.hasDock && (BatteryMonitorService.batteryDock != null || alwaysShow) &&
                     (batterySelection == BATTERY_SELECTION_BOTH || batterySelection == BATTERY_SELECTION_SECOND)
                 ? View.VISIBLE
                 : View.GONE;
             views.setViewVisibility(R.id.batteryFrame_dock, dockVisible);
-            if (BatteryApplication.hasDock) {
+            if (BatteryMonitorService.hasDock) {
                 if (textPositionCode > 0) {
                     views.setFloat(textStatusDock, "setTextSize", textSize);
-                    if (BatteryApplication.batteryDock != null) {
-                        views.setTextViewText(textStatusDock, "\n" + BatteryApplication.batteryDock + "%\n");
-                    } else if (BatteryApplication.dockStatus == BatteryApplication.DOCK_STATE_UNDOCKED) {
+                    if (BatteryMonitorService.batteryDock != null) {
+                        views.setTextViewText(textStatusDock, "\n" + BatteryMonitorService.batteryDock + "%\n");
+                    } else if (BatteryMonitorService.dockStatus == Constants.DOCK_STATE_UNDOCKED) {
                         if (showNotDocked)
                             views.setTextViewText(textStatusDock, "\n" + context.getString(R.string.undocked) + "\n");
                         else
@@ -163,8 +164,8 @@ public class BatteryWidget extends AppWidgetProvider {
                         views.setTextViewText(textStatusDock, "\nn/a\n");
                     }
                 }
-                views.setImageViewResource(R.id.batteryDock, getBatteryResource(BatteryApplication.batteryDock));
-                if (BatteryApplication.dockStatus == BatteryApplication.DOCK_STATE_CHARGING)
+                views.setImageViewResource(R.id.batteryDock, getBatteryResource(BatteryMonitorService.batteryDock));
+                if (BatteryMonitorService.dockStatus == Constants.DOCK_STATE_CHARGING)
                     views.setViewVisibility(R.id.batteryDockCharging, View.VISIBLE);
                 else
                     views.setViewVisibility(R.id.batteryDockCharging, View.GONE);

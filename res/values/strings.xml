@@ -66,6 +66,15 @@
     </string>
     <string name="report_detailrequest">Please explain in a few words what did you do when the application crashed:</string>
 
+    <string name="kernelAlert_title">Important!</string>
+    <string name="kernelAlert_message">
+        Oops, it seems like you\'re running a custom built kernel.
+        Unfortunately, as far as I know, only a small number of them currently broadcast the dock battery status. \n
+        Until they migrate this part of the kernel from the standard Asus kernel, getting this information isn\'t quite possible :( \n
+        \n
+        The widget will still display the main battery battery, and there\'s still some chance that it will see the dock battery too...
+    </string>
+    <string name="kernelAlert_forgetIt">Don\'t mention again</string>
 
     <string name="battery_info_status_label">Battery status:</string>
     <string name="battery_info_scale_label">Battery scale:</string>
@@ -79,6 +88,7 @@
     <string name="battery_info_uptime">Time since boot:</string>
     <string name="battery_info_dock_status_label">Dock battery status:</string>
     <string name="battery_info_dock_level_label">Dock battery level:</string>
+    <string name="battery_info_dock_last_connected_label">Dock last connected:</string>
 
     <string name="battery_info_status_unknown">Unknown</string>
     <string name="battery_info_status_charging">Charging</string>
@@ -100,4 +110,5 @@
     <string name="battery_info_dock_status_discharging">Discharging</string>
     <string name="battery_info_dock_status_docked">Docked</string>
     <string name="battery_info_dock_status_undocked">Not docked</string>
+    <string name="battery_info_dock_last_connected_unknown">Unknown</string>
 </resources>

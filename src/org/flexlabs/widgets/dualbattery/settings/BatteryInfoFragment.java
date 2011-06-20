@@ -7,12 +7,19 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.*;
 import android.text.format.DateUtils;
+import android.util.TimeUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import org.flexlabs.widgets.dualbattery.BatteryApplication;
+import org.flexlabs.widgets.dualbattery.BatteryMonitorService;
+import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.R;
+
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by IntelliJ IDEA.
@@ -48,6 +55,7 @@ public class BatteryInfoFragment extends Fragment {
     private TextView mUptime;
     private TextView mDockStatus;
     private TextView mDockLevel;
+    private TextView mDockLastConnected;
 
     private static final int EVENT_TICK = 1;
 
@@ -130,15 +138,15 @@ public class BatteryInfoFragment extends Fragment {
                 }
                 mHealth.setText(healthString);
 
-                int dockStatus = intent.getIntExtra("dock_status", BatteryApplication.DOCK_STATE_UNKNOWN);
+                int dockStatus = intent.getIntExtra("dock_status", Constants.DOCK_STATE_UNKNOWN);
                 String dockStatusString;
-                if (dockStatus == BatteryApplication.DOCK_STATE_UNDOCKED) {
+                if (dockStatus == Constants.DOCK_STATE_UNDOCKED) {
                     dockStatusString = getString(R.string.battery_info_dock_status_undocked);
-                } else if (dockStatus == BatteryApplication.DOCK_STATE_DOCKED) {
+                } else if (dockStatus == Constants.DOCK_STATE_DOCKED) {
                     dockStatusString = getString(R.string.battery_info_dock_status_docked);
-                } else if (dockStatus == BatteryApplication.DOCK_STATE_CHARGING) {
+                } else if (dockStatus == Constants.DOCK_STATE_CHARGING) {
                     dockStatusString = getString(R.string.battery_info_dock_status_charging);
-                } else if (dockStatus == BatteryApplication.DOCK_STATE_DISCHARGING) {
+                } else if (dockStatus == Constants.DOCK_STATE_DISCHARGING) {
                     dockStatusString = getString(R.string.battery_info_dock_status_discharging);
                 } else {
                     dockStatusString = getString(R.string.battery_info_dock_status_unknown);
@@ -146,6 +154,16 @@ public class BatteryInfoFragment extends Fragment {
                 mDockStatus.setText(dockStatusString);
 
                 mDockLevel.setText("" + intent.getIntExtra("dock_level", 0));
+
+                String dockLastConnected;
+                if (dockStatus >= Constants.DOCK_STATE_CHARGING) {
+                    dockLastConnected = "--";
+                } else if (BatteryMonitorService.dockLastConnected == null) {
+                    dockLastConnected = getString(R.string.battery_info_dock_last_connected_unknown);
+                } else {
+                    dockLastConnected = DateFormat.getDateTimeInstance().format(BatteryMonitorService.dockLastConnected);
+                }
+                mDockLastConnected.setText(dockLastConnected);
             }
         }
     };
@@ -171,6 +189,7 @@ public class BatteryInfoFragment extends Fragment {
         mUptime = (TextView) view.findViewById(R.id.uptime);
         mDockStatus = (TextView) view.findViewById(R.id.dock_status);
         mDockLevel = (TextView) view.findViewById(R.id.dock_level);
+        mDockLastConnected = (TextView) view.findViewById(R.id.dock_last_connected);
 
         mIntentFilter = new IntentFilter();
         mIntentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);

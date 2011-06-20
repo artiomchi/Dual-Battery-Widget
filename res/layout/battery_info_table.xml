@@ -42,4 +42,8 @@
         <TextView style="@style/table_label" android:text="@string/battery_info_dock_level_label" />
         <TextView style="@style/table_value" android:id="@+id/dock_level" />
     </TableRow>
+    <TableRow>
+        <TextView style="@style/table_label" android:text="@string/battery_info_dock_last_connected_label" />
+        <TextView style="@style/table_value" android:id="@+id/dock_last_connected" />
+    </TableRow>
 </TableLayout>
