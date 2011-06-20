@@ -92,5 +92,6 @@ public class BatteryMonitorService extends Service {
     public void onDestroy() {
         super.onDestroy();
         unregisterReceiver(batteryReceiver);
+        isRegistered = false;
     }
 }
