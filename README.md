@@ -19,6 +19,9 @@ This is because Asus extended their Android kernel build to send extra informati
 dock battery along with battery status notifications. Unless this change has been merged in the custom kernel,
 it will not be sending these notifications
 
+**Update 2011-06-20: v0.6.6**  
+[!] Battery saving mode was too aggressive... now updating batt status after standby  
+
 **Update 2011-06-19: v0.6.5**  
 [+] New 10-step icons for the batteries  
 

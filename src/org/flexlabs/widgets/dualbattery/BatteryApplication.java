@@ -39,10 +39,12 @@ public class BatteryApplication extends Application {
         @Override
         public void onReceive(Context context, Intent intent) {
             Bundle extras = intent.getExtras();
-            if (extras == null)
-                return;
 
-            if (Intent.ACTION_BATTERY_CHANGED.equals(intent.getAction())) {
+            if (Intent.ACTION_SCREEN_ON.equals(intent.getAction())) {
+                extras = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED)).getExtras();
+            }
+
+            if (extras != null) {
                 status = extras.getInt("status", BatteryManager.BATTERY_HEALTH_UNKNOWN);
                 batteryTab = extras.getInt("level", -1);
                 if (batteryTab < 0)
@@ -79,6 +81,7 @@ public class BatteryApplication extends Application {
         if (!isRegistered) {
             Context appContext = context.getApplicationContext();
             appContext.registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+            appContext.registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_SCREEN_ON));
             //appContext.registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_DOCK_EVENT));
             isRegistered = true;
         }
