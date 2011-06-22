@@ -18,7 +18,7 @@ import java.util.Date;
  * Time: 21:12
  */
 public class BatteryMonitorService extends Service {
-    private static boolean isRegistered = false;
+    private boolean isRegistered = false;
 
     public static Integer batteryTab;
     public static Integer batteryDock;
@@ -62,7 +62,7 @@ public class BatteryMonitorService extends Service {
         return intent.getExtras().containsKey("dock_status");
     }
 
-    private static final BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             processBatteryIntent(intent);
@@ -72,19 +72,14 @@ public class BatteryMonitorService extends Service {
     };
 
     @Override
-    public void onStart(Intent intent, int startId) {
-        if (!isRegistered) {
-            registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-            isRegistered = true;
-        }
+    public void onCreate() {
+        super.onCreate();
+        registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        isRegistered = true;
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (!isRegistered) {
-            registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-            isRegistered = true;
-        }
         return START_STICKY;
     }
 

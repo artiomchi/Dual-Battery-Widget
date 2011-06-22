@@ -19,6 +19,10 @@ This is because Asus extended their Android kernel build to send extra informati
 dock battery along with battery status notifications. Unless this change has been merged in the custom kernel,
 it will not be sending these notifications
 
+**Update 2011-06-21: v0.7.2**  
+[!] Service was losing the broadcast receiver for no reason...  
+[!] Fixed the about dialog being "glued" to the kernel alert dialog in the settings area  
+
 **Update 2011-06-20: v0.7**  
 [!] Battery saving mode was too aggressive... Android killing widget.. Battery status monitor service added  
 [+] Monitoring the last time that the dock was connected (shown in the batt info screen)  

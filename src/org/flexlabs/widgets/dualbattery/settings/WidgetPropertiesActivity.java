@@ -121,6 +121,7 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
                 result.show();
                 ((TextView)result.findViewById(android.R.id.message))
                         .setMovementMethod(LinkMovementMethod.getInstance());
+                return result;
 
             case DIALOG_KERNEL_PROB :
                 return new AlertDialog.Builder(this)
