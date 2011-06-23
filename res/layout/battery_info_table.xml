@@ -7,6 +7,10 @@
         <TextView style="@style/table_value" android:id="@+id/status" />
     </TableRow>
     <TableRow>
+        <TextView style="@style/table_label" android:text="@string/battery_info_last_charged_label" />
+        <TextView style="@style/table_value" android:id="@+id/last_charged" />
+    </TableRow>
+    <TableRow>
         <TextView style="@style/table_label" android:text="@string/battery_info_level_label" />
         <TextView style="@style/table_value" android:id="@+id/level" />
     </TableRow>

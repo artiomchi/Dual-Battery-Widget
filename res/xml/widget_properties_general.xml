@@ -8,5 +8,9 @@
                         android:title="@string/prop_textPosition" android:summary="@string/prop_textPosition_summary"
                         android:entries="@array/textPosition_labels" android:entryValues="@array/textPosition_values"
                         android:defaultValue="2" />
+        <ListPreference android:key="textColor"
+                        android:title="@string/prop_textColor"
+                        android:entries="@array/textColor_labels" android:entryValues="@array/textColor_values"
+                        android:defaultValue="0" />
     </PreferenceCategory>
 </PreferenceScreen>

@@ -16,15 +16,18 @@
                        android:layout_width="fill_parent" android:layout_height="fill_parent"
                        android:visibility="gone"
                        android:src="@drawable/charging" />
-            <TextView android:id="@+id/statusTabTop" android:layout_width="fill_parent" android:layout_height="fill_parent"
-                      android:gravity="top|center_horizontal"
-                      style="@style/batteryStatusText" android:visibility="gone" />
-            <TextView android:id="@+id/statusTabMiddle" android:layout_width="fill_parent" android:layout_height="fill_parent"
-                      android:gravity="center_vertical|center_horizontal"
-                      style="@style/batteryStatusText" android:visibility="gone" />
-            <TextView android:id="@+id/statusTabBottom" android:layout_width="fill_parent" android:layout_height="fill_parent"
-                      android:gravity="bottom|center_horizontal"
-                      style="@style/batteryStatusText" android:visibility="gone" />
+            <TextView android:id="@+id/statusTabWhiteTop"
+                      android:gravity="top|center_horizontal" style="@style/batteryStatusText" />
+            <TextView android:id="@+id/statusTabWhiteMiddle"
+                      android:gravity="center_vertical|center_horizontal" style="@style/batteryStatusText" />
+            <TextView android:id="@+id/statusTabWhiteBottom"
+                      android:gravity="bottom|center_horizontal" style="@style/batteryStatusText" />
+            <TextView android:id="@+id/statusTabDarkTop"
+                      android:gravity="top|center_horizontal" style="@style/batteryStatusTextDark" />
+            <TextView android:id="@+id/statusTabDarkMiddle"
+                      android:gravity="center_vertical|center_horizontal" style="@style/batteryStatusTextDark" />
+            <TextView android:id="@+id/statusTabDarkBottom"
+                      android:gravity="bottom|center_horizontal" style="@style/batteryStatusTextDark" />
         </FrameLayout>
         <FrameLayout android:id="@+id/batteryFrame_dock"
                      android:layout_width="fill_parent" android:layout_height="fill_parent"
@@ -38,15 +41,18 @@
                        android:layout_width="fill_parent" android:layout_height="fill_parent"
                        android:visibility="gone"
                        android:src="@drawable/charging" />
-            <TextView android:id="@+id/statusDockTop" android:layout_width="fill_parent" android:layout_height="fill_parent"
-                      android:gravity="top|center_horizontal"
-                      style="@style/batteryStatusText" android:visibility="gone" />
-            <TextView android:id="@+id/statusDockMiddle" android:layout_width="fill_parent" android:layout_height="fill_parent"
-                      android:gravity="center_vertical|center_horizontal"
-                      style="@style/batteryStatusText" android:visibility="gone" />
-            <TextView android:id="@+id/statusDockBottom" android:layout_width="fill_parent" android:layout_height="fill_parent"
-                      android:gravity="bottom|center_horizontal"
-                      style="@style/batteryStatusText" android:visibility="gone" />
+            <TextView android:id="@+id/statusDockWhiteTop"
+                      android:gravity="top|center_horizontal" style="@style/batteryStatusText" />
+            <TextView android:id="@+id/statusDockWhiteMiddle"
+                      android:gravity="center_vertical|center_horizontal" style="@style/batteryStatusText" />
+            <TextView android:id="@+id/statusDockWhiteBottom"
+                      android:gravity="bottom|center_horizontal" style="@style/batteryStatusText" />
+            <TextView android:id="@+id/statusDockDarkTop"
+                      android:gravity="top|center_horizontal" style="@style/batteryStatusTextDark" />
+            <TextView android:id="@+id/statusDockDarkMiddle"
+                      android:gravity="center_vertical|center_horizontal" style="@style/batteryStatusTextDark" />
+            <TextView android:id="@+id/statusDockDarkBottom"
+                      android:gravity="bottom|center_horizontal" style="@style/batteryStatusTextDark" />
         </FrameLayout>
     </LinearLayout>
 </LinearLayout>

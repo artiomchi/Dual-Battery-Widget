@@ -56,6 +56,7 @@ public class BatteryInfoFragment extends Fragment {
     private TextView mDockStatus;
     private TextView mDockLevel;
     private TextView mDockLastConnected;
+    private TextView mLastCharged;
 
     private static final int EVENT_TICK = 1;
 
@@ -164,6 +165,16 @@ public class BatteryInfoFragment extends Fragment {
                     dockLastConnected = DateFormat.getDateTimeInstance().format(BatteryMonitorService.dockLastConnected);
                 }
                 mDockLastConnected.setText(dockLastConnected);
+
+                String lastCharged;
+                if (status == BatteryManager.BATTERY_STATUS_CHARGING) {
+                    lastCharged = "--";
+                } else if (BatteryMonitorService.lastCharged == null) {
+                    lastCharged = getString(R.string.battery_info_dock_last_connected_unknown);
+                } else {
+                    lastCharged = DateFormat.getDateTimeInstance().format(BatteryMonitorService.lastCharged);
+                }
+                mLastCharged.setText(lastCharged);
             }
         }
     };
@@ -190,6 +201,7 @@ public class BatteryInfoFragment extends Fragment {
         mDockStatus = (TextView) view.findViewById(R.id.dock_status);
         mDockLevel = (TextView) view.findViewById(R.id.dock_level);
         mDockLastConnected = (TextView) view.findViewById(R.id.dock_last_connected);
+        mLastCharged = (TextView) view.findViewById(R.id.last_charged);
 
         mIntentFilter = new IntentFilter();
         mIntentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);

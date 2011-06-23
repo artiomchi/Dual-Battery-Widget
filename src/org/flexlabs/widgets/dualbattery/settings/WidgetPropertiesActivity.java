@@ -147,7 +147,7 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        sendBroadcast(new Intent(Constants.ACTION_WIDGET_UPDATE));
+        sendBroadcast(new Intent(Constants.ACTION_SETTINGS_UPDATE));
     }
 
     @Override

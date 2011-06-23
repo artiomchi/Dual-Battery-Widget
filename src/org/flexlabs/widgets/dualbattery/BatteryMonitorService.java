@@ -25,7 +25,7 @@ public class BatteryMonitorService extends Service {
     public static int status = BatteryManager.BATTERY_STATUS_UNKNOWN;
     public static int dockStatus = Constants.DOCK_STATE_UNKNOWN;
     public static boolean hasDock = false;
-    public static Date dockLastConnected = null;
+    public static Date dockLastConnected = null, lastCharged = null;
 
     public IBinder onBind(Intent intent) {
         return null;
@@ -36,7 +36,10 @@ public class BatteryMonitorService extends Service {
         if (extras == null)
             return;
 
-        status = extras.getInt("status", BatteryManager.BATTERY_HEALTH_UNKNOWN);
+        int oldStatus = status;
+        status = extras.getInt("status", BatteryManager.BATTERY_STATUS_UNKNOWN);
+        if (oldStatus == BatteryManager.BATTERY_STATUS_CHARGING && status != BatteryManager.BATTERY_STATUS_CHARGING)
+            lastCharged = new Date();
         batteryTab = extras.getInt("level", -1);
         if (batteryTab < 0)
             batteryTab = null;
@@ -67,7 +70,7 @@ public class BatteryMonitorService extends Service {
         public void onReceive(Context context, Intent intent) {
             processBatteryIntent(intent);
 
-            context.sendBroadcast(new Intent(Constants.ACTION_WIDGET_UPDATE));
+            context.sendBroadcast(new Intent(Constants.ACTION_BATTERY_UPDATE));
         }
     };
 
