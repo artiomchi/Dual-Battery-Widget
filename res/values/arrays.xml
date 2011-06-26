@@ -1,15 +1,19 @@
 <resources>
     <string-array name="textPosition_values">
         <item>0</item>
+        <item>4</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
+        <item>5</item>
     </string-array>
     <string-array name="textPosition_labels">
         <item>Invisible</item>
+        <item>Above</item>
         <item>Top</item>
         <item>Middle</item>
         <item>Bottom</item>
+        <item>Below</item>
     </string-array>
     <string-array name="batterySelection_values">
         <item>3</item>
@@ -28,5 +32,17 @@
     <string-array name="textColor_labels">
         <item>White</item>
         <item>Black</item>
+    </string-array>
+    <string-array name="margin_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    <string-array name="margin_labels">
+        <item>None</item>
+        <item>Top</item>
+        <item>Bottom</item>
+        <item>Both</item>
     </string-array>
 </resources>

@@ -4,13 +4,20 @@
         <EditTextPreference android:key="textSize"
                             android:title="@string/prop_textSize"
                             android:defaultValue="14" android:inputType="number" android:numeric="integer" />
-        <ListPreference android:key="textPosition"
-                        android:title="@string/prop_textPosition" android:summary="@string/prop_textPosition_summary"
-                        android:entries="@array/textPosition_labels" android:entryValues="@array/textPosition_values"
-                        android:defaultValue="2" />
         <ListPreference android:key="textColor"
                         android:title="@string/prop_textColor"
                         android:entries="@array/textColor_labels" android:entryValues="@array/textColor_values"
                         android:defaultValue="0" />
+        <ListPreference android:key="textPosition"
+                        android:title="@string/prop_textPosition" android:summary="@string/prop_textPosition_summary"
+                        android:entries="@array/textPosition_labels" android:entryValues="@array/textPosition_values"
+                        android:defaultValue="2" />
+        <ListPreference android:key="marginLocation"
+                        android:title="@string/prop_margin" android:summary="@string/prop_margin_summary"
+                        android:entries="@array/margin_labels" android:entryValues="@array/margin_values"
+                        android:defaultValue="0" />
+        <CheckBoxPreference android:key="showBatteryLabel"
+                            android:title="@string/prop_showLabel" android:summary="@string/prop_showLabel_summary"
+                            android:defaultValue="false" />
     </PreferenceCategory>
 </PreferenceScreen>

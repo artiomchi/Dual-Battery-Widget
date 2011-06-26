@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".settings.WidgetPropertiesActivity" android:excludeFromRecents="true"
-                  android:label="Widget Properties"/>
+                  android:label="Widget Properties" android:theme="@android:style/Theme.Dialog" />
         <service android:name=".BatteryMonitorService" android:label="Battery Monitor Service" />
     </application>
     <uses-permission android:name="android.permission.BATTERY_STATS" />

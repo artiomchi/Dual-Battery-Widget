@@ -4,6 +4,9 @@
     <string name="link_market">https://market.android.com/details?id=org.flexlabs.widgets.dualbattery</string>
 
     <string name="undocked">not docked</string>
+    <string name="unknown">unknown</string>
+    <string name="battery_main">Main</string>
+    <string name="battery_dock">Dock</string>
 
     <string name="propHeader_BatteryInfo">Battery Information</string>
     <string name="propHeader_Main">Widget properties</string>
@@ -34,6 +37,13 @@
     <string name="prop_textPosition_summary">Where to display the battery status</string>
     <string name="prop_textSize">Text size</string>
     <string name="prop_textColor">Text colour</string>
+    <string name="prop_margin">Margin location</string>
+    <string name="prop_margin_summary">Margin size is the same as the text size</string>
+    <string name="prop_showLabel">Show battery label</string>
+    <string name="prop_showLabel_summary">
+        Shows the battery label in the bottom margin. \n
+        Can be overruled if the battery status is displayed in the same place
+    </string>
 
     <string name="about_full">
         The Dual Battery Widget was initially created for the Asus Eee Pad Transformer,

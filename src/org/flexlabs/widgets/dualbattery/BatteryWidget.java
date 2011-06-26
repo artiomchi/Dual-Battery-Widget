@@ -25,17 +25,27 @@ public class BatteryWidget extends AppWidgetProvider {
     private static final boolean SETTING_ALWAYSSHOWDOCK_DEFAULT = true;
     private static final String SETTING_TEXTPOS = "textPosition";
     private static final String SETTING_TEXTPOS_DEFAULT = "2";
+    private static final int TEXTPOS_TOP = 1;
+    private static final int TEXTPOS_MIDDLE = 2;
+    private static final int TEXTPOS_BOTTOM = 3;
+    private static final int TEXTPOS_ABOVE = 4;
+    private static final int TEXTPOS_BELOW = 5;
     private static final String SETTING_TEXTSIZE = "textSize";
     private static final String SETTING_TEXTSIZE_DEFAULT = "14";
     private static final String SETTING_SHOW_NOTDOCKED = "showNotDockedMessage";
     private static final boolean SETTING_SHOW_NOTDOCKED_DEFAULT = true;
     private static final String SETTING_SHOW_SELECTION = "batterySelection";
     private static final String SETTING_SHOW_SELECTION_DEFAULT = "0";
-    private static final int BATTERY_SELECTION_BOTH = 0;
     private static final int BATTERY_SELECTION_MAIN = 1;
     private static final int BATTERY_SELECTION_SECOND = 2;
     private static final String SETTING_TEXT_COLOR = "textColor";
     private static final String SETTING_TEXT_COLOR_DEFAULT = "0";
+    private static final String SETTING_MARGIN = "marginLocation";
+    private static final String SETTING_MARGIN_DEFAULT = "0";
+    private static final int MARGIN_TOP = 1;
+    private static final int MARGIN_BOTTOM = 2;
+    private static final String SETTING_SHOW_LABEL = "showBatteryLabel";
+    private static final boolean SETTING_SHOW_LABEL_DEFAULT = false;
 
     @Override
     public void onEnabled(Context context) {
@@ -89,6 +99,14 @@ public class BatteryWidget extends AppWidgetProvider {
         new int[][] { // textpos: bottom = 2
             new int[] { R.id.statusTabWhiteBottom, R.id.statusDockWhiteBottom },
             new int[] { R.id.statusTabDarkBottom, R.id.statusDockDarkBottom },
+        },
+        new int[][] { // textpos: above = 4
+            new int[] { R.id.batteryLabel_main_top, R.id.batteryLabel_dock_top },
+            new int[] { R.id.batteryLabel_main_top_dark, R.id.batteryLabel_dock_top_dark },
+        },
+        new int[][] { // textpos: below = 5
+            new int[] { R.id.batteryLabel_main_bottom, R.id.batteryLabel_dock_bottom },
+            new int[] { R.id.batteryLabel_main_bottom_dark, R.id.batteryLabel_dock_bottom_dark },
         }
     };
 
@@ -106,10 +124,12 @@ public class BatteryWidget extends AppWidgetProvider {
             boolean autoHideOld = pref.getBoolean(SETTING_AUTOHIDE, SETTING_AUTOHIDE_DEFAULT); // legacy reasons.. for widgets added before v0.6
             boolean alwaysShow = pref.getBoolean(SETTING_ALWAYSSHOWDOCK, SETTING_ALWAYSSHOWDOCK_DEFAULT && !autoHideOld);
             boolean showNotDocked = pref.getBoolean(SETTING_SHOW_NOTDOCKED, SETTING_SHOW_NOTDOCKED_DEFAULT);
+            boolean showLabel = pref.getBoolean(SETTING_SHOW_LABEL, SETTING_SHOW_LABEL_DEFAULT);
             int textSize = Integer.valueOf(pref.getString(SETTING_TEXTSIZE, SETTING_TEXTSIZE_DEFAULT));
-            int textPositionCode = Integer.valueOf(pref.getString(SETTING_TEXTPOS, SETTING_TEXTPOS_DEFAULT));
+            int textPosition = Integer.valueOf(pref.getString(SETTING_TEXTPOS, SETTING_TEXTPOS_DEFAULT));
             int batterySelection = Integer.valueOf(pref.getString(SETTING_SHOW_SELECTION, SETTING_SHOW_SELECTION_DEFAULT));
             int textColorCode = Integer.valueOf(pref.getString(SETTING_TEXT_COLOR, SETTING_TEXT_COLOR_DEFAULT));
+            int margin = Integer.valueOf(pref.getString(SETTING_MARGIN, SETTING_MARGIN_DEFAULT));
 
             if (batterySelection == 0 || autoHideOld != SETTING_AUTOHIDE_DEFAULT) {
                 SharedPreferences.Editor editor = pref.edit();
@@ -124,15 +144,19 @@ public class BatteryWidget extends AppWidgetProvider {
                 editor.commit();
             }
 
-            int textStatusTab = 0, textStatusDock = 0;
-            if (textPositionCode > 0) {
-                textStatusTab = textStyleArray[textPositionCode - 1][textColorCode][0];
-                textStatusDock = textStyleArray[textPositionCode - 1][textColorCode][1];
-            }
-            for (int a = 0; a < 3; a++)
-                for (int b = 0; b < 2; b++)
-                    for (int c = 0; c < 2; c++)
+            for (int a = 0; a < textStyleArray.length; a++)
+                for (int b = 0; b < textStyleArray[a].length; b++)
+                    for (int c = 0; c < textStyleArray[a][b].length; c++) {
                         views.setTextViewText(textStyleArray[a][b][c], null);
+                        views.setViewVisibility(textStyleArray[a][b][c], View.GONE);
+                    }
+            int textStatusTab = 0, textStatusDock = 0;
+            if (textPosition > 0) {
+                textStatusTab = textStyleArray[textPosition - 1][textColorCode][0];
+                textStatusDock = textStyleArray[textPosition - 1][textColorCode][1];
+                views.setViewVisibility(textStatusTab, View.VISIBLE);
+                views.setViewVisibility(textStatusDock, View.VISIBLE);
+            }
 
             // This is here just for the screenshots ;)
             /*BatteryApplication.batteryTab = 15;
@@ -144,13 +168,27 @@ public class BatteryWidget extends AppWidgetProvider {
 
             if ((batterySelection & BATTERY_SELECTION_MAIN) > 0) {
                 views.setViewVisibility(R.id.batteryFrame_main, View.VISIBLE);
-                if (textPositionCode > 0) {
+                if ((margin & MARGIN_TOP) > 0) {
+                    views.setViewVisibility(textStyleArray[TEXTPOS_ABOVE - 1][textColorCode][0], View.VISIBLE);
+                    views.setFloat(textStyleArray[TEXTPOS_ABOVE - 1][textColorCode][0], "setTextSize", textSize);
+                }
+                if ((margin & MARGIN_BOTTOM) > 0 || showLabel) {
+                    int id = textStyleArray[TEXTPOS_BELOW - 1][textColorCode][0];
+                    views.setViewVisibility(id, View.VISIBLE);
+                    views.setFloat(id, "setTextSize", textSize);
+                    if (showLabel)
+                        views.setTextViewText(id, context.getString(R.string.battery_main));
+                }
+                if (textPosition > 0) {
                     String status = BatteryMonitorService.batteryTab != null
                         ? BatteryMonitorService.batteryTab.toString() + "%"
                         : "n/a";
                     views.setFloat(textStatusTab, "setTextSize", textSize);
-                    views.setTextViewText(textStatusTab, "\n" + status + "\n");
+                    if (textPosition <= TEXTPOS_BOTTOM)
+                        status = "\n" + status + "\n";
+                    views.setTextViewText(textStatusTab, status);
                 }
+
                 views.setImageViewResource(R.id.batteryTab, getBatteryResource(BatteryMonitorService.batteryTab));
                 views.setViewVisibility(R.id.batteryTabCharging,
                         getVisible(BatteryMonitorService.status == BatteryManager.BATTERY_STATUS_CHARGING));
@@ -164,7 +202,18 @@ public class BatteryWidget extends AppWidgetProvider {
                 : View.GONE;
             views.setViewVisibility(R.id.batteryFrame_dock, dockVisible);
             if (BatteryMonitorService.hasDock) {
-                if (textPositionCode > 0) {
+                if ((margin & MARGIN_TOP) > 0) {
+                    views.setViewVisibility(textStyleArray[TEXTPOS_ABOVE - 1][textColorCode][1], View.VISIBLE);
+                    views.setFloat(textStyleArray[TEXTPOS_ABOVE - 1][textColorCode][1], "setTextSize", textSize);
+                }
+                if ((margin & MARGIN_BOTTOM) > 0 || showLabel) {
+                    int id = textStyleArray[TEXTPOS_BELOW - 1][textColorCode][1];
+                    views.setViewVisibility(id, View.VISIBLE);
+                    views.setFloat(id, "setTextSize", textSize);
+                    if (showLabel)
+                        views.setTextViewText(id, context.getString(R.string.battery_dock));
+                }
+                if (textPosition > 0) {
                     String status = "n/a";
                     if (BatteryMonitorService.batteryDock != null) {
                         status = BatteryMonitorService.batteryDock.toString() + "%";
@@ -172,8 +221,11 @@ public class BatteryWidget extends AppWidgetProvider {
                         status = showNotDocked ? context.getString(R.string.undocked) : "";
                     }
                     views.setFloat(textStatusDock, "setTextSize", textSize);
-                    views.setTextViewText(textStatusDock, "\n" + status + "\n");
+                    if (textPosition <= TEXTPOS_BOTTOM)
+                        status = "\n" + status + "\n";
+                    views.setTextViewText(textStatusDock, status);
                 }
+
                 views.setImageViewResource(R.id.batteryDock, getBatteryResource(BatteryMonitorService.batteryDock));
                 views.setViewVisibility(R.id.batteryDockCharging,
                         getVisible(BatteryMonitorService.dockStatus == Constants.DOCK_STATE_CHARGING));
