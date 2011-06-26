@@ -44,6 +44,8 @@
         Shows the battery label in the bottom margin. \n
         Can be overruled if the battery status is displayed in the same place
     </string>
+    <string name="prop_showDockHistory">Show old level</string>
+    <string name="prop_showDockHistory_summary">Show the last recorded dock battery level when not docked</string>
 
     <string name="about_full">
         The Dual Battery Widget was initially created for the Asus Eee Pad Transformer,

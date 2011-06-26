@@ -8,10 +8,10 @@
                       android:layout_width="fill_parent" android:layout_height="fill_parent"
                       android:orientation="vertical"
                       android:layout_weight="1">
-            <TextView android:id="@+id/batteryLabel_main_top"
+            <TextView android:id="@+id/batteryLabel_main_top" android:text=" "
                       android:layout_width="fill_parent" android:layout_height="wrap_content"
                       android:gravity="center_horizontal" style="@style/batteryStatusText" />
-            <TextView android:id="@+id/batteryLabel_main_top_dark"
+            <TextView android:id="@+id/batteryLabel_main_top_dark" android:text=" "
                       android:layout_width="fill_parent" android:layout_height="wrap_content"
                       android:gravity="center_horizontal" style="@style/batteryStatusTextDark" />
             <FrameLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
@@ -49,10 +49,10 @@
                       android:layout_width="fill_parent" android:layout_height="fill_parent"
                       android:orientation="vertical"
                       android:layout_weight="1">
-            <TextView android:id="@+id/batteryLabel_dock_top"
+            <TextView android:id="@+id/batteryLabel_dock_top" android:text=" "
                       android:layout_width="fill_parent" android:layout_height="wrap_content"
                       android:gravity="center_horizontal" style="@style/batteryStatusText" />
-            <TextView android:id="@+id/batteryLabel_dock_top_dark"
+            <TextView android:id="@+id/batteryLabel_dock_top_dark" android:text=" "
                       android:layout_width="fill_parent" android:layout_height="wrap_content"
                       android:gravity="center_horizontal" style="@style/batteryStatusTextDark" />
             <FrameLayout android:layout_width="fill_parent" android:layout_height="fill_parent"

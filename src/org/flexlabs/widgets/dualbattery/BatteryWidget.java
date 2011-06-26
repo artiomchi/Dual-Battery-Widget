@@ -46,6 +46,8 @@ public class BatteryWidget extends AppWidgetProvider {
     private static final int MARGIN_BOTTOM = 2;
     private static final String SETTING_SHOW_LABEL = "showBatteryLabel";
     private static final boolean SETTING_SHOW_LABEL_DEFAULT = false;
+    private static final String SETTING_SHOW_OLD_DOCK = "showOldDockStatus";
+    private static final boolean SETTING_SHOW_OLD_DOCK_DEFAULT = false;
 
     @Override
     public void onEnabled(Context context) {
@@ -125,6 +127,7 @@ public class BatteryWidget extends AppWidgetProvider {
             boolean alwaysShow = pref.getBoolean(SETTING_ALWAYSSHOWDOCK, SETTING_ALWAYSSHOWDOCK_DEFAULT && !autoHideOld);
             boolean showNotDocked = pref.getBoolean(SETTING_SHOW_NOTDOCKED, SETTING_SHOW_NOTDOCKED_DEFAULT);
             boolean showLabel = pref.getBoolean(SETTING_SHOW_LABEL, SETTING_SHOW_LABEL_DEFAULT);
+            boolean showOldStatus = pref.getBoolean(SETTING_SHOW_OLD_DOCK, SETTING_SHOW_OLD_DOCK_DEFAULT);
             int textSize = Integer.valueOf(pref.getString(SETTING_TEXTSIZE, SETTING_TEXTSIZE_DEFAULT));
             int textPosition = Integer.valueOf(pref.getString(SETTING_TEXTPOS, SETTING_TEXTPOS_DEFAULT));
             int batterySelection = Integer.valueOf(pref.getString(SETTING_SHOW_SELECTION, SETTING_SHOW_SELECTION_DEFAULT));
@@ -169,15 +172,16 @@ public class BatteryWidget extends AppWidgetProvider {
             if ((batterySelection & BATTERY_SELECTION_MAIN) > 0) {
                 views.setViewVisibility(R.id.batteryFrame_main, View.VISIBLE);
                 if ((margin & MARGIN_TOP) > 0) {
-                    views.setViewVisibility(textStyleArray[TEXTPOS_ABOVE - 1][textColorCode][0], View.VISIBLE);
-                    views.setFloat(textStyleArray[TEXTPOS_ABOVE - 1][textColorCode][0], "setTextSize", textSize);
+                    int id = textStyleArray[TEXTPOS_ABOVE - 1][textColorCode][0];
+                    views.setViewVisibility(id, View.VISIBLE);
+                    views.setFloat(id, "setTextSize", textSize);
+                    views.setTextViewText(id, " ");
                 }
                 if ((margin & MARGIN_BOTTOM) > 0 || showLabel) {
                     int id = textStyleArray[TEXTPOS_BELOW - 1][textColorCode][0];
                     views.setViewVisibility(id, View.VISIBLE);
                     views.setFloat(id, "setTextSize", textSize);
-                    if (showLabel)
-                        views.setTextViewText(id, context.getString(R.string.battery_main));
+                    views.setTextViewText(id, showLabel ? context.getString(R.string.battery_main) : " ");
                 }
                 if (textPosition > 0) {
                     String status = BatteryMonitorService.batteryTab != null
@@ -189,34 +193,39 @@ public class BatteryWidget extends AppWidgetProvider {
                     views.setTextViewText(textStatusTab, status);
                 }
 
-                views.setImageViewResource(R.id.batteryTab, getBatteryResource(BatteryMonitorService.batteryTab));
+                views.setImageViewResource(R.id.batteryTab, getBatteryResource(BatteryMonitorService.batteryTab, false));
                 views.setViewVisibility(R.id.batteryTabCharging,
                         getVisible(BatteryMonitorService.status == BatteryManager.BATTERY_STATUS_CHARGING));
             } else {
                 views.setViewVisibility(R.id.batteryFrame_main, View.GONE);
             }
 
-            int dockVisible = BatteryMonitorService.hasDock && (BatteryMonitorService.batteryDock != null || alwaysShow) &&
+            int dockVisible = BatteryMonitorService.hasDock &&
+                    (BatteryMonitorService.isDockConnected(context) || alwaysShow) &&
                     ((batterySelection & BATTERY_SELECTION_SECOND) > 0)
                 ? View.VISIBLE
                 : View.GONE;
             views.setViewVisibility(R.id.batteryFrame_dock, dockVisible);
             if (BatteryMonitorService.hasDock) {
                 if ((margin & MARGIN_TOP) > 0) {
-                    views.setViewVisibility(textStyleArray[TEXTPOS_ABOVE - 1][textColorCode][1], View.VISIBLE);
-                    views.setFloat(textStyleArray[TEXTPOS_ABOVE - 1][textColorCode][1], "setTextSize", textSize);
+                    int id = textStyleArray[TEXTPOS_ABOVE - 1][textColorCode][1];
+                    views.setViewVisibility(id, View.VISIBLE);
+                    views.setFloat(id, "setTextSize", textSize);
+                    views.setTextViewText(id, " ");
                 }
                 if ((margin & MARGIN_BOTTOM) > 0 || showLabel) {
                     int id = textStyleArray[TEXTPOS_BELOW - 1][textColorCode][1];
                     views.setViewVisibility(id, View.VISIBLE);
                     views.setFloat(id, "setTextSize", textSize);
-                    if (showLabel)
-                        views.setTextViewText(id, context.getString(R.string.battery_dock));
+                    views.setTextViewText(id, showLabel ? context.getString(R.string.battery_dock) : " ");
                 }
+                Integer dockLevel = BatteryMonitorService.batteryDock;
+                if (!BatteryMonitorService.isDockConnected(context) && !showOldStatus)
+                    dockLevel = null;
                 if (textPosition > 0) {
                     String status = "n/a";
-                    if (BatteryMonitorService.batteryDock != null) {
-                        status = BatteryMonitorService.batteryDock.toString() + "%";
+                    if (dockLevel != null) {
+                        status = dockLevel.toString() + "%";
                     } else if (BatteryMonitorService.dockStatus == Constants.DOCK_STATE_UNDOCKED) {
                         status = showNotDocked ? context.getString(R.string.undocked) : "";
                     }
@@ -226,7 +235,8 @@ public class BatteryWidget extends AppWidgetProvider {
                     views.setTextViewText(textStatusDock, status);
                 }
 
-                views.setImageViewResource(R.id.batteryDock, getBatteryResource(BatteryMonitorService.batteryDock));
+                views.setImageViewResource(R.id.batteryDock,
+                        getBatteryResource(dockLevel, !BatteryMonitorService.isDockConnected(context)));
                 views.setViewVisibility(R.id.batteryDockCharging,
                         getVisible(BatteryMonitorService.dockStatus == Constants.DOCK_STATE_CHARGING));
             }
@@ -241,28 +251,28 @@ public class BatteryWidget extends AppWidgetProvider {
         }
     }
 
-    private int getBatteryResource(Integer status) {
+    private int getBatteryResource(Integer status, boolean alt) {
         if (status == null)
             return R.drawable.batt_0;
         if (status <= 10)
-            return R.drawable.batt_10;
+            return !alt ? R.drawable.batt_10 : R.drawable.batt_bw_10;
         if (status <= 20)
-            return R.drawable.batt_20;
+            return !alt ? R.drawable.batt_20 : R.drawable.batt_bw_20;
         if (status <= 30)
-            return R.drawable.batt_30;
+            return !alt ? R.drawable.batt_30 : R.drawable.batt_bw_30;
         if (status <= 40)
-            return R.drawable.batt_40;
+            return !alt ? R.drawable.batt_40 : R.drawable.batt_bw_40;
         if (status <= 50)
-            return R.drawable.batt_50;
+            return !alt ? R.drawable.batt_50 : R.drawable.batt_bw_50;
         if (status <= 60)
-            return R.drawable.batt_60;
+            return !alt ? R.drawable.batt_60 : R.drawable.batt_bw_60;
         if (status <= 70)
-            return R.drawable.batt_70;
+            return !alt ? R.drawable.batt_70 : R.drawable.batt_bw_70;
         if (status <= 80)
-            return R.drawable.batt_80;
+            return !alt ? R.drawable.batt_80 : R.drawable.batt_bw_80;
         if (status <= 90)
-            return R.drawable.batt_90;
-        return R.drawable.batt_100;
+            return !alt ? R.drawable.batt_90 : R.drawable.batt_bw_90;
+        return !alt ? R.drawable.batt_100 : R.drawable.batt_bw_100;
     }
 
     private int getVisible(boolean visible) {

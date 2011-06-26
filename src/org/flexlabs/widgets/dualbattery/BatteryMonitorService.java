@@ -18,8 +18,10 @@ import java.util.Date;
  * Time: 21:12
  */
 public class BatteryMonitorService extends Service {
+    private static final String SETTING_LAST_DOCK_VALUE = "LastDockStatus";
     private boolean isRegistered = false;
 
+    private static boolean isPopulated = false;
     public static Integer batteryTab;
     public static Integer batteryDock;
     public static int status = BatteryManager.BATTERY_STATUS_UNKNOWN;
@@ -31,7 +33,7 @@ public class BatteryMonitorService extends Service {
         return null;
     }
 
-    private static void processBatteryIntent(Intent intent) {
+    private static void processBatteryIntent(Context context, Intent intent) {
         Bundle extras = intent.getExtras();
         if (extras == null)
             return;
@@ -45,30 +47,41 @@ public class BatteryMonitorService extends Service {
             batteryTab = null;
         hasDock = extras.containsKey("dock_level");
         if (hasDock) {
-            batteryDock = extras.getInt("dock_level", -1);
-            if (batteryDock < 0)
-                batteryDock = null;
             int oldDockStatus = dockStatus;
             dockStatus = extras.getInt("dock_status", Constants.DOCK_STATE_UNKNOWN);
-            if (dockStatus == Constants.DOCK_STATE_UNDOCKED || dockStatus == Constants.DOCK_STATE_UNKNOWN)
-                batteryDock = null;
+            //if (dockStatus == Constants.DOCK_STATE_UNDOCKED || dockStatus == Constants.DOCK_STATE_UNKNOWN)
+            //    batteryDock = null;
             if (oldDockStatus >= Constants.DOCK_STATE_CHARGING && dockStatus < Constants.DOCK_STATE_CHARGING) {
                 dockLastConnected = new Date();
+            }
+            if (isDockConnected(context)) {
+                batteryDock = extras.getInt("dock_level", -1);
+                if (batteryDock <= 0)
+                    batteryDock = null;
             }
         } else {
             batteryDock = null;
         }
     }
 
+    public static boolean isDockConnected(Context context) {
+        if (!isPopulated) {
+            processBatteryIntent(context, context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED)));
+        }
+        return dockStatus >= Constants.DOCK_STATE_CHARGING;
+    }
+
     public static boolean isDockSupported(Context context) {
-        Intent intent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-        return intent.getExtras().containsKey("dock_status");
+        if (!isPopulated) {
+            processBatteryIntent(context, context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED)));
+        }
+        return dockStatus != Constants.DOCK_STATE_UNKNOWN;
     }
 
     private final BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            processBatteryIntent(intent);
+            processBatteryIntent(BatteryMonitorService.this, intent);
 
             context.sendBroadcast(new Intent(Constants.ACTION_BATTERY_UPDATE));
         }
@@ -79,6 +92,11 @@ public class BatteryMonitorService extends Service {
         super.onCreate();
         registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
         isRegistered = true;
+        isPopulated = true;
+        batteryDock = getSharedPreferences(Constants.SETTINGS_PREFIX, MODE_PRIVATE)
+                .getInt(SETTING_LAST_DOCK_VALUE, 0);
+        if (batteryDock == 0)
+            batteryDock = null;
     }
 
     @Override
@@ -91,5 +109,9 @@ public class BatteryMonitorService extends Service {
         super.onDestroy();
         unregisterReceiver(batteryReceiver);
         isRegistered = false;
+        isPopulated = false;
+        getSharedPreferences(Constants.SETTINGS_PREFIX, MODE_PRIVATE).edit()
+                .putInt(SETTING_LAST_DOCK_VALUE, batteryDock)
+                .commit();
     }
 }

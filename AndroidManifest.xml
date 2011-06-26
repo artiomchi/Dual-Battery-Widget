@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="org.flexlabs.widgets.dualbattery"
-          android:versionCode="12"
-          android:versionName="0.7.2">
+          android:versionCode="13"
+          android:versionName="0.7.5">
     <uses-sdk android:targetSdkVersion="11" android:minSdkVersion="4" />
     <application android:icon="@drawable/icon" android:label="@string/app_name" android:hardwareAccelerated="true"
                  android:name=".BatteryApplication">
@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".settings.WidgetPropertiesActivity" android:excludeFromRecents="true"
-                  android:label="Widget Properties" android:theme="@android:style/Theme.Dialog" />
+                  android:label="Widget Properties" />
         <service android:name=".BatteryMonitorService" android:label="Battery Monitor Service" />
     </application>
     <uses-permission android:name="android.permission.BATTERY_STATS" />

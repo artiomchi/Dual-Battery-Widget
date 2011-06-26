@@ -11,5 +11,8 @@
         <CheckBoxPreference android:key="showNotDockedMessage" android:dependency="alwaysShowDock"
                             android:title="@string/prop_showNotDockedMsg" android:summary="@string/prop_showNotDockedMsg_summary"
                             android:defaultValue="true" />
+        <CheckBoxPreference android:key="showOldDockStatus" android:dependency="alwaysShowDock"
+                            android:title="@string/prop_showDockHistory" android:summary="@string/prop_showDockHistory_summary"
+                            android:defaultValue="false" />
     </PreferenceCategory>
 </PreferenceScreen>
