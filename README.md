@@ -17,7 +17,16 @@ the dock status, or even register that your device supports it at all.. This is 
 kernels at this moment, not of this application.  
 This is because Asus extended their Android kernel build to send extra information about the dock and the
 dock battery along with battery status notifications. Unless this change has been merged in the custom kernel,
-it will not be sending these notifications
+it will not be sending these notifications  
+
+**Update 2011-06-27: v0.7.5.1**  
+[!] Fixed a couple service crash bugs  
+[!] Fixed the About dialog  
+[+] Saving the last charged timestamp  
+[+] Saving the last known dock battery level  
+[+] Adding margin option for the widget  
+[+] Dock label text can be black  
+[+] Last known dock battery level images (black and white)  
 
 **Update 2011-06-21: v0.7.2**  
 [!] Service was losing the broadcast receiver for no reason...  

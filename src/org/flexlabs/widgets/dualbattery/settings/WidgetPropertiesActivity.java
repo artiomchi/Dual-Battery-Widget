@@ -190,6 +190,7 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
 
     private String getDeviceDetails() {
         StringBuilder sb = new StringBuilder("<br />\n<h4>Device details:</h4>");
+        sb.append("<br />\n<b>App version:</b> " + Constants.getVersion(this));
         sb.append("<br />\n<b>Brand:</b> " + Build.MANUFACTURER);
         sb.append("<br />\n<b>Model:</b> " + Build.MODEL);
         sb.append("<br />\n<b>Device:</b> " + Build.DEVICE);
@@ -202,6 +203,7 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
         sb.append("<br />\n<b>Battery intent keys:</b> " + allKeys);
         sb.append("<br />\n<b>Is Dock supported:</b> " + BatteryMonitorService.isDockSupported(this));
         sb.append("<br />\n<b>Battery dock status</b> " + extras.get("dock_status"));
+        sb.append("<br />\n<b>Battery dock level</b> " + extras.get("dock_level"));
 
         sb.append("<br />\n<b>Kernel:</b> " + getFormattedKernelVersion().replace("\n", "<br />\n"));
         return sb.toString();

@@ -1,5 +1,8 @@
 package org.flexlabs.widgets.dualbattery;
 
+import android.content.Context;
+import android.content.pm.PackageManager;
+
 /**
  * Created by IntelliJ IDEA.
  * User: Artiom Chilaru
@@ -20,4 +23,15 @@ public class Constants {
     public static final int DOCK_STATE_CHARGING = 2;
     public static final int DOCK_STATE_DOCKED = 3;
     public static final int DOCK_STATE_DISCHARGING = 4;
+
+    public static String getVersion(Context context) {
+        String result;
+        try {
+            String pkg = context.getPackageName();
+            result = context.getPackageManager().getPackageInfo(pkg, 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            result = "?";
+        }
+        return result;
+    }
 }
