@@ -16,7 +16,6 @@ public class Constants {
     public static final String SETTINGS_PREFIX = "widgetPref_";
     public static final String FeedbackDestination = "Android @ FlexLabs <android@flexlabs.org>";
     public static final String STACKTRACE_FILENAME = "stacktrace.log";
-    public static final String SUPPORTED_DOCK_DEVICE = "EeePad";
 
     public static final int DOCK_STATE_UNKNOWN = 0;
     public static final int DOCK_STATE_UNDOCKED = 1;

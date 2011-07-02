@@ -3,12 +3,12 @@
     <string name="widget_name">Dual Battery Widget</string>
     <string name="link_market">https://market.android.com/details?id=org.flexlabs.widgets.dualbattery</string>
 
-    <string name="undocked">not docked</string>
-    <string name="unknown">unknown</string>
+    <string name="undocked">Not docked</string>
+    <string name="unknown">Unknown</string>
     <string name="battery_main">Main</string>
     <string name="battery_dock">Dock</string>
 
-    <string name="propHeader_BatteryInfo">Battery Information</string>
+    <string name="propHeader_BatteryInfo">Battery information</string>
     <string name="propHeader_Main">Widget properties</string>
     <string name="propHeader_Other">Other details</string>
     <string name="propHeader_Other_summary">Feedback and error reports, about widget</string>
@@ -51,43 +51,37 @@
         The Dual Battery Widget was initially created for the Asus Eee Pad Transformer,
         a device that has a second battery in the dock station. Unfortunately, the standard Android tools
         do not provide any way of displaying the status of a second battery, so this widget was created
-        to fill this gap. \n
+        to fill this gap.
         \n
-        The author of this widget is Artiom Chilaru, and it was initially posted on the xda-developers forum.
+        \nThe author of this widget is Artiom Chilaru, and it was initially posted on the xda-developers forum.
         It is distributed for free on the Android Market. If you paid for it, or downloaded it from any other place,
         I would strongly recommend uninstalling your copy, and installing it from the market. This way you can make
         sure that your copy has no malware attached to it, and you will get free updates to the latest version
-        as soon as it\'s released!  \n
+        as soon as it\'s released!
         \n
-        <b>Note:</b> <u>If you use a custom rom</u>, there is a high chance that this widget will not be able to identify
+        \n<b>Note:</b> <u>If you use a custom rom</u>, there is a high chance that this widget will not be able to identify
         the dock status, or even register that your device supports it at all.. This is a restriction of most custom
-        kernels at this moment, not of this application. \n
-        This is because Asus extended their Android kernel build to send extra information about the dock and the
+        kernels at this moment, not of this application.
+        \nThis is because Asus extended their Android kernel build to send extra information about the dock and the
         dock battery along with battery status notifications. Unless this change has been merged in the custom kernel,
-        it will not be sending these notifications \n
+        it will not be sending these notifications
         \n
-        You can install the widget from the marketplace here:
-        https://market.android.com/details?id=org.flexlabs.widgets.dualbattery \n
+        \nYou can install the widget from the marketplace here:
+        https://market.android.com/details?id=org.flexlabs.widgets.dualbattery
         \n
-        To find more about the author, you can check out my website http://www.flexlabs.org or my twitter account @artiom_chi \n
-        https://twitter.com/artiom_chi \n
+        \nTo find more about the author, you can check out my website http://www.flexlabs.org or my twitter account @artiom_chi
+        \nhttps://twitter.com/artiom_chi
         \n
-        You can also check out the topic on the xda-developers forum here: \n
-        http://forum.xda-developers.com/showthread.php?t=1123363 \n
+        \nYou can also check out the topic on the xda-developers forum here:
+        \nhttp://forum.xda-developers.com/showthread.php?t=1123363
         \n
-        If you have any issues, use the feedback option inside the aplication settings window, or send me an e-mail to android@flexlabs.org
+        \nIf you have any issues, use the feedback option inside the aplication settings window, or send me an e-mail to android@flexlabs.org
+        \n
+        \nMany thanks to the following contributors for the translation:
+        \nFrench: Ludovic MAILLET
+        \nSpanish: Cristian Valero, STG (Spanish Translation Group)
     </string>
     <string name="report_detailrequest">Please explain in a few words what did you do when the application crashed:</string>
-
-    <string name="kernelAlert_title">Important!</string>
-    <string name="kernelAlert_message">
-        Oops, it seems like you\'re running a custom built kernel.
-        Unfortunately, as far as I know, only a small number of them currently broadcast the dock battery status. \n
-        Until they migrate this part of the kernel from the standard Asus kernel, getting this information isn\'t quite possible :( \n
-        \n
-        The widget will still display the main battery battery, and there\'s still some chance that it will see the dock battery too...
-    </string>
-    <string name="kernelAlert_forgetIt">Don\'t mention again</string>
 
     <string name="battery_info_status_label">Battery status:</string>
     <string name="battery_info_last_charged_label">Last time charged:</string>
@@ -104,7 +98,6 @@
     <string name="battery_info_dock_level_label">Dock battery level:</string>
     <string name="battery_info_dock_last_connected_label">Dock last connected:</string>
 
-    <string name="battery_info_status_unknown">Unknown</string>
     <string name="battery_info_status_charging">Charging</string>
     <string name="battery_info_status_charging_ac">(AC)</string>
     <string name="battery_info_status_charging_usb">(USB)</string>
@@ -112,17 +105,14 @@
     <string name="battery_info_status_not_charging">Not charging</string>
     <string name="battery_info_status_full">Full</string>
 
-    <string name="battery_info_health_unknown">Unknown</string>
     <string name="battery_info_health_good">Good</string>
     <string name="battery_info_health_overheat">Overheat</string>
     <string name="battery_info_health_dead">Dead</string>
     <string name="battery_info_health_over_voltage">Over voltage</string>
     <string name="battery_info_health_unspecified_failure">Unknown error</string>
 
-    <string name="battery_info_dock_status_unknown">Unknown</string>
     <string name="battery_info_dock_status_charging">Charging</string>
     <string name="battery_info_dock_status_discharging">Discharging</string>
     <string name="battery_info_dock_status_docked">Docked</string>
     <string name="battery_info_dock_status_undocked">Not docked</string>
-    <string name="battery_info_dock_last_connected_unknown">Unknown</string>
 </resources>

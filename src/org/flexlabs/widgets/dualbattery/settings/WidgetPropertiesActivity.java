@@ -3,7 +3,6 @@ package org.flexlabs.widgets.dualbattery.settings;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.appwidget.AppWidgetManager;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -44,10 +43,7 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
     public static final String KEY_FEEDBACK = "feedback";
     public static final String KEY_REPORT = "crashReport";
     public static final String KEY_ABOUT = "about";
-    private static final String PREF_FILE = "global";
-    private static final String PREF_KERNEL_NO_NOTIFY = "IKnowAboutMyKernel";
     public static final int DIALOG_ABOUT = 0;
-    public static final int DIALOG_KERNEL_PROB = 1;
 
     public int appWidgetId;
     public boolean widgetIsOld;
@@ -63,7 +59,6 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ensureIntentSettings();
-        tryCheckKernelCompatibility();
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
             getPreferenceManager().setSharedPreferencesName(Constants.SETTINGS_PREFIX + appWidgetId);
@@ -81,15 +76,6 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
                 pref.setSummary(
                         getString(R.string.propTitle_SendCrashReport_summaryPrefix) + " " +
                         new Date(crashReport.lastModified()).toString());
-            }
-        }
-    }
-
-    private void tryCheckKernelCompatibility() {
-        if (Constants.SUPPORTED_DOCK_DEVICE.equals(Build.DEVICE) && !BatteryMonitorService.isDockSupported(this)) {
-            SharedPreferences pref = getSharedPreferences(PREF_FILE, MODE_PRIVATE);
-            if (!pref.getBoolean(PREF_KERNEL_NO_NOTIFY, false)) {
-                showDialog(DIALOG_KERNEL_PROB);
             }
         }
     }
@@ -122,23 +108,6 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
                 ((TextView)result.findViewById(android.R.id.message))
                         .setMovementMethod(LinkMovementMethod.getInstance());
                 return result;
-
-            case DIALOG_KERNEL_PROB :
-                return new AlertDialog.Builder(this)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle(R.string.kernelAlert_title)
-                        .setMessage(R.string.kernelAlert_message)
-                        .setPositiveButton("OK", null)
-                        .setNegativeButton(R.string.kernelAlert_forgetIt, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                getSharedPreferences(PREF_FILE, MODE_PRIVATE)
-                                        .edit()
-                                        .putBoolean(PREF_KERNEL_NO_NOTIFY, true)
-                                        .commit();
-                            }
-                        })
-                        .show();
 
             default: return null;
         }
@@ -190,22 +159,22 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
 
     private String getDeviceDetails() {
         StringBuilder sb = new StringBuilder("<br />\n<h4>Device details:</h4>");
-        sb.append("<br />\n<b>App version:</b> " + Constants.getVersion(this));
-        sb.append("<br />\n<b>Brand:</b> " + Build.MANUFACTURER);
-        sb.append("<br />\n<b>Model:</b> " + Build.MODEL);
-        sb.append("<br />\n<b>Device:</b> " + Build.DEVICE);
-        sb.append("<br />\n<b>Android version:</b> " + Build.VERSION.RELEASE);
-        sb.append("<br />\n<b>Version details:</b> " + Build.VERSION.INCREMENTAL);
+        sb.append("<br />\n<b>App version:</b> ").append(Constants.getVersion(this));
+        sb.append("<br />\n<b>Brand:</b> ").append(Build.MANUFACTURER);
+        sb.append("<br />\n<b>Model:</b> ").append(Build.MODEL);
+        sb.append("<br />\n<b>Device:</b> ").append(Build.DEVICE);
+        sb.append("<br />\n<b>Android version:</b> ").append(Build.VERSION.RELEASE);
+        sb.append("<br />\n<b>Version details:</b> ").append(Build.VERSION.INCREMENTAL);
 
         Intent intent = registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
         Bundle extras = intent.getExtras();
         String allKeys = TextUtils.join(", ", extras.keySet());
-        sb.append("<br />\n<b>Battery intent keys:</b> " + allKeys);
-        sb.append("<br />\n<b>Is Dock supported:</b> " + BatteryMonitorService.isDockSupported(this));
-        sb.append("<br />\n<b>Battery dock status</b> " + extras.get("dock_status"));
-        sb.append("<br />\n<b>Battery dock level</b> " + extras.get("dock_level"));
+        sb.append("<br />\n<b>Battery intent keys:</b> ").append(allKeys);
+        sb.append("<br />\n<b>Is Dock supported:</b> ").append(BatteryMonitorService.isDockSupported(this));
+        sb.append("<br />\n<b>Battery dock status</b> ").append(extras.get("dock_status"));
+        sb.append("<br />\n<b>Battery dock level</b> ").append(extras.get("dock_level"));
 
-        sb.append("<br />\n<b>Kernel:</b> " + getFormattedKernelVersion().replace("\n", "<br />\n"));
+        sb.append("<br />\n<b>Kernel:</b> ").append(getFormattedKernelVersion().replace("\n", "<br />\n"));
         return sb.toString();
     }
 

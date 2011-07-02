@@ -1,0 +1,113 @@
+<resources>
+    <string name="undocked">Non doké</string>
+    <string name="unknown">Inconnu</string>
+    <string name="battery_main">Principale</string>
+    <string name="battery_dock">Dock</string>
+
+    <string name="propHeader_BatteryInfo">Information sur la batterie</string>
+    <string name="propHeader_Main">Propriétés du widget</string>
+    <string name="propHeader_Other">Autres détails</string>
+    <string name="propHeader_Other_summary">Retours et rapport d\'erreur, à propos du widget</string>
+
+    <string name="propTitle_General">Générale</string>
+    <string name="propTitle_Dock">Options pour la deuxième batterie (dock)</string>
+    <string name="propTitle_Other">Autre</string>
+    <string name="propTitle_About">A propos du Dual Battery Widget</string>
+    <string name="propTitle_Feedback">Commentaires</string>
+    <string name="propTitle_SendCrashReport">Envoyer un rapport d\'erreur</string>
+    <string name="propTitle_SendCrashReport_summaryPrefix">Dernière modification: </string>
+    <string name="propTitle_BatteryInfo">Informations sur la batterie</string>
+    <string name="propTitle_BatteryInfo_summary">Dialogue du systeme Android sur les information de la batterie</string>
+    <string name="propTitle_MarketLink">Voir dans l\'Android Market</string>
+    <string name="propTitle_Donate">Donation :)</string>
+
+    <string name="prop_batterySelection">Batterie à afficher</string>
+    <string name="prop_alwaysShowDock">Toujours montrer la batterie du dock</string>
+    <string name="prop_alwaysShowDock_summary">
+        Montre l\'icone de la batterie du dock même si il n\'est pas connecté \n
+        Peut etre annulé par les réglages précédents
+    </string>
+    <string name="prop_showNotDockedMsg">Montrer le statut quand il n\'y à pas de dock</string>
+    <string name="prop_showNotDockedMsg_summary">Afficher un message indiquant que la batterie secondaire n\'est pas connecté quand il n\'y a pas de dock</string>
+    <string name="prop_textPosition">Position du texte</string>
+    <string name="prop_textPosition_summary">Position d\'affichage du statut</string>
+    <string name="prop_textSize">Taille du texte</string>
+    <string name="prop_textColor">Couleur du texte</string>
+    <string name="prop_margin">Position de la marge</string>
+    <string name="prop_margin_summary">La taille de la marge est la même que celle du texte</string>
+    <string name="prop_showLabel">Afficher l\'étiquette</string>
+    <string name="prop_showLabel_summary">
+        Affiche l\'étiquette de la batterie en dessous du widget. \n
+        Peut être annulée si l\'état de la batterie est affiché au même endroit
+    </string>
+    <string name="prop_showDockHistory">Montrer l\'ancien niveau</string>
+    <string name="prop_showDockHistory_summary">Montre le dernier niveau enregistré de la batterie du Dock quand il n\'est plus connecté</string>
+
+    <string name="about_full">
+        Le widget Dual Battery à été initialement créé pour l\'Asus Eee Pad Transformer,
+        un appareil ayant une deuxiéme batterie dans sa station d\'accueil. Malheureusement, l\'outil standard d\'Android
+        ne propose aucun moyen d\'afficher le statut de la seconde batterie, Ce widget à été créé pour combler se manque.
+        \n
+        \nL\'auteur de ce widget est Artiom Chilaru, et à été initialement posté sur le forum xda-developers.
+        Il est distribué gratuitement sur l\'Android Market. Si vous le payez ou que vous le téléchargez d\'un autre endroit, 
+        Je vous recommande de désinstaller cette copie, et de la réinstaller depuis le Market Android. Comme cela, vous serez sur
+        qu\'il n\'y à aucun logiciel espion ou malware sur ce logiciel, et il sera plus facile d\'obtenir des mises à jour gratuites vers les dernières versions
+        dés qu\'elles sont publiées!
+        \n
+        \n<b>Note:</b> <u>Si vous utilisez une rom custom</u>, il y a une forte chance pour que le widget ne soit pas capable d\'identifier
+        le statut du dock, et même de voir que votre appareil supporte un dock. C\'est une restriction de la plupart des kernels customisés
+        pour le moment, pas de l\'application.
+        \nC\'est parce que Asus a étendu les possibilités du kernel Android pour envoyer des informations supplémentaires à propos du dock et de
+        la batterie du dock. À moins que ce changement n\’ait été implémenté dans le noyau personnalisé,
+        il n\'enverra pas ces informations à l\'application
+        \n
+        \nVous pouvez installer le widget depuis le Market ici:
+        https://market.android.com/details?id=org.flexlabs.widgets.dualbattery
+        \n
+        \nPour plus d\'informations sur l\'auteur, vous pouvez regarder sur son site Web http://www.flexlabs.org or my twitter account @artiom_chi
+        \nhttps://twitter.com/artiom_chi
+        \n
+        \nVous pouvez aussi regarder le topic sur le forum xda-developers ici:
+        \nhttp://forum.xda-developers.com/showthread.php?t=1123363
+        \n
+        \nSi vous avez des questions, utilisez l\'option feedback dans les paramètres de l\'application, ou envoyer moi un mail à android@flexlabs.org
+        \n
+        \nMerci aux contributeurs pour les traductions:
+        \nFrançais: Ludovic MAILLET
+        \nEspagnol: Cristian Valero, STG (Spanish Translation Group)
+    </string>
+    <string name="report_detailrequest">Merci, d\’expliquer en quelques mots ce que vous faisiez quand l\'application a rencontré l\'erreur:</string>
+
+    <string name="battery_info_status_label">État de la batterie:</string>
+    <string name="battery_info_last_charged_label">Dernier chargement:</string>
+    <string name="battery_info_scale_label">Échelle de batterie:</string>
+    <string name="battery_info_level_label">Niveau de la batterie:</string>
+    <string name="battery_info_health_label">Santé de la batterie:</string>
+    <string name="battery_info_technology_label">Technologie de la batterie:</string>
+    <string name="battery_info_voltage_label">Voltage de la batterie:</string>
+    <string name="battery_info_voltage_units">mV</string>
+    <string name="battery_info_temperature_label">Température de la batterie:</string>
+    <string name="battery_info_temperature_units">\u00B0 C</string>
+    <string name="battery_info_uptime">Temps depuis le démarrage:</string>
+    <string name="battery_info_dock_status_label">État de la batterie du dock:</string>
+    <string name="battery_info_dock_level_label">Niveau de la batterie du dock</string>
+    <string name="battery_info_dock_last_connected_label">Dernière connexion au dock:</string>
+
+    <string name="battery_info_status_charging">En charge</string>
+    <string name="battery_info_status_charging_ac">(AC)</string>
+    <string name="battery_info_status_charging_usb">(USB)</string>
+    <string name="battery_info_status_discharging">En décharge</string>
+    <string name="battery_info_status_not_charging">Pas en charge</string>
+    <string name="battery_info_status_full">Plein</string>
+
+    <string name="battery_info_health_good">Bon</string>
+    <string name="battery_info_health_overheat">En surchauffe</string>
+    <string name="battery_info_health_dead">Morte</string>
+    <string name="battery_info_health_over_voltage">Surtension</string>
+    <string name="battery_info_health_unspecified_failure">Erreur inconnue</string>
+
+    <string name="battery_info_dock_status_charging">En charge</string>
+    <string name="battery_info_dock_status_discharging">En décharge</string>
+    <string name="battery_info_dock_status_docked">Docké</string>
+    <string name="battery_info_dock_status_undocked">Non Docké</string>
+</resources>

@@ -7,19 +7,15 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.*;
 import android.text.format.DateUtils;
-import android.util.TimeUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import org.flexlabs.widgets.dualbattery.BatteryApplication;
 import org.flexlabs.widgets.dualbattery.BatteryMonitorService;
 import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.R;
 
 import java.text.DateFormat;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by IntelliJ IDEA.
@@ -118,7 +114,7 @@ public class BatteryInfoFragment extends Fragment {
                 } else if (status == BatteryManager.BATTERY_STATUS_FULL) {
                     statusString = getString(R.string.battery_info_status_full);
                 } else {
-                    statusString = getString(R.string.battery_info_status_unknown);
+                    statusString = getString(R.string.unknown);
                 }
                 mStatus.setText(statusString);
 
@@ -135,7 +131,7 @@ public class BatteryInfoFragment extends Fragment {
                 } else if (health == BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE) {
                     healthString = getString(R.string.battery_info_health_unspecified_failure);
                 } else {
-                    healthString = getString(R.string.battery_info_health_unknown);
+                    healthString = getString(R.string.unknown);
                 }
                 mHealth.setText(healthString);
 
@@ -150,7 +146,7 @@ public class BatteryInfoFragment extends Fragment {
                 } else if (dockStatus == Constants.DOCK_STATE_DISCHARGING) {
                     dockStatusString = getString(R.string.battery_info_dock_status_discharging);
                 } else {
-                    dockStatusString = getString(R.string.battery_info_dock_status_unknown);
+                    dockStatusString = getString(R.string.unknown);
                 }
                 mDockStatus.setText(dockStatusString);
 
@@ -160,7 +156,7 @@ public class BatteryInfoFragment extends Fragment {
                 if (dockStatus >= Constants.DOCK_STATE_CHARGING) {
                     dockLastConnected = "--";
                 } else if (BatteryMonitorService.dockLastConnected == null) {
-                    dockLastConnected = getString(R.string.battery_info_dock_last_connected_unknown);
+                    dockLastConnected = getString(R.string.unknown);
                 } else {
                     dockLastConnected = DateFormat.getDateTimeInstance().format(BatteryMonitorService.dockLastConnected);
                 }
@@ -170,7 +166,7 @@ public class BatteryInfoFragment extends Fragment {
                 if (status == BatteryManager.BATTERY_STATUS_CHARGING) {
                     lastCharged = "--";
                 } else if (BatteryMonitorService.lastCharged == null) {
-                    lastCharged = getString(R.string.battery_info_dock_last_connected_unknown);
+                    lastCharged = getString(R.string.unknown);
                 } else {
                     lastCharged = DateFormat.getDateTimeInstance().format(BatteryMonitorService.lastCharged);
                 }

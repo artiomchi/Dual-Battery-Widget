@@ -18,8 +18,6 @@ import java.util.Date;
  * Time: 21:12
  */
 public class BatteryMonitorService extends Service {
-    private static final String SETTING_LAST_DOCK_VALUE = "LastDockStatus";
-    private boolean isRegistered = false;
 
     private static boolean isPopulated = false;
     public static Integer batteryTab;
@@ -88,8 +86,7 @@ public class BatteryMonitorService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-        isRegistered = true;
+        processBatteryIntent(registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED)));
         isPopulated = true;
     }
 
@@ -102,7 +99,6 @@ public class BatteryMonitorService extends Service {
     public void onDestroy() {
         super.onDestroy();
         unregisterReceiver(batteryReceiver);
-        isRegistered = false;
         isPopulated = false;
     }
 }
