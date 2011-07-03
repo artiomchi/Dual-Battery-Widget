@@ -8,6 +8,9 @@
     <string name="battery_main">Main</string>
     <string name="battery_dock">Dock</string>
 
+    <string name="showBatteryInfo">Show Battery Info</string>
+    <string name="showBatterySummary">Show Battery Summary</string>
+
     <string name="propHeader_BatteryInfo">Battery information</string>
     <string name="propHeader_Main">Widget properties</string>
     <string name="propHeader_Other">Other details</string>
@@ -20,16 +23,14 @@
     <string name="propTitle_Feedback">Send Feedback</string>
     <string name="propTitle_SendCrashReport">Send Crash Report</string>
     <string name="propTitle_SendCrashReport_summaryPrefix">Last modified: </string>
-    <string name="propTitle_BatteryInfo">Show Battery Info</string>
-    <string name="propTitle_BatteryInfo_summary">Show the Android Battery Info dialog</string>
     <string name="propTitle_MarketLink">View in Android Market</string>
     <string name="propTitle_Donate">Donate :)</string>
 
     <string name="prop_batterySelection">Battery to display</string>
     <string name="prop_alwaysShowDock">Always show dock battery</string>
     <string name="prop_alwaysShowDock_summary">
-        Show the dock battery gauge even when not docked \n
-        May be overridden by the previous setting
+        Show the dock battery gauge even when not docked
+        \nMay be overridden by the previous setting
     </string>
     <string name="prop_showNotDockedMsg">Show status when not docked</string>
     <string name="prop_showNotDockedMsg_summary">Show a message stating that the secondary battery is not connected when not docked</string>
@@ -41,11 +42,31 @@
     <string name="prop_margin_summary">Margin size is the same as the text size</string>
     <string name="prop_showLabel">Show battery label</string>
     <string name="prop_showLabel_summary">
-        Shows the battery label in the bottom margin. \n
-        Can be overruled if the battery status is displayed in the same place
+        Shows the battery label in the bottom margin.
+        \nCan be overruled if the battery status is displayed in the same place
     </string>
     <string name="prop_showDockHistory">Show old level</string>
     <string name="prop_showDockHistory_summary">Show the last recorded dock battery level when not docked</string>
+    <string name="prop_tempUnits">Temperature units</string>
+
+    <string name="prop_currentValue">Current value: </string>
+    <string name="sett_textPos_Invisible">Invisible</string>
+    <string name="sett_textPos_Above">Above</string>
+    <string name="sett_textPos_Top">Top</string>
+    <string name="sett_textPos_Middle">Middle</string>
+    <string name="sett_textPos_Bottom">Bottom</string>
+    <string name="sett_textPos_Below">Below</string>
+    <string name="sett_battSel_Both">Both</string>
+    <string name="sett_battSel_Main">Main battery only</string>
+    <string name="sett_battSel_Dock">Dock battery only</string>
+    <string name="sett_textColor_White">White</string>
+    <string name="sett_textColor_Black">Black</string>
+    <string name="sett_margin_None">None</string>
+    <string name="sett_margin_Top">Top</string>
+    <string name="sett_margin_Bottom">Bottom</string>
+    <string name="sett_margin_Both">Both</string>
+    <string name="sett_tempUnits_C">Celsius</string>
+    <string name="sett_tempUnits_F">Fahrenheit</string>
 
     <string name="about_full">
         The Dual Battery Widget was initially created for the Asus Eee Pad Transformer,
@@ -92,7 +113,8 @@
     <string name="battery_info_voltage_label">Battery voltage:</string>
     <string name="battery_info_voltage_units">mV</string>
     <string name="battery_info_temperature_label">Battery temperature:</string>
-    <string name="battery_info_temperature_units">\u00B0 C</string>
+    <string name="battery_info_temperature_units_c">\u00B0 C</string>
+    <string name="battery_info_temperature_units_f">\u00B0 F</string>
     <string name="battery_info_uptime">Time since boot:</string>
     <string name="battery_info_dock_status_label">Dock battery status:</string>
     <string name="battery_info_dock_level_label">Dock battery level:</string>

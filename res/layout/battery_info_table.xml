@@ -1,53 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent">
-    <TableRow>
-        <TextView style="@style/table_label" android:text="@string/battery_info_status_label" />
-        <TextView style="@style/table_value" android:id="@+id/status" />
-    </TableRow>
-    <TableRow>
-        <TextView style="@style/table_label" android:text="@string/battery_info_last_charged_label" />
-        <TextView style="@style/table_value" android:id="@+id/last_charged" />
-    </TableRow>
-    <TableRow>
-        <TextView style="@style/table_label" android:text="@string/battery_info_level_label" />
-        <TextView style="@style/table_value" android:id="@+id/level" />
-    </TableRow>
-    <TableRow>
-        <TextView style="@style/table_label" android:text="@string/battery_info_scale_label" />
-        <TextView style="@style/table_value" android:id="@+id/scale" />
-    </TableRow>
-    <TableRow>
-        <TextView style="@style/table_label" android:text="@string/battery_info_health_label" />
-        <TextView style="@style/table_value" android:id="@+id/health" />
-    </TableRow>
-    <TableRow>
-        <TextView style="@style/table_label" android:text="@string/battery_info_voltage_label" />
-        <TextView style="@style/table_value" android:id="@+id/voltage" />
-    </TableRow>
-    <TableRow>
-        <TextView style="@style/table_label" android:text="@string/battery_info_temperature_label" />
-        <TextView style="@style/table_value" android:id="@+id/temperature" />
-    </TableRow>
-    <TableRow>
-        <TextView style="@style/table_label" android:text="@string/battery_info_technology_label" />
-        <TextView style="@style/table_value" android:id="@+id/technology" />
-    </TableRow>
-    <TableRow>
-        <TextView style="@style/table_label" android:text="@string/battery_info_uptime" />
-        <TextView style="@style/table_value" android:id="@+id/uptime" />
-    </TableRow>
-    <TableRow>
-        <TextView style="@style/table_label" android:text="@string/battery_info_dock_status_label" />
-        <TextView style="@style/table_value" android:id="@+id/dock_status" />
-    </TableRow>
-    <TableRow>
-        <TextView style="@style/table_label" android:text="@string/battery_info_dock_level_label" />
-        <TextView style="@style/table_value" android:id="@+id/dock_level" />
-    </TableRow>
-    <TableRow>
-        <TextView style="@style/table_label" android:text="@string/battery_info_dock_last_connected_label" />
-        <TextView style="@style/table_value" android:id="@+id/dock_last_connected" />
-    </TableRow>
-</TableLayout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent" android:layout_height="fill_parent"
+              android:orientation="vertical">
+    <TableLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <TableRow>
+            <TextView style="@style/table_label" android:text="@string/battery_info_status_label" />
+            <TextView style="@style/table_value" android:id="@+id/status" />
+        </TableRow>
+        <TableRow>
+            <TextView style="@style/table_label" android:text="@string/battery_info_last_charged_label" />
+            <TextView style="@style/table_value" android:id="@+id/last_charged" />
+        </TableRow>
+        <TableRow>
+            <TextView style="@style/table_label" android:text="@string/battery_info_level_label" />
+            <TextView style="@style/table_value" android:id="@+id/level" />
+        </TableRow>
+        <TableRow>
+            <TextView style="@style/table_label" android:text="@string/battery_info_scale_label" />
+            <TextView style="@style/table_value" android:id="@+id/scale" />
+        </TableRow>
+        <TableRow>
+            <TextView style="@style/table_label" android:text="@string/battery_info_health_label" />
+            <TextView style="@style/table_value" android:id="@+id/health" />
+        </TableRow>
+        <TableRow>
+            <TextView style="@style/table_label" android:text="@string/battery_info_voltage_label" />
+            <TextView style="@style/table_value" android:id="@+id/voltage" />
+        </TableRow>
+        <TableRow>
+            <TextView style="@style/table_label" android:text="@string/battery_info_temperature_label" />
+            <TextView style="@style/table_value" android:id="@+id/temperature" />
+        </TableRow>
+        <TableRow>
+            <TextView style="@style/table_label" android:text="@string/battery_info_technology_label" />
+            <TextView style="@style/table_value" android:id="@+id/technology" />
+        </TableRow>
+        <TableRow>
+            <TextView style="@style/table_label" android:text="@string/battery_info_uptime" />
+            <TextView style="@style/table_value" android:id="@+id/uptime" />
+        </TableRow>
+        <TableRow>
+            <TextView style="@style/table_label" android:text="@string/battery_info_dock_status_label" />
+            <TextView style="@style/table_value" android:id="@+id/dock_status" />
+        </TableRow>
+        <TableRow>
+            <TextView style="@style/table_label" android:text="@string/battery_info_dock_level_label" />
+            <TextView style="@style/table_value" android:id="@+id/dock_level" />
+        </TableRow>
+        <TableRow>
+            <TextView style="@style/table_label" android:text="@string/battery_info_dock_last_connected_label" />
+            <TextView style="@style/table_value" android:id="@+id/dock_last_connected" />
+        </TableRow>
+    </TableLayout>
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:orientation="horizontal">
+        <Button android:id="@+id/batteryInfo" android:text="@string/showBatteryInfo"
+                android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1" />
+        <Button android:id="@+id/batterySummary" android:text="@string/showBatterySummary"
+                android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1" />
+    </LinearLayout>
+</LinearLayout>

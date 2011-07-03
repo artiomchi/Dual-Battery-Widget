@@ -4,6 +4,8 @@
     <string name="battery_main">Principal</string>
     <string name="battery_dock">Dock</string>
 
+    <string name="showBatteryInfo">Mostrar informacion de la bateria</string>
+
     <string name="propHeader_BatteryInfo">Informacion de la bateria</string>
     <string name="propHeader_Main">Propiedades del Widget</string>
     <string name="propHeader_Other">Otros detalles</string>
@@ -16,16 +18,14 @@
     <string name="propTitle_Feedback">Enviar comentario</string>
     <string name="propTitle_SendCrashReport">Enviar reporte</string>
     <string name="propTitle_SendCrashReport_summaryPrefix">Modificada por ultima vez: </string>
-    <string name="propTitle_BatteryInfo">Mostrar informacion de la bateria</string>
-    <string name="propTitle_BatteryInfo_summary">Show the Android Battery Info dialog</string>
     <string name="propTitle_MarketLink">Ver en el Android Market</string>
     <string name="propTitle_Donate">Donar :)</string>
 
     <string name="prop_batterySelection">Bateria para mostrar</string>
     <string name="prop_alwaysShowDock">Mostrar siempre la bateria del dock</string>
     <string name="prop_alwaysShowDock_summary">
-        Mostrar el indicador de bateria del dock, incluso cuando no esta acoplado el dock \n
-        Puede ser anulado por la configuracion anterior
+        Mostrar el indicador de bateria del dock, incluso cuando no esta acoplado el dock
+        \nPuede ser anulado por la configuracion anterior
     </string>
     <string name="prop_showNotDockedMsg">Mostrar el estado cuando no esta acoplado el dock</string>
     <string name="prop_showNotDockedMsg_summary">Mostrar un mensaje que indica que la bateria secundaria no esta conectada cuando no esta acoplado el dock</string>
@@ -37,8 +37,8 @@
     <string name="prop_margin_summary">El tamaño del margen es el mismo que el del texto</string>
     <string name="prop_showLabel">Mostrar la etiqueta de la bateria</string>
     <string name="prop_showLabel_summary">
-        Mostrar la estiqueta de la bateria en el margen inferior. \n
-        Puede ser anulada si el estado de la batería se muestra en el mismo lugar
+        Mostrar la estiqueta de la bateria en el margen inferior.
+        \nPuede ser anulada si el estado de la batería se muestra en el mismo lugar
     </string>
     <string name="prop_showDockHistory">Mostrar el ultimo nivel</string>
     <string name="prop_showDockHistory_summary">Muestra el ultimo nivel del dock cuando el dock esta desconectado</string>
@@ -79,16 +79,6 @@
     </string>
     <string name="report_detailrequest">Por favor, explica en unas pocas palabras que hacia usted cuando la aplicación se bloqueo:</string>
 
-    <string name="kernelAlert_title">¡Importante!</string>
-    <string name="kernelAlert_message">
-        Vaya, parece que esta ejecutando un kernel personalizado.
-        Por desgracia, hasta donde yo se, solo un pequeño numero de ellos en la actualidad pueden mostrar el estado de la bateria del dock. \n
-        Hasta que migren esta parte del kernel del kernel oficial de Asus, esta informacion no se podra obtener :( \n
-        \n
-        El widget seguira mostrando el nivel de la bateria principal, tambien hay alguna posibilidad de que muestre la del dock tambien...
-    </string>
-    <string name="kernelAlert_forgetIt">No mencionar de nuevo</string>
-
     <string name="battery_info_status_label">Estado de la bateria:</string>
     <string name="battery_info_last_charged_label">Ultima vez cargado:</string>
     <string name="battery_info_scale_label">Nivel de bateria:</string>
@@ -96,17 +86,13 @@
     <string name="battery_info_health_label">vida util de la bateria:</string>
     <string name="battery_info_technology_label">Tecnologia de la bateria:</string>
     <string name="battery_info_voltage_label">Voltaje de la bateria:</string>
-    <string name="battery_info_voltage_units">mV</string>
     <string name="battery_info_temperature_label">Temperatura de la bateria:</string>
-    <string name="battery_info_temperature_units">\u00B0 C</string>
     <string name="battery_info_uptime">Tiempo desde el inicio:</string>
     <string name="battery_info_dock_status_label">Estado de la bateria del dock:</string>
     <string name="battery_info_dock_level_label">Nivel de bateria del dock:</string>
     <string name="battery_info_dock_last_connected_label">Dock ultima vez conectado:</string>
 
     <string name="battery_info_status_charging">Cargando</string>
-    <string name="battery_info_status_charging_ac">(AC)</string>
-    <string name="battery_info_status_charging_usb">(USB)</string>
     <string name="battery_info_status_discharging">Descargando</string>
     <string name="battery_info_status_not_charging">Sin cargar</string>
     <string name="battery_info_status_full">Llena</string>

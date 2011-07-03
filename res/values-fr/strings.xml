@@ -4,6 +4,8 @@
     <string name="battery_main">Principale</string>
     <string name="battery_dock">Dock</string>
 
+    <string name="showBatteryInfo">Informations sur la batterie</string>
+
     <string name="propHeader_BatteryInfo">Information sur la batterie</string>
     <string name="propHeader_Main">Propriétés du widget</string>
     <string name="propHeader_Other">Autres détails</string>
@@ -16,16 +18,14 @@
     <string name="propTitle_Feedback">Commentaires</string>
     <string name="propTitle_SendCrashReport">Envoyer un rapport d\'erreur</string>
     <string name="propTitle_SendCrashReport_summaryPrefix">Dernière modification: </string>
-    <string name="propTitle_BatteryInfo">Informations sur la batterie</string>
-    <string name="propTitle_BatteryInfo_summary">Dialogue du systeme Android sur les information de la batterie</string>
     <string name="propTitle_MarketLink">Voir dans l\'Android Market</string>
     <string name="propTitle_Donate">Donation :)</string>
 
     <string name="prop_batterySelection">Batterie à afficher</string>
     <string name="prop_alwaysShowDock">Toujours montrer la batterie du dock</string>
     <string name="prop_alwaysShowDock_summary">
-        Montre l\'icone de la batterie du dock même si il n\'est pas connecté \n
-        Peut etre annulé par les réglages précédents
+        Montre l\'icone de la batterie du dock même si il n\'est pas connecté
+        \nPeut etre annulé par les réglages précédents
     </string>
     <string name="prop_showNotDockedMsg">Montrer le statut quand il n\'y à pas de dock</string>
     <string name="prop_showNotDockedMsg_summary">Afficher un message indiquant que la batterie secondaire n\'est pas connecté quand il n\'y a pas de dock</string>
@@ -37,8 +37,8 @@
     <string name="prop_margin_summary">La taille de la marge est la même que celle du texte</string>
     <string name="prop_showLabel">Afficher l\'étiquette</string>
     <string name="prop_showLabel_summary">
-        Affiche l\'étiquette de la batterie en dessous du widget. \n
-        Peut être annulée si l\'état de la batterie est affiché au même endroit
+        Affiche l\'étiquette de la batterie en dessous du widget.
+        \nPeut être annulée si l\'état de la batterie est affiché au même endroit
     </string>
     <string name="prop_showDockHistory">Montrer l\'ancien niveau</string>
     <string name="prop_showDockHistory_summary">Montre le dernier niveau enregistré de la batterie du Dock quand il n\'est plus connecté</string>
@@ -85,17 +85,13 @@
     <string name="battery_info_health_label">Santé de la batterie:</string>
     <string name="battery_info_technology_label">Technologie de la batterie:</string>
     <string name="battery_info_voltage_label">Voltage de la batterie:</string>
-    <string name="battery_info_voltage_units">mV</string>
     <string name="battery_info_temperature_label">Température de la batterie:</string>
-    <string name="battery_info_temperature_units">\u00B0 C</string>
     <string name="battery_info_uptime">Temps depuis le démarrage:</string>
     <string name="battery_info_dock_status_label">État de la batterie du dock:</string>
     <string name="battery_info_dock_level_label">Niveau de la batterie du dock</string>
     <string name="battery_info_dock_last_connected_label">Dernière connexion au dock:</string>
 
     <string name="battery_info_status_charging">En charge</string>
-    <string name="battery_info_status_charging_ac">(AC)</string>
-    <string name="battery_info_status_charging_usb">(USB)</string>
     <string name="battery_info_status_discharging">En décharge</string>
     <string name="battery_info_status_not_charging">Pas en charge</string>
     <string name="battery_info_status_full">Plein</string>

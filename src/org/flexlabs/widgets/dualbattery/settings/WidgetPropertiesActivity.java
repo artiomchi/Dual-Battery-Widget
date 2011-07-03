@@ -46,7 +46,7 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
     public static final int DIALOG_ABOUT = 0;
 
     public int appWidgetId;
-    public boolean widgetIsOld;
+    public boolean widgetIsOld, tempUnitsC;
 
     private void ensureIntentSettings() {
         Bundle extras = getIntent().getExtras();
@@ -70,7 +70,7 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
 
             File crashReport = new File(getFilesDir(), Constants.STACKTRACE_FILENAME);
             Preference pref = findPreference(KEY_REPORT);
-            if (crashReport == null || !crashReport.exists()) {
+            if (!crashReport.exists()) {
                 pref.setEnabled(false);
             } else {
                 pref.setSummary(
@@ -78,6 +78,10 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
                         new Date(crashReport.lastModified()).toString());
             }
         }
+
+        String tempUnitsStr = getSharedPreferences(Constants.SETTINGS_PREFIX + appWidgetId, MODE_PRIVATE)
+                .getString(Constants.SETTING_TEMP_UNITS, Constants.SETTING_TEMP_UNITS_DEFAULT);
+        tempUnitsC = Integer.valueOf(tempUnitsStr) != Constants.TEMP_UNIT_FAHRENHEIT;
     }
 
     @Override
@@ -117,13 +121,13 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
     protected void onStop() {
         super.onStop();
         sendBroadcast(new Intent(Constants.ACTION_SETTINGS_UPDATE));
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
+            finish();
     }
 
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-        if (onPreferenceClicked(preference.getKey()))
-            return true;
-        return super.onPreferenceTreeClick(preferenceScreen, preference);
+        return onPreferenceClicked(preference.getKey()) || super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
     public boolean onPreferenceClicked(String key) {
@@ -133,7 +137,7 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
         }
         if (KEY_REPORT.equals(key)) {
             File stacktrace = new File(getFilesDir(), Constants.STACKTRACE_FILENAME);
-            if (stacktrace != null && stacktrace.exists()) {
+            if (stacktrace.exists()) {
                 stacktrace.setReadable(true, false);
                 Intent intent = new Intent(Intent.ACTION_SEND, Uri.parse("mailto:"));
                 intent.putExtra(Intent.EXTRA_EMAIL, new String[] { Constants.FeedbackDestination });

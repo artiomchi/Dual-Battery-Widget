@@ -19,5 +19,9 @@
         <CheckBoxPreference android:key="showBatteryLabel"
                             android:title="@string/prop_showLabel" android:summary="@string/prop_showLabel_summary"
                             android:defaultValue="false" />
+        <ListPreference android:key="tempUnits"
+                        android:title="@string/prop_tempUnits"
+                        android:entries="@array/tempUnits_labels" android:entryValues="@array/tempUnits_values"
+                        android:defaultValue="0" />
     </PreferenceCategory>
 </PreferenceScreen>

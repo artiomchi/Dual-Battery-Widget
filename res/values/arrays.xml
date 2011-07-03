@@ -8,12 +8,12 @@
         <item>5</item>
     </string-array>
     <string-array name="textPosition_labels">
-        <item>Invisible</item>
-        <item>Above</item>
-        <item>Top</item>
-        <item>Middle</item>
-        <item>Bottom</item>
-        <item>Below</item>
+        <item>@string/sett_textPos_Invisible</item>
+        <item>@string/sett_textPos_Above</item>
+        <item>@string/sett_textPos_Top</item>
+        <item>@string/sett_textPos_Middle</item>
+        <item>@string/sett_textPos_Bottom</item>
+        <item>@string/sett_textPos_Below</item>
     </string-array>
     <string-array name="batterySelection_values">
         <item>3</item>
@@ -21,17 +21,17 @@
         <item>2</item>
     </string-array>
     <string-array name="batterySelection_labels">
-        <item>Both</item>
-        <item>Main battery only</item>
-        <item>Second battery only</item>
+        <item>@string/sett_battSel_Both</item>
+        <item>@string/sett_battSel_Main</item>
+        <item>@string/sett_battSel_Dock</item>
     </string-array>
     <string-array name="textColor_values">
         <item>0</item>
         <item>1</item>
     </string-array>
     <string-array name="textColor_labels">
-        <item>White</item>
-        <item>Black</item>
+        <item>@string/sett_textColor_White</item>
+        <item>@string/sett_textColor_Black</item>
     </string-array>
     <string-array name="margin_values">
         <item>0</item>
@@ -40,9 +40,17 @@
         <item>3</item>
     </string-array>
     <string-array name="margin_labels">
-        <item>None</item>
-        <item>Top</item>
-        <item>Bottom</item>
-        <item>Both</item>
+        <item>@string/sett_margin_None</item>
+        <item>@string/sett_margin_Top</item>
+        <item>@string/sett_margin_Bottom</item>
+        <item>@string/sett_margin_Both</item>
+    </string-array>
+    <string-array name="tempUnits_values">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+    <string-array name="tempUnits_labels">
+        <item>@string/sett_tempUnits_C</item>
+        <item>@string/sett_tempUnits_F</item>
     </string-array>
 </resources>

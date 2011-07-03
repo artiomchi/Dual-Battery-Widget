@@ -11,6 +11,8 @@ import org.flexlabs.widgets.dualbattery.settings.WidgetPropertiesActivity;
  * User: Artiom Chilaru
  * Date: 17/06/11
  * Time: 00:23
+ * This activity is here for widget_info.xml
+ * When the activity is "dropped" by pressing the home button, we still want the widget to be added!
  */
 public class DummyConfigurationActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {

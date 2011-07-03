@@ -53,6 +53,7 @@ public class BatteryInfoFragment extends Fragment {
     private TextView mDockLevel;
     private TextView mDockLastConnected;
     private TextView mLastCharged;
+    private boolean tempUnitsC;
 
     private static final int EVENT_TICK = 1;
 
@@ -72,9 +73,9 @@ public class BatteryInfoFragment extends Fragment {
      * Format a number of tenths-units as a decimal string without using a
      * conversion to float.  E.g. 347 -> "34.7"
      */
-    private final String tenthsToFixedString(int x) {
+    private String tenthsToFixedString(int x) {
         int tens = x / 10;
-        return new String("" + tens + "." + (x - 10*tens));
+        return "" + tens + "." + (x - 10 * tens);
     }
 
    /**
@@ -93,8 +94,13 @@ public class BatteryInfoFragment extends Fragment {
                 mScale.setText("" + intent.getIntExtra("scale", 0));
                 mVoltage.setText("" + intent.getIntExtra("voltage", 0) + " "
                         + getString(R.string.battery_info_voltage_units));
-                mTemperature.setText("" + tenthsToFixedString(intent.getIntExtra("temperature", 0))
-                        + getString(R.string.battery_info_temperature_units));
+                int tempVal = intent.getIntExtra("temperature", 0);
+                if (!tempUnitsC)
+                    tempVal = tempVal * 9 / 5 + 320;
+                mTemperature.setText("" + tenthsToFixedString(tempVal)
+                        + getString(tempUnitsC
+                            ? R.string.battery_info_temperature_units_c
+                            : R.string.battery_info_temperature_units_f));
                 mTechnology.setText("" + intent.getStringExtra("technology"));
 
                 int status = intent.getIntExtra("status", BatteryManager.BATTERY_STATUS_UNKNOWN);
@@ -178,6 +184,7 @@ public class BatteryInfoFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        tempUnitsC = ((WidgetPropertiesActivity)getActivity()).tempUnitsC;
         mHandler.sendEmptyMessageDelayed(EVENT_TICK, 1000);
 
         getActivity().registerReceiver(mIntentReceiver, mIntentFilter);
@@ -199,10 +206,30 @@ public class BatteryInfoFragment extends Fragment {
         mDockLastConnected = (TextView) view.findViewById(R.id.dock_last_connected);
         mLastCharged = (TextView) view.findViewById(R.id.last_charged);
 
+        view.findViewById(R.id.batteryInfo).setOnClickListener(batteryInfoListener);
+        view.findViewById(R.id.batterySummary).setOnClickListener(batterySummaryListener);
+
         mIntentFilter = new IntentFilter();
         mIntentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);
         return view;
     }
+
+    private final View.OnClickListener batteryInfoListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent i = new Intent(Intent.ACTION_MAIN);
+            i.setClassName("com.android.settings", "com.android.settings.BatteryInfo");
+            startActivity(i);
+        }
+    };
+
+    private final View.OnClickListener batterySummaryListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent i = new Intent("android.intent.action.POWER_USAGE_SUMMARY");
+            startActivity(i);
+        }
+    };
 
     @Override
     public void onPause() {

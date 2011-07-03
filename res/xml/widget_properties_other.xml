@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="@string/propTitle_Other">
-        <Preference android:title="@string/propTitle_BatteryInfo" android:summary="@string/propTitle_BatteryInfo_summary">
-            <intent android:action="android.intent.action.MAIN"
-                    android:targetPackage="com.android.settings"
-                    android:targetClass="com.android.settings.BatteryInfo" />
-        </Preference>
         <Preference android:key="feedback" android:title="@string/propTitle_Feedback" />
         <Preference android:key="crashReport" android:title="@string/propTitle_SendCrashReport" />
         <Preference android:title="@string/propTitle_MarketLink">
