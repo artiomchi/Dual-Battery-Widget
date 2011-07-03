@@ -19,6 +19,14 @@ This is because Asus extended their Android kernel build to send extra informati
 dock battery along with battery status notifications. Unless this change has been merged in the custom kernel,
 it will not be sending these notifications  
 
+**Update 2011-07-03: v0.7.6**  
+[!] Rare service crash fixed  
+[!] Settings dialog will always attach to the right widget  
+[-] Removed the kernel alert dialog  
+[+] Spanish and French translations added (missing a few phrases atm)  
+[+] Settings window shows current values now  
+[+] Buttons to system battery info and summary windows!  
+
 **Update 2011-06-27: v0.7.5.1**  
 [!] Fixed a couple service crash bugs  
 [!] Fixed the About dialog  
