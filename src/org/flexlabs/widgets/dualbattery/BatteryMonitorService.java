@@ -61,16 +61,20 @@ public class BatteryMonitorService extends Service {
     }
 
     public static boolean isDockConnected(Context context) {
-        if (!isPopulated) {
-            processBatteryIntent(context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED)));
-        }
+        try {
+            if (!isPopulated) {
+                processBatteryIntent(context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED)));
+            }
+        } catch (Exception ignored) { }
         return dockStatus >= Constants.DOCK_STATE_CHARGING;
     }
 
     public static boolean isDockSupported(Context context) {
-        if (!isPopulated) {
-            processBatteryIntent(context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED)));
-        }
+        try {
+            if (!isPopulated) {
+                processBatteryIntent(context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED)));
+            }
+        } catch (Exception ignored) { }
         return dockStatus != Constants.DOCK_STATE_UNKNOWN;
     }
 
