@@ -5,12 +5,23 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
+import android.graphics.Color;
 import android.os.*;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import org.achartengine.ChartFactory;
+import org.achartengine.GraphicalView;
+import org.achartengine.model.XYMultipleSeriesDataset;
+import org.achartengine.model.XYSeries;
+import org.achartengine.renderer.DefaultRenderer;
+import org.achartengine.renderer.XYMultipleSeriesRenderer;
+import org.achartengine.renderer.XYSeriesRenderer;
+import org.flexlabs.widgets.dualbattery.BatteryLevelAdapter;
 import org.flexlabs.widgets.dualbattery.BatteryMonitorService;
 import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.R;
@@ -54,6 +65,13 @@ public class BatteryInfoFragment extends Fragment {
     private TextView mDockLastConnected;
     private TextView mLastCharged;
     private boolean tempUnitsC;
+
+    private XYMultipleSeriesDataset mDataset = new XYMultipleSeriesDataset();
+    private XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
+    private XYSeries mMainSeries, mDockSeries;
+    private XYSeriesRenderer mMainRenderer, mDockRenderer;
+    private GraphicalView mChartView;
+    private LinearLayout mChartContainer;
 
     private static final int EVENT_TICK = 1;
 
@@ -188,6 +206,14 @@ public class BatteryInfoFragment extends Fragment {
         mHandler.sendEmptyMessageDelayed(EVENT_TICK, 1000);
 
         getActivity().registerReceiver(mIntentReceiver, mIntentFilter);
+
+        if (mChartView == null) {
+            mChartView = ChartFactory.getTimeChartView(getActivity(), mDataset, mRenderer, null);
+            mChartContainer.addView(mChartView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
+                  ViewGroup.LayoutParams.FILL_PARENT));
+        } else {
+            mChartView.repaint();
+        }
     }
 
     @Override
@@ -205,12 +231,58 @@ public class BatteryInfoFragment extends Fragment {
         mDockLevel = (TextView) view.findViewById(R.id.dock_level);
         mDockLastConnected = (TextView) view.findViewById(R.id.dock_last_connected);
         mLastCharged = (TextView) view.findViewById(R.id.last_charged);
+        mChartContainer = (LinearLayout) view.findViewById(R.id.chart);
 
         view.findViewById(R.id.batteryInfo).setOnClickListener(batteryInfoListener);
         view.findViewById(R.id.batterySummary).setOnClickListener(batterySummaryListener);
 
         mIntentFilter = new IntentFilter();
         mIntentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);
+
+        mRenderer.setAxisTitleTextSize(16);
+        mRenderer.setChartTitleTextSize(20);
+        mRenderer.setLabelsTextSize(15);
+        mRenderer.setLegendTextSize(15);
+        mRenderer.setMargins(new int[]{20, 30, 15, 0});
+        mRenderer.setYAxisMin(0);
+        mRenderer.setYAxisMax(100);
+        mRenderer.setPanEnabled(true, false);
+        mRenderer.setZoomEnabled(true, false);
+        mRenderer.setShowGrid(true);
+        mRenderer.setZoomButtonsVisible(false);
+
+        mMainSeries = new XYSeries(getString(R.string.battery_main));
+        mDataset.addSeries(mMainSeries);
+        mMainRenderer = new XYSeriesRenderer();
+        mMainRenderer.setColor(Color.GREEN);
+        mRenderer.addSeriesRenderer(mMainRenderer);
+
+        mDockSeries = new XYSeries(getString(R.string.battery_dock));
+        mDataset.addSeries(mDockSeries);
+        mDockRenderer = new XYSeriesRenderer();
+        mDockRenderer.setColor(Color.CYAN);
+        mRenderer.addSeriesRenderer(mDockRenderer);
+
+        BatteryLevelAdapter adapter = new BatteryLevelAdapter(getActivity());
+        adapter.open();
+        Cursor c = adapter.getAllEntries();
+
+        if (c.moveToFirst())
+            do {
+                long time = c.getLong(BatteryLevelAdapter.ORD_TIME);
+                int level = c.getInt(BatteryLevelAdapter.ORD_LEVEL);
+                int dock_status = c.getInt(BatteryLevelAdapter.ORD_DOCK_STATUS);
+                int dock_level = c.getInt(BatteryLevelAdapter.ORD_DOCK_LEVEL);
+
+                mMainSeries.add(time, level);
+                if (dock_status > 1)
+                    mDockSeries.add(time, dock_level);
+
+            } while (c.moveToNext());
+
+        if (mChartView != null)
+            mChartView.repaint();
+
         return view;
     }
 

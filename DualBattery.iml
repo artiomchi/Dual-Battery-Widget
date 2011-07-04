@@ -30,6 +30,7 @@
     </content>
     <orderEntry type="jdk" jdkName="Android 3.1 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="AChartEngine" />
   </component>
 </module>
 

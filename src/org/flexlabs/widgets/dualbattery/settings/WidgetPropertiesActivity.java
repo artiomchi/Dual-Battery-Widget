@@ -62,6 +62,9 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
             getPreferenceManager().setSharedPreferencesName(Constants.SETTINGS_PREFIX + appWidgetId);
+            if (widgetIsOld) {
+                addPreferencesFromResource(R.xml.widget_properties_battery_links);
+            }
             addPreferencesFromResource(R.xml.widget_properties_general);
             if (BatteryMonitorService.isDockSupported(this)) {
                 addPreferencesFromResource(R.xml.widget_properties_dock);

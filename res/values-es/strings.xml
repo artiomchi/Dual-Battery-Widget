@@ -5,6 +5,7 @@
     <string name="battery_dock">Dock</string>
 
     <string name="showBatteryInfo">Mostrar informacion de la bateria</string>
+    <string name="showBatterySummary">Mostrar resumen de la bateria</string>
 
     <string name="propHeader_BatteryInfo">Informacion de la bateria</string>
     <string name="propHeader_Main">Propiedades del Widget</string>
@@ -43,6 +44,25 @@
     <string name="prop_showDockHistory">Mostrar el ultimo nivel</string>
     <string name="prop_showDockHistory_summary">Muestra el ultimo nivel del dock cuando el dock esta desconectado</string>
 
+    <string name="prop_currentValue">Valor actual: </string>
+    <string name="sett_textPos_Invisible">Invisible</string>
+    <string name="sett_textPos_Above">Arriba</string>
+    <string name="sett_textPos_Top">Superior</string>
+    <string name="sett_textPos_Middle">Centro</string>
+    <string name="sett_textPos_Bottom">Fondo</string>
+    <string name="sett_textPos_Below">Debajo</string>
+    <string name="sett_battSel_Both">Ambos</string>
+    <string name="sett_battSel_Main">Solo la bateria principal</string>
+    <string name="sett_battSel_Dock">Solo la bateria del Dock</string>
+    <string name="sett_textColor_White">Blanco</string>
+    <string name="sett_textColor_Black">Negro</string>
+    <string name="sett_margin_None">Ninguno</string>
+    <string name="sett_margin_Top">Superior</string>
+    <string name="sett_margin_Bottom">Fondo</string>
+    <string name="sett_margin_Both">Ambos</string>
+    <string name="sett_tempUnits_C">Celsius</string>
+    <string name="sett_tempUnits_F">Fahrenheit</string>
+
     <string name="about_full">
         Dual Battery Widget fue inicialmente creado para el Asus Eee Pad Transformer,
         un dispositivo que tiene una segunda batería en la base del teclado. Por desgracia, el estandar de herramientas para Android
@@ -76,6 +96,7 @@
         \nMuchas gracias a los siguientes contribuyentes por la traduccion:
         \nFrances: Ludovic MAILLET
         \nEspañol: Cristian Valero, STG (Spanish Translation Group)
+        \nJaponés: Ryunosuke Tanaka
     </string>
     <string name="report_detailrequest">Por favor, explica en unas pocas palabras que hacia usted cuando la aplicación se bloqueo:</string>
 

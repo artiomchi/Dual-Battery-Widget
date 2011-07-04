@@ -5,6 +5,7 @@
     <string name="battery_dock">Dock</string>
 
     <string name="showBatteryInfo">Informations sur la batterie</string>
+    <string name="showBatterySummary">Résumé de la batterie</string>
 
     <string name="propHeader_BatteryInfo">Information sur la batterie</string>
     <string name="propHeader_Main">Propriétés du widget</string>
@@ -43,6 +44,25 @@
     <string name="prop_showDockHistory">Montrer l\'ancien niveau</string>
     <string name="prop_showDockHistory_summary">Montre le dernier niveau enregistré de la batterie du Dock quand il n\'est plus connecté</string>
 
+    <string name="prop_currentValue">Valeure actuelle: </string>
+    <string name="sett_textPos_Invisible">Invisible</string>
+    <string name="sett_textPos_Above">Au dessus</string>
+    <string name="sett_textPos_Top">Haut</string>
+    <string name="sett_textPos_Middle">Milieu</string>
+    <string name="sett_textPos_Bottom">Bas</string>
+    <string name="sett_textPos_Below">En dessous</string>
+    <string name="sett_battSel_Both">Les deux</string>
+    <string name="sett_battSel_Main">Batterie principale seulement</string>
+    <string name="sett_battSel_Dock">Batterie du dock seulement</string>
+    <string name="sett_textColor_White">Blanc</string>
+    <string name="sett_textColor_Black">Noir</string>
+    <string name="sett_margin_None">Aucune</string>
+    <string name="sett_margin_Top">Haut</string>
+    <string name="sett_margin_Bottom">Bas</string>
+    <string name="sett_margin_Both">Les deux</string>
+    <string name="sett_tempUnits_C">Celsius</string>
+    <string name="sett_tempUnits_F">Fahrenheit</string>
+
     <string name="about_full">
         Le widget Dual Battery à été initialement créé pour l\'Asus Eee Pad Transformer,
         un appareil ayant une deuxiéme batterie dans sa station d\'accueil. Malheureusement, l\'outil standard d\'Android
@@ -75,6 +95,7 @@
         \nMerci aux contributeurs pour les traductions:
         \nFrançais: Ludovic MAILLET
         \nEspagnol: Cristian Valero, STG (Spanish Translation Group)
+        \nJaponais: Ryunosuke Tanaka
     </string>
     <string name="report_detailrequest">Merci, d\’expliquer en quelques mots ce que vous faisiez quand l\'application a rencontré l\'erreur:</string>
 

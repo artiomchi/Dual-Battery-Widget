@@ -170,6 +170,7 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../../../../../Android/achartengine/AChartEngine.iml" filepath="$PROJECT_DIR$/../../../../../Android/achartengine/AChartEngine.iml" />
       <module fileurl="file://$PROJECT_DIR$/DualBattery.iml" filepath="$PROJECT_DIR$/DualBattery.iml" />
     </modules>
   </component>
@@ -179,8 +180,22 @@
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" assert-keyword="true" jdk-15="true" project-jdk-name="1.6" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
+  <component name="SvnBranchConfigurationManager">
+    <option name="mySupportsUserInfoFilter" value="true" />
+  </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../../../../Android/achartengine" vcs="svn" />
+  </component>
+  <component name="libraryTable">
+    <library name="achartengine">
+      <CLASSES />
+      <JAVADOC />
+      <SOURCES>
+        <root url="file://$PROJECT_DIR$/../../../../../Android/achartengine/demo" />
+        <root url="file://$PROJECT_DIR$/../../../../../Android/achartengine/src" />
+      </SOURCES>
+    </library>
   </component>
 </project>
 
