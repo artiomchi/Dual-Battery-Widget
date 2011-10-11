@@ -110,8 +110,12 @@ public class BatteryInfoFragment extends Fragment {
 
                 mLevel.setText("" + intent.getIntExtra("level", 0));
                 mScale.setText("" + intent.getIntExtra("scale", 0));
-                mVoltage.setText("" + intent.getIntExtra("voltage", 0) + " "
-                        + getString(R.string.battery_info_voltage_units));
+                int voltage = intent.getIntExtra("voltage", 0);
+                int voltageRes = voltage > 1000
+                        ? R.string.battery_info_voltage_units_mV
+                        : R.string.battery_info_voltage_units_V;
+                mVoltage.setText("" + voltage + " "
+                        + getString(voltageRes));
                 int tempVal = intent.getIntExtra("temperature", 0);
                 if (!tempUnitsC)
                     tempVal = tempVal * 9 / 5 + 320;
@@ -265,7 +269,7 @@ public class BatteryInfoFragment extends Fragment {
 
         BatteryLevelAdapter adapter = new BatteryLevelAdapter(getActivity());
         adapter.open();
-        Cursor c = adapter.getAllEntries();
+        Cursor c = adapter.getRecentEntries();
 
         if (c.moveToFirst())
             do {

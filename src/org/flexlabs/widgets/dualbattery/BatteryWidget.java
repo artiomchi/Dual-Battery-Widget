@@ -19,6 +19,7 @@ import java.io.File;
  * Time: 20:13
  */
 public class BatteryWidget extends AppWidgetProvider {
+    public static final String LOG = "FlexLabs";
     @Override
     public void onEnabled(Context context) {
         super.onEnabled(context);
@@ -88,7 +89,7 @@ public class BatteryWidget extends AppWidgetProvider {
         context.startService(new Intent(context, BatteryMonitorService.class));
 
         final int n = appWidgetIds.length;
-        Log.d("FlexLabs", "Widget count: " + appWidgetIds.length);
+        Log.d(LOG, "Widget count: " + appWidgetIds.length);
         for (int i = 0; i < n; i++) {
             int widgetId = appWidgetIds[i];
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);

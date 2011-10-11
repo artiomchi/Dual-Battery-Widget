@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Dual Battery Widget</string>
     <string name="widget_name">Dual Battery Widget</string>
+    <string name="widget_name_2x2">Dual Battery Widget 2x2</string>
+    <string name="widget_name_3x4">Dual Battery Widget 3x4</string>
     <string name="link_market">https://market.android.com/details?id=org.flexlabs.widgets.dualbattery</string>
 
     <string name="undocked">Not docked</string>
@@ -111,7 +113,8 @@
     <string name="battery_info_health_label">Battery health:</string>
     <string name="battery_info_technology_label">Battery technology:</string>
     <string name="battery_info_voltage_label">Battery voltage:</string>
-    <string name="battery_info_voltage_units">mV</string>
+    <string name="battery_info_voltage_units_mV">mV</string>
+    <string name="battery_info_voltage_units_V">V</string>
     <string name="battery_info_temperature_label">Battery temperature:</string>
     <string name="battery_info_temperature_units_c">\u00B0 C</string>
     <string name="battery_info_temperature_units_f">\u00B0 F</string>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="undocked">Non doké</string>
+    <string name="undocked">Non docké</string>
     <string name="unknown">Inconnu</string>
     <string name="battery_main">Principale</string>
     <string name="battery_dock">Dock</string>

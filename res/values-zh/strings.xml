@@ -1,6 +1,8 @@
 ﻿<resources>
     <string name="app_name">备用电池计量插件</string>
     <string name="widget_name">备用电池计量插件</string>
+    <string name="widget_name_2x2">备用电池计量插件 2x2</string>
+    <string name="widget_name_3x4">备用电池计量插件 3x4</string>
     <string name="link_market">https://market.android.com/details?id=org.flexlabs.widgets.dualbattery</string>
 
     <string name="undocked">不停靠</string>
@@ -99,7 +101,8 @@
     <string name="battery_info_health_label">电池健康度:</string>
     <string name="battery_info_technology_label">电池技术:</string>
     <string name="battery_info_voltage_label">电池电压:</string>
-    <string name="battery_info_voltage_units">毫伏</string>
+    <string name="battery_info_voltage_units_mV">毫伏</string>
+    <string name="battery_info_voltage_units_V">伏特</string>
     <string name="battery_info_temperature_label">电池温度:</string>
     <string name="battery_info_temperature_units_c">\u00B0 C</string>
     <string name="battery_info_temperature_units_f">\u00B0 F</string>

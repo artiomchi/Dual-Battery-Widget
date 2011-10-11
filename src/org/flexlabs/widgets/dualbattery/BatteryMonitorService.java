@@ -43,6 +43,7 @@ public class BatteryMonitorService extends Service {
             if (screenOff)
                 newData = true;
             screenOff = false;
+            processBatteryIntent(context, context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED)));
 
         } else if (Intent.ACTION_BATTERY_CHANGED.equals(intent.getAction())) {
             Bundle extras = intent.getExtras();
@@ -121,6 +122,8 @@ public class BatteryMonitorService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_SCREEN_ON));
+        registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_SCREEN_OFF));
         processBatteryIntent(this, registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED)));
         isPopulated = true;
     }

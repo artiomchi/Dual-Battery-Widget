@@ -12,12 +12,12 @@ You can install it from the android market here: https://market.android.com/deta
 appear in the widget list after installation. To refresh the widget list, you should either restart your device, 
 or restart the launcher app (Settings -> Applications -> Manage applications -> All -> Launcher -> Force stop)
 
-**Note:** *If you use a custom rom*, there is a high chance that this widget will not be able to identify
-the dock status, or even register that your device supports it at all.. This is a restriction of most custom
-kernels at this moment, not of this application.  
-This is because Asus extended their Android kernel build to send extra information about the dock and the
-dock battery along with battery status notifications. Unless this change has been merged in the custom kernel,
-it will not be sending these notifications  
+**Update 2011-10-10: v0.8**  
+[!] Sometimes the dock wasn't identified after a long sleep cycle  
+[!] Battery chart will only load the last 7 days of history by default  
+[!] Battery voltage reported incorrectly  
+[+] Added Chinese and German translations  
+[+] Added multiple widget sizes for non HC devices  
 
 **Update 2011-07-04: v0.7.7**  
 [+] Added japanese translation  

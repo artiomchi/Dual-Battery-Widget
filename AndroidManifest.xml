@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="org.flexlabs.widgets.dualbattery"
+          android:installLocation="internalOnly"
           android:versionCode="16"
           android:versionName="0.7.7">
     <uses-sdk android:targetSdkVersion="11" android:minSdkVersion="4" />
@@ -15,6 +16,26 @@
                 <action android:name="org.flexlabs.action.dualbattery.SETTINGS_UPDATED" />
             </intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_info" />
+        </receiver>
+        <receiver android:name=".BatteryWidget2x2" android:label="@string/widget_name_2x2" android:enabled="@bool/beforeHoneycomb">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="org.flexlabs.action.BATTERY_UPDATED" />
+                <action android:name="org.flexlabs.action.dualbattery.SETTINGS_UPDATED" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_info_2x2" />
+        </receiver>
+        <receiver android:name=".BatteryWidget3x4" android:label="@string/widget_name_3x4" android:enabled="@bool/beforeHoneycomb">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="org.flexlabs.action.BATTERY_UPDATED" />
+                <action android:name="org.flexlabs.action.dualbattery.SETTINGS_UPDATED" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_info_3x4" />
         </receiver>
         <activity android:name=".DummyConfigurationActivity" android:excludeFromRecents="true"
                   android:label="Widget Configuration">

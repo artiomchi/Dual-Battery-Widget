@@ -57,7 +57,7 @@
     <string name="sett_textPos_Bottom">Unten</string>
     <string name="sett_textPos_Below">Darunter</string>
     <string name="sett_battSel_Both">Beides</string>
-    <string name="sett_battSel_Main">Nur den internen Akku/string>
+    <string name="sett_battSel_Main">Nur den internen Akku</string>
     <string name="sett_battSel_Dock">Nur den Dock-Akku</string>
     <string name="sett_textColor_White">Weiß</string>
     <string name="sett_textColor_Black">Schwarz</string>
@@ -112,7 +112,6 @@
     <string name="battery_info_health_label">Gesundheitszustand des Akkus:</string>
     <string name="battery_info_technology_label">Akku-Art:</string>
     <string name="battery_info_voltage_label">Akkuspannung:</string>
-    <string name="battery_info_voltage_units">mV</string>
     <string name="battery_info_temperature_label">Akkutemperatur:</string>
     <string name="battery_info_temperature_units_c">\u00B0 C</string>
     <string name="battery_info_temperature_units_f">\u00B0 F</string>
