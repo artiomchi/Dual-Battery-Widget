@@ -29,7 +29,11 @@ public class BatteryWidget extends AppWidgetProvider {
     @Override
     public void onDisabled(Context context) {
         super.onDisabled(context);
-        context.stopService(new Intent(context, BatteryMonitorService.class));
+        AppWidgetManager widgetManager = AppWidgetManager.getInstance(context);
+        if (widgetManager.getAppWidgetIds(new ComponentName(context, BatteryWidget.class)).length == 0 &&
+            widgetManager.getAppWidgetIds(new ComponentName(context, BatteryWidget2x2.class)).length == 0 &&
+            widgetManager.getAppWidgetIds(new ComponentName(context, BatteryWidget3x4.class)).length == 0)
+                context.stopService(new Intent(context, BatteryMonitorService.class));
     }
 
     @Override
