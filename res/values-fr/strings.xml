@@ -74,13 +74,6 @@
         qu\'il n\'y à aucun logiciel espion ou malware sur ce logiciel, et il sera plus facile d\'obtenir des mises à jour gratuites vers les dernières versions
         dés qu\'elles sont publiées!
         \n
-        \n<b>Note:</b> <u>Si vous utilisez une rom custom</u>, il y a une forte chance pour que le widget ne soit pas capable d\'identifier
-        le statut du dock, et même de voir que votre appareil supporte un dock. C\'est une restriction de la plupart des kernels customisés
-        pour le moment, pas de l\'application.
-        \nC\'est parce que Asus a étendu les possibilités du kernel Android pour envoyer des informations supplémentaires à propos du dock et de
-        la batterie du dock. À moins que ce changement n\’ait été implémenté dans le noyau personnalisé,
-        il n\'enverra pas ces informations à l\'application
-        \n
         \nVous pouvez installer le widget depuis le Market ici:
         https://market.android.com/details?id=org.flexlabs.widgets.dualbattery
         \n

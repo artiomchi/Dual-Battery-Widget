@@ -12,6 +12,9 @@ You can install it from the android market here: https://market.android.com/deta
 appear in the widget list after installation. To refresh the widget list, you should either restart your device, 
 or restart the launcher app (Settings -> Applications -> Manage applications -> All -> Launcher -> Force stop)
 
+**Update **  
+[+] Added Chinese Traditional and Simplified, Italian translations  
+
 **Update 2011-10-10: v0.8**  
 [!] Sometimes the dock wasn't identified after a long sleep cycle  
 [!] Battery chart will only load the last 7 days of history by default  

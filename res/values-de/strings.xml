@@ -80,13 +80,6 @@
         kannst du dir auch sicher sein, dass das Widget nicht Malware-verseucht ist. Als Bonus erhälst du alle kostenlosen Updates, sobald diese
         veröffentlicht werden!
         \n
-        \n<b>Wichtiger Hinweis:</b> <u>Wenn du ein Custom Rom verwendest</u>, wird das Widget mit einer hohen Wahrscheinlichkeit Probleme mit der Erkennung
-        des Dock-Status haben. Weiterhin ist es gar möglich, dass das Widget die Fähigkeit deines Tablets (sich mit einem Dock mit einem zusätzlichen Akku verbinden zu können) überhaupt nicht erkennt.
-        Dies ist eine Einschränkung von nahezu allen aktuellen Kerneln der Custom Roms und hat rein gar nichts mit dieser Anwendung zu tun.
-        \nAsus hingegen hat den eigenen Android-Kernel mit einer Erweiterung versehen, die zusätzliche Informationen über das Dock, den externen Akku
-        und Status-Updates heraus gibt. Bevor diese proprietäre Änderung von Asus nicht in den Custom-Kernel Einzug hält,
-        kann das Widget auch keine Informatonen zum Zweitakku erhalten.
-        \n
         \nDu kannst das Widget übrigens von folgender Market-URL beziehen:
         https://market.android.com/details?id=org.flexlabs.widgets.dualbattery
         \n

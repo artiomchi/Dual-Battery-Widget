@@ -178,7 +178,17 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
         String allKeys = TextUtils.join(", ", extras.keySet());
         sb.append("<br />\n<b>Battery intent keys:</b> ").append(allKeys);
         sb.append("<br />\n<b>Is Dock supported:</b> ").append(BatteryMonitorService.isDockSupported(this));
-        sb.append("<br />\n<b>Battery dock status</b> ").append(extras.get("dock_status"));
+        int dockStatus = extras.getInt("dock_status", -1);
+        String dockStatusStr = "";
+        switch (dockStatus) {
+            case 0: dockStatusStr = " (Unknown)"; break;
+            case 1: dockStatusStr = " (Undocked)"; break;
+            case 2: dockStatusStr = " (Charging)"; break;
+            case 3: dockStatusStr = " (Docked)"; break;
+            case 4: dockStatusStr = " (Discharging)"; break;
+
+        }
+        sb.append("<br />\n<b>Battery dock status</b> ").append(extras.get("dock_status")).append(dockStatusStr);
         sb.append("<br />\n<b>Battery dock level</b> ").append(extras.get("dock_level"));
 
         sb.append("<br />\n<b>Kernel:</b> ").append(getFormattedKernelVersion().replace("\n", "<br />\n"));

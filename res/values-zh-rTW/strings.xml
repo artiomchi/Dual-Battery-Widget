@@ -1,0 +1,132 @@
+<resources>
+    <string name="app_name">雙電池小工具</string>
+    <string name="widget_name">雙電池小工具</string>
+    <string name="widget_name_2x2">雙電池小工具 2x2</string>
+    <string name="widget_name_3x4">雙電池小工具 3x4</string>
+    <string name="link_market">https://market.android.com/details?id=org.flexlabs.widgets.dualbattery</string>
+
+    <string name="undocked">未合體</string>
+    <string name="unknown">未知</string>
+    <string name="battery_main">主要</string>
+    <string name="battery_dock">底座</string>
+
+    <string name="showBatteryInfo">顯示電池資訊</string>
+    <string name="showBatterySummary">顯示電池使用狀況</string>
+
+    <string name="propHeader_BatteryInfo">電池資訊</string>
+    <string name="propHeader_Main">小工具設定</string>
+    <string name="propHeader_Other">其它資訊</string>
+    <string name="propHeader_Other_summary">傳送關於小工具的錯誤報告</string>
+
+    <string name="propTitle_General">一般</string>
+    <string name="propTitle_Dock">底座(備用)電池設定</string>
+    <string name="propTitle_Other">其它</string>
+    <string name="propTitle_About">關於雙電池小工具</string>
+    <string name="propTitle_Feedback">傳送意見</string>
+    <string name="propTitle_SendCrashReport">傳送錯誤報告</string>
+    <string name="propTitle_SendCrashReport_summaryPrefix">上次修改日期: </string>
+    <string name="propTitle_MarketLink">在市場裡查看</string>
+    <string name="propTitle_Donate">捐贈 :)</string>
+
+    <string name="prop_batterySelection">顯示電池</string>
+    <string name="prop_alwaysShowDock">永遠顯示底座電池</string>
+    <string name="prop_alwaysShowDock_summary">
+        在没有插入底座的情况下也顯示底座電池
+        \n可能會被前一選項覆蓋
+    </string>
+    <string name="prop_showNotDockedMsg">未合體也顯示狀態</string>
+    <string name="prop_showNotDockedMsg_summary">在未合體的強況下顯示訊息</string>
+    <string name="prop_textPosition">文字位置</string>
+    <string name="prop_textPosition_summary">哪裡顯示電池狀態</string>
+    <string name="prop_textSize">文字大小</string>
+    <string name="prop_textColor">文字颜色</string>
+    <string name="prop_margin">邊緣位置</string>
+    <string name="prop_margin_summary">邊緣大小</string>
+    <string name="prop_showLabel">顯示電池標籤</string>
+    <string name="prop_showLabel_summary">
+        在下面顯示電池標籤.
+        \n如果電池狀態也在同樣的位置會被覆蓋過去
+    </string>
+    <string name="prop_showDockHistory">顯示舊紀錄</string>
+    <string name="prop_showDockHistory_summary">在未合體的時候顯示最後紀錄的電量</string>
+    <string name="prop_tempUnits">溫度單位</string>
+
+    <string name="prop_currentValue">當前值: </string>
+    <string name="sett_textPos_Invisible">隱藏</string>
+    <string name="sett_textPos_Above">上面</string>
+    <string name="sett_textPos_Top">頂部</string>
+    <string name="sett_textPos_Middle">中間</string>
+    <string name="sett_textPos_Bottom">底部</string>
+    <string name="sett_textPos_Below">下面</string>
+    <string name="sett_battSel_Both">兩者</string>
+    <string name="sett_battSel_Main">只顯示主電池</string>
+    <string name="sett_battSel_Dock">只顯示底座電池</string>
+    <string name="sett_textColor_White">白</string>
+    <string name="sett_textColor_Black">黑</string>
+    <string name="sett_margin_None">無</string>
+    <string name="sett_margin_Top">頂部</string>
+    <string name="sett_margin_Bottom">底部</string>
+    <string name="sett_margin_Both">兩者</string>
+    <string name="sett_tempUnits_C">攝氏</string>
+    <string name="sett_tempUnits_F">華氏</string>
+
+    <string name="about_full">
+        雙電池小工具是為了華碩Eee Pad所開發的,
+        一個擁有備用電池的底座\n
+        \n此工具的作者是Artiom Chilaru, 一開始是在XDA論壇上面發表.
+        \n此工具在安卓市場裏面是免費下載的。如果你透過付費或是其它地方取得的話強烈建議你移除之後再從安卓市場下載。
+        \n
+        \n<b>注意:</b> <u>如果你使用客製化ROM</u>, 很有可能這個差件無法運作
+        \n
+        \n你可以從這裡下載這個小工具:
+        https://market.android.com/details?id=org.flexlabs.widgets.dualbattery
+        \n
+        \n你可以在http://www.flexlabs.org 或是我的twitter帳號@artiom_chi上了解作者
+        \nhttps://twitter.com/artiom_chi
+        \n
+        \n你也可以在XDA論壇找到我:
+        \nhttp://forum.xda-developers.com/showthread.php?t=1123363
+        \n
+        \n如果你有建議想要提供的話請傳郵件到 android@flexlabs.org
+        \n
+        \n特别感謝:
+        \n法語: Ludovic MAILLET
+        \n西班牙語: Cristian Valero, STG (Spanish Translation Group)
+    </string>
+    <string name="report_detailrequest">请在应用强制关闭之后反馈一些信息:</string>
+
+    <string name="battery_info_status_label">電池狀態:</string>
+    <string name="battery_info_last_charged_label">最近一次的充電日期:</string>
+    <string name="battery_info_scale_label">電池容量:</string>
+    <string name="battery_info_level_label">電池等級:</string>
+    <string name="battery_info_health_label">電池健康狀況:</string>
+    <string name="battery_info_technology_label">電池技術:</string>
+    <string name="battery_info_voltage_label">電池電壓:</string>
+    <string name="battery_info_voltage_units_mV">毫伏</string>
+    <string name="battery_info_voltage_units_V">伏特</string>
+    <string name="battery_info_temperature_label">電池温度:</string>
+    <string name="battery_info_temperature_units_c">\u00B0 C</string>
+    <string name="battery_info_temperature_units_f">\u00B0 F</string>
+    <string name="battery_info_uptime">開機時間:</string>
+    <string name="battery_info_dock_status_label">底座電池狀態:</string>
+    <string name="battery_info_dock_level_label">底座電池等級:</string>
+    <string name="battery_info_dock_last_connected_label">最後一次合體:</string>
+
+    <string name="battery_info_status_charging">充電中</string>
+    <string name="battery_info_status_charging_ac">(AC)</string>
+    <string name="battery_info_status_charging_usb">(USB)</string>
+    <string name="battery_info_status_discharging">放電中</string>
+    <string name="battery_info_status_not_charging">没有充電</string>
+    <string name="battery_info_status_full">全</string>
+
+    <string name="battery_info_health_good">好</string>
+    <string name="battery_info_health_overheat">過熱</string>
+    <string name="battery_info_health_dead">死</string>
+    <string name="battery_info_health_over_voltage">電壓超過</string>
+    <string name="battery_info_health_unspecified_failure">未知錯誤</string>
+
+    <string name="battery_info_dock_status_charging">充電中</string>
+    <string name="battery_info_dock_status_discharging">放電中</string>
+    <string name="battery_info_dock_status_docked">以合體</string>
+    <string name="battery_info_dock_status_undocked">未合體</string>
+</resources>
