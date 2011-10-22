@@ -14,6 +14,10 @@ or restart the launcher app (Settings -> Applications -> Manage applications -> 
 
 **Update **  
 [+] Added Chinese Traditional and Simplified, Italian translations  
+[+] Dock status descriptions in feedback message  
+[*] Fix for the recent Aces firmware update. 0% battery dock support  
+[*] Battery chart grid uses much better values  
+[!] Various bug fixes  
 
 **Update 2011-10-10: v0.8**  
 [!] Sometimes the dock wasn't identified after a long sleep cycle  

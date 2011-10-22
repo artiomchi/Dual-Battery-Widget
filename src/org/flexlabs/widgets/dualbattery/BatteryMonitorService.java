@@ -71,7 +71,7 @@ public class BatteryMonitorService extends Service {
                 dockStatus = _dock_status;
 
                 if (dockStatus >= Constants.DOCK_STATE_CHARGING) {
-                    batteryDock = _dock_level > 0 ? _dock_level : null;
+                    batteryDock = _dock_level >= 0 ? _dock_level : null;
                 }
             }
         }

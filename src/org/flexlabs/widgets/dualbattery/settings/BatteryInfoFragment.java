@@ -283,6 +283,7 @@ public class BatteryInfoFragment extends Fragment {
                     mDockSeries.add(time, dock_level);
 
             } while (c.moveToNext());
+        adapter.close();
 
         if (mChartView != null)
             mChartView.repaint();
