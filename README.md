@@ -12,6 +12,9 @@ You can install it from the android market here: https://market.android.com/deta
 appear in the widget list after installation. To refresh the widget list, you should either restart your device, 
 or restart the launcher app (Settings -> Applications -> Manage applications -> All -> Launcher -> Force stop)
 
+**Update 2011-10-26: v0.8.3**  
+[!] Temporary fix for the disappearing battery chart issue  
+
 **Update 2011-10-22: v0.8.2**  
 [+] Added Chinese Traditional and Simplified, Italian translations  
 [+] Dock status descriptions in feedback message  

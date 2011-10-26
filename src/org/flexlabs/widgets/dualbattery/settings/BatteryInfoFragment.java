@@ -215,6 +215,7 @@ public class BatteryInfoFragment extends Fragment {
             mChartView = ChartFactory.getTimeChartView(getActivity(), mDataset, mRenderer, null);
             mChartContainer.addView(mChartView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
                   ViewGroup.LayoutParams.FILL_PARENT));
+            mChartContainer.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         } else {
             mChartView.repaint();
         }
