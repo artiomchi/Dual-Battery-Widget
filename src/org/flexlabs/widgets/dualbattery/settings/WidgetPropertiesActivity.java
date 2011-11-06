@@ -82,9 +82,8 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
             }
         }
 
-        String tempUnitsStr = getSharedPreferences(Constants.SETTINGS_PREFIX + appWidgetId, MODE_PRIVATE)
-                .getString(Constants.SETTING_TEMP_UNITS, Constants.SETTING_TEMP_UNITS_DEFAULT);
-        tempUnitsC = Integer.valueOf(tempUnitsStr) != Constants.TEMP_UNIT_FAHRENHEIT;
+        tempUnitsC = getSharedPreferences(Constants.SETTINGS_PREFIX + appWidgetId, MODE_PRIVATE)
+                .getInt(Constants.SETTING_TEMP_UNITS, Constants.SETTING_TEMP_UNITS_DEFAULT) == Constants.TEMP_UNIT_CELSIUS;
     }
 
     @Override

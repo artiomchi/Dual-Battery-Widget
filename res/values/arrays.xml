@@ -45,12 +45,4 @@
         <item>@string/sett_margin_Bottom</item>
         <item>@string/sett_margin_Both</item>
     </string-array>
-    <string-array name="tempUnits_values">
-        <item>0</item>
-        <item>1</item>
-    </string-array>
-    <string-array name="tempUnits_labels">
-        <item>@string/sett_tempUnits_C</item>
-        <item>@string/sett_tempUnits_F</item>
-    </string-array>
 </resources>

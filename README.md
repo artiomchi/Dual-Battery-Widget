@@ -12,14 +12,19 @@ You can install it from the android market here: https://market.android.com/deta
 appear in the widget list after installation. To refresh the widget list, you should either restart your device, 
 or restart the launcher app (Settings -> Applications -> Manage applications -> All -> Launcher -> Force stop)
 
+**Update 2011-11-06: v0.8.3.2**  
+[!] Possible fix for running out of memory when rendering the x axis on the chart  
+[!] Fix for the "square chart" phenomenon  
+[\*] Moved the temperature unit to the actionbar  
+
 **Update 2011-10-26: v0.8.3**  
 [!] Temporary fix for the disappearing battery chart issue  
 
 **Update 2011-10-22: v0.8.2**  
 [+] Added Chinese Traditional and Simplified, Italian translations  
 [+] Dock status descriptions in feedback message  
-[*] Fix for the recent Aces firmware update. 0% battery dock support  
-[*] Battery chart grid uses much better values  
+[\*] Fix for the recent Aces firmware update. 0% battery dock support  
+[\*] Battery chart grid uses much better values  
 [!] Various bug fixes  
 
 **Update 2011-10-10: v0.8**  

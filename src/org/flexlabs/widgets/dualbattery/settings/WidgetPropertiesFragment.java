@@ -162,7 +162,7 @@ public class WidgetPropertiesFragment extends PreferenceFragment implements Shar
         if (mTempUnits == null)
             return;
 
-        int val = Integer.valueOf(pref.getString(Constants.SETTING_TEMP_UNITS, Constants.SETTING_TEMP_UNITS_DEFAULT));
+        int val = pref.getInt(Constants.SETTING_TEMP_UNITS, Constants.SETTING_TEMP_UNITS_DEFAULT);
         String value;
 
         if (val == Constants.TEMP_UNIT_CELSIUS) {

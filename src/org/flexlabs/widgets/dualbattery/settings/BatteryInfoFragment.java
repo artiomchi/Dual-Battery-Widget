@@ -9,9 +9,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.os.*;
 import android.text.format.DateUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import org.achartengine.ChartFactory;
@@ -65,6 +63,7 @@ public class BatteryInfoFragment extends Fragment {
     private TextView mDockLastConnected;
     private TextView mLastCharged;
     private boolean tempUnitsC;
+    private int temperature, appWidgetId;
 
     private XYMultipleSeriesDataset mDataset = new XYMultipleSeriesDataset();
     private XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
@@ -116,13 +115,8 @@ public class BatteryInfoFragment extends Fragment {
                         : R.string.battery_info_voltage_units_V;
                 mVoltage.setText("" + voltage + " "
                         + getString(voltageRes));
-                int tempVal = intent.getIntExtra("temperature", 0);
-                if (!tempUnitsC)
-                    tempVal = tempVal * 9 / 5 + 320;
-                mTemperature.setText("" + tenthsToFixedString(tempVal)
-                        + getString(tempUnitsC
-                            ? R.string.battery_info_temperature_units_c
-                            : R.string.battery_info_temperature_units_f));
+                temperature = intent.getIntExtra("temperature", 0);
+                updateTemperature();
                 mTechnology.setText("" + intent.getStringExtra("technology"));
 
                 int status = intent.getIntExtra("status", BatteryManager.BATTERY_STATUS_UNKNOWN);
@@ -204,9 +198,46 @@ public class BatteryInfoFragment extends Fragment {
     };
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        tempUnitsC = ((WidgetPropertiesActivity)getActivity()).tempUnitsC;
+        MenuItem menuItem = menu.add(0, 0, 0, getString(tempUnitsC
+                                ? R.string.battery_info_temperature_units_c
+                                : R.string.battery_info_temperature_units_f));
+        menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+        menuItem.setIcon(R.drawable.thermometer);
+        menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                tempUnitsC = !tempUnitsC;
+                menuItem.setTitle(tempUnitsC
+                        ? R.string.battery_info_temperature_units_c
+                        : R.string.battery_info_temperature_units_f);
+                updateTemperature();
+                getActivity().getSharedPreferences(Constants.SETTINGS_PREFIX + appWidgetId, Context.MODE_PRIVATE)
+                        .edit()
+                        .putInt(Constants.SETTING_TEMP_UNITS, tempUnitsC ? Constants.TEMP_UNIT_CELSIUS : Constants.TEMP_UNIT_FAHRENHEIT)
+                        .commit();
+                return true;
+            }
+        });
+    }
+    
+    private void updateTemperature() {
+        int tempVal = temperature;
+        if (!tempUnitsC)
+            tempVal = tempVal * 9 / 5 + 320;
+        mTemperature.setText("" + tenthsToFixedString(tempVal)
+                + getString(tempUnitsC
+                    ? R.string.battery_info_temperature_units_c
+                    : R.string.battery_info_temperature_units_f));
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         tempUnitsC = ((WidgetPropertiesActivity)getActivity()).tempUnitsC;
+        appWidgetId = ((WidgetPropertiesActivity)getActivity()).appWidgetId;
         mHandler.sendEmptyMessageDelayed(EVENT_TICK, 1000);
 
         getActivity().registerReceiver(mIntentReceiver, mIntentFilter);
@@ -219,6 +250,12 @@ public class BatteryInfoFragment extends Fragment {
         } else {
             mChartView.repaint();
         }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override

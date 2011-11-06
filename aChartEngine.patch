@@ -1,0 +1,71 @@
+Index: src/org/achartengine/chart/TimeChart.java
+===================================================================
+--- src/org/achartengine/chart/TimeChart.java	(revision 316)
++++ src/org/achartengine/chart/TimeChart.java	(working copy)
+@@ -17,6 +17,7 @@
+ 
+ import java.text.DateFormat;
+ import java.text.SimpleDateFormat;
++import java.util.ArrayList;
+ import java.util.Date;
+ import java.util.List;
+ 
+@@ -147,4 +148,34 @@
+     return TYPE;
+   }
+ 
++    Double origin;
++    @Override
++    protected List<Double> getXLabels(double min, double max, int count) {
++      if (origin == null)
++        origin = min - (min % DAY) + DAY + new Date(Math.round(min)).getTimezoneOffset() * 60 * 1000;
++      if (count > 25)
++        count = 25;
++      final double cycleMath = (max - min) / count;
++      double cycle = DAY;
++
++      if (cycleMath <= DAY) {
++        mDateFormat = "MMM dd, HH:mm";
++        while (cycleMath < cycle / 2)
++          cycle = cycle / 2;
++      } else {
++        mDateFormat = "MMM dd";
++        while (cycleMath > cycle)
++          cycle = cycle * 2;
++      }
++
++      final List<Double> result = new ArrayList<Double>();
++      double val = origin - Math.floor((origin - min) / cycle) * cycle;
++      int i = 0;
++      while (val < max && i++ <= count) {
++        result.add(val);
++        val += cycle;
++      }
++
++      return result;
++    }
+ }
+Index: src/org/achartengine/chart/XYChart.java
+===================================================================
+--- src/org/achartengine/chart/XYChart.java	(revision 316)
++++ src/org/achartengine/chart/XYChart.java	(working copy)
+@@ -285,7 +285,7 @@
+     boolean showGrid = mRenderer.isShowGrid();
+     boolean showCustomTextGrid = mRenderer.isShowCustomTextGrid();
+     if (showLabels || showGrid) {
+-      List<Double> xLabels = getValidLabels(MathHelper.getLabels(minX[0], maxX[0], mRenderer
++      List<Double> xLabels = getValidLabels(getXLabels(minX[0], maxX[0], mRenderer
+           .getXLabels()));
+       Map<Integer, List<Double>> allYLabels = new HashMap<Integer, List<Double>>();
+       for (int i = 0; i < maxScaleNumber; i++) {
+@@ -436,6 +436,10 @@
+     }
+   }
+ 
++    protected List<Double> getXLabels(double min, double max, int count) {
++        return MathHelper.getLabels(min, max, count);
++    }
++
+   protected Rect getScreenR() {
+     return mScreenR;
+   }

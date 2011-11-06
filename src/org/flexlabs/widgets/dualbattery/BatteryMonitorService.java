@@ -43,7 +43,6 @@ public class BatteryMonitorService extends Service {
             if (screenOff)
                 newData = true;
             screenOff = false;
-            processBatteryIntent(context, context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED)));
 
         } else if (Intent.ACTION_BATTERY_CHANGED.equals(intent.getAction())) {
             Bundle extras = intent.getExtras();
