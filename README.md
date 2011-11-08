@@ -12,4 +12,4 @@ You can install it from the android market here: https://market.android.com/deta
 appear in the widget list after installation. To refresh the widget list, you should either restart your device, 
 or restart the launcher app (Settings -> Applications -> Manage applications -> All -> Launcher -> Force stop)
 
-Recent changes can be found in [CHANGELIST.md](https://github.com/artiomchi/Dual-Battery-Widget/edit/master/CHANGELIST.md "Dual Battery Widget changelist")
+Recent changes can be found in [CHANGELOG.md](https://github.com/artiomchi/Dual-Battery-Widget/blob/master/CHANGELOG.md "Dual Battery Widget changelog")
