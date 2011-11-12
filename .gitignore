@@ -6,3 +6,5 @@ out
 # Workspace files #
 ###################
 *.iws
+
+default.properties
