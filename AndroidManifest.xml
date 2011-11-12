@@ -7,7 +7,7 @@
     <uses-sdk android:targetSdkVersion="11" android:minSdkVersion="4" />
     <application android:icon="@drawable/icon" android:label="@string/app_name" android:hardwareAccelerated="true"
                  android:name=".BatteryApplication">
-        <receiver android:name=".BatteryWidget" android:label="@string/widget_name">
+        <receiver android:name="org.flexlabs.widgets.dualbattery.BatteryWidget" android:label="@string/widget_name">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -17,7 +17,7 @@
             </intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_info" />
         </receiver>
-        <receiver android:name=".BatteryWidget2x2" android:label="@string/widget_name_2x2" android:enabled="@bool/beforeHoneycomb">
+        <receiver android:name="org.flexlabs.widgets.dualbattery.BatteryWidget2x2" android:label="@string/widget_name_2x2" android:enabled="@bool/beforeHoneycomb">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -27,7 +27,7 @@
             </intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_info_2x2" />
         </receiver>
-        <receiver android:name=".BatteryWidget3x4" android:label="@string/widget_name_3x4" android:enabled="@bool/beforeHoneycomb">
+        <receiver android:name="org.flexlabs.widgets.dualbattery.BatteryWidget3x4" android:label="@string/widget_name_3x4" android:enabled="@bool/beforeHoneycomb">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -37,15 +37,9 @@
             </intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_info_3x4" />
         </receiver>
-        <activity android:name=".DummyConfigurationActivity" android:excludeFromRecents="true"
-                  android:label="Widget Configuration">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
-            </intent-filter>
-        </activity>
         <activity android:name=".settings.WidgetPropertiesActivity" android:excludeFromRecents="true"
                   android:label="Widget Properties" />
-        <service android:name=".BatteryMonitorService" android:label="Battery Monitor Service" />
+        <service android:name=".service.BatteryMonitorService" android:label="Battery Monitor Service" />
     </application>
     <uses-permission android:name="android.permission.BATTERY_STATS" />
 	<uses-permission android:name="android.permission.DEVICE_POWER" />

@@ -4,7 +4,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import org.flexlabs.widgets.dualbattery.BatteryMonitorService;
+import org.flexlabs.widgets.dualbattery.service.BatteryMonitorService;
 import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.R;
 

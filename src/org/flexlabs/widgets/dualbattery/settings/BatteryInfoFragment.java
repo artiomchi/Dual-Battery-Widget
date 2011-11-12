@@ -16,11 +16,10 @@ import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
-import org.achartengine.renderer.DefaultRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
-import org.flexlabs.widgets.dualbattery.BatteryLevelAdapter;
-import org.flexlabs.widgets.dualbattery.BatteryMonitorService;
+import org.flexlabs.widgets.dualbattery.service.BatteryLevelAdapter;
+import org.flexlabs.widgets.dualbattery.service.BatteryMonitorService;
 import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.R;
 

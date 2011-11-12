@@ -1,4 +1,4 @@
-package org.flexlabs.widgets.dualbattery;
+package org.flexlabs.widgets.dualbattery.service;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -9,6 +9,8 @@ import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import org.flexlabs.widgets.dualbattery.Constants;
+import org.flexlabs.widgets.dualbattery.service.BatteryLevelAdapter;
 
 import java.util.Date;
 

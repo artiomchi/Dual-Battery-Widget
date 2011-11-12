@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,7 +18,7 @@ import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
 import android.util.Log;
 import android.widget.TextView;
-import org.flexlabs.widgets.dualbattery.BatteryMonitorService;
+import org.flexlabs.widgets.dualbattery.service.BatteryMonitorService;
 import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.R;
 

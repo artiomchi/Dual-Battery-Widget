@@ -8,6 +8,7 @@ import android.os.BatteryManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
+import org.flexlabs.widgets.dualbattery.service.BatteryMonitorService;
 import org.flexlabs.widgets.dualbattery.settings.WidgetPropertiesActivity;
 
 import java.io.File;
