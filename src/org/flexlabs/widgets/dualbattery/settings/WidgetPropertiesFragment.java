@@ -10,7 +10,7 @@ import org.flexlabs.widgets.dualbattery.R;
 
 /**
  * Created by IntelliJ IDEA.
- * User: Flexer
+ * User: ArtiomChi
  * Date: 17/06/11
  * Time: 18:44
  */

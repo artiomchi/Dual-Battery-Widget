@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
- * User: Artiom Chilaru
+ * User: ArtiomChi
  * Date: 16/06/11
  * Time: 19:25
  */

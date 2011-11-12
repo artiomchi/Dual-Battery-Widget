@@ -15,7 +15,7 @@ import java.io.File;
 
 /**
  * Created by IntelliJ IDEA.
- * User: Artiom Chilaru
+ * User: ArtiomChi
  * Date: 13/06/11
  * Time: 20:13
  */

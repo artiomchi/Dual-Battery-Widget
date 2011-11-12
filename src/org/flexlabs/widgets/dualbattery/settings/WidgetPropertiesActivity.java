@@ -33,7 +33,7 @@ import java.util.regex.Pattern;
 
 /**
  * Created by IntelliJ IDEA.
- * User: Artiom Chilaru
+ * User: ArtiomChi
  * Date: 14/06/11
  * Time: 19:22
  */

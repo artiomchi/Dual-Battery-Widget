@@ -4,7 +4,7 @@ import android.app.Application;
 
 /**
  * Created by IntelliJ IDEA.
- * User: Artiom Chilaru
+ * User: ArtiomChi
  * Date: 13/06/11
  * Time: 21:56
  */

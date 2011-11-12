@@ -8,7 +8,7 @@ import android.util.Log;
 
 /**
  * Created by IntelliJ IDEA.
- * User: Flexer
+ * User: ArtiomChi
  * Date: 11/10/11
  * Time: 22:52
  */

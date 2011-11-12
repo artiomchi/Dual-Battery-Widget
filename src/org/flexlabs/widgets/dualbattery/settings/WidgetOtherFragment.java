@@ -14,7 +14,7 @@ import java.util.Date;
 
 /**
  * Created by IntelliJ IDEA.
- * User: Artiom Chilaru
+ * User: ArtiomChi
  * Date: 18/06/11
  * Time: 15:30
  */

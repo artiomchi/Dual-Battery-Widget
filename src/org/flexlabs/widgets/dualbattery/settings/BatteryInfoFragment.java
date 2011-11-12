@@ -27,7 +27,7 @@ import java.text.DateFormat;
 
 /**
  * Created by IntelliJ IDEA.
- * User: Flexer
+ * User: ArtiomChi
  * Date: 17/06/11
  * Time: 18:53
  * Source partially based on: http://android.git.kernel.org/?p=platform/packages/apps/Settings.git;a=blob;f=src/com/android/settings/BatteryInfo.java

@@ -12,10 +12,9 @@ import java.util.Date;
 
 /**
  * Created by IntelliJ IDEA.
- * User: Flexer
+ * User: ArtiomChi
  * Date: 03/07/11
  * Time: 22:08
- * To change this template use File | Settings | File Templates.
  */
 public class BatteryLevelAdapter {
     private static final String DB_NAME = "BatteryLevels.db";
