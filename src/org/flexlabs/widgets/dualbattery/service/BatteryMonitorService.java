@@ -6,11 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
-import android.os.Build;
-import android.os.Bundle;
 import android.os.IBinder;
 import org.flexlabs.widgets.dualbattery.Constants;
-import org.flexlabs.widgets.dualbattery.service.BatteryLevelAdapter;
 
 import java.util.Date;
 
@@ -21,19 +18,19 @@ import java.util.Date;
  * Time: 21:12
  */
 public class BatteryMonitorService extends Service {
-
     private static boolean isPopulated = false;
-    public static Integer batteryTab = null, batteryDock = null;
-    public static int status = BatteryManager.BATTERY_STATUS_UNKNOWN;
-    public static int dockStatus = Constants.DOCK_STATE_UNKNOWN;
-    public static boolean hasDock = false, screenOff = false;
+    public static final String BUNDLE_WIDGET_IDS = "widgetIds";
+
+    public static BatteryLevel level;
+    public static boolean screenOff = false;
     public static Date dockLastConnected = null, lastCharged = null;
+    public static Integer lastDockLevel = null;
 
     public IBinder onBind(Intent intent) {
         return null;
     }
 
-    private static void processBatteryIntent(Context context, Intent intent) {
+    private static void processBatteryIntent(final Context context, Intent intent) {
         boolean newData = false;
 
         if (Intent.ACTION_SCREEN_OFF.equals(intent.getAction())) {
@@ -47,76 +44,67 @@ public class BatteryMonitorService extends Service {
             screenOff = false;
 
         } else if (Intent.ACTION_BATTERY_CHANGED.equals(intent.getAction())) {
-            Bundle extras = intent.getExtras();
-            if (extras == null)
+            BatteryLevel newLevel = BatteryLevel.parse(intent.getExtras());
+            if (newLevel == null)
                 return;
-
-            int _status = extras.getInt("status", BatteryManager.BATTERY_STATUS_UNKNOWN);
-            int _level = extras.getInt("level");
-            int _dock_status = extras.getInt("dock_status", Constants.DOCK_STATE_UNKNOWN);
-            int _dock_level = extras.getInt("dock_level", -1);
-
-            if (_status != status || batteryTab == null || batteryDock == null || _level != batteryTab || _dock_status != dockStatus || _dock_level != batteryDock) {
+            
+            if (newLevel.isDifferent(level))
                 newData = true;
-            }
 
-            if (status == BatteryManager.BATTERY_STATUS_CHARGING && _status != status)
+            if ((level == null || level.get_status() == BatteryManager.BATTERY_STATUS_CHARGING) &&
+                newLevel.get_status() != BatteryManager.BATTERY_STATUS_CHARGING)
                 lastCharged = new Date();
-            status = _status;
-            batteryTab = _level;
+            
+            if (newLevel.is_dockFriendly() && level != null && level.get_dock_status() >= Constants.DOCK_STATE_CHARGING &&
+                newLevel.get_dock_status() < Constants.DOCK_STATE_CHARGING)
+                dockLastConnected = new Date();
 
-            hasDock = extras.containsKey("dock_level");
-            if (hasDock) {
-                if (dockStatus >= Constants.DOCK_STATE_CHARGING && _dock_status < Constants.DOCK_STATE_CHARGING)
-                    dockLastConnected = new Date();
-                dockStatus = _dock_status;
+            if (newLevel.get_dock_level() != null)
+                lastDockLevel = newLevel.get_dock_level();
 
-                if (dockStatus >= Constants.DOCK_STATE_CHARGING) {
-                    batteryDock = _dock_level >= 0 ? _dock_level : null;
-                }
-            }
+            level = newLevel;
         }
-
-        if (!newData || Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
+        
+        if (newData && level == null)
             return;
 
-        BatteryLevelAdapter.Entry entry = new BatteryLevelAdapter.Entry(
-            status,
-            batteryTab,
-            dockStatus,
-            batteryDock,
-            screenOff);
-
-        BatteryLevelAdapter adapter = new BatteryLevelAdapter(context);
-        adapter.open();
-        adapter.insertEntry(entry);
-        adapter.close();
-    }
-
-    public static boolean isDockConnected(Context context) {
-        try {
-            if (!isPopulated) {
-                processBatteryIntent(context, context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED)));
+        // Running database operation away from the UI thread
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                BatteryLevelAdapter.Entry entry = new BatteryLevelAdapter.Entry(
+                    level.get_status(),
+                    level.get_level(),
+                    level.get_dock_status(),
+                    level.get_dock_level(),
+                    screenOff);
+        
+                BatteryLevelAdapter adapter = new BatteryLevelAdapter(context);
+                adapter.open();
+                adapter.insertEntry(entry);
+                adapter.close();
             }
-        } catch (Exception ignored) { }
-        return dockStatus >= Constants.DOCK_STATE_CHARGING;
+        }).start();
     }
 
+    /**
+     * A static method to find out if the dock is available on this device
+     * @param context some context used to get the status
+     * @return true if dock is supported on this device
+     */
     public static boolean isDockSupported(Context context) {
         try {
             if (!isPopulated) {
                 processBatteryIntent(context, context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED)));
             }
         } catch (Exception ignored) { }
-        return dockStatus != Constants.DOCK_STATE_UNKNOWN;
+        return level != null && level.is_dockFriendly();
     }
 
     private final BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             processBatteryIntent(context, intent);
-
-            context.sendBroadcast(new Intent(Constants.ACTION_BATTERY_UPDATE));
         }
     };
 
@@ -131,6 +119,16 @@ public class BatteryMonitorService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        final int[] widgetIds = intent.getIntArrayExtra(BUNDLE_WIDGET_IDS);
+        if (widgetIds != null) {
+            // Update our widgets on the non UI thread
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    WidgetUpdater.updateAllWidgets(BatteryMonitorService.this, level, widgetIds);
+                }
+            }).start();
+        }
         return START_STICKY;
     }
 

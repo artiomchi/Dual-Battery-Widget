@@ -21,6 +21,7 @@ import android.widget.TextView;
 import org.flexlabs.widgets.dualbattery.service.BatteryMonitorService;
 import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.R;
+import org.flexlabs.widgets.dualbattery.service.WidgetUpdater;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -121,7 +122,7 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        sendBroadcast(new Intent(Constants.ACTION_SETTINGS_UPDATE));
+        WidgetUpdater.updateWidget(this, appWidgetId);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
             finish();
     }
