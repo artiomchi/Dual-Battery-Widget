@@ -13,7 +13,7 @@
     <string name="showBatterySummary">Riepilogo informazioni</string>
 
     <string name="propHeader_BatteryInfo">Informazioni Sulla Batteria</string>
-    <string name="propHeader_Main">Propietà del Widget</string>
+    <string name="propHeader_Main">Proprietà del Widget</string>
     <string name="propHeader_Other">Altri Dettagli</string>
     <string name="propHeader_Other_summary">Feedback eventuali errori, sull’ app</string>
 
@@ -33,7 +33,7 @@
         Mostra il livello della batteria secondaria anche quando non in uso
         \nsovrascrivi l’ impostazione precedente
     </string>
-    <string name="prop_showNotDockedMsg">Mostra lo sato quando non presente</string>
+    <string name="prop_showNotDockedMsg">Mostra lo stato quando non presente</string>
     <string name="prop_showNotDockedMsg_summary">Mostra un messaggio quando la seconda batteria non è presente o non connessa</string>
     <string name="prop_textPosition">Posizione del Testo</string>
     <string name="prop_textPosition_summary">Dove devo visualizzare la posizione dello stato Batteria ?</string>
@@ -44,7 +44,7 @@
     <string name="prop_showLabel">Mostra l’ etichetta della batteria</string>
     <string name="prop_showLabel_summary">
         visualizza l\'etichetta della batteria nel margine inferiore.
-        \nPuo essere annullata se lo stato della batteria è visualizzato nello stesso posto
+        \nPuò essere annullata se lo stato della batteria è visualizzato nello stesso posto
     </string>
     <string name="prop_showDockHistory">Visualizza il vecchio livello</string>
     <string name="prop_showDockHistory_summary">Visualizza il vecchio livello quando non è collegata</string>
@@ -65,15 +65,15 @@
     <string name="sett_margin_None">Niente</string>
     <string name="sett_margin_Top">Alto</string>
     <string name="sett_margin_Bottom">Inferiore</string>
-    <string name="sett_margin_Both">EntrambiBoth</string>
+    <string name="sett_margin_Both">Entrambi</string>
     <string name="sett_tempUnits_C">Celsius</string>
     <string name="sett_tempUnits_F">Fahrenheit</string>
 
     <string name="about_full">
-        Il Widget batteria doppia è stato inizialmente creato per l\'Asus Eee Pad Transformer,
-        un dispositivo che ha una seconda batteria nella Tastiera o docking station. Purtroppo, gli strumenti di android standard non forniscono in alcun modo il sistema di visualizzare lo stato di una seconda batteria, per ciò ho creato questo widget per colmare questa lacuna.
+        Il Widget Batteria doppia è stato inizialmente creato per l\'Asus Eee Pad Transformer,
+        un dispositivo che ha una seconda batteria nella Tastiera o docking station. Purtroppo, gli strumenti di Android standard non forniscono in alcun modo il sistema di visualizzare lo stato di una seconda batteria, perciò ho creato questo widget per colmare questa lacuna.
         \n
-        \nIl autore di questo widget è Artiom Chilaru, ed è stato inizialmente pubblicato sul forum xda-developers.
+        \nL\’autore di questo widget è Artiom Chilaru, ed è stato inizialmente pubblicato sul forum xda-developers.
         E \'distribuito gratuitamente su Android Market. Se lo hai pagato, o lo hai scaricato da qualsiasi altro luogo, Consiglio vivamente di disinstallare la Tua copia, In questo modo sarai sempre sicuro di non avere codici strani all’ interno del tuo tablet o smartphone, e avrai aggiornamenti gratuiti alla versione più recente non appena rilasciati!
         \n
         \nÈ possibile installare il widget dal Market qui:
