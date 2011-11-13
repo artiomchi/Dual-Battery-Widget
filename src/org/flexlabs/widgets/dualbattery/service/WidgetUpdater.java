@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.BatteryManager;
+import android.os.Build;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -78,6 +79,44 @@ public class WidgetUpdater {
             }
         }).start();
     }
+    
+    private static void updateWidgetSettings(SharedPreferences pref, int version) {
+        SharedPreferences.Editor editor = pref.edit();
+        if (version == 1) {
+            if (pref.contains(Constants.SETTING_TEXT_SIZE)) {
+                int textPosition = Integer.valueOf(pref.getString(Constants.SETTING_TEXT_SIZE, String.valueOf(Constants.SETTING_TEXT_SIZE_DEFAULT)));
+                editor.putInt(Constants.SETTING_TEXT_SIZE, textPosition);
+            }
+            if (pref.contains(Constants.SETTING_TEXT_POS)) {
+                int textPosition = Integer.valueOf(pref.getString(Constants.SETTING_TEXT_POS, String.valueOf(Constants.SETTING_TEXT_POS_DEFAULT)));
+                editor.putInt(Constants.SETTING_TEXT_POS, textPosition);
+            }
+            if (pref.contains(Constants.SETTING_SHOW_SELECTION)) {
+                int batterySelection = Integer.valueOf(pref.getString(Constants.SETTING_SHOW_SELECTION, String.valueOf(Constants.SETTING_SHOW_SELECTION_DEFAULT)));
+                editor.putInt(Constants.SETTING_SHOW_SELECTION, batterySelection);
+            }
+            if (pref.contains(Constants.SETTING_TEXT_COLOR)) {
+                int textColorCode = Integer.valueOf(pref.getString(Constants.SETTING_TEXT_COLOR, String.valueOf(Constants.SETTING_TEXT_COLOR_DEFAULT)));
+                editor.putInt(Constants.SETTING_TEXT_COLOR, textColorCode);
+            }
+            if (pref.contains(Constants.SETTING_MARGIN)) {
+                int margin = Integer.valueOf(pref.getString(Constants.SETTING_MARGIN, String.valueOf(Constants.SETTING_MARGIN_DEFAULT)));
+                editor.putInt(Constants.SETTING_MARGIN, margin);
+            }
+            if (pref.contains(Constants.SETTING_TEMP_UNITS_NEW)) {
+                int tempUnits = pref.getInt(Constants.SETTING_TEMP_UNITS_NEW, Constants.SETTING_TEMP_UNITS_DEFAULT);
+                editor.putInt(Constants.SETTING_TEMP_UNITS, tempUnits);
+                editor.remove(Constants.SETTING_TEMP_UNITS_NEW);
+            }
+            version = 2;
+
+            editor.putInt(Constants.SETTING_VERSION, version);
+            if (Build.VERSION.SDK_INT < 9)
+                editor.commit();
+            else
+                editor.apply();
+        }
+    }
 
     public static void updateWidget(Context context, AppWidgetManager widgetManager, int widgetId, BatteryLevel batteryLevel) {
         if (batteryLevel == null)
@@ -85,29 +124,18 @@ public class WidgetUpdater {
 
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
         SharedPreferences pref = context.getSharedPreferences(Constants.SETTINGS_PREFIX + widgetId, Context.MODE_PRIVATE);
-        boolean autoHideOld = pref.getBoolean(Constants.SETTING_AUTO_HIDE, Constants.SETTING_AUTO_HIDE_DEFAULT); // legacy reasons.. for widgets added before v0.6
-        boolean alwaysShow = pref.getBoolean(Constants.SETTING_ALWAYS_SHOW_DOCK, Constants.SETTING_ALWAYS_SHOW_DOCK_DEFAULT && !autoHideOld);
+        int version = pref.getInt(Constants.SETTING_VERSION, 1);
+        if (version != Constants.SETTING_VERSION_CURRENT)
+            updateWidgetSettings(pref, version);
+        boolean alwaysShow = pref.getBoolean(Constants.SETTING_ALWAYS_SHOW_DOCK, Constants.SETTING_ALWAYS_SHOW_DOCK_DEFAULT);
         boolean showNotDocked = pref.getBoolean(Constants.SETTING_SHOW_NOT_DOCKED, Constants.SETTING_SHOW_NOT_DOCKED_DEFAULT);
         boolean showLabel = pref.getBoolean(Constants.SETTING_SHOW_LABEL, Constants.SETTING_SHOW_LABEL_DEFAULT);
         boolean showOldStatus = pref.getBoolean(Constants.SETTING_SHOW_OLD_DOCK, Constants.SETTING_SHOW_OLD_DOCK_DEFAULT);
-        int textSize = Integer.valueOf(pref.getString(Constants.SETTING_TEXT_SIZE, Constants.SETTING_TEXT_SIZE_DEFAULT));
-        int textPosition = Integer.valueOf(pref.getString(Constants.SETTING_TEXT_POS, Constants.SETTING_TEXT_POS_DEFAULT));
-        int batterySelection = Integer.valueOf(pref.getString(Constants.SETTING_SHOW_SELECTION, Constants.SETTING_SHOW_SELECTION_DEFAULT));
-        int textColorCode = Integer.valueOf(pref.getString(Constants.SETTING_TEXT_COLOR, Constants.SETTING_TEXT_COLOR_DEFAULT));
-        int margin = Integer.valueOf(pref.getString(Constants.SETTING_MARGIN, Constants.SETTING_MARGIN_DEFAULT));
-
-        if (batterySelection == 0 || autoHideOld != Constants.SETTING_AUTO_HIDE_DEFAULT) {
-            SharedPreferences.Editor editor = pref.edit();
-            if (autoHideOld != Constants.SETTING_AUTO_HIDE_DEFAULT) {
-                editor.putBoolean(Constants.SETTING_ALWAYS_SHOW_DOCK, alwaysShow);
-                editor.remove(Constants.SETTING_AUTO_HIDE);
-            }
-            if (batterySelection == 0) {
-                editor.putString(Constants.SETTING_SHOW_SELECTION, "3");
-                batterySelection = 3;
-            }
-            editor.commit();
-        }
+        int textSize = pref.getInt(Constants.SETTING_TEXT_SIZE, Constants.SETTING_TEXT_SIZE_DEFAULT);
+        int textPosition = pref.getInt(Constants.SETTING_TEXT_POS, Constants.SETTING_TEXT_POS_DEFAULT);
+        int batterySelection = pref.getInt(Constants.SETTING_SHOW_SELECTION, Constants.SETTING_SHOW_SELECTION_DEFAULT);
+        int textColorCode = pref.getInt(Constants.SETTING_TEXT_COLOR, Constants.SETTING_TEXT_COLOR_DEFAULT);
+        int margin = pref.getInt(Constants.SETTING_MARGIN, Constants.SETTING_MARGIN_DEFAULT);
 
         for (int[][] aTextStyleArray : textStyleArray)
             for (int[] bTextStyleArray : aTextStyleArray)

@@ -18,6 +18,7 @@
     <string name="propHeader_Other">Other details</string>
     <string name="propHeader_Other_summary">Feedback and error reports, about widget</string>
 
+    <string name="prop_currentValue">Current value: </string>
     <string name="propTitle_General">General</string>
     <string name="propTitle_Dock">Second (dock) battery options</string>
     <string name="propTitle_Other">Other</string>
@@ -29,6 +30,7 @@
     <string name="propTitle_Donate">Donate :)</string>
 
     <string name="prop_batterySelection">Battery to display</string>
+    <string name="prop_batterySelection_summary">%s</string>
     <string name="prop_alwaysShowDock">Always show dock battery</string>
     <string name="prop_alwaysShowDock_summary">
         Show the dock battery gauge even when not docked
@@ -37,11 +39,13 @@
     <string name="prop_showNotDockedMsg">Show status when not docked</string>
     <string name="prop_showNotDockedMsg_summary">Show a message stating that the secondary battery is not connected when not docked</string>
     <string name="prop_textPosition">Text position</string>
-    <string name="prop_textPosition_summary">Where to display the battery status</string>
+    <string name="prop_textPosition_summary">Where to display the battery status (%s)</string>
     <string name="prop_textSize">Text size</string>
+    <string name="prop_textSize_summary">%s</string>
     <string name="prop_textColor">Text colour</string>
+    <string name="prop_textColor_summary">%s</string>
     <string name="prop_margin">Margin location</string>
-    <string name="prop_margin_summary">Margin size is the same as the text size</string>
+    <string name="prop_margin_summary">Margin size is the same as the text size (%s)</string>
     <string name="prop_showLabel">Show battery label</string>
     <string name="prop_showLabel_summary">
         Shows the battery label in the bottom margin.
@@ -51,7 +55,6 @@
     <string name="prop_showDockHistory_summary">Show the last recorded dock battery level when not docked</string>
     <string name="prop_tempUnits">Temperature units</string>
 
-    <string name="prop_currentValue">Current value: </string>
     <string name="sett_textPos_Invisible">Invisible</string>
     <string name="sett_textPos_Above">Above</string>
     <string name="sett_textPos_Top">Top</string>

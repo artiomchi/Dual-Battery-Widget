@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:flexlabs="http://schemas.android.com/apk/res/org.flexlabs.widgets.dualbattery">
     <PreferenceCategory android:title="@string/propTitle_Dock">
-        <ListPreference android:key="batterySelection"
-                        android:title="@string/prop_batterySelection"
-                        android:entries="@array/batterySelection_labels" android:entryValues="@array/batterySelection_values"
-                        android:defaultValue="3" />
+        <org.flexlabs.widgets.dualbattery.settings.types.IntegerListPreference
+                android:key="batterySelection"
+                android:title="@string/prop_batterySelection" flexlabs:summary="@string/prop_batterySelection_summary"
+                flexlabs:entries="@array/batterySelection_labels" flexlabs:entryValues="@array/batterySelection_values"
+                android:defaultValue="3" />
         <CheckBoxPreference android:key="alwaysShowDock"
                             android:title="@string/prop_alwaysShowDock" android:summary="@string/prop_alwaysShowDock_summary"
                             android:defaultValue="true" />

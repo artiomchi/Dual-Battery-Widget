@@ -1,0 +1,7 @@
+<resources>
+    <declare-styleable name="IntListPreference">
+        <attr name="summary" format="string" />
+        <attr name="entries" format="reference" />
+        <attr name="entryValues" format="reference" />
+    </declare-styleable>
+</resources>

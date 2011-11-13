@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:flexlabs="http://schemas.android.com/apk/res/org.flexlabs.widgets.dualbattery">
     <PreferenceCategory android:title="@string/propTitle_General">
-        <EditTextPreference android:key="textSize"
-                            android:title="@string/prop_textSize"
-                            android:defaultValue="14" android:inputType="number" android:numeric="integer" />
-        <ListPreference android:key="textColor"
-                        android:title="@string/prop_textColor"
-                        android:entries="@array/textColor_labels" android:entryValues="@array/textColor_values"
-                        android:defaultValue="0" />
-        <ListPreference android:key="textPosition"
-                        android:title="@string/prop_textPosition" android:summary="@string/prop_textPosition_summary"
-                        android:entries="@array/textPosition_labels" android:entryValues="@array/textPosition_values"
-                        android:defaultValue="2" />
-        <ListPreference android:key="marginLocation"
-                        android:title="@string/prop_margin" android:summary="@string/prop_margin_summary"
-                        android:entries="@array/margin_labels" android:entryValues="@array/margin_values"
-                        android:defaultValue="0" />
-        <CheckBoxPreference android:key="showBatteryLabel"
-                            android:title="@string/prop_showLabel" android:summary="@string/prop_showLabel_summary"
-                            android:defaultValue="false" />
+        <org.flexlabs.widgets.dualbattery.settings.types.SeekBarPreference
+                android:key="textSize"
+                android:title="@string/prop_textSize" flexlabs:summary="@string/prop_textSize_summary"
+                android:defaultValue="14" android:max="100" />
+        <org.flexlabs.widgets.dualbattery.settings.types.IntegerListPreference
+                android:key="textColor"
+                android:title="@string/prop_textColor" flexlabs:summary="@string/prop_textColor_summary"
+                flexlabs:entries="@array/textColor_labels" flexlabs:entryValues="@array/textColor_values"
+                android:defaultValue="0" />
+        <org.flexlabs.widgets.dualbattery.settings.types.IntegerListPreference
+                android:key="textPosition"
+                android:title="@string/prop_textPosition" flexlabs:summary="@string/prop_textPosition_summary"
+                flexlabs:entries="@array/textPosition_labels" flexlabs:entryValues="@array/textPosition_values"
+                android:defaultValue="2" />
+        <org.flexlabs.widgets.dualbattery.settings.types.IntegerListPreference
+                android:key="marginLocation"
+                android:title="@string/prop_margin" flexlabs:summary="@string/prop_margin_summary"
+                flexlabs:entries="@array/margin_labels" flexlabs:entryValues="@array/margin_values"
+                android:defaultValue="0" />
+        <CheckBoxPreference
+                android:key="showBatteryLabel"
+                android:title="@string/prop_showLabel" android:summary="@string/prop_showLabel_summary"
+                android:defaultValue="false" />
     </PreferenceCategory>
 </PreferenceScreen>

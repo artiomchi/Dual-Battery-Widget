@@ -1,12 +1,12 @@
 <resources>
-    <string-array name="textPosition_values">
+    <integer-array name="textPosition_values">
         <item>0</item>
         <item>4</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
         <item>5</item>
-    </string-array>
+    </integer-array>
     <string-array name="textPosition_labels">
         <item>@string/sett_textPos_Invisible</item>
         <item>@string/sett_textPos_Above</item>
@@ -15,30 +15,30 @@
         <item>@string/sett_textPos_Bottom</item>
         <item>@string/sett_textPos_Below</item>
     </string-array>
-    <string-array name="batterySelection_values">
+    <integer-array name="batterySelection_values">
         <item>3</item>
         <item>1</item>
         <item>2</item>
-    </string-array>
+    </integer-array>
     <string-array name="batterySelection_labels">
         <item>@string/sett_battSel_Both</item>
         <item>@string/sett_battSel_Main</item>
         <item>@string/sett_battSel_Dock</item>
     </string-array>
-    <string-array name="textColor_values">
+    <integer-array name="textColor_values">
         <item>0</item>
         <item>1</item>
-    </string-array>
+    </integer-array>
     <string-array name="textColor_labels">
         <item>@string/sett_textColor_White</item>
         <item>@string/sett_textColor_Black</item>
     </string-array>
-    <string-array name="margin_values">
+    <integer-array name="margin_values">
         <item>0</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
-    </string-array>
+    </integer-array>
     <string-array name="margin_labels">
         <item>@string/sett_margin_None</item>
         <item>@string/sett_margin_Top</item>
