@@ -20,6 +20,7 @@ import java.util.Date;
 public class BatteryMonitorService extends Service {
     private static boolean isPopulated = false;
     public static final String EXTRA_WIDGET_IDS = "widgetIds";
+    private static NotificationManager mNotificationManager;
 
     public static BatteryLevel level;
     public static boolean screenOff = false;
@@ -65,7 +66,7 @@ public class BatteryMonitorService extends Service {
             level = newLevel;
         }
         
-        if (newData && level == null)
+        if (!newData || level == null)
             return;
 
         // Running database operation away from the UI thread
@@ -84,6 +85,10 @@ public class BatteryMonitorService extends Service {
                 adapter.insertEntry(entry);
                 adapter.close();
 
+                if (level.is_dockConnected())
+                    mNotificationManager.update(level.get_dock_level());
+                else
+                    mNotificationManager.hide();
                 WidgetUpdater.updateAllWidgets(context, level, null);
             }
         }).start();
@@ -113,6 +118,8 @@ public class BatteryMonitorService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        mNotificationManager = new NotificationManager(this);
+
         registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_SCREEN_ON));
         registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_SCREEN_OFF));
         processBatteryIntent(this, registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED)));
