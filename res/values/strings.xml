@@ -18,7 +18,6 @@
     <string name="propHeader_Other">Other details</string>
     <string name="propHeader_Other_summary">Feedback and error reports, about widget</string>
 
-    <string name="prop_currentValue">Current value: </string>
     <string name="propTitle_General">General</string>
     <string name="propTitle_Dock">Second (dock) battery options</string>
     <string name="propTitle_Other">Other</string>

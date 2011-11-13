@@ -31,11 +31,11 @@
     <string name="prop_showNotDockedMsg">Montrer le statut quand il n\'y à pas de dock</string>
     <string name="prop_showNotDockedMsg_summary">Afficher un message indiquant que la batterie secondaire n\'est pas connecté quand il n\'y a pas de dock</string>
     <string name="prop_textPosition">Position du texte</string>
-    <string name="prop_textPosition_summary">Position d\'affichage du statut</string>
+    <string name="prop_textPosition_summary">Position d\'affichage du statut (%s)</string>
     <string name="prop_textSize">Taille du texte</string>
     <string name="prop_textColor">Couleur du texte</string>
     <string name="prop_margin">Position de la marge</string>
-    <string name="prop_margin_summary">La taille de la marge est la même que celle du texte</string>
+    <string name="prop_margin_summary">La taille de la marge est la même que celle du texte (%s)</string>
     <string name="prop_showLabel">Afficher l\'étiquette</string>
     <string name="prop_showLabel_summary">
         Affiche l\'étiquette de la batterie en dessous du widget.
@@ -44,7 +44,6 @@
     <string name="prop_showDockHistory">Montrer l\'ancien niveau</string>
     <string name="prop_showDockHistory_summary">Montre le dernier niveau enregistré de la batterie du Dock quand il n\'est plus connecté</string>
 
-    <string name="prop_currentValue">Valeure actuelle: </string>
     <string name="sett_textPos_Invisible">Invisible</string>
     <string name="sett_textPos_Above">Au dessus</string>
     <string name="sett_textPos_Top">Haut</string>

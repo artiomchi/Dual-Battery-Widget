@@ -37,11 +37,11 @@
     <string name="prop_showNotDockedMsg">未合體也顯示狀態</string>
     <string name="prop_showNotDockedMsg_summary">在未合體的強況下顯示訊息</string>
     <string name="prop_textPosition">文字位置</string>
-    <string name="prop_textPosition_summary">哪裡顯示電池狀態</string>
+    <string name="prop_textPosition_summary">哪裡顯示電池狀態 (%s)</string>
     <string name="prop_textSize">文字大小</string>
     <string name="prop_textColor">文字颜色</string>
     <string name="prop_margin">邊緣位置</string>
-    <string name="prop_margin_summary">邊緣大小</string>
+    <string name="prop_margin_summary">邊緣大小 (%s)</string>
     <string name="prop_showLabel">顯示電池標籤</string>
     <string name="prop_showLabel_summary">
         在下面顯示電池標籤.
@@ -51,7 +51,6 @@
     <string name="prop_showDockHistory_summary">在未合體的時候顯示最後紀錄的電量</string>
     <string name="prop_tempUnits">溫度單位</string>
 
-    <string name="prop_currentValue">當前值: </string>
     <string name="sett_textPos_Invisible">隱藏</string>
     <string name="sett_textPos_Above">上面</string>
     <string name="sett_textPos_Top">頂部</string>

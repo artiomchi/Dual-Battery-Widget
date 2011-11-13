@@ -31,11 +31,11 @@
     <string name="prop_showNotDockedMsg">接続されていない時に状態を表示</string>
     <string name="prop_showNotDockedMsg_summary">ドックが接続されていないというメッセージを表示します。</string>
     <string name="prop_textPosition">テキストの位置</string>
-    <string name="prop_textPosition_summary">バッテリー状態を表示する場所</string>
+    <string name="prop_textPosition_summary">バッテリー状態を表示する場所 (%s)</string>
     <string name="prop_textSize">テキストの大きさ</string>
     <string name="prop_textColor">テキストの色</string>
     <string name="prop_margin">余白の位置</string>
-    <string name="prop_margin_summary">余白の大きさはテキストの大きさと同じです</string>
+    <string name="prop_margin_summary">余白の大きさはテキストの大きさと同じです (%s)</string>
     <string name="prop_showLabel">バッテリーのラベルを表示</string>
     <string name="prop_showLabel_summary">
         下の余白にバッテリーのラベルを表示します。
@@ -45,7 +45,6 @@
     <string name="prop_showDockHistory_summary">ドックが接続されていない時に最後に記録されたバッテリー残量を表示します。</string>
     <string name="prop_tempUnits">温度の単位</string>
 
-    <string name="prop_currentValue">現在値: </string>
     <string name="sett_textPos_Invisible">非表示</string>
     <string name="sett_textPos_Above">電池の上</string>
     <string name="sett_textPos_Top">電池上部</string>

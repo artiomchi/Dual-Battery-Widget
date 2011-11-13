@@ -37,11 +37,11 @@
     <string name="prop_showNotDockedMsg">不显示状态</string>
     <string name="prop_showNotDockedMsg_summary">用信息来显示电池状态当没有备用电池时</string>
     <string name="prop_textPosition">文字位置</string>
-    <string name="prop_textPosition_summary">哪里显示电池状态</string>
+    <string name="prop_textPosition_summary">哪里显示电池状态 (%s)</string>
     <string name="prop_textSize">文字大小</string>
     <string name="prop_textColor">文字颜色</string>
     <string name="prop_margin">边缘位置</string>
-    <string name="prop_margin_summary">边缘大小</string>
+    <string name="prop_margin_summary">边缘大小 (%s)</string>
     <string name="prop_showLabel">显示电池标签</string>
     <string name="prop_showLabel_summary">
         在底部边缘显示电池标签.
@@ -51,7 +51,6 @@
     <string name="prop_showDockHistory_summary">显示上次记录的备用电池的破旧率</string>
     <string name="prop_tempUnits">单位温度</string>
 
-    <string name="prop_currentValue">当前值: </string>
     <string name="sett_textPos_Invisible">无形的</string>
     <string name="sett_textPos_Above">上面</string>
     <string name="sett_textPos_Top">顶部</string>

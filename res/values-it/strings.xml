@@ -36,11 +36,11 @@
     <string name="prop_showNotDockedMsg">Mostra lo stato quando non presente</string>
     <string name="prop_showNotDockedMsg_summary">Mostra un messaggio quando la seconda batteria non è presente o non connessa</string>
     <string name="prop_textPosition">Posizione del Testo</string>
-    <string name="prop_textPosition_summary">Dove devo visualizzare la posizione dello stato Batteria ?</string>
+    <string name="prop_textPosition_summary">Dove devo visualizzare la posizione dello stato Batteria (%s)</string>
     <string name="prop_textSize">Dimensioni del Testo</string>
     <string name="prop_textColor">Colore del Testo</string>
     <string name="prop_margin">Dimensione Margine</string>
-    <string name="prop_margin_summary">la posizione è la stessa della dimensione del testo</string>
+    <string name="prop_margin_summary">la posizione è la stessa della dimensione del testo (%s)</string>
     <string name="prop_showLabel">Mostra l’ etichetta della batteria</string>
     <string name="prop_showLabel_summary">
         visualizza l\'etichetta della batteria nel margine inferiore.
@@ -50,7 +50,6 @@
     <string name="prop_showDockHistory_summary">Visualizza il vecchio livello quando non è collegata</string>
     <string name="prop_tempUnits">Unità di misura della temperatura</string>
 
-    <string name="prop_currentValue">Valore corrente:</string>
     <string name="sett_textPos_Invisible">Invisibile</string>
     <string name="sett_textPos_Above">Sopra</string>
     <string name="sett_textPos_Top">Alto</string>

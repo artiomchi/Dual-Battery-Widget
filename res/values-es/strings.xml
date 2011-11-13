@@ -31,11 +31,11 @@
     <string name="prop_showNotDockedMsg">Mostrar el estado cuando no esta acoplado el dock</string>
     <string name="prop_showNotDockedMsg_summary">Mostrar un mensaje que indica que la bateria secundaria no esta conectada cuando no esta acoplado el dock</string>
     <string name="prop_textPosition">Posicion del texto</string>
-    <string name="prop_textPosition_summary">Lugar donde visualizar el estado de la batería</string>
+    <string name="prop_textPosition_summary">Lugar donde visualizar el estado de la batería (%s)</string>
     <string name="prop_textSize">Tamaño del texto</string>
     <string name="prop_textColor">Color del texto</string>
     <string name="prop_margin">Margen de la ubicacion</string>
-    <string name="prop_margin_summary">El tamaño del margen es el mismo que el del texto</string>
+    <string name="prop_margin_summary">El tamaño del margen es el mismo que el del texto (%s)</string>
     <string name="prop_showLabel">Mostrar la etiqueta de la bateria</string>
     <string name="prop_showLabel_summary">
         Mostrar la estiqueta de la bateria en el margen inferior.
@@ -44,7 +44,6 @@
     <string name="prop_showDockHistory">Mostrar el ultimo nivel</string>
     <string name="prop_showDockHistory_summary">Muestra el ultimo nivel del dock cuando el dock esta desconectado</string>
 
-    <string name="prop_currentValue">Valor actual: </string>
     <string name="sett_textPos_Invisible">Invisible</string>
     <string name="sett_textPos_Above">Arriba</string>
     <string name="sett_textPos_Top">Superior</string>

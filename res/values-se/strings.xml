@@ -36,11 +36,11 @@
     <string name="prop_showNotDockedMsg">Visa status när enheten är odockad</string>
     <string name="prop_showNotDockedMsg_summary">Visa ett meddelande som säger att sekundärbatteriet inte är anslutet när enheten är odockad</string>
     <string name="prop_textPosition">Textposition</string>
-    <string name="prop_textPosition_summary">Var batteristatusen skall visas</string>
+    <string name="prop_textPosition_summary">Var batteristatusen skall visas (%s)</string>
     <string name="prop_textSize">Textstorlek</string>
     <string name="prop_textColor">Textfärg</string>
     <string name="prop_margin">Marginalposition</string>
-    <string name="prop_margin_summary">Marginalstorlek är samma som textstorlek</string>
+    <string name="prop_margin_summary">Marginalstorlek är samma som textstorlek (%s)</string>
     <string name="prop_showLabel">Visa batterietikett</string>
     <string name="prop_showLabel_summary">
 		Visa batterietikett i nedre marginalen.
@@ -50,7 +50,6 @@
     <string name="prop_showDockHistory_summary">Visa senast sparade batterinivå för dockan när enheten är odockad</string>
     <string name="prop_tempUnits">Temperaturenheter</string>
 
-    <string name="prop_currentValue">Nuvarande värde: </string>
     <string name="sett_textPos_Invisible">Osynlig</string>
     <string name="sett_textPos_Above">Ovanför</string>
     <string name="sett_textPos_Top">Toppen</string>

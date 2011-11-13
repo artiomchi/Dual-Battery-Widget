@@ -35,11 +35,11 @@
     <string name="prop_showNotDockedMsg">Status im ungedockten Zustand anzeigen lassen</string>
     <string name="prop_showNotDockedMsg_summary">Wenn das Dock nicht angeschlossen ist, soll eine Nachricht über den fehlenden externen Akku angezeigt werden.</string>
     <string name="prop_textPosition">Textposition</string>
-    <string name="prop_textPosition_summary">Platz für die Anzeige des Akkustatus</string>
+    <string name="prop_textPosition_summary">Platz für die Anzeige des Akkustatus (%s)</string>
     <string name="prop_textSize">Textgröße</string>
     <string name="prop_textColor">Textfarbe</string>
     <string name="prop_margin">Seitenwahl für die Anzeige</string>
-    <string name="prop_margin_summary">Der Abstand soll so groß wie der Text sein.</string>
+    <string name="prop_margin_summary">Der Abstand soll so groß wie der Text sein (%s)</string>
     <string name="prop_showLabel">Das Akku-Label anzeigen lassen</string>
     <string name="prop_showLabel_summary">
         Zeigt das Akku-Label am unteren Rand.
@@ -49,7 +49,6 @@
     <string name="prop_showDockHistory_summary">Zeige den zuletzt gespeicherten Stand des Dock-Akkus, wenn das Dock nicht angeschlossen ist.</string>
     <string name="prop_tempUnits">Einheit für die Temperatur</string>
 
-    <string name="prop_currentValue">Aktueller Stand: </string>
     <string name="sett_textPos_Invisible">Unsichtbar</string>
     <string name="sett_textPos_Above">Darüber</string>
     <string name="sett_textPos_Top">Oben</string>
