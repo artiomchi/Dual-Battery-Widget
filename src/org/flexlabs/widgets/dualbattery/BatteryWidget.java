@@ -1,15 +1,9 @@
 package org.flexlabs.widgets.dualbattery;
 
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.*;
-import android.os.BatteryManager;
-import android.util.Log;
-import android.view.View;
-import android.widget.RemoteViews;
 import org.flexlabs.widgets.dualbattery.service.BatteryMonitorService;
-import org.flexlabs.widgets.dualbattery.settings.WidgetPropertiesActivity;
 
 import java.io.File;
 
@@ -41,7 +35,7 @@ public class BatteryWidget extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // ensuring the service is still running, even if it was killed, and updating the widget
         Intent intent = new Intent(context, BatteryMonitorService.class);
-        intent.putExtra(BatteryMonitorService.BUNDLE_WIDGET_IDS, appWidgetIds);
+        intent.putExtra(BatteryMonitorService.EXTRA_WIDGET_IDS, appWidgetIds);
         context.startService(intent);
     }
 }

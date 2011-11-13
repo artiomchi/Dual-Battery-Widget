@@ -25,6 +25,12 @@
                   android:label="Widget Properties" />
         <!-- Battery monitor service -->
         <service android:name=".service.BatteryMonitorService" android:label="Battery Monitor Service" />
+        <receiver android:name=".service.BootUpReceiver" android:label="Monitor Service Auto Starter">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="com.android.vending.BILLING" />

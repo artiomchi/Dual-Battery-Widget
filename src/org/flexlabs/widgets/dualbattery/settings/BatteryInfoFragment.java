@@ -226,7 +226,7 @@ public class BatteryInfoFragment extends Fragment {
         int tempVal = temperature;
         if (!tempUnitsC)
             tempVal = tempVal * 9 / 5 + 320;
-        mTemperature.setText("" + tenthsToFixedString(tempVal)
+        mTemperature.setText(tenthsToFixedString(tempVal)
                 + getString(tempUnitsC
                     ? R.string.battery_info_temperature_units_c
                     : R.string.battery_info_temperature_units_f));
@@ -246,6 +246,63 @@ public class BatteryInfoFragment extends Fragment {
             mChartContainer.addView(mChartView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
                   ViewGroup.LayoutParams.FILL_PARENT));
             mChartContainer.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+
+            mRenderer.setAxisTitleTextSize(16);
+            mRenderer.setChartTitleTextSize(20);
+            mRenderer.setLabelsTextSize(15);
+            mRenderer.setLegendTextSize(15);
+            mRenderer.setMargins(new int[]{20, 30, 15, 0});
+            mRenderer.setYAxisMin(0);
+            mRenderer.setYAxisMax(100);
+            mRenderer.setPanEnabled(true, false);
+            mRenderer.setZoomEnabled(true, false);
+            mRenderer.setShowGrid(true);
+            mRenderer.setZoomButtonsVisible(false);
+    
+            mMainSeries = new XYSeries(getString(R.string.battery_main));
+            mDataset.addSeries(mMainSeries);
+            mMainRenderer = new XYSeriesRenderer();
+            mMainRenderer.setColor(Color.GREEN);
+            mRenderer.addSeriesRenderer(mMainRenderer);
+    
+            if (BatteryMonitorService.isDockSupported(getActivity())) {
+                mDockSeries = new XYSeries(getString(R.string.battery_dock));
+                mDataset.addSeries(mDockSeries);
+                mDockRenderer = new XYSeriesRenderer();
+                mDockRenderer.setColor(Color.CYAN);
+                mRenderer.addSeriesRenderer(mDockRenderer);
+            }
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    BatteryLevelAdapter adapter = new BatteryLevelAdapter(getActivity());
+                    adapter.open();
+                    Cursor c = adapter.getRecentEntries();
+                    int oldLevel = -1, oldDockLevel = -1;
+                    boolean dockSupported = BatteryMonitorService.isDockSupported(getActivity());
+
+                    if (c.moveToFirst())
+                        do {
+                            long time = c.getLong(BatteryLevelAdapter.ORD_TIME);
+                            int level = c.getInt(BatteryLevelAdapter.ORD_LEVEL);
+                            int dock_status = c.getInt(BatteryLevelAdapter.ORD_DOCK_STATUS);
+                            int dock_level = c.getInt(BatteryLevelAdapter.ORD_DOCK_LEVEL);
+
+                            if (level != oldLevel) {
+                                mMainSeries.add(time, level);
+                                oldLevel = level;
+                            }
+                            if (dock_status > 1 && dock_level != oldDockLevel && dockSupported) {
+                                mDockSeries.add(time, dock_level);
+                                oldDockLevel = dock_level;
+                            }
+                        } while (c.moveToNext());
+                    adapter.close();
+
+                    if (mChartView != null)
+                        mChartView.repaint();            }
+            }).start();
         } else {
             mChartView.repaint();
         }
@@ -273,69 +330,13 @@ public class BatteryInfoFragment extends Fragment {
         mDockLastConnected = (TextView) view.findViewById(R.id.dock_last_connected);
         mLastCharged = (TextView) view.findViewById(R.id.last_charged);
         mChartContainer = (LinearLayout) view.findViewById(R.id.chart);
-
-        view.findViewById(R.id.batteryInfo).setOnClickListener(batteryInfoListener);
         view.findViewById(R.id.batterySummary).setOnClickListener(batterySummaryListener);
 
         mIntentFilter = new IntentFilter();
         mIntentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);
 
-        mRenderer.setAxisTitleTextSize(16);
-        mRenderer.setChartTitleTextSize(20);
-        mRenderer.setLabelsTextSize(15);
-        mRenderer.setLegendTextSize(15);
-        mRenderer.setMargins(new int[]{20, 30, 15, 0});
-        mRenderer.setYAxisMin(0);
-        mRenderer.setYAxisMax(100);
-        mRenderer.setPanEnabled(true, false);
-        mRenderer.setZoomEnabled(true, false);
-        mRenderer.setShowGrid(true);
-        mRenderer.setZoomButtonsVisible(false);
-
-        mMainSeries = new XYSeries(getString(R.string.battery_main));
-        mDataset.addSeries(mMainSeries);
-        mMainRenderer = new XYSeriesRenderer();
-        mMainRenderer.setColor(Color.GREEN);
-        mRenderer.addSeriesRenderer(mMainRenderer);
-
-        mDockSeries = new XYSeries(getString(R.string.battery_dock));
-        mDataset.addSeries(mDockSeries);
-        mDockRenderer = new XYSeriesRenderer();
-        mDockRenderer.setColor(Color.CYAN);
-        mRenderer.addSeriesRenderer(mDockRenderer);
-
-        BatteryLevelAdapter adapter = new BatteryLevelAdapter(getActivity());
-        adapter.open();
-        Cursor c = adapter.getRecentEntries();
-
-        if (c.moveToFirst())
-            do {
-                long time = c.getLong(BatteryLevelAdapter.ORD_TIME);
-                int level = c.getInt(BatteryLevelAdapter.ORD_LEVEL);
-                int dock_status = c.getInt(BatteryLevelAdapter.ORD_DOCK_STATUS);
-                int dock_level = c.getInt(BatteryLevelAdapter.ORD_DOCK_LEVEL);
-
-                mMainSeries.add(time, level);
-                if (dock_status > 1)
-                    mDockSeries.add(time, dock_level);
-
-            } while (c.moveToNext());
-        adapter.close();
-
-        if (mChartView != null)
-            mChartView.repaint();
-
         return view;
     }
-
-    private final View.OnClickListener batteryInfoListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Intent i = new Intent(Intent.ACTION_MAIN);
-            i.setClassName("com.android.settings", "com.android.settings.BatteryInfo");
-            startActivity(i);
-        }
-    };
 
     private final View.OnClickListener batterySummaryListener = new View.OnClickListener() {
         @Override

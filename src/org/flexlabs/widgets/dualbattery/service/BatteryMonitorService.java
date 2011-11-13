@@ -19,7 +19,7 @@ import java.util.Date;
  */
 public class BatteryMonitorService extends Service {
     private static boolean isPopulated = false;
-    public static final String BUNDLE_WIDGET_IDS = "widgetIds";
+    public static final String EXTRA_WIDGET_IDS = "widgetIds";
 
     public static BatteryLevel level;
     public static boolean screenOff = false;
@@ -83,6 +83,8 @@ public class BatteryMonitorService extends Service {
                 adapter.open();
                 adapter.insertEntry(entry);
                 adapter.close();
+
+                WidgetUpdater.updateAllWidgets(context, level, null);
             }
         }).start();
     }
@@ -119,7 +121,7 @@ public class BatteryMonitorService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        final int[] widgetIds = intent.getIntArrayExtra(BUNDLE_WIDGET_IDS);
+        final int[] widgetIds = intent.getIntArrayExtra(EXTRA_WIDGET_IDS);
         if (widgetIds != null) {
             // Update our widgets on the non UI thread
             new Thread(new Runnable() {

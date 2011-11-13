@@ -54,11 +54,6 @@
             <TextView style="@style/table_value" android:id="@+id/dock_last_connected" />
         </TableRow>
     </TableLayout>
-    <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
-                  android:orientation="horizontal">
-        <Button android:id="@+id/batteryInfo" android:text="@string/showBatteryInfo"
-                android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1" />
-        <Button android:id="@+id/batterySummary" android:text="@string/showBatterySummary"
-                android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1" />
-    </LinearLayout>
+    <Button android:id="@+id/batterySummary" android:text="@string/showBatterySummary"
+            android:layout_width="fill_parent" android:layout_height="wrap_content" />
 </LinearLayout>
