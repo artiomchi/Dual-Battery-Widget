@@ -37,7 +37,7 @@ public class NotificationManager {
     }
     
     public void update(int dockLevel) {
-        mNotification.setLatestEventInfo(mContext, title, dockLevel + " %", null);
+        mNotification.setLatestEventInfo(mContext, title, "Dock battery level: " + dockLevel + "%", null);
         mNotificationManager.notify(NOTIFICATION_DOCK, mNotification);
     }
     

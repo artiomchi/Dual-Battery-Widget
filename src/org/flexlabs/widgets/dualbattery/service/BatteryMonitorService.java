@@ -91,7 +91,7 @@ public class BatteryMonitorService extends Service {
                     mNotificationManager.hide();
                 WidgetUpdater.updateAllWidgets(context, level, null);
             }
-        }).start();
+        }).run(); // TODO: Change this to .start();
     }
 
     /**
@@ -122,12 +122,14 @@ public class BatteryMonitorService extends Service {
 
         registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_SCREEN_ON));
         registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_SCREEN_OFF));
+        //registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_DOCK_EVENT));
         processBatteryIntent(this, registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED)));
         isPopulated = true;
     }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    
+    private void processStartIntent(Intent intent) {
+        if (intent == null)
+            return;
         final int[] widgetIds = intent.getIntArrayExtra(EXTRA_WIDGET_IDS);
         if (widgetIds != null) {
             // Update our widgets on the non UI thread
@@ -138,6 +140,16 @@ public class BatteryMonitorService extends Service {
                 }
             }).start();
         }
+    }
+
+    @Override
+    public void onStart(Intent intent, int startId) { // For compatibility with android 1.6
+        processStartIntent(intent);
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        processStartIntent(intent);
         return START_STICKY;
     }
 
