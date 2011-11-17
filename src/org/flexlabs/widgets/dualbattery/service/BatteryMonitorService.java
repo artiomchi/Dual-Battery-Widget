@@ -32,7 +32,7 @@ public class BatteryMonitorService extends Service {
     }
 
     private static void processBatteryIntent(final Context context, Intent intent) {
-        boolean newData = false;
+        boolean newData = false, newBatteryData = false;
 
         if (Intent.ACTION_SCREEN_OFF.equals(intent.getAction())) {
             if (!screenOff)
@@ -43,14 +43,29 @@ public class BatteryMonitorService extends Service {
             if (screenOff)
                 newData = true;
             screenOff = false;
+            
+        } else if (Intent.ACTION_DOCK_EVENT.equals(intent.getAction())) {
+            if (level != null && level.is_dockFriendly()) {
+                int dockState = intent.getIntExtra(Intent.EXTRA_DOCK_STATE, -1);
+                if (dockState == Intent.EXTRA_DOCK_STATE_UNDOCKED && level.is_dockConnected()) {
+                    level.undock();
+                    newBatteryData = true;
+                }
+                if (dockState == 10 && !level.is_dockConnected() && lastDockLevel != null) {// 10 = Asus Transformer Dock
+                    level.dock(lastDockLevel);
+                    newBatteryData = true;
+                }
+            }
 
         } else if (Intent.ACTION_BATTERY_CHANGED.equals(intent.getAction())) {
             BatteryLevel newLevel = BatteryLevel.parse(intent.getExtras());
             if (newLevel == null)
                 return;
             
-            if (newLevel.isDifferent(level))
+            if (newLevel.isDifferent(level)) {
                 newData = true;
+                newBatteryData = true;
+            }
 
             if ((level == null || level.get_status() == BatteryManager.BATTERY_STATUS_CHARGING) &&
                 newLevel.get_status() != BatteryManager.BATTERY_STATUS_CHARGING)
@@ -66,32 +81,46 @@ public class BatteryMonitorService extends Service {
             level = newLevel;
         }
         
-        if (!newData || level == null)
+        if ((!newData && !newBatteryData) || level == null)
             return;
 
-        // Running database operation away from the UI thread
-        new Thread(new Runnable() {
+        // Running more expensive operations away from the UI thread
+        Runnable runnable = new Runnable() {
+            private BatteryLevel _level;
+            private boolean _newData, _newBatteryData;
+            public Runnable setData(BatteryLevel level, boolean newData, boolean newBatteryData) {
+                _level = level;
+                _newData = newData;
+                _newBatteryData = newBatteryData;
+                return this;
+            }
+            
             @Override
             public void run() {
-                BatteryLevelAdapter.Entry entry = new BatteryLevelAdapter.Entry(
-                    level.get_status(),
-                    level.get_level(),
-                    level.get_dock_status(),
-                    level.get_dock_level(),
-                    screenOff);
-        
-                BatteryLevelAdapter adapter = new BatteryLevelAdapter(context);
-                adapter.open();
-                adapter.insertEntry(entry);
-                adapter.close();
+                if (_newData) {
+                    BatteryLevelAdapter.Entry entry = new BatteryLevelAdapter.Entry(
+                        _level.get_status(),
+                        _level.get_level(),
+                        _level.get_dock_status(),
+                        _level.get_dock_level(),
+                        screenOff);
 
-                if (level.is_dockConnected())
-                    mNotificationManager.update(level.get_dock_level());
-                else
-                    mNotificationManager.hide();
-                WidgetUpdater.updateAllWidgets(context, level, null);
+                    BatteryLevelAdapter adapter = new BatteryLevelAdapter(context);
+                    adapter.open();
+                    adapter.insertEntry(entry);
+                    adapter.close();
+                }
+
+                if (_newBatteryData) {
+                    if (_level.is_dockConnected())
+                        mNotificationManager.update(_level.get_dock_level());
+                    else
+                        mNotificationManager.hide();
+                    WidgetUpdater.updateAllWidgets(context, _level, null);
+                }
             }
-        }).run(); // TODO: Change this to .start();
+        }.setData(level, newData, newBatteryData);
+        new Thread(runnable).start();
     }
 
     /**
@@ -122,7 +151,7 @@ public class BatteryMonitorService extends Service {
 
         registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_SCREEN_ON));
         registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_SCREEN_OFF));
-        //registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_DOCK_EVENT));
+        registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_DOCK_EVENT));
         processBatteryIntent(this, registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED)));
         isPopulated = true;
     }

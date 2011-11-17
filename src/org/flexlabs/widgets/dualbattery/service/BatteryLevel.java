@@ -68,4 +68,13 @@ public class BatteryLevel {
             return _dock_level;
         return null;
     }
+    
+    public void undock() {
+        _dock_status = Constants.DOCK_STATE_UNDOCKED;
+    }
+    
+    public void dock(int dock_level) {
+        _dock_status = Constants.DOCK_STATE_DOCKED;
+        _dock_level = dock_level;
+    }
 }
