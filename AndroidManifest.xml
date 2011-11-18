@@ -20,11 +20,11 @@
             <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_info_3x4" />
         </receiver>
-        <!-- Widget settings activity -->
-        <activity android:name=".settings.WidgetPropertiesActivity" android:excludeFromRecents="true"
+        <!-- Widget widgetsettings activity -->
+        <activity android:name=".widgetsettings.WidgetPropertiesActivity" android:excludeFromRecents="true"
                   android:label="Widget Properties" />
         <!-- Battery monitor service -->
-        <service android:name=".service.BatteryMonitorService" android:label="Battery Monitor Service" />
+        <service android:name=".service.MonitorService" android:label="Battery Monitor Service" />
         <receiver android:name=".service.BootUpReceiver" android:label="Monitor Service Auto Starter">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

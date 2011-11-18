@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
-    <header android:fragment="org.flexlabs.widgets.dualbattery.settings.WidgetPropertiesFragment"
+    <header android:fragment="org.flexlabs.widgets.dualbattery.widgetsettings.WidgetPropertiesFragment"
             android:title="@string/propHeader_Main" />
-    <header android:fragment="org.flexlabs.widgets.dualbattery.settings.WidgetOtherFragment"
+    <header android:fragment="org.flexlabs.widgets.dualbattery.widgetsettings.WidgetOtherFragment"
             android:title="@string/propHeader_Other" android:summary="@string/propHeader_Other_summary" />
 </preference-headers>

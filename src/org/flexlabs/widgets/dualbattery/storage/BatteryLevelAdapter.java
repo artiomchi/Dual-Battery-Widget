@@ -1,4 +1,4 @@
-package org.flexlabs.widgets.dualbattery.service;
+package org.flexlabs.widgets.dualbattery.storage;
 
 import android.content.ContentValues;
 import android.content.Context;

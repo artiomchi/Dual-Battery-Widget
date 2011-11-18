@@ -1,9 +1,7 @@
-package org.flexlabs.widgets.dualbattery.settings.types;
+package org.flexlabs.widgets.dualbattery.ui;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.preference.DialogPreference;

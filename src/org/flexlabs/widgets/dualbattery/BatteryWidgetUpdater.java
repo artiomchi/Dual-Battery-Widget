@@ -1,4 +1,4 @@
-package org.flexlabs.widgets.dualbattery.service;
+package org.flexlabs.widgets.dualbattery;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -8,11 +8,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.BatteryManager;
 import android.os.Build;
-import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
-import org.flexlabs.widgets.dualbattery.*;
-import org.flexlabs.widgets.dualbattery.settings.WidgetPropertiesActivity;
+import org.flexlabs.widgets.dualbattery.widgetsettings.WidgetPropertiesActivity;
 
 /**
  * Created by IntelliJ IDEA.
@@ -20,15 +18,13 @@ import org.flexlabs.widgets.dualbattery.settings.WidgetPropertiesActivity;
  * Date: 12/11/11
  * Time: 15:21
  */
-public class WidgetUpdater {
-    public static final String LOG = "FlexLabs.DBW";
-
+public class BatteryWidgetUpdater {
     // Suppress default constructor for non-instantiability
-    private WidgetUpdater() {
+    private BatteryWidgetUpdater() {
         throw new AssertionError();
     }
 
-    public static void updateAllWidgets(Context context, BatteryLevel batteryLevel, int[] widgets) {
+    public static void updateAllWidgets(Context context, BatteryLevel level, int[] widgets) {
         // Get all "running" widgets
         AppWidgetManager manager = AppWidgetManager.getInstance(context);
         if (widgets == null) {
@@ -41,9 +37,8 @@ public class WidgetUpdater {
             System.arraycopy(widgets3, 0, widgets, widgets1.length + widgets2.length, widgets3.length);
         }
 
-        Log.d(LOG, "Widget count: " + widgets.length);
         for (int widgetId : widgets) {
-            updateWidget(context, manager, widgetId, batteryLevel);
+            updateWidget(context, manager, widgetId, level);
         }
     }
 
@@ -75,7 +70,7 @@ public class WidgetUpdater {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                updateWidget(context, AppWidgetManager.getInstance(context), widgetId, BatteryMonitorService.level);
+                updateWidget(context, AppWidgetManager.getInstance(context), widgetId, BatteryLevel.getCurrent());
             }
         }).start();
     }
@@ -118,7 +113,7 @@ public class WidgetUpdater {
         }
     }
 
-    public static void updateWidget(Context context, AppWidgetManager widgetManager, int widgetId, BatteryLevel batteryLevel) {
+    private static void updateWidget(Context context, AppWidgetManager widgetManager, int widgetId, BatteryLevel batteryLevel) {
         if (batteryLevel == null)
             return;
 
@@ -209,7 +204,7 @@ public class WidgetUpdater {
             }
             Integer dockLevel = batteryLevel.get_dock_level();
             if (dockLevel == null && showOldStatus)
-                dockLevel = BatteryMonitorService.lastDockLevel;
+                dockLevel = BatteryLevel.lastDockLevel;
             if (textPosition > 0) {
                 String status = "n/a";
                 if (dockLevel != null) {

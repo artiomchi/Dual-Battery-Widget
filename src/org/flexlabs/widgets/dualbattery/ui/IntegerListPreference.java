@@ -1,4 +1,4 @@
-package org.flexlabs.widgets.dualbattery.settings.types;
+package org.flexlabs.widgets.dualbattery.ui;
 
 import android.app.AlertDialog.Builder;
 import android.content.Context;

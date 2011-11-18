@@ -1,4 +1,4 @@
-package org.flexlabs.widgets.dualbattery.settings;
+package org.flexlabs.widgets.dualbattery.widgetsettings;
 
 import android.app.Fragment;
 import android.content.BroadcastReceiver;
@@ -18,10 +18,12 @@ import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
-import org.flexlabs.widgets.dualbattery.service.BatteryLevelAdapter;
-import org.flexlabs.widgets.dualbattery.service.BatteryMonitorService;
+import org.flexlabs.widgets.dualbattery.BatteryLevel;
+import org.flexlabs.widgets.dualbattery.storage.BatteryLevelAdapter;
+import org.flexlabs.widgets.dualbattery.service.MonitorService;
 import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.R;
+import org.flexlabs.widgets.dualbattery.service.IntentReceiver;
 
 import java.text.DateFormat;
 
@@ -30,7 +32,7 @@ import java.text.DateFormat;
  * User: ArtiomChi
  * Date: 17/06/11
  * Time: 18:53
- * Source partially based on: http://android.git.kernel.org/?p=platform/packages/apps/Settings.git;a=blob;f=src/com/android/settings/BatteryInfo.java
+ * Source partially based on: http://android.git.kernel.org/?p=platform/packages/apps/Settings.git;a=blob;f=src/com/android/widgetsettings/BatteryInfo.java
  */
 /* Copyright from the original code
 **
@@ -176,20 +178,20 @@ public class BatteryInfoFragment extends Fragment {
                 String dockLastConnected;
                 if (dockStatus >= Constants.DOCK_STATE_CHARGING) {
                     dockLastConnected = "--";
-                } else if (BatteryMonitorService.dockLastConnected == null) {
+                } else if (BatteryLevel.dockLastConnected == null) {
                     dockLastConnected = getString(R.string.unknown);
                 } else {
-                    dockLastConnected = DateFormat.getDateTimeInstance().format(BatteryMonitorService.dockLastConnected);
+                    dockLastConnected = DateFormat.getDateTimeInstance().format(BatteryLevel.dockLastConnected);
                 }
                 mDockLastConnected.setText(dockLastConnected);
 
                 String lastCharged;
                 if (status == BatteryManager.BATTERY_STATUS_CHARGING) {
                     lastCharged = "--";
-                } else if (BatteryMonitorService.lastCharged == null) {
+                } else if (BatteryLevel.lastCharged == null) {
                     lastCharged = getString(R.string.unknown);
                 } else {
-                    lastCharged = DateFormat.getDateTimeInstance().format(BatteryMonitorService.lastCharged);
+                    lastCharged = DateFormat.getDateTimeInstance().format(BatteryLevel.lastCharged);
                 }
                 mLastCharged.setText(lastCharged);
             }
@@ -265,7 +267,7 @@ public class BatteryInfoFragment extends Fragment {
             mMainRenderer.setColor(Color.GREEN);
             mRenderer.addSeriesRenderer(mMainRenderer);
     
-            if (BatteryMonitorService.isDockSupported(getActivity())) {
+            if (BatteryLevel.getCurrent().is_dockFriendly()) {
                 mDockSeries = new XYSeries(getString(R.string.battery_dock));
                 mDataset.addSeries(mDockSeries);
                 mDockRenderer = new XYSeriesRenderer();
@@ -280,7 +282,7 @@ public class BatteryInfoFragment extends Fragment {
                     adapter.open();
                     Cursor c = adapter.getRecentEntries();
                     int oldLevel = -1, oldDockLevel = -1;
-                    boolean dockSupported = BatteryMonitorService.isDockSupported(getActivity());
+                    boolean dockSupported = BatteryLevel.getCurrent().is_dockFriendly();
 
                     if (c.moveToFirst())
                         do {

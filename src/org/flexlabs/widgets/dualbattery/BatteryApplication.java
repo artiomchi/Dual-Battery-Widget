@@ -9,9 +9,13 @@ import android.app.Application;
  * Time: 21:56
  */
 public class BatteryApplication extends Application {
+    private static BatteryApplication _instance;
+    public static BatteryApplication getInstance() { return _instance; }
+    
     @Override
     public void onCreate() {
         super.onCreate();
+        _instance = this;
         //Useful for debugging builds
         Thread.setDefaultUncaughtExceptionHandler(new CustomExceptionHandler(getFilesDir().getAbsolutePath()));
     }

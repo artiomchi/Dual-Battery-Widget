@@ -3,7 +3,7 @@ package org.flexlabs.widgets.dualbattery;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.*;
-import org.flexlabs.widgets.dualbattery.service.BatteryMonitorService;
+import org.flexlabs.widgets.dualbattery.service.MonitorService;
 
 import java.io.File;
 
@@ -14,11 +14,10 @@ import java.io.File;
  * Time: 20:13
  */
 public class BatteryWidget extends AppWidgetProvider {
-    public static final String LOG = "FlexLabs";
     @Override
     public void onEnabled(Context context) {
         super.onEnabled(context);
-        context.startService(new Intent(context, BatteryMonitorService.class));
+        context.startService(new Intent(context, MonitorService.class));
     }
 
     @Override
@@ -34,8 +33,8 @@ public class BatteryWidget extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // ensuring the service is still running, even if it was killed, and updating the widget
-        Intent intent = new Intent(context, BatteryMonitorService.class);
-        intent.putExtra(BatteryMonitorService.EXTRA_WIDGET_IDS, appWidgetIds);
+        Intent intent = new Intent(context, MonitorService.class);
+        intent.putExtra(Constants.EXTRA_WIDGET_IDS, appWidgetIds);
         context.startService(intent);
     }
 }

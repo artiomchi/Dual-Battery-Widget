@@ -22,7 +22,7 @@ public class NotificationManager {
         mNotificationManager = (android.app.NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         mContext = context;
         title = context.getString(R.string.app_name);
-        //Intent notificationIntent = new Intent(context, BatteryMonitorService.class);
+        //Intent notificationIntent = new Intent(context, MonitorService.class);
         //PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
 
         mNotification = new Notification(

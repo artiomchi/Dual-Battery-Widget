@@ -12,6 +12,6 @@ import android.content.Intent;
  */
 public class BootUpReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
-        context.startService(new Intent(context, BatteryMonitorService.class));
+        context.startService(new Intent(context, MonitorService.class));
     }
 }

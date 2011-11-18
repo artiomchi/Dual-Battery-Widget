@@ -1,8 +1,11 @@
-package org.flexlabs.widgets.dualbattery.service;
+package org.flexlabs.widgets.dualbattery;
 
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.BatteryManager;
 import android.os.Bundle;
-import org.flexlabs.widgets.dualbattery.Constants;
+
+import java.util.Date;
 
 /**
  * Created by IntelliJ IDEA.
@@ -11,6 +14,10 @@ import org.flexlabs.widgets.dualbattery.Constants;
  * Time: 16:51
  */
 public class BatteryLevel {
+    private static BatteryLevel _instance;
+    public static Date dockLastConnected = null, lastCharged = null;
+    public static Integer lastDockLevel = null;
+
     private boolean _dockFriendly;
     private int _status;
     private int _level;
@@ -18,6 +25,15 @@ public class BatteryLevel {
     private int _dock_level;
     
     private BatteryLevel() { }
+    
+    public static void update(BatteryLevel level) { _instance = level; }
+    public static BatteryLevel getCurrent() {
+        if (_instance == null) {
+            Intent intent = BatteryApplication.getInstance().registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+            _instance = parse(intent.getExtras());
+        }
+        return _instance;
+    }
     
     public static BatteryLevel parse(Bundle extras) {
         if (extras == null)

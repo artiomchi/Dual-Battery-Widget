@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
                   xmlns:flexlabs="http://schemas.android.com/apk/res/org.flexlabs.widgets.dualbattery">
     <PreferenceCategory android:title="@string/propTitle_Dock">
-        <org.flexlabs.widgets.dualbattery.settings.types.IntegerListPreference
+        <org.flexlabs.widgets.dualbattery.ui.IntegerListPreference
                 android:key="batterySelection"
                 android:title="@string/prop_batterySelection" flexlabs:summary="@string/prop_batterySelection_summary"
                 flexlabs:entries="@array/batterySelection_labels" flexlabs:entryValues="@array/batterySelection_values"

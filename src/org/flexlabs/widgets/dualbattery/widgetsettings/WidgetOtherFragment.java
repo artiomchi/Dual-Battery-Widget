@@ -1,4 +1,4 @@
-package org.flexlabs.widgets.dualbattery.settings;
+package org.flexlabs.widgets.dualbattery.widgetsettings;
 
 import android.os.Bundle;
 import android.preference.Preference;
