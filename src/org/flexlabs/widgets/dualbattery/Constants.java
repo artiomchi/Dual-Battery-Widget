@@ -64,7 +64,7 @@ public class Constants {
     public static final String SETTING_SHOW_LABEL = "showBatteryLabel";
     public static final boolean SETTING_SHOW_LABEL_DEFAULT = false;
     public static final String SETTING_SHOW_OLD_DOCK = "showOldDockStatus";
-    public static final boolean SETTING_SHOW_OLD_DOCK_DEFAULT = false;
+    public static final boolean SETTING_SHOW_OLD_DOCK_DEFAULT = true;
     public static final int TEMP_UNIT_CELSIUS = 0;
     public static final int TEMP_UNIT_FAHRENHEIT = 1;
     public static final String SETTING_TEMP_UNITS_NEW = "tempUnitsNew";

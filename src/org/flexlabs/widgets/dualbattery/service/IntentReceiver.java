@@ -27,7 +27,7 @@ public class IntentReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        boolean newData = false, newBatteryData = false;
+        boolean newData = false;
         BatteryLevel level = BatteryLevel.getCurrent();
 
         if (Intent.ACTION_SCREEN_OFF.equals(intent.getAction())) {
@@ -45,11 +45,9 @@ public class IntentReceiver extends BroadcastReceiver {
                 int dockState = intent.getIntExtra(Intent.EXTRA_DOCK_STATE, -1);
                 if (dockState == Intent.EXTRA_DOCK_STATE_UNDOCKED && level.is_dockConnected()) {
                     level.undock();
-                    newBatteryData = true;
                 }
                 if (dockState == 10 && !level.is_dockConnected() && BatteryLevel.lastDockLevel != null) {// 10 = Asus Transformer Dock
                     level.dock(BatteryLevel.lastDockLevel);
-                    newBatteryData = true;
                 }
             }
 
@@ -58,10 +56,8 @@ public class IntentReceiver extends BroadcastReceiver {
             if (newLevel == null)
                 return;
 
-            if (newLevel.isDifferent(level)) {
+            if (newLevel.isDifferent(level))
                 newData = true;
-                newBatteryData = true;
-            }
 
             if ((level == null || level.get_status() == BatteryManager.BATTERY_STATUS_CHARGING) &&
                 newLevel.get_status() != BatteryManager.BATTERY_STATUS_CHARGING)

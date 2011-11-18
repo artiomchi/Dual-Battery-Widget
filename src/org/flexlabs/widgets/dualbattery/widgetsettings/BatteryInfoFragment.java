@@ -20,10 +20,8 @@ import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 import org.flexlabs.widgets.dualbattery.BatteryLevel;
 import org.flexlabs.widgets.dualbattery.storage.BatteryLevelAdapter;
-import org.flexlabs.widgets.dualbattery.service.MonitorService;
 import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.R;
-import org.flexlabs.widgets.dualbattery.service.IntentReceiver;
 
 import java.text.DateFormat;
 

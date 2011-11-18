@@ -20,7 +20,6 @@ import android.util.Log;
 import android.widget.TextView;
 import org.flexlabs.widgets.dualbattery.BatteryLevel;
 import org.flexlabs.widgets.dualbattery.BatteryWidgetUpdater;
-import org.flexlabs.widgets.dualbattery.service.MonitorService;
 import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.R;
 

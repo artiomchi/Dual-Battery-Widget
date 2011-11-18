@@ -3,7 +3,6 @@ package org.flexlabs.widgets.dualbattery.widgetsettings;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import org.flexlabs.widgets.dualbattery.BatteryLevel;
-import org.flexlabs.widgets.dualbattery.service.MonitorService;
 import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.R;
 
