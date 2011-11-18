@@ -22,7 +22,9 @@
         </receiver>
         <!-- Widget widgetsettings activity -->
         <activity android:name=".widgetsettings.WidgetPropertiesActivity" android:excludeFromRecents="true"
-                  android:label="Widget Properties" />
+                  android:label="Widget Properties">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" /></intent-filter>
+        </activity>
         <!-- Battery monitor service -->
         <service android:name=".service.MonitorService" android:label="Battery Monitor Service" />
         <receiver android:name=".service.BootUpReceiver" android:label="Monitor Service Auto Starter">
