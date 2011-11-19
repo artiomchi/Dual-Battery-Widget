@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/batt_levels" />
+    <item android:drawable="@drawable/batt_shape" />
+    <item android:drawable="@drawable/charging" />
+</layer-list>

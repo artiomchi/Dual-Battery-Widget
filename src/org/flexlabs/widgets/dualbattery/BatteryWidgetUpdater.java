@@ -176,9 +176,11 @@ public class BatteryWidgetUpdater {
                 views.setTextViewText(textStatusTab, status);
             }
 
-            views.setImageViewResource(R.id.batteryTab, getBatteryResource(batteryLevel.get_level(), false));
-            views.setViewVisibility(R.id.batteryTabCharging,
-                    getVisible(batteryLevel.get_status() == BatteryManager.BATTERY_STATUS_CHARGING));
+            int imgRes = batteryLevel.get_status() == BatteryManager.BATTERY_STATUS_CHARGING
+                    ? R.drawable.batt_charging
+                    : R.drawable.batt;
+            views.setImageViewResource(R.id.batteryTab, imgRes);
+            views.setInt(R.id.batteryTab, "setImageLevel", batteryLevel.get_level());
         } else {
             views.setViewVisibility(R.id.batteryFrame_main, View.GONE);
         }
@@ -218,10 +220,13 @@ public class BatteryWidgetUpdater {
                 views.setTextViewText(textStatusDock, status);
             }
 
-            views.setImageViewResource(R.id.batteryDock,
-                    getBatteryResource(dockLevel, !batteryLevel.is_dockConnected()));
-            views.setViewVisibility(R.id.batteryDockCharging,
-                    getVisible(batteryLevel.get_dock_status() == Constants.DOCK_STATE_CHARGING));
+            int imgRes = batteryLevel.is_dockConnected()
+                    ? batteryLevel.get_dock_status() == Constants.DOCK_STATE_CHARGING
+                        ? R.drawable.batt_charging
+                        : R.drawable.batt
+                    : R.drawable.batt_bw;
+            views.setImageViewResource(R.id.batteryDock, imgRes);
+            views.setInt(R.id.batteryDock, "setImageLevel", dockLevel);
         }
 
         Intent intent = new Intent(context, WidgetPropertiesActivity.class);
@@ -232,33 +237,5 @@ public class BatteryWidgetUpdater {
         views.setOnClickPendingIntent(R.id.widget, pendingIntent);
 
         widgetManager.updateAppWidget(widgetId, views);
-    }
-
-    private static int getBatteryResource(Integer status, boolean alt) {
-        if (status == null)
-            return R.drawable.batt_0;
-        if (status <= 10)
-            return !alt ? R.drawable.batt_10 : R.drawable.batt_bw_10;
-        if (status <= 20)
-            return !alt ? R.drawable.batt_20 : R.drawable.batt_bw_20;
-        if (status <= 30)
-            return !alt ? R.drawable.batt_30 : R.drawable.batt_bw_30;
-        if (status <= 40)
-            return !alt ? R.drawable.batt_40 : R.drawable.batt_bw_40;
-        if (status <= 50)
-            return !alt ? R.drawable.batt_50 : R.drawable.batt_bw_50;
-        if (status <= 60)
-            return !alt ? R.drawable.batt_60 : R.drawable.batt_bw_60;
-        if (status <= 70)
-            return !alt ? R.drawable.batt_70 : R.drawable.batt_bw_70;
-        if (status <= 80)
-            return !alt ? R.drawable.batt_80 : R.drawable.batt_bw_80;
-        if (status <= 90)
-            return !alt ? R.drawable.batt_90 : R.drawable.batt_bw_90;
-        return !alt ? R.drawable.batt_100 : R.drawable.batt_bw_100;
-    }
-
-    private static int getVisible(boolean visible) {
-        return visible ? View.VISIBLE : View.GONE;
     }
 }

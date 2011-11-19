@@ -107,7 +107,9 @@ public class IntentReceiver extends BroadcastReceiver {
 
                 if (!screenOff) {
                     if (_level.is_dockConnected())
-                        mNotificationManager.update(_level.get_dock_level());
+                        mNotificationManager.update(
+                                _level.get_dock_level(),
+                                _level.get_dock_status() == Constants.DOCK_STATE_CHARGING);
                     else
                         mNotificationManager.hide();
                     BatteryWidgetUpdater.updateAllWidgets(_context, _level, null);
