@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.BatteryManager;
+import android.os.Build;
 import org.flexlabs.widgets.dualbattery.BatteryLevel;
 import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.BatteryWidgetUpdater;
@@ -22,7 +23,10 @@ public class IntentReceiver extends BroadcastReceiver {
     private boolean screenOff = false;
 
     public IntentReceiver(Context context) {
-        mNotificationManager = new NotificationManager(context);
+        // The dock notification icon will only show up on the transformer (aka Honeycomb+)
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
+            mNotificationManager = new NotificationManager(context);
+        }
     }
 
     @Override
@@ -106,12 +110,15 @@ public class IntentReceiver extends BroadcastReceiver {
                 }
 
                 if (!screenOff) {
-                    if (_level.is_dockConnected())
-                        mNotificationManager.update(
-                                _level.get_dock_level(),
-                                _level.get_dock_status() == Constants.DOCK_STATE_CHARGING);
-                    else
-                        mNotificationManager.hide();
+                    // The dock notification icon will only show up on the transformer (aka Honeycomb+)
+                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
+                        if (_level.is_dockConnected())
+                            mNotificationManager.update(
+                                    _level.get_dock_level(),
+                                    _level.get_dock_status() == Constants.DOCK_STATE_CHARGING);
+                        else
+                            mNotificationManager.hide();
+                    }
                     BatteryWidgetUpdater.updateAllWidgets(_context, _level, null);
                 }
             }
