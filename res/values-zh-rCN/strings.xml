@@ -23,8 +23,6 @@
     <string name="propTitle_Other">其他</string>
     <string name="propTitle_About">关于双电池插件</string>
     <string name="propTitle_Feedback">发送反馈</string>
-    <string name="propTitle_SendCrashReport">发送错误报告</string>
-    <string name="propTitle_SendCrashReport_summaryPrefix">上次修改日期: </string>
     <string name="propTitle_MarketLink">在市场里查看</string>
     <string name="propTitle_Donate">捐赠 :)</string>
 
@@ -90,7 +88,6 @@
         \n法语: Ludovic MAILLET
         \n西班牙语: Cristian Valero, STG (Spanish Translation Group)
     </string>
-    <string name="report_detailrequest">请在应用强制关闭之后反馈一些信息:</string>
 
     <string name="battery_info_status_label">电池状态:</string>
     <string name="battery_info_last_charged_label">最近的一次充电日期:</string>

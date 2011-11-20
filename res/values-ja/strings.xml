@@ -17,8 +17,6 @@
     <string name="propTitle_Other">その他</string>
     <string name="propTitle_About">Dual Battery Widget について</string>
     <string name="propTitle_Feedback">フィードバックを送信</string>
-    <string name="propTitle_SendCrashReport">クラッシュレポートを送信</string>
-    <string name="propTitle_SendCrashReport_summaryPrefix">最終変更日時: </string>
     <string name="propTitle_MarketLink">Android マーケットで見る</string>
     <string name="propTitle_Donate">寄付する :)</string>
 
@@ -83,7 +81,6 @@
         \nスペイン語: Cristian Valero, STG (Spanish Translation Group)
         \n日本語: Ryunosuke Tanaka
     </string>
-    <string name="report_detailrequest">アプリケーションがクラッシュした時にあなたが何をしていたのかを簡単に説明して下さい:</string>
 
     <string name="battery_info_status_label">バッテリー状況:</string>
     <string name="battery_info_last_charged_label">最終充電日時:</string>

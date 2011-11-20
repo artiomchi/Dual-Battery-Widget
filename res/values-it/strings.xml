@@ -22,8 +22,6 @@
     <string name="propTitle_Other">Altro</string>
     <string name="propTitle_About">Informazioni su Doppia Batteria Widget</string>
     <string name="propTitle_Feedback">Invia Feedback</string>
-    <string name="propTitle_SendCrashReport">Invia Segnalazioni Errori</string>
-    <string name="propTitle_SendCrashReport_summaryPrefix">Ultima Modifica:</string>
     <string name="propTitle_MarketLink">Trovami Sul Market Android</string>
     <string name="propTitle_Donate">Se Vuoi Contribuire :)</string>
 
@@ -91,7 +89,6 @@
         \nSpanish: Cristian Valero, STG (Gruppo traduzione spagnola)
         \nItalian: Emilio Genazzini
     </string>
-    <string name="report_detailrequest">Spiega in poche parole quello che hai fatto quando il widget è andato in crash:</string>
 
     <string name="battery_info_status_label">Stato della Batteria:</string>
     <string name="battery_info_last_charged_label">Ultima ricarica:</string>

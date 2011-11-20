@@ -21,8 +21,6 @@
     <string name="propTitle_Other">Sonstiges</string>
     <string name="propTitle_About">Über das Dual Battery Widget</string>
     <string name="propTitle_Feedback">Feedback einreichen</string>
-    <string name="propTitle_SendCrashReport">Crash-Report einsenden</string>
-    <string name="propTitle_SendCrashReport_summaryPrefix">Zuletzt geändert:</string>
     <string name="propTitle_MarketLink">Im Android Market betrachten</string>
     <string name="propTitle_Donate">Spenden :)</string>
 
@@ -95,7 +93,6 @@
         \nSpanisch: Cristian Valero, STG (Spanish Translation Group)
         \nDeutsch: Valentin Höbel (http://www.xenuser.org)
     </string>
-    <string name="report_detailrequest">Bitte erkläre mit wenigen Worten, was du getan hast um die Anwendung zum Absturz zu bringen:</string>
 
     <string name="battery_info_status_label">Akkustatus:</string>
     <string name="battery_info_last_charged_label">Letzter Zeitpunkt der Aufladung:</string>

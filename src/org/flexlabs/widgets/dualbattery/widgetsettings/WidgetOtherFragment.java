@@ -21,16 +21,6 @@ public class WidgetOtherFragment extends PreferenceFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         addPreferencesFromResource(R.xml.widget_properties_other);
-
-        File crashReport = new File(getActivity().getFilesDir(), Constants.STACKTRACE_FILENAME);
-        Preference pref = findPreference(WidgetPropertiesActivity.KEY_REPORT);
-        if (!crashReport.exists()) {
-            pref.setEnabled(false);
-        } else {
-            pref.setSummary(
-                    getString(R.string.propTitle_SendCrashReport_summaryPrefix) + " " +
-                    new Date(crashReport.lastModified()).toString());
-        }
     }
 
     @Override

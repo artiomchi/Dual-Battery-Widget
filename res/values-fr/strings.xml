@@ -17,8 +17,6 @@
     <string name="propTitle_Other">Autre</string>
     <string name="propTitle_About">A propos du Dual Battery Widget</string>
     <string name="propTitle_Feedback">Commentaires</string>
-    <string name="propTitle_SendCrashReport">Envoyer un rapport d\'erreur</string>
-    <string name="propTitle_SendCrashReport_summaryPrefix">Dernière modification: </string>
     <string name="propTitle_MarketLink">Voir dans l\'Android Market</string>
     <string name="propTitle_Donate">Donation :)</string>
 
@@ -89,7 +87,6 @@
         \nEspagnol: Cristian Valero, STG (Spanish Translation Group)
         \nJaponais: Ryunosuke Tanaka
     </string>
-    <string name="report_detailrequest">Merci, d\’expliquer en quelques mots ce que vous faisiez quand l\'application a rencontré l\'erreur:</string>
 
     <string name="battery_info_status_label">État de la batterie:</string>
     <string name="battery_info_last_charged_label">Dernier chargement:</string>

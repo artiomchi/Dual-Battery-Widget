@@ -17,8 +17,6 @@
     <string name="propTitle_Other">Otro</string>
     <string name="propTitle_About">Acerca de Dual Battery Widget</string>
     <string name="propTitle_Feedback">Enviar comentario</string>
-    <string name="propTitle_SendCrashReport">Enviar reporte</string>
-    <string name="propTitle_SendCrashReport_summaryPrefix">Modificada por ultima vez: </string>
     <string name="propTitle_MarketLink">Ver en el Android Market</string>
     <string name="propTitle_Donate">Donar :)</string>
 
@@ -90,7 +88,6 @@
         \nEspañol: Cristian Valero, STG (Spanish Translation Group)
         \nJaponés: Ryunosuke Tanaka
     </string>
-    <string name="report_detailrequest">Por favor, explica en unas pocas palabras que hacia usted cuando la aplicación se bloqueo:</string>
 
     <string name="battery_info_status_label">Estado de la bateria:</string>
     <string name="battery_info_last_charged_label">Ultima vez cargado:</string>

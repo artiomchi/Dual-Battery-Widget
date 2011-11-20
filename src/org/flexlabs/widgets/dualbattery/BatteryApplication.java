@@ -16,7 +16,5 @@ public class BatteryApplication extends Application {
     public void onCreate() {
         super.onCreate();
         _instance = this;
-        //Useful for debugging builds
-        Thread.setDefaultUncaughtExceptionHandler(new CustomExceptionHandler(getFilesDir().getAbsolutePath()));
     }
 }

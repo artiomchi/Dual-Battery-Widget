@@ -23,8 +23,6 @@
     <string name="propTitle_Other">其它</string>
     <string name="propTitle_About">關於雙電池小工具</string>
     <string name="propTitle_Feedback">傳送意見</string>
-    <string name="propTitle_SendCrashReport">傳送錯誤報告</string>
-    <string name="propTitle_SendCrashReport_summaryPrefix">上次修改日期: </string>
     <string name="propTitle_MarketLink">在市場裡查看</string>
     <string name="propTitle_Donate">捐贈 :)</string>
 
@@ -92,7 +90,6 @@
         \n法語: Ludovic MAILLET
         \n西班牙語: Cristian Valero, STG (Spanish Translation Group)
     </string>
-    <string name="report_detailrequest">请在应用强制关闭之后反馈一些信息:</string>
 
     <string name="battery_info_status_label">電池狀態:</string>
     <string name="battery_info_last_charged_label">最近一次的充電日期:</string>

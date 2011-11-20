@@ -23,8 +23,6 @@
     <string name="propTitle_Other">Other</string>
     <string name="propTitle_About">About Dual Battery Widget</string>
     <string name="propTitle_Feedback">Send Feedback</string>
-    <string name="propTitle_SendCrashReport">Send Crash Report</string>
-    <string name="propTitle_SendCrashReport_summaryPrefix">Last modified: </string>
     <string name="propTitle_MarketLink">View in Android Market</string>
     <string name="propTitle_Donate">Donate :)</string>
 
@@ -99,7 +97,6 @@
         \nFrench: Ludovic MAILLET
         \nSpanish: Cristian Valero, STG (Spanish Translation Group)
     </string>
-    <string name="report_detailrequest">Please explain in a few words what did you do when the application crashed:</string>
 
     <string name="battery_info_status_label">Battery status:</string>
     <string name="battery_info_last_charged_label">Last time charged:</string>

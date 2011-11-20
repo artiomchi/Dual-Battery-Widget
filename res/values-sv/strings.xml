@@ -22,8 +22,6 @@
     <string name="propTitle_Other">Andra inställningar</string>
     <string name="propTitle_About">Om Dual Batteriwidget</string>
     <string name="propTitle_Feedback">Skicka Återkoppling</string>
-    <string name="propTitle_SendCrashReport">Skicka Kraschrapport</string>
-    <string name="propTitle_SendCrashReport_summaryPrefix">Senast modifierad: </string>
     <string name="propTitle_MarketLink">Se i Android Market</string>
     <string name="propTitle_Donate">Donera :)</string>
 
@@ -96,7 +94,6 @@
         \nSpanish: Cristian Valero, STG (Spanish Translation Group)
 		\nSwedish: Peter Kristensson
     </string>
-    <string name="report_detailrequest">Var vänlig beskriv kortfattat vad du gjorde när applikationen kraschade:</string>
 
     <string name="battery_info_status_label">Batteristatus:</string>
     <string name="battery_info_last_charged_label">Senast laddad:</string>

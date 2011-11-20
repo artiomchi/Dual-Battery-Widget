@@ -46,11 +46,10 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
     public static final int DIALOG_ABOUT = 0;
 
     public int appWidgetId;
-    public boolean widgetIsOld, tempUnitsC;
+    public boolean tempUnitsC;
 
     private void ensureIntentSettings() {
         Bundle extras = getIntent().getExtras();
-        widgetIsOld = extras.getBoolean(Constants.EXTRA_WIDGET_OLD, false);
         appWidgetId = extras.getInt(
                 AppWidgetManager.EXTRA_APPWIDGET_ID,
                 AppWidgetManager.INVALID_APPWIDGET_ID);
@@ -62,24 +61,12 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
             getPreferenceManager().setSharedPreferencesName(Constants.SETTINGS_PREFIX + appWidgetId);
-            if (widgetIsOld) {
-                addPreferencesFromResource(R.xml.widget_properties_battery_links);
-            }
+            addPreferencesFromResource(R.xml.widget_properties_battery_links);
             addPreferencesFromResource(R.xml.widget_properties_general);
             if (BatteryLevel.getCurrent().is_dockFriendly()) {
                 addPreferencesFromResource(R.xml.widget_properties_dock);
             }
             addPreferencesFromResource(R.xml.widget_properties_other);
-
-            File crashReport = new File(getFilesDir(), Constants.STACKTRACE_FILENAME);
-            Preference pref = findPreference(KEY_REPORT);
-            if (!crashReport.exists()) {
-                pref.setEnabled(false);
-            } else {
-                pref.setSummary(
-                        getString(R.string.propTitle_SendCrashReport_summaryPrefix) + " " +
-                        new Date(crashReport.lastModified()).toString());
-            }
         }
 
         tempUnitsC = getSharedPreferences(Constants.SETTINGS_PREFIX + appWidgetId, MODE_PRIVATE)
@@ -91,9 +78,7 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
         super.onBuildHeaders(target);
         ensureIntentSettings();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            if (widgetIsOld) {
-                loadHeadersFromResource(R.xml.widget_properties_header_batteryinfo, target);
-            }
+            loadHeadersFromResource(R.xml.widget_properties_header_batteryinfo, target);
             loadHeadersFromResource(R.xml.widget_properties_headers, target);
         }
     }
@@ -135,20 +120,6 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
     public boolean onPreferenceClicked(String key) {
         if (KEY_ABOUT.equals(key)) {
             this.showDialog(DIALOG_ABOUT);
-            return true;
-        }
-        if (KEY_REPORT.equals(key)) {
-            File stacktrace = new File(getFilesDir(), Constants.STACKTRACE_FILENAME);
-            if (stacktrace.exists()) {
-                stacktrace.setReadable(true, false);
-                Intent intent = new Intent(Intent.ACTION_SEND, Uri.parse("mailto:"));
-                intent.putExtra(Intent.EXTRA_EMAIL, new String[] { Constants.FeedbackDestination });
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Dual Battery Widget Feedback");
-                intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.report_detailrequest) + "\n");
-                intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///mnt/sdcard/../.." + stacktrace.getAbsolutePath()));
-                intent.setType("message/rfc822");
-                startActivity(Intent.createChooser(intent, "Email"));
-            }
             return true;
         }
         if (KEY_FEEDBACK.equals(key)) {

@@ -25,8 +25,8 @@ public class NotificationManager {
     
     public void update(int dockLevel, boolean charging) {
         int icon = charging
-                ? R.drawable.stat_sys_battery_charge
-                : R.drawable.stat_sys_battery;
+                ? R.drawable.stat_sys_battery_charge // local copy of android.R.drawable.stat_sys_battery_charge
+                : R.drawable.stat_sys_battery;       // local copy of android.R.drawable.stat_sys_battery
 
         // Notification Builder straight up refuses to create a notification without a ticker :(
         /*Notification notification = new Notification.Builder(mContext)

@@ -2,7 +2,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="@string/propTitle_Other">
         <Preference android:key="feedback" android:title="@string/propTitle_Feedback" />
-        <Preference android:key="crashReport" android:title="@string/propTitle_SendCrashReport" />
         <Preference android:title="@string/propTitle_MarketLink">
             <intent android:action="android.intent.action.VIEW"
                     android:data="@string/link_market" />
