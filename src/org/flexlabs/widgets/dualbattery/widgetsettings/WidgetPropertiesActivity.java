@@ -101,7 +101,9 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
     protected Dialog onCreateDialog(int id) {
         switch (id) {
             case DIALOG_ABOUT :
-                final SpannableString s = new SpannableString(getText(R.string.about_full));
+                final SpannableString s = new SpannableString(
+                        getString(R.string.about_full) +
+                        getString(R.string.about_translations));
                 Linkify.addLinks(s, Linkify.ALL);
 
                 Dialog result = new AlertDialog.Builder(this)

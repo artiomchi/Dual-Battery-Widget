@@ -3,7 +3,6 @@
     <string name="widget_name">备用电池计量插件</string>
     <string name="widget_name_2x2">备用电池计量插件 2x2</string>
     <string name="widget_name_3x4">备用电池计量插件 3x4</string>
-    <string name="link_market">https://market.android.com/details?id=org.flexlabs.widgets.dualbattery</string>
 
     <string name="undocked">不停靠</string>
     <string name="unknown">位置</string>
@@ -85,8 +84,6 @@
         \n如果你有一些意见要反馈给我请向 android@flexlabs.org发送邮件
         \n
         \n特别鸣谢:
-        \n法语: Ludovic MAILLET
-        \n西班牙语: Cristian Valero, STG (Spanish Translation Group)
     </string>
 
     <string name="battery_info_status_label">电池状态:</string>
@@ -99,16 +96,12 @@
     <string name="battery_info_voltage_units_mV">毫伏</string>
     <string name="battery_info_voltage_units_V">伏特</string>
     <string name="battery_info_temperature_label">电池温度:</string>
-    <string name="battery_info_temperature_units_c">\u00B0 C</string>
-    <string name="battery_info_temperature_units_f">\u00B0 F</string>
     <string name="battery_info_uptime">开机时长:</string>
     <string name="battery_info_dock_status_label">备用电池状态:</string>
     <string name="battery_info_dock_level_label">备用电池等级:</string>
     <string name="battery_info_dock_last_connected_label">最后一次连接备用电池连接:</string>
 
     <string name="battery_info_status_charging">充电</string>
-    <string name="battery_info_status_charging_ac">(AC)</string>
-    <string name="battery_info_status_charging_usb">(USB)</string>
     <string name="battery_info_status_discharging">无法充电</string>
     <string name="battery_info_status_not_charging">没有充电</string>
     <string name="battery_info_status_full">全</string>

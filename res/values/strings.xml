@@ -3,7 +3,6 @@
     <string name="widget_name">Dual Battery Widget</string>
     <string name="widget_name_2x2">Dual Battery Widget 2x2</string>
     <string name="widget_name_3x4">Dual Battery Widget 3x4</string>
-    <string name="link_market">https://market.android.com/details?id=org.flexlabs.widgets.dualbattery</string>
 
     <string name="undocked">Not docked</string>
     <string name="unknown">Unknown</string>
@@ -27,7 +26,6 @@
     <string name="propTitle_Donate">Donate :)</string>
 
     <string name="prop_batterySelection">Battery to display</string>
-    <string name="prop_batterySelection_summary">%s</string>
     <string name="prop_alwaysShowDock">Always show dock battery</string>
     <string name="prop_alwaysShowDock_summary">
         Show the dock battery gauge even when not docked
@@ -38,9 +36,7 @@
     <string name="prop_textPosition">Text position</string>
     <string name="prop_textPosition_summary">Where to display the battery status (%s)</string>
     <string name="prop_textSize">Text size</string>
-    <string name="prop_textSize_summary">%s</string>
     <string name="prop_textColor">Text colour</string>
-    <string name="prop_textColor_summary">%s</string>
     <string name="prop_margin">Margin location</string>
     <string name="prop_margin_summary">Margin size is the same as the text size (%s)</string>
     <string name="prop_showLabel">Show battery label</string>
@@ -85,17 +81,19 @@
         \nYou can install the widget from the marketplace here:
         https://market.android.com/details?id=org.flexlabs.widgets.dualbattery
         \n
+        \nThe widget is open source, and licensed with the Apache License 2.0
+        \nFeel free to contribute to the development of the project, by forking the project on GitHub:
+        \nhttps://github.com/artiomchi/Dual-Battery-Widget
+        \n
         \nTo find more about the author, you can check out my website http://www.flexlabs.org or my twitter account @artiom_chi
         \nhttps://twitter.com/artiom_chi
         \n
-        \nYou can also check out the topic on the xda-developers forum here:
-        \nhttp://forum.xda-developers.com/showthread.php?t=1123363
+        \nIf you have any issues, use the feedback option inside the application settings window, or send me an e-mail to android@flexlabs.org
         \n
-        \nIf you have any issues, use the feedback option inside the aplication settings window, or send me an e-mail to android@flexlabs.org
+        \nIf you want to contribute by translating this project, you can do so by visiting the project translation page:
+        \nhttp://translate.dualbattery.flexlabs.org
         \n
-        \nMany thanks to the following contributors for the translation:
-        \nFrench: Ludovic MAILLET
-        \nSpanish: Cristian Valero, STG (Spanish Translation Group)
+        \nMany thanks to all the people who helped with the translation of the project, including:
     </string>
 
     <string name="battery_info_status_label">Battery status:</string>
@@ -108,16 +106,12 @@
     <string name="battery_info_voltage_units_mV">mV</string>
     <string name="battery_info_voltage_units_V">V</string>
     <string name="battery_info_temperature_label">Battery temperature:</string>
-    <string name="battery_info_temperature_units_c">\u00B0 C</string>
-    <string name="battery_info_temperature_units_f">\u00B0 F</string>
     <string name="battery_info_uptime">Time since boot:</string>
     <string name="battery_info_dock_status_label">Dock battery status:</string>
     <string name="battery_info_dock_level_label">Dock battery level:</string>
     <string name="battery_info_dock_last_connected_label">Dock last connected:</string>
 
     <string name="battery_info_status_charging">Charging</string>
-    <string name="battery_info_status_charging_ac">(AC)</string>
-    <string name="battery_info_status_charging_usb">(USB)</string>
     <string name="battery_info_status_discharging">Discharging</string>
     <string name="battery_info_status_not_charging">Not charging</string>
     <string name="battery_info_status_full">Full</string>

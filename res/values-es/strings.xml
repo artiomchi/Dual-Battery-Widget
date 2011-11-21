@@ -83,10 +83,10 @@
         \n
         \nSi usted tiene algun problema, utilice la opcion de comentarios dentro de la ventana de configuracion, o envíame un e-mail a android@flexlabs.org
         \n
+        \nSi quieres contribuir con la traducción de este proyecto, puede hacerlo visitando la página de proyectos de traducción:
+        \nhttp://translate.dualbattery.flexlabs.org/
+        \n
         \nMuchas gracias a los siguientes contribuyentes por la traduccion:
-        \nFrances: Ludovic MAILLET
-        \nEspañol: Cristian Valero, STG (Spanish Translation Group)
-        \nJaponés: Ryunosuke Tanaka
     </string>
 
     <string name="battery_info_status_label">Estado de la bateria:</string>

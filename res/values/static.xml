@@ -1,0 +1,21 @@
+<resources>
+    <string name="link_market">https://market.android.com/details?id=org.flexlabs.widgets.dualbattery</string>
+    <string name="prop_batterySelection_summary">%s</string>
+    <string name="prop_textSize_summary">%s</string>
+    <string name="prop_textColor_summary">%s</string>
+
+    <string name="about_translations">
+        \nFrançais: Ludovic MAILLET
+        \nEspañol: Cristian Valero, STG (Spanish Translation Group)
+        \nDeutsch: Valentin Höbel (http://www.xenuser.org)
+        \nItalian: Emilio Genazzini, Vincenzo
+        \n日本語: Ryunosuke Tanaka
+        \nSwedish: Peter Kristensson
+    </string>
+
+    <string name="battery_info_status_charging_ac">(AC)</string>
+    <string name="battery_info_status_charging_usb">(USB)</string>
+
+    <string name="battery_info_temperature_units_c">\u00B0 C</string>
+    <string name="battery_info_temperature_units_f">\u00B0 F</string>
+</resources>

@@ -3,7 +3,6 @@
     <string name="widget_name">雙電池小工具</string>
     <string name="widget_name_2x2">雙電池小工具 2x2</string>
     <string name="widget_name_3x4">雙電池小工具 3x4</string>
-    <string name="link_market">https://market.android.com/details?id=org.flexlabs.widgets.dualbattery</string>
 
     <string name="undocked">未合體</string>
     <string name="unknown">未知</string>
@@ -87,8 +86,6 @@
         \n如果你有建議想要提供的話請傳郵件到 android@flexlabs.org
         \n
         \n特别感謝:
-        \n法語: Ludovic MAILLET
-        \n西班牙語: Cristian Valero, STG (Spanish Translation Group)
     </string>
 
     <string name="battery_info_status_label">電池狀態:</string>
@@ -101,16 +98,12 @@
     <string name="battery_info_voltage_units_mV">毫伏</string>
     <string name="battery_info_voltage_units_V">伏特</string>
     <string name="battery_info_temperature_label">電池温度:</string>
-    <string name="battery_info_temperature_units_c">\u00B0 C</string>
-    <string name="battery_info_temperature_units_f">\u00B0 F</string>
     <string name="battery_info_uptime">開機時間:</string>
     <string name="battery_info_dock_status_label">底座電池狀態:</string>
     <string name="battery_info_dock_level_label">底座電池等級:</string>
     <string name="battery_info_dock_last_connected_label">最後一次合體:</string>
 
     <string name="battery_info_status_charging">充電中</string>
-    <string name="battery_info_status_charging_ac">(AC)</string>
-    <string name="battery_info_status_charging_usb">(USB)</string>
     <string name="battery_info_status_discharging">放電中</string>
     <string name="battery_info_status_not_charging">没有充電</string>
     <string name="battery_info_status_full">全</string>

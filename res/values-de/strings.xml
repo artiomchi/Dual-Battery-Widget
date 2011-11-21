@@ -1,7 +1,6 @@
 ﻿<resources>
     <string name="app_name">Dual Battery Widget</string>
     <string name="widget_name">Dual Battery Widget</string>
-    <string name="link_market">https://market.android.com/details?id=org.flexlabs.widgets.dualbattery</string>
 
     <string name="undocked">Nicht angedockt</string>
     <string name="unknown">Unbekannt</string>
@@ -88,10 +87,10 @@
         \n
         \nWenn du auf Probleme stößt, solltest du die in die App eingebaute Feedback-Option im Einstellungsdialog verwenden. Alternativ stehe ich bei Fragen auch via E-Mail zur Verfügung: android@flexlabs.org
         \n
+        \nWenn Sie durch die Übersetzung dieses Projekt beitragen möchten, können Sie dies tun, indem Sie das Projekt-Übersetzung Seite
+        \nhttp://translate.dualbattery.flexlabs.org/
+        \n
         \nMein Dank geht an folgende Menschen für das Einsenden von Übersetzungen des Widgets:
-        \nFranzösisch: Ludovic MAILLET
-        \nSpanisch: Cristian Valero, STG (Spanish Translation Group)
-        \nDeutsch: Valentin Höbel (http://www.xenuser.org)
     </string>
 
     <string name="battery_info_status_label">Akkustatus:</string>
@@ -102,16 +101,12 @@
     <string name="battery_info_technology_label">Akku-Art:</string>
     <string name="battery_info_voltage_label">Akkuspannung:</string>
     <string name="battery_info_temperature_label">Akkutemperatur:</string>
-    <string name="battery_info_temperature_units_c">\u00B0 C</string>
-    <string name="battery_info_temperature_units_f">\u00B0 F</string>
     <string name="battery_info_uptime">Uptime:</string>
     <string name="battery_info_dock_status_label">Dock-Akku Status:</string>
     <string name="battery_info_dock_level_label">Dock Ladekapazität:</string>
     <string name="battery_info_dock_last_connected_label">Das Dock war zuletzt angeschlossen:</string>
 
     <string name="battery_info_status_charging">Lade</string>
-    <string name="battery_info_status_charging_ac">(Strom)</string>
-    <string name="battery_info_status_charging_usb">(USB)</string>
     <string name="battery_info_status_discharging">Entlade</string>
     <string name="battery_info_status_not_charging">Lade nicht auf</string>
     <string name="battery_info_status_full">Voll</string>
