@@ -296,23 +296,33 @@ public class BatteryInfoFragment extends Fragment {
                     int oldLevel = -1, oldDockLevel = -1;
                     boolean dockSupported = BatteryLevel.getCurrent().is_dockFriendly();
 
+                    long time = System.currentTimeMillis();
+                    boolean mainSkipped = false, dockSkipped = false;
                     if (c.moveToFirst())
                         do {
-                            long time = c.getLong(BatteryLevelAdapter.ORD_TIME);
+                            time = c.getLong(BatteryLevelAdapter.ORD_TIME);
                             int level = c.getInt(BatteryLevelAdapter.ORD_LEVEL);
                             int dock_status = c.getInt(BatteryLevelAdapter.ORD_DOCK_STATUS);
                             int dock_level = c.getInt(BatteryLevelAdapter.ORD_DOCK_LEVEL);
 
-                            if (level != oldLevel) {
+                            mainSkipped = level == oldLevel;
+                            if (!mainSkipped) {
                                 mMainSeries.add(time, level);
                                 oldLevel = level;
                             }
-                            if (dock_status > 1 && dock_level != oldDockLevel && dockSupported) {
-                                mDockSeries.add(time, dock_level);
-                                oldDockLevel = dock_level;
+                            if (dockSupported && dock_status > 1) {
+                                dockSkipped = dock_level == oldDockLevel;
+                                if (!dockSkipped) {
+                                    mDockSeries.add(time, dock_level);
+                                    oldDockLevel = dock_level;
+                                }
                             }
                         } while (c.moveToNext());
                     adapter.close();
+                    if (mainSkipped)
+                        mMainSeries.add(time, oldLevel);
+                    if (dockSkipped)
+                        mDockSeries.add(time, oldDockLevel);
 
                     if (mChartView != null)
                         mChartView.repaint();            }
