@@ -53,7 +53,9 @@ public class MonitorService extends Service {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    BatteryWidgetUpdater.updateAllWidgets(MonitorService.this, BatteryLevel.getCurrent(), widgetIds);
+                    try {
+                        BatteryWidgetUpdater.updateAllWidgets(MonitorService.this, BatteryLevel.getCurrent(), widgetIds);
+                    } catch (Exception ignore) {}
                 }
             }).start();
         }
