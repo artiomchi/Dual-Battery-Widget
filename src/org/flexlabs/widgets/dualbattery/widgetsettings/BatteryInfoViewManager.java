@@ -267,40 +267,39 @@ public class BatteryInfoViewManager extends BroadcastReceiver {
     public void buildChart() {
         if (mChartView == null) {
             mChartView = ChartFactory.getTimeChartView(mActivity, mDataset, mRenderer, null);
-            mChartContainer.addView(mChartView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
-                  ViewGroup.LayoutParams.FILL_PARENT));
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-                mChartContainer.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-
-            mRenderer.setAxisTitleTextSize(16);
-            mRenderer.setChartTitleTextSize(20);
-            mRenderer.setLabelsTextSize(15);
-            mRenderer.setLegendTextSize(15);
-            mRenderer.setMargins(new int[]{20, 30, 15, 0});
-            mRenderer.setYAxisMin(0);
-            mRenderer.setYAxisMax(100);
-            mRenderer.setPanEnabled(true, false);
-            mRenderer.setZoomEnabled(true, false);
-            mRenderer.setShowGrid(true);
-            mRenderer.setZoomButtonsVisible(false);
-
-            mMainSeries = new XYSeries(mActivity.getString(R.string.battery_main));
-            mDataset.addSeries(mMainSeries);
-            mMainRenderer = new XYSeriesRenderer();
-            mMainRenderer.setColor(Color.GREEN);
-            mRenderer.addSeriesRenderer(mMainRenderer);
-
-            if (BatteryLevel.getCurrent().is_dockFriendly()) {
-                mDockSeries = new XYSeries(mActivity.getString(R.string.battery_dock));
-                mDataset.addSeries(mDockSeries);
-                mDockRenderer = new XYSeriesRenderer();
-                mDockRenderer.setColor(Color.CYAN);
-                mRenderer.addSeriesRenderer(mDockRenderer);
-            }
-
             new Thread(new Runnable() {
                 @Override
                 public void run() {
+                    mChartContainer.addView(mChartView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
+                          ViewGroup.LayoutParams.FILL_PARENT));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+                        mChartContainer.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+
+                    mRenderer.setAxisTitleTextSize(16);
+                    mRenderer.setChartTitleTextSize(20);
+                    mRenderer.setLabelsTextSize(15);
+                    mRenderer.setLegendTextSize(15);
+                    mRenderer.setMargins(new int[]{20, 30, 15, 0});
+                    mRenderer.setYAxisMin(0);
+                    mRenderer.setYAxisMax(100);
+                    mRenderer.setPanEnabled(true, false);
+                    mRenderer.setZoomEnabled(true, false);
+                    mRenderer.setShowGrid(true);
+                    mRenderer.setZoomButtonsVisible(false);
+
+                    mMainSeries = new XYSeries(mActivity.getString(R.string.battery_main));
+                    mDataset.addSeries(mMainSeries);
+                    mMainRenderer = new XYSeriesRenderer();
+                    mMainRenderer.setColor(Color.GREEN);
+                    mRenderer.addSeriesRenderer(mMainRenderer);
+
+                    if (BatteryLevel.getCurrent().is_dockFriendly()) {
+                        mDockSeries = new XYSeries(mActivity.getString(R.string.battery_dock));
+                        mDataset.addSeries(mDockSeries);
+                        mDockRenderer = new XYSeriesRenderer();
+                        mDockRenderer.setColor(Color.CYAN);
+                        mRenderer.addSeriesRenderer(mDockRenderer);
+                    }
                     BatteryLevelAdapter adapter = new BatteryLevelAdapter(mActivity);
                     adapter.open();
                     Cursor c = adapter.getRecentEntries();

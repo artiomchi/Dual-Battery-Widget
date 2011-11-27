@@ -118,6 +118,8 @@ public class SeekBarPreference extends DialogPreference implements SeekBar.OnSee
         if (positiveResult) {
             if (callChangeListener(mValue))
                 setValue(mValue);
+        } else {
+            mValue = getPersistedInt(mDefault);
         }
     }
 
