@@ -106,7 +106,6 @@
     <string name="battery_info_voltage_units_mV">mV</string>
     <string name="battery_info_voltage_units_V">V</string>
     <string name="battery_info_temperature_label">Battery temperature:</string>
-    <string name="battery_info_uptime">Time since boot:</string>
     <string name="battery_info_dock_status_label">Dock battery status:</string>
     <string name="battery_info_dock_level_label">Dock battery level:</string>
     <string name="battery_info_dock_last_connected_label">Dock last connected:</string>

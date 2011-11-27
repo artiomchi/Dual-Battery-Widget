@@ -79,8 +79,7 @@ public class Constants {
     public static final boolean SETTING_SHOW_OLD_DOCK_DEFAULT = true;
     public static final int TEMP_UNIT_CELSIUS = 0;
     public static final int TEMP_UNIT_FAHRENHEIT = 1;
-    public static final String SETTING_TEMP_UNITS_NEW = "tempUnitsNew";
-    public static final String SETTING_TEMP_UNITS = "tempUnits";
+    public static final String SETTING_TEMP_UNITS = "tempUnitsInt";
     public static final int SETTING_TEMP_UNITS_DEFAULT = TEMP_UNIT_CELSIUS;
 
     public static String getVersion(Context context) {

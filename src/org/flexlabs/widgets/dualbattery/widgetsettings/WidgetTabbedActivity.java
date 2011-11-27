@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.text.Html;
 import android.text.SpannableString;
@@ -24,10 +25,8 @@ import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.R;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -52,15 +51,13 @@ import java.util.regex.Pattern;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class WidgetPropertiesActivity extends PreferenceActivity {
+public class WidgetTabbedActivity extends PreferenceActivity {
     public static final String TAG = "FlexLabs.WidgetProperties";
     public static final String KEY_FEEDBACK = "feedback";
-    public static final String KEY_REPORT = "crashReport";
     public static final String KEY_ABOUT = "about";
     public static final int DIALOG_ABOUT = 0;
 
     public int appWidgetId;
-    public boolean tempUnitsC;
 
     private void ensureIntentSettings() {
         Bundle extras = getIntent().getExtras();
@@ -82,9 +79,6 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
             }
             addPreferencesFromResource(R.xml.widget_properties_other);
         }
-
-        tempUnitsC = getSharedPreferences(Constants.SETTINGS_PREFIX + appWidgetId, MODE_PRIVATE)
-                .getInt(Constants.SETTING_TEMP_UNITS, Constants.SETTING_TEMP_UNITS_DEFAULT) == Constants.TEMP_UNIT_CELSIUS;
     }
 
     @Override
@@ -94,6 +88,36 @@ public class WidgetPropertiesActivity extends PreferenceActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             loadHeadersFromResource(R.xml.widget_properties_header_batteryinfo, target);
             loadHeadersFromResource(R.xml.widget_properties_headers, target);
+        }
+    }
+
+    public static class PropertiesFragment extends PreferenceFragment {
+        @Override
+        public void onActivityCreated(Bundle savedInstanceState) {
+            super.onActivityCreated(savedInstanceState);
+            WidgetTabbedActivity activity = (WidgetTabbedActivity)getActivity();
+            int appWidgetId = activity.appWidgetId;
+
+            getPreferenceManager().setSharedPreferencesName(Constants.SETTINGS_PREFIX + appWidgetId);
+            addPreferencesFromResource(R.xml.widget_properties_general);
+            if (BatteryLevel.getCurrent().is_dockFriendly()) {
+                addPreferencesFromResource(R.xml.widget_properties_dock);
+            }
+        }
+    }
+
+    public static class OtherFragment extends PreferenceFragment {
+        @Override
+        public void onActivityCreated(Bundle savedInstanceState) {
+            super.onActivityCreated(savedInstanceState);
+            addPreferencesFromResource(R.xml.widget_properties_other);
+        }
+
+        @Override
+        public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+            return
+                ((WidgetTabbedActivity)getActivity()).onPreferenceClicked(preference.getKey()) ||
+                super.onPreferenceTreeClick(preferenceScreen, preference);
         }
     }
 

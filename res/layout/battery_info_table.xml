@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="fill_parent" android:layout_height="fill_parent"
-              android:orientation="vertical">
+              android:orientation="vertical" android:id="@+id/body">
     <LinearLayout android:id="@+id/chart"
                   android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1" />
     <TableLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
@@ -37,23 +37,21 @@
             <TextView style="@style/table_label" android:text="@string/battery_info_technology_label" />
             <TextView style="@style/table_value" android:id="@+id/technology" />
         </TableRow>
-        <TableRow>
-            <TextView style="@style/table_label" android:text="@string/battery_info_uptime" />
-            <TextView style="@style/table_value" android:id="@+id/uptime" />
-        </TableRow>
-        <TableRow>
+        <TableRow android:id="@+id/row_dock_status" android:visibility="gone">
             <TextView style="@style/table_label" android:text="@string/battery_info_dock_status_label" />
             <TextView style="@style/table_value" android:id="@+id/dock_status" />
         </TableRow>
-        <TableRow>
+        <TableRow android:id="@+id/row_dock_level" android:visibility="gone">
             <TextView style="@style/table_label" android:text="@string/battery_info_dock_level_label" />
             <TextView style="@style/table_value" android:id="@+id/dock_level" />
         </TableRow>
-        <TableRow>
+        <TableRow android:id="@+id/row_dock_lastConnected" android:visibility="gone">
             <TextView style="@style/table_label" android:text="@string/battery_info_dock_last_connected_label" />
             <TextView style="@style/table_value" android:id="@+id/dock_last_connected" />
         </TableRow>
     </TableLayout>
     <Button android:id="@+id/batterySummary" android:text="@string/showBatterySummary"
+            android:layout_width="fill_parent" android:layout_height="wrap_content" />
+    <Button android:id="@+id/widgetSettings" android:text="@string/propHeader_Main" android:visibility="gone"
             android:layout_width="fill_parent" android:layout_height="wrap_content" />
 </LinearLayout>

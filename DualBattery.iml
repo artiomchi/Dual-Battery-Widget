@@ -39,6 +39,8 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module" module-name="ActionBarSherlock" />
+    <orderEntry type="module" module-name="ActionBarSherlockPreference" />
   </component>
 </module>
 

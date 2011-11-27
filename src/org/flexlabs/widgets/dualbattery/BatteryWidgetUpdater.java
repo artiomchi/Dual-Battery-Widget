@@ -10,7 +10,7 @@ import android.os.BatteryManager;
 import android.os.Build;
 import android.view.View;
 import android.widget.RemoteViews;
-import org.flexlabs.widgets.dualbattery.widgetsettings.WidgetPropertiesActivity;
+import org.flexlabs.widgets.dualbattery.widgetsettings.WidgetActivity;
 
 /**
  * Created by IntelliJ IDEA.
@@ -111,11 +111,6 @@ public class BatteryWidgetUpdater {
             if (pref.contains(Constants.SETTING_MARGIN)) {
                 int margin = Integer.valueOf(pref.getString(Constants.SETTING_MARGIN, String.valueOf(Constants.SETTING_MARGIN_DEFAULT)));
                 editor.putInt(Constants.SETTING_MARGIN, margin);
-            }
-            if (pref.contains(Constants.SETTING_TEMP_UNITS_NEW)) {
-                int tempUnits = pref.getInt(Constants.SETTING_TEMP_UNITS_NEW, Constants.SETTING_TEMP_UNITS_DEFAULT);
-                editor.putInt(Constants.SETTING_TEMP_UNITS, tempUnits);
-                editor.remove(Constants.SETTING_TEMP_UNITS_NEW);
             }
             version = 2;
 
@@ -243,7 +238,7 @@ public class BatteryWidgetUpdater {
             views.setInt(R.id.batteryDock, "setImageLevel", dockLevel);
         }
 
-        Intent intent = new Intent(context, WidgetPropertiesActivity.class);
+        Intent intent = new Intent(context, WidgetActivity.class);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, widgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
