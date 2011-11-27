@@ -13,3 +13,9 @@ appear in the widget list after installation. To refresh the widget list, you sh
 or restart the launcher app (Settings -> Applications -> Manage applications -> All -> Launcher -> Force stop)
 
 Recent changes can be found in [CHANGELOG.md](https://github.com/artiomchi/Dual-Battery-Widget/blob/master/CHANGELOG.md "Dual Battery Widget changelog")
+
+**Note:** To compile these sources you will have to pull down the linked submodules of this git repository.
+To do this run these git commands after you clone:
+
+    $ git submodule init
+    $ git submodule update
