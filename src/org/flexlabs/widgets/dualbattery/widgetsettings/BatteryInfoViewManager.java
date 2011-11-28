@@ -1,13 +1,24 @@
 package org.flexlabs.widgets.dualbattery.widgetsettings;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.Build;
+import android.os.Bundle;
+import android.text.Html;
+import android.text.SpannableString;
+import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +36,12 @@ import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.R;
 import org.flexlabs.widgets.dualbattery.storage.BatteryLevelAdapter;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.DateFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by IntelliJ IDEA.
@@ -50,6 +66,8 @@ import java.text.DateFormat;
  * limitations under the License.
  */
 public class BatteryInfoViewManager extends BroadcastReceiver {
+    public static final int DIALOG_ABOUT = 0;
+
     private TextView mStatus, mLevel, mScale;
     private TextView mHealth;
     private TextView mVoltage;
@@ -238,23 +256,123 @@ public class BatteryInfoViewManager extends BroadcastReceiver {
                 ? R.string.battery_info_temperature_units_c
                 : R.string.battery_info_temperature_units_f));
     }
-    
-    public final MenuItem.OnMenuItemClickListener tempMenuItemClickListener =
-            new MenuItem.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem menuItem) {
-                    tempUnitsC = !tempUnitsC;
-                    menuItem.setTitle(getMenuTitle());
-                    updateTemperature();
-                    mActivity.getSharedPreferences(Constants.SETTINGS_PREFIX + appWidgetId, Context.MODE_PRIVATE)
-                            .edit()
-                            .putInt(Constants.SETTING_TEMP_UNITS, tempUnitsC
-                                    ? Constants.TEMP_UNIT_CELSIUS
-                                    : Constants.TEMP_UNIT_FAHRENHEIT)
-                            .commit();
-                    return true;
-                }
-            };
+
+    public boolean onMenuItemSelected(MenuItem item) {
+        Log.d(Constants.LOG, "menu id: " + item.getItemId());
+        switch (item.getItemId()) {
+            case R.id.temperature :
+                tempUnitsC = !tempUnitsC;
+                if (Build.VERSION.SDK_INT >= 11)
+                    mActivity.invalidateOptionsMenu();
+                updateTemperature();
+                mActivity.getSharedPreferences(Constants.SETTINGS_PREFIX + appWidgetId, Context.MODE_PRIVATE)
+                        .edit()
+                        .putInt(Constants.SETTING_TEMP_UNITS, tempUnitsC
+                                ? Constants.TEMP_UNIT_CELSIUS
+                                : Constants.TEMP_UNIT_FAHRENHEIT)
+                        .commit();
+                return true;
+
+            case R.id.feedback :
+                Intent intent = new Intent(Intent.ACTION_SEND, Uri.parse("mailto:"));
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[] { Constants.FeedbackDestination });
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Dual Battery Widget Feedback");
+                intent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(getDeviceDetails()));
+                intent.setType("message/rfc822");
+                mActivity.startActivity(Intent.createChooser(intent, "Email"));
+                return true;
+
+            case R.id.marketLink :
+                mActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.URI_MARKET)));
+                return true;
+
+            case R.id.donate_payPal :
+                mActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.URI_PAYPAL)));
+                return true;
+
+            case R.id.donate_market :
+                break;
+
+            case R.id.about :
+            mActivity.showDialog(DIALOG_ABOUT);
+            return true;
+        }
+        return false;
+    }
+
+    private String getDeviceDetails() {
+        StringBuilder sb = new StringBuilder("<br />\n<h4>Device details:</h4>");
+        sb.append("<br />\n<b>App version:</b> ").append(Constants.getVersion(mActivity));
+        sb.append("<br />\n<b>Brand:</b> ").append(Build.MANUFACTURER);
+        sb.append("<br />\n<b>Model:</b> ").append(Build.MODEL);
+        sb.append("<br />\n<b>Device:</b> ").append(Build.DEVICE);
+        sb.append("<br />\n<b>Android version:</b> ").append(Build.VERSION.RELEASE);
+        sb.append("<br />\n<b>Version details:</b> ").append(Build.VERSION.INCREMENTAL);
+
+        Intent intent = mActivity.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        Bundle extras = intent.getExtras();
+        String allKeys = TextUtils.join(", ", extras.keySet());
+        sb.append("<br />\n<b>Battery intent keys:</b> ").append(allKeys);
+        sb.append("<br />\n<b>Is Dock supported:</b> ").append(BatteryLevel.getCurrent().is_dockFriendly());
+        int dockStatus = extras.getInt("dock_status", -1);
+        String dockStatusStr = "";
+        switch (dockStatus) {
+            case 0: dockStatusStr = " (Unknown)"; break;
+            case 1: dockStatusStr = " (Undocked)"; break;
+            case 2: dockStatusStr = " (Charging)"; break;
+            case 3: dockStatusStr = " (Docked)"; break;
+            case 4: dockStatusStr = " (Discharging)"; break;
+
+        }
+        sb.append("<br />\n<b>Battery dock status</b> ").append(extras.get("dock_status")).append(dockStatusStr);
+        sb.append("<br />\n<b>Battery dock level</b> ").append(extras.get("dock_level"));
+
+        sb.append("<br />\n<b>Kernel:</b> ").append(getFormattedKernelVersion().replace("\n", "<br />\n"));
+        return sb.toString();
+    }
+
+    private String getFormattedKernelVersion() {
+        String procVersionStr;
+
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("/proc/version"), 256);
+            try {
+                procVersionStr = reader.readLine();
+            } finally {
+                reader.close();
+            }
+
+            final String PROC_VERSION_REGEX =
+                "\\w+\\s+" + /* ignore: Linux */
+                "\\w+\\s+" + /* ignore: version */
+                "([^\\s]+)\\s+" + /* group 1: 2.6.22-omap1 */
+                "\\(([^\\s@]+(?:@[^\\s.]+)?)[^)]*\\)\\s+" + /* group 2: (xxxxxx@xxxxx.constant) */
+                "\\(.*?(?:\\(.*?\\)).*?\\)\\s+" + /* ignore: (gcc ..) */
+                "([^\\s]+)\\s+" + /* group 3: #26 */
+                "(?:PREEMPT\\s+)?" + /* ignore: PREEMPT (optional) */
+                "(.+)"; /* group 4: date */
+
+            Pattern p = Pattern.compile(PROC_VERSION_REGEX);
+            Matcher m = p.matcher(procVersionStr);
+
+            if (!m.matches()) {
+                Log.e(Constants.LOG, "Regex did not match on /proc/version: " + procVersionStr);
+                return "Unavailable";
+            } else if (m.groupCount() < 4) {
+                Log.e(Constants.LOG, "Regex match on /proc/version only returned " + m.groupCount()
+                        + " groups");
+                return "Unavailable";
+            } else {
+                return (new StringBuilder(m.group(1)).append("\n").append(
+                        m.group(2)).append(" ").append(m.group(3)).append("\n")
+                        .append(m.group(4))).toString();
+            }
+        } catch (IOException e) {
+            Log.e(Constants.LOG, "IO Exception when getting kernel version for Device Info screen", e);
+
+            return "Unavailable";
+        }
+    }
     
     public final View.OnClickListener batterySummaryListener = new View.OnClickListener() {
         @Override
@@ -263,6 +381,28 @@ public class BatteryInfoViewManager extends BroadcastReceiver {
             mActivity.startActivity(i);
         }
     };
+
+    public static Dialog onCreateDialog(Context context, int id) {
+        switch (id) {
+            case DIALOG_ABOUT :
+                final SpannableString s = new SpannableString(
+                        context.getString(R.string.about_full) +
+                        context.getString(R.string.about_translations));
+                Linkify.addLinks(s, Linkify.ALL);
+
+                Dialog result = new AlertDialog.Builder(context)
+                        .setTitle(R.string.propTitle_About)
+                        .setMessage(s)
+                        .setPositiveButton("OK", null)
+                        .create();
+                result.show();
+                ((TextView)result.findViewById(android.R.id.message))
+                        .setMovementMethod(LinkMovementMethod.getInstance());
+                return result;
+
+            default: return null;
+        }
+    }
 
     public void buildChart() {
         if (mChartView == null) {

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.*;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
@@ -36,7 +35,12 @@ import org.flexlabs.widgets.dualbattery.R;
  */
 public class BatteryInfoFragment extends Fragment {
     private IntentFilter mIntentFilter;
-    private BatteryInfoViewManager batteryInfoViewManager = new BatteryInfoViewManager();
+    private BatteryInfoViewManager _batteryInfoViewManager;
+    private BatteryInfoViewManager batteryInfoViewManager() {
+        if (_batteryInfoViewManager == null)
+            _batteryInfoViewManager = ((WidgetTabbedActivity)getActivity()).batteryInfoViewManager;
+        return _batteryInfoViewManager;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,9 +51,10 @@ public class BatteryInfoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.battery_info_table, null);
-        int appWidgetId = ((WidgetTabbedActivity)getActivity()).appWidgetId;
-        view.findViewById(R.id.batterySummary).setOnClickListener(batteryInfoViewManager.batterySummaryListener);
-        batteryInfoViewManager.loadData(getActivity(), view, appWidgetId);
+        WidgetTabbedActivity activity = (WidgetTabbedActivity)getActivity();
+        int appWidgetId = activity.appWidgetId;
+        view.findViewById(R.id.batterySummary).setOnClickListener(batteryInfoViewManager().batterySummaryListener);
+        batteryInfoViewManager().loadData(getActivity(), view, appWidgetId);
         mIntentFilter = new IntentFilter();
         mIntentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);
 
@@ -59,28 +64,24 @@ public class BatteryInfoFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        getActivity().unregisterReceiver(batteryInfoViewManager);
+        getActivity().unregisterReceiver(batteryInfoViewManager());
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        getActivity().registerReceiver(batteryInfoViewManager, mIntentFilter);
-        batteryInfoViewManager.buildChart();
+        getActivity().registerReceiver(batteryInfoViewManager(), mIntentFilter);
+        batteryInfoViewManager().buildChart();
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        MenuItem menuItem = menu.add(0, 0, 0, batteryInfoViewManager.getMenuTitle());
-        menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
-        menuItem.setIcon(R.drawable.thermometer);
-        menuItem.setOnMenuItemClickListener(batteryInfoViewManager.tempMenuItemClickListener);
+        inflater.inflate(R.menu.widget_batteryinfo, menu);
     }
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        menu.getItem(0).setTitle(batteryInfoViewManager.getMenuTitle());
+        menu.findItem(R.id.temperature).setTitle(batteryInfoViewManager().getMenuTitle());
     }
 }

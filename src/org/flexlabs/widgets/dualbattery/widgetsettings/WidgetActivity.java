@@ -1,5 +1,6 @@
 package org.flexlabs.widgets.dualbattery.widgetsettings;
 
+import android.app.Dialog;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -10,6 +11,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
 import android.view.View;
+import android.view.MenuInflater;
 import android.widget.Button;
 import org.flexlabs.widgets.dualbattery.R;
 
@@ -87,19 +89,28 @@ public class WidgetActivity extends FragmentActivity {
     }
 
     @Override
+    protected Dialog onCreateDialog(int id) {
+        return BatteryInfoViewManager.onCreateDialog(this, id);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        MenuItem menuItem = menu.add(0, 0, 0, getString(batteryInfoViewManager.getMenuTitle()));
-        menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
-        menuItem.setIcon(R.drawable.thermometer);
-        menuItem.setOnMenuItemClickListener(batteryInfoViewManager.tempMenuItemClickListener);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.widget_batteryinfo, menu);
+        inflater.inflate(R.menu.widget, menu);
         return true;
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        menu.getItem(0).setTitle(batteryInfoViewManager.getMenuTitle());
+        menu.findItem(R.id.temperature).setTitle(batteryInfoViewManager.getMenuTitle());
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return batteryInfoViewManager.onMenuItemSelected(item) ||
+               super.onOptionsItemSelected(item);
     }
 }

@@ -82,6 +82,13 @@ public class Constants {
     public static final String SETTING_TEMP_UNITS = "tempUnitsInt";
     public static final int SETTING_TEMP_UNITS_DEFAULT = TEMP_UNIT_CELSIUS;
 
+    public static final String URI_PAYPAL = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=6UHRDDAPAMSTL&lc=GB&item_name=Donation%20for%20Artiom%20Chilaru&currency_code=GBP&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted";
+    public static final String URI_MARKET = "https://market.android.com/details?id=org.flexlabs.widgets.dualbattery";
+
+    public static final String MIXPANEL_KEY = "bce7bb0bd38a73dc88daa8b0588138cb";
+    public static final String MIXPANEL_EVENT_WIDGETSETTINGS = "widgetSettings";
+    //public static final String MIXPANEL_EVENT_
+
     public static String getVersion(Context context) {
         String result;
         try {
