@@ -1,15 +1,4 @@
-package org.flexlabs.widgets.dualbattery.service;
-
-import android.app.Notification;
-import android.content.Context;
-import org.flexlabs.widgets.dualbattery.R;
-
-/**
- * Created by IntelliJ IDEA.
- * User: ArtiomChi
- * Date: 13/11/11
- * Time: 14:32
- *
+/*
  * Copyright 2011 Artiom Chilaru (http://flexlabs.org)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,6 +13,13 @@ import org.flexlabs.widgets.dualbattery.R;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package org.flexlabs.widgets.dualbattery.service;
+
+import android.app.Notification;
+import android.content.Context;
+import org.flexlabs.widgets.dualbattery.R;
+
 public class NotificationManager {
     private static final int NOTIFICATION_DOCK = 1;
 

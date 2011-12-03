@@ -1,15 +1,4 @@
-package org.flexlabs.widgets.dualbattery.service;
-
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-
-/**
- * Created by IntelliJ IDEA.
- * User: ArtiomChi
- * Date: 13/11/11
- * Time: 13:08
- *
+/*
  * Copyright 2011 Artiom Chilaru (http://flexlabs.org)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,6 +13,13 @@ import android.content.Intent;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package org.flexlabs.widgets.dualbattery.service;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+
 public class BootUpReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         context.startService(new Intent(context, MonitorService.class));

@@ -1,11 +1,4 @@
-package org.flexlabs.widgets.dualbattery;
-
-/**
- * Created by IntelliJ IDEA.
- * User: ArtiomChi
- * Date: 08/10/11
- * Time: 12:12
- *
+/*
  * Copyright 2011 Artiom Chilaru (http://flexlabs.org)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,5 +13,8 @@ package org.flexlabs.widgets.dualbattery;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package org.flexlabs.widgets.dualbattery;
+
 public class BatteryWidget3x4 extends BatteryWidget {
 }

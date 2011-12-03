@@ -1,18 +1,4 @@
-package org.flexlabs.widgets.dualbattery;
-
-import android.appwidget.AppWidgetManager;
-import android.appwidget.AppWidgetProvider;
-import android.content.*;
-import org.flexlabs.widgets.dualbattery.service.MonitorService;
-
-import java.io.File;
-
-/**
- * Created by IntelliJ IDEA.
- * User: ArtiomChi
- * Date: 13/06/11
- * Time: 20:13
- *
+/*
  * Copyright 2011 Artiom Chilaru (http://flexlabs.org)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,6 +13,16 @@ import java.io.File;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package org.flexlabs.widgets.dualbattery;
+
+import android.appwidget.AppWidgetManager;
+import android.appwidget.AppWidgetProvider;
+import android.content.*;
+import org.flexlabs.widgets.dualbattery.service.MonitorService;
+
+import java.io.File;
+
 public class BatteryWidget extends AppWidgetProvider {
     @Override
     public void onEnabled(Context context) {

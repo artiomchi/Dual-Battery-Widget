@@ -1,23 +1,4 @@
-package org.flexlabs.widgets.dualbattery;
-
-import android.app.PendingIntent;
-import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.BatteryManager;
-import android.os.Build;
-import android.view.View;
-import android.widget.RemoteViews;
-import org.flexlabs.widgets.dualbattery.widgetsettings.WidgetActivity;
-
-/**
- * Created by IntelliJ IDEA.
- * User: ArtiomChi
- * Date: 12/11/11
- * Time: 15:21
- *
+/*
  * Copyright 2011 Artiom Chilaru (http://flexlabs.org)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,6 +13,21 @@ import org.flexlabs.widgets.dualbattery.widgetsettings.WidgetActivity;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package org.flexlabs.widgets.dualbattery;
+
+import android.app.PendingIntent;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.BatteryManager;
+import android.os.Build;
+import android.view.View;
+import android.widget.RemoteViews;
+import org.flexlabs.widgets.dualbattery.widgetsettings.WidgetActivity;
+
 public class BatteryWidgetUpdater {
     // Suppress default constructor for non-instantiability
     private BatteryWidgetUpdater() {

@@ -1,18 +1,4 @@
-package org.flexlabs.widgets.dualbattery;
-
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.BatteryManager;
-import android.os.Bundle;
-
-import java.util.Date;
-
-/**
- * Created by IntelliJ IDEA.
- * User: ArtiomChi
- * Date: 12/11/11
- * Time: 16:51
- *
+/*
  * Copyright 2011 Artiom Chilaru (http://flexlabs.org)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,6 +13,16 @@ import java.util.Date;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package org.flexlabs.widgets.dualbattery;
+
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.BatteryManager;
+import android.os.Bundle;
+
+import java.util.Date;
+
 public class BatteryLevel {
     private static BatteryLevel _instance;
     public static Date dockLastConnected = null, lastCharged = null;

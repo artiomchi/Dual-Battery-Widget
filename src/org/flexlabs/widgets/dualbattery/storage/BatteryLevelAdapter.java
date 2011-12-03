@@ -1,21 +1,4 @@
-package org.flexlabs.widgets.dualbattery.storage;
-
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteQueryBuilder;
-import android.text.TextUtils;
-
-import java.util.Date;
-
-/**
- * Created by IntelliJ IDEA.
- * User: ArtiomChi
- * Date: 03/07/11
- * Time: 22:08
- *
+/*
  * Copyright 2011 Artiom Chilaru (http://flexlabs.org)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,6 +13,19 @@ import java.util.Date;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package org.flexlabs.widgets.dualbattery.storage;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteQueryBuilder;
+import android.text.TextUtils;
+
+import java.util.Date;
+
 public class BatteryLevelAdapter {
     private static final String DB_NAME = "BatteryLevels.db";
     private static final String DB_TABLE = "BatteryLevels";

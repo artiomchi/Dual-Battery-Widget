@@ -1,20 +1,4 @@
-package org.flexlabs.widgets.dualbattery.ui;
-
-import android.content.Context;
-import android.content.res.TypedArray;
-import android.util.AttributeSet;
-import android.view.View;
-import android.preference.DialogPreference;
-import android.widget.SeekBar;
-import android.widget.TextView;
-import org.flexlabs.widgets.dualbattery.R;
-
-/**
- * Created by IntelliJ IDEA.
- * User: ArtiomChi
- * Date: 12/11/11
- * Time: 23:14
- *
+/*
  * Copyright 2011 Artiom Chilaru (http://flexlabs.org)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,6 +13,18 @@ import org.flexlabs.widgets.dualbattery.R;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package org.flexlabs.widgets.dualbattery.ui;
+
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.util.AttributeSet;
+import android.view.View;
+import android.preference.DialogPreference;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import org.flexlabs.widgets.dualbattery.R;
+
 public class SeekBarPreference extends DialogPreference implements SeekBar.OnSeekBarChangeListener {
     private static final String androidNs = "http://schemas.android.com/apk/res/android";
 

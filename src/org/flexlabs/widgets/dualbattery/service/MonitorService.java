@@ -1,19 +1,4 @@
-package org.flexlabs.widgets.dualbattery.service;
-
-import android.app.Service;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.IBinder;
-import org.flexlabs.widgets.dualbattery.BatteryLevel;
-import org.flexlabs.widgets.dualbattery.Constants;
-import org.flexlabs.widgets.dualbattery.BatteryWidgetUpdater;
-
-/**
- * Created by IntelliJ IDEA.
- * User: ArtiomChi
- * Date: 20/06/11
- * Time: 21:12
- *
+/*
  * Copyright 2011 Artiom Chilaru (http://flexlabs.org)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,6 +13,17 @@ import org.flexlabs.widgets.dualbattery.BatteryWidgetUpdater;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package org.flexlabs.widgets.dualbattery.service;
+
+import android.app.Service;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.IBinder;
+import org.flexlabs.widgets.dualbattery.BatteryLevel;
+import org.flexlabs.widgets.dualbattery.Constants;
+import org.flexlabs.widgets.dualbattery.BatteryWidgetUpdater;
+
 public class MonitorService extends Service {
     private IntentReceiver batteryReceiver;
 

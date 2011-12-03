@@ -1,25 +1,5 @@
-package org.flexlabs.widgets.dualbattery.widgetsettings;
-
-import android.app.Fragment;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.*;
-import android.view.Menu;
-import android.view.LayoutInflater;
-import android.view.MenuInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import org.flexlabs.widgets.dualbattery.R;
-
-/**
- * Created by IntelliJ IDEA.
- * User: ArtiomChi
- * Date: 17/06/11
- * Time: 18:53
- *
+/*
  * Copyright 2011 Artiom Chilaru (http://flexlabs.org)
- * Some lines based on the android source files (Copyright 2006, The Android Open Source Project)
- * See: http://android.git.kernel.org/?p=platform/packages/apps/Settings.git;a=blob;f=src/com/android/widgetsettings/BatteryInfo.java
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,6 +13,24 @@ import org.flexlabs.widgets.dualbattery.R;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/*
+ * Some lines based on the android source files (Copyright (c) 2006, The Android Open Source Project)
+ * See: http://android.git.kernel.org/?p=platform/packages/apps/Settings.git;a=blob;f=src/com/android/widgetsettings/BatteryInfo.java
+ */
+
+package org.flexlabs.widgets.dualbattery.widgetsettings;
+
+import android.app.Fragment;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.*;
+import android.view.Menu;
+import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import org.flexlabs.widgets.dualbattery.R;
+
 public class BatteryInfoFragment extends Fragment {
     private IntentFilter mIntentFilter;
     private BatteryInfoViewManager _batteryInfoViewManager;

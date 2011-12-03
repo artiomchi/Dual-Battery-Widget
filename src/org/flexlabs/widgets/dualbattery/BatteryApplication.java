@@ -1,13 +1,4 @@
-package org.flexlabs.widgets.dualbattery;
-
-import android.app.Application;
-
-/**
- * Created by IntelliJ IDEA.
- * User: ArtiomChi
- * Date: 13/06/11
- * Time: 21:56
- *
+/*
  * Copyright 2011 Artiom Chilaru (http://flexlabs.org)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,6 +13,11 @@ import android.app.Application;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package org.flexlabs.widgets.dualbattery;
+
+import android.app.Application;
+
 public class BatteryApplication extends Application {
     private static BatteryApplication _instance;
     public static BatteryApplication getInstance() { return _instance; }
