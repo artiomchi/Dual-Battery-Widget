@@ -83,10 +83,9 @@ public class BatteryInfoViewManager extends BroadcastReceiver {
     private boolean tempUnitsC;
     private int temperature, appWidgetId;
     
-    private XYMultipleSeriesDataset mDataset = new XYMultipleSeriesDataset();
-    private XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
+    private XYMultipleSeriesDataset mDataSet;
+    private XYMultipleSeriesRenderer mRenderer;
     private XYSeries mMainSeries, mDockSeries;
-    private XYSeriesRenderer mMainRenderer, mDockRenderer;
     private GraphicalView mChartView;
     private LinearLayout mChartContainer;
     
@@ -107,6 +106,8 @@ public class BatteryInfoViewManager extends BroadcastReceiver {
         mRowDockLevel = (TableRow) view.findViewById(R.id.row_dock_level);
         mRowDockStatus = (TableRow) view.findViewById(R.id.row_dock_status);
         mRowDockLastConnected = (TableRow) view.findViewById(R.id.row_dock_lastConnected);
+        if (mChartContainer != null)
+            mChartContainer.removeAllViews();
         mChartContainer = (LinearLayout) view.findViewById(R.id.chart);
 
         this.appWidgetId = appWidgetId;
@@ -403,43 +404,59 @@ public class BatteryInfoViewManager extends BroadcastReceiver {
             default: return null;
         }
     }
-
-    public void buildChart() {
+    
+    public void initChart() {
         if (mChartView == null) {
-            mChartView = ChartFactory.getTimeChartView(mActivity, mDataset, mRenderer, null);
+            mRenderer = new XYMultipleSeriesRenderer();
+            mRenderer.setAxisTitleTextSize(16);
+            mRenderer.setChartTitleTextSize(20);
+            mRenderer.setLabelsTextSize(15);
+            mRenderer.setLegendTextSize(15);
+            mRenderer.setMargins(new int[]{20, 30, 15, 0});
+            mRenderer.setYAxisMin(0);
+            mRenderer.setYAxisMax(100);
+            mRenderer.setPanEnabled(true, false);
+            mRenderer.setZoomEnabled(true, false);
+            mRenderer.setShowGrid(true);
+            mRenderer.setZoomButtonsVisible(false);
+
+            mDataSet = new XYMultipleSeriesDataset();
+            mMainSeries = new XYSeries(mActivity.getString(R.string.battery_main));
+            mDataSet.addSeries(mMainSeries);
+            XYSeriesRenderer mMainRenderer = new XYSeriesRenderer();
+            mMainRenderer.setColor(Color.GREEN);
+            mRenderer.addSeriesRenderer(mMainRenderer);
+
+            if (BatteryLevel.getCurrent().is_dockFriendly()) {
+                mDockSeries = new XYSeries(mActivity.getString(R.string.battery_dock));
+                mDataSet.addSeries(mDockSeries);
+                XYSeriesRenderer mDockRenderer = new XYSeriesRenderer();
+                mDockRenderer.setColor(Color.CYAN);
+                mRenderer.addSeriesRenderer(mDockRenderer);
+            }
+
+            mChartView = ChartFactory.getTimeChartView(mActivity, mDataSet, mRenderer, null);
+        }
+    }
+
+    private boolean chartPopulated = false;
+    public void buildChart() {
+        initChart();
+        if (mChartContainer.getChildCount() == 0) {
+            mChartContainer.addView(mChartView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
+                  ViewGroup.LayoutParams.FILL_PARENT));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+                mChartContainer.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        }
+        
+        if (chartPopulated) {
+            mChartView.repaint();
+        } else {
+            // populate chart
+            chartPopulated = true;
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    mChartContainer.addView(mChartView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
-                          ViewGroup.LayoutParams.FILL_PARENT));
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-                        mChartContainer.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-
-                    mRenderer.setAxisTitleTextSize(16);
-                    mRenderer.setChartTitleTextSize(20);
-                    mRenderer.setLabelsTextSize(15);
-                    mRenderer.setLegendTextSize(15);
-                    mRenderer.setMargins(new int[]{20, 30, 15, 0});
-                    mRenderer.setYAxisMin(0);
-                    mRenderer.setYAxisMax(100);
-                    mRenderer.setPanEnabled(true, false);
-                    mRenderer.setZoomEnabled(true, false);
-                    mRenderer.setShowGrid(true);
-                    mRenderer.setZoomButtonsVisible(false);
-
-                    mMainSeries = new XYSeries(mActivity.getString(R.string.battery_main));
-                    mDataset.addSeries(mMainSeries);
-                    mMainRenderer = new XYSeriesRenderer();
-                    mMainRenderer.setColor(Color.GREEN);
-                    mRenderer.addSeriesRenderer(mMainRenderer);
-
-                    if (BatteryLevel.getCurrent().is_dockFriendly()) {
-                        mDockSeries = new XYSeries(mActivity.getString(R.string.battery_dock));
-                        mDataset.addSeries(mDockSeries);
-                        mDockRenderer = new XYSeriesRenderer();
-                        mDockRenderer.setColor(Color.CYAN);
-                        mRenderer.addSeriesRenderer(mDockRenderer);
-                    }
                     BatteryLevelAdapter adapter = new BatteryLevelAdapter(mActivity);
                     adapter.open();
                     Cursor c = adapter.getRecentEntries();
@@ -474,11 +491,9 @@ public class BatteryInfoViewManager extends BroadcastReceiver {
                     if (dockSkipped)
                         mDockSeries.add(time, oldDockLevel);
 
-                    if (mChartView != null)
-                        mChartView.repaint();            }
+                    mChartView.repaint();
+                }
             }).start();
-        } else {
-            mChartView.repaint();
         }
     }
 }
