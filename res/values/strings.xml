@@ -125,4 +125,8 @@
     <string name="battery_info_dock_status_discharging">Discharging</string>
     <string name="battery_info_dock_status_docked">Docked</string>
     <string name="battery_info_dock_status_undocked">Not docked</string>
+    
+    <string name="donation_market_1">Standard (£0.99)</string>
+    <string name="donation_market_3">Buy me a pint (£3.00)</string>
+    <string name="donation_market_7">If you really like number 7 (£7.77)</string>
 </resources>

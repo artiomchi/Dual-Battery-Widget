@@ -23,10 +23,7 @@ package org.flexlabs.widgets.dualbattery.widgetsettings;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
+import android.content.*;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
@@ -42,9 +39,11 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
+import android.widget.*;
+import net.robotmedia.billing.BillingController;
+import net.robotmedia.billing.BillingRequest;
+import net.robotmedia.billing.helper.AbstractBillingObserver;
+import net.robotmedia.billing.model.Transaction;
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.model.XYMultipleSeriesDataset;
@@ -64,7 +63,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class BatteryInfoViewManager extends BroadcastReceiver {
-    public static final int DIALOG_ABOUT = 0;
+    public static final int DIALOG_ABOUT = 1;
+    public static final int DIALOG_DONATE_MARKET = 2;
 
     private TextView mStatus, mLevel, mScale;
     private TextView mHealth;
@@ -86,7 +86,9 @@ public class BatteryInfoViewManager extends BroadcastReceiver {
     private XYSeries mMainSeries, mDockSeries;
     private GraphicalView mChartView;
     private LinearLayout mChartContainer;
-    
+
+    AbstractBillingObserver mBillingObserver;
+
     public void loadData(Activity activity, View view, int appWidgetId) {
         mActivity = activity;
 
@@ -111,13 +113,34 @@ public class BatteryInfoViewManager extends BroadcastReceiver {
         this.appWidgetId = appWidgetId;
         tempUnitsC = mActivity.getSharedPreferences(Constants.SETTINGS_PREFIX + appWidgetId, Context.MODE_PRIVATE)
                 .getInt(Constants.SETTING_TEMP_UNITS, Constants.SETTING_TEMP_UNITS_DEFAULT) == Constants.TEMP_UNIT_CELSIUS;
+        
+        if (mBillingObserver == null) {
+            mBillingObserver = new AbstractBillingObserver(mActivity) {
+                @Override
+                public void onPurchaseStateChanged(String itemId, Transaction.PurchaseState state) {
+                    if (state == Transaction.PurchaseState.PURCHASED) {
+                        Toast.makeText(mActivity, "Thanks a lot for supporting me!", Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override public void onBillingChecked(boolean supported) { }
+                @Override public void onRequestPurchaseResponse(String itemId, BillingRequest.ResponseCode response) { }
+            };
+            BillingController.registerObserver(mBillingObserver);
+        }
+    }
+    
+    public void onDestroy() {
+        if (mBillingObserver != null) {
+            BillingController.unregisterObserver(mBillingObserver);
+            mBillingObserver = null;
+        }
     }
 
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
         if (action.equals(Intent.ACTION_BATTERY_CHANGED)) {
-
             mLevel.setText("" + intent.getIntExtra("level", 0));
             mScale.setText("" + intent.getIntExtra("scale", 0));
             int voltage = intent.getIntExtra("voltage", 0);
@@ -290,11 +313,12 @@ public class BatteryInfoViewManager extends BroadcastReceiver {
                 return true;
 
             case R.id.donate_market :
-                break;
+                mActivity.showDialog(DIALOG_DONATE_MARKET);
+                return true;
 
             case R.id.about :
-            mActivity.showDialog(DIALOG_ABOUT);
-            return true;
+                mActivity.showDialog(DIALOG_ABOUT);
+                return true;
         }
         return false;
     }
@@ -381,7 +405,9 @@ public class BatteryInfoViewManager extends BroadcastReceiver {
         }
     };
 
-    public static Dialog onCreateDialog(Context context, int id) {
+    public Dialog onCreateDialog(Context context, int id) {
+        Dialog result;
+
         switch (id) {
             case DIALOG_ABOUT :
                 final SpannableString s = new SpannableString(
@@ -389,7 +415,7 @@ public class BatteryInfoViewManager extends BroadcastReceiver {
                         context.getString(R.string.about_translations));
                 Linkify.addLinks(s, Linkify.ALL);
 
-                Dialog result = new AlertDialog.Builder(context)
+                result = new AlertDialog.Builder(context)
                         .setTitle(R.string.propTitle_About)
                         .setMessage(s)
                         .setPositiveButton("OK", null)
@@ -397,6 +423,24 @@ public class BatteryInfoViewManager extends BroadcastReceiver {
                 result.show();
                 ((TextView)result.findViewById(android.R.id.message))
                         .setMovementMethod(LinkMovementMethod.getInstance());
+                return result;
+            
+            case DIALOG_DONATE_MARKET :
+                result = new AlertDialog.Builder(context)
+                        .setItems(R.array.donation_market, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                String marketItem = "donation.amount.0.99";
+                                switch (i) {
+                                    case 1:
+                                        marketItem = "donation.amount.3.00"; break;
+                                    case 2:
+                                        marketItem = "donation.amount.7.77"; break;
+                                }
+                                BillingController.requestPurchase(mActivity, marketItem, true);
+                            }
+                        })
+                        .create();
                 return result;
 
             default: return null;

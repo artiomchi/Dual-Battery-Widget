@@ -29,6 +29,7 @@ import android.support.v4.view.MenuItem;
 import android.view.View;
 import android.view.MenuInflater;
 import android.widget.Button;
+import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.R;
 
 public class WidgetActivity extends FragmentActivity {
@@ -72,6 +73,12 @@ public class WidgetActivity extends FragmentActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        batteryInfoViewManager.onDestroy();
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
         unregisterReceiver(batteryInfoViewManager);
@@ -86,7 +93,7 @@ public class WidgetActivity extends FragmentActivity {
 
     @Override
     protected Dialog onCreateDialog(int id) {
-        return BatteryInfoViewManager.onCreateDialog(this, id);
+        return batteryInfoViewManager.onCreateDialog(this, id);
     }
 
     @Override
@@ -94,6 +101,8 @@ public class WidgetActivity extends FragmentActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.widget_batteryinfo, menu);
         inflater.inflate(R.menu.widget, menu);
+        if (!Constants.HAS_MARKET_BILLING)
+            menu.findItem(R.id.donate_market).setEnabled(false);
         return true;
     }
 

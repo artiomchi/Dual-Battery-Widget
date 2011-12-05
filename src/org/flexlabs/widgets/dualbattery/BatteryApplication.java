@@ -17,6 +17,11 @@
 package org.flexlabs.widgets.dualbattery;
 
 import android.app.Application;
+import android.app.PendingIntent;
+import net.robotmedia.billing.BillingController;
+import net.robotmedia.billing.BillingRequest;
+import net.robotmedia.billing.IBillingObserver;
+import net.robotmedia.billing.model.Transaction;
 
 public class BatteryApplication extends Application {
     private static BatteryApplication _instance;
@@ -26,5 +31,31 @@ public class BatteryApplication extends Application {
     public void onCreate() {
         super.onCreate();
         _instance = this;
+
+        BillingController.setDebug(Constants.DEBUG);
+        BillingController.setConfiguration(new BillingController.IConfiguration() {
+            @Override
+            public byte[] getObfuscationSalt() {
+                return new byte[] {41, -90, -116, -41, 77, -53, 127, -110, -127, -96, -88, 77, 127, 117, 1, 73, 57, 110, 48, -116};
+            }
+
+            @Override
+            public String getPublicKey() {
+                return "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmRLx8FRLePsmwi0uXID5uUzf6oWe8KFmUtLaApbiNIG+qDrPAVScKjE1KEdNWBAlzyc70Ohihh73e7/BBuzLECZFjZo7Xbks6JdZ2zxii8OCclDdYq5MZQkkuLUCrNd2B97+JwKaYjdDdjkIVcUP0jWyGWEXnFo6pjZK0VRLEFITDbt4vq/NfJpxWrnI8j95GWJUTlZ26TdY/1tjUaXr6l3GuWj71RlvRQuCPnjneLwZjdLjxYfZknGRhHTCXlIVfdGhcbuaOem1IL+R5xFbJftAXJfM2kgoNIb/FhbNLWjM1jdjemWaWyhhcz3AhEk92Fbc5ZLxhsh4oYcVB0uLRwIDAQAB";
+            }
+        });
+        BillingController.registerObserver(new IBillingObserver() {
+            @Override
+            public void onBillingChecked(boolean supported) {
+                Constants.HAS_MARKET_BILLING = supported;
+                BillingController.unregisterObserver(this);
+            }
+
+            @Override public void onPurchaseIntent(String itemId, PendingIntent purchaseIntent) { }
+            @Override public void onPurchaseStateChanged(String itemId, Transaction.PurchaseState state) { }
+            @Override public void onRequestPurchaseResponse(String itemId, BillingRequest.ResponseCode response) { }
+            @Override public void onTransactionsRestored() { }
+        });
+        BillingController.checkBillingSupported(this);
     }
 }

@@ -21,6 +21,8 @@ import android.content.pm.PackageManager;
 
 public class Constants {
     public static final String LOG = "FlexLabs.DBW";
+    public static final boolean DEBUG = false;
+    public static boolean HAS_MARKET_BILLING = false;
 
     public static final String EXTRA_WIDGET_IDS = "widgetIds";
     public static final String SETTINGS_PREFIX = "widgetPref_";

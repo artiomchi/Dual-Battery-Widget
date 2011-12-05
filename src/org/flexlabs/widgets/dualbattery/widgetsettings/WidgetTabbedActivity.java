@@ -49,6 +49,12 @@ public class WidgetTabbedActivity extends PreferenceActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        batteryInfoViewManager.onDestroy();
+    }
+
     public static class PropertiesFragment extends PreferenceFragment {
         @Override
         public void onActivityCreated(Bundle savedInstanceState) {
@@ -66,7 +72,7 @@ public class WidgetTabbedActivity extends PreferenceActivity {
 
     @Override
     protected Dialog onCreateDialog(int id) {
-        return BatteryInfoViewManager.onCreateDialog(this, id);
+        return batteryInfoViewManager.onCreateDialog(this, id);
     }
 
     @Override
@@ -81,6 +87,8 @@ public class WidgetTabbedActivity extends PreferenceActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.widget, menu);
+        if (!Constants.HAS_MARKET_BILLING)
+            menu.findItem(R.id.donate_market).setEnabled(false);
         return true;
     }
 

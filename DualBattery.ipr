@@ -181,6 +181,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/lib/ActionBarSherlock_mod/ActionBarSherlock.iml" filepath="$PROJECT_DIR$/lib/ActionBarSherlock_mod/ActionBarSherlock.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib/ActionBarSherlockPreference_mod/ActionBarSherlockPreference.iml" filepath="$PROJECT_DIR$/lib/ActionBarSherlockPreference_mod/ActionBarSherlockPreference.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib/AndroidBilling_mod/AndroidBillingLibrary.iml" filepath="$PROJECT_DIR$/lib/AndroidBilling_mod/AndroidBillingLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/DualBattery.iml" filepath="$PROJECT_DIR$/DualBattery.iml" />
     </modules>
   </component>

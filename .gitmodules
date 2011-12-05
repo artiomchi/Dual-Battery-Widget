@@ -4,3 +4,6 @@
 [submodule "lib/MixPanel"]
 	path = lib/MixPanel
 	url = git://github.com/mixpanel/mixpanel-android.git
+[submodule "lib/AndroidBilling"]
+	path = lib/AndroidBilling
+	url = git://github.com/robotmedia/AndroidBillingLibrary.git
