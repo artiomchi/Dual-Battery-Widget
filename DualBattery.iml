@@ -31,18 +31,10 @@
     </content>
     <orderEntry type="jdk" jdkName="Android 3.2 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/achartengine.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
     <orderEntry type="module" module-name="ActionBarSherlock" />
     <orderEntry type="module" module-name="ActionBarSherlockPreference" />
     <orderEntry type="module" module-name="AndroidBillingLibrary" />
+    <orderEntry type="module" module-name="AChartEngine" />
   </component>
 </module>
 

@@ -10,13 +10,15 @@ Index: src/org/achartengine/chart/TimeChart.java
  import java.util.Date;
  import java.util.List;
  
-@@ -147,4 +148,34 @@
+@@ -147,4 +148,36 @@
      return TYPE;
    }
  
 +    Double origin;
 +    @Override
 +    protected List<Double> getXLabels(double min, double max, int count) {
++      if (min >= max)
++        return super.getXLabels(min, max, count);
 +      if (origin == null)
 +        origin = min - (min % DAY) + DAY + new Date(Math.round(min)).getTimezoneOffset() * 60 * 1000;
 +      if (count > 25)
