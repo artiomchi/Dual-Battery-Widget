@@ -106,32 +106,34 @@ public class IntentReceiver extends BroadcastReceiver {
     
                 @Override
                 public void run() {
-                    if (_newData) {
-                        BatteryLevelAdapter.Entry entry = new BatteryLevelAdapter.Entry(
-                            _level.get_status(),
-                            _level.get_level(),
-                            _level.get_dock_status(),
-                            _level.get_dock_level(),
-                            screenOff);
-    
-                        BatteryLevelAdapter adapter = new BatteryLevelAdapter(_context);
-                        adapter.open();
-                        adapter.insertEntry(entry);
-                        adapter.close();
-                    }
-    
-                    if (!screenOff) {
-                        // The dock notification icon will only show up on the transformer (aka Honeycomb+)
-                        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
-                            if (_level.is_dockConnected())
-                                mNotificationManager.update(
-                                        _level.get_dock_level(),
-                                        _level.get_dock_status() == Constants.DOCK_STATE_CHARGING);
-                            else
-                                mNotificationManager.hide();
+                    try {
+                        if (_newData) {
+                            BatteryLevelAdapter.Entry entry = new BatteryLevelAdapter.Entry(
+                                _level.get_status(),
+                                _level.get_level(),
+                                _level.get_dock_status(),
+                                _level.get_dock_level(),
+                                screenOff);
+
+                            BatteryLevelAdapter adapter = new BatteryLevelAdapter(_context);
+                            adapter.open();
+                            adapter.insertEntry(entry);
+                            adapter.close();
                         }
-                        BatteryWidgetUpdater.updateAllWidgets(_context, _level, null);
-                    }
+
+                        if (!screenOff) {
+                            // The dock notification icon will only show up on the transformer (aka Honeycomb+)
+                            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
+                                if (_level.is_dockConnected())
+                                    mNotificationManager.update(
+                                            _level.get_dock_level(),
+                                            _level.get_dock_status() == Constants.DOCK_STATE_CHARGING);
+                                else
+                                    mNotificationManager.hide();
+                            }
+                            BatteryWidgetUpdater.updateAllWidgets(_context, _level, null);
+                        }
+                    } catch (Exception ignore) { }
                 }
             }.setData(context, level, newData);
             new Thread(runnable).start();
