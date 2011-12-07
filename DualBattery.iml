@@ -35,6 +35,7 @@
     <orderEntry type="module" module-name="ActionBarSherlockPreference" />
     <orderEntry type="module" module-name="AndroidBillingLibrary" />
     <orderEntry type="module" module-name="AChartEngine" />
+    <orderEntry type="library" name="MixPanel" level="project" />
   </component>
 </module>
 

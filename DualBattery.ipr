@@ -198,5 +198,17 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
   </component>
+  <component name="libraryTable">
+    <library name="MixPanel">
+      <CLASSES>
+        <root url="file://$PROJECT_DIR$/lib/MixPanel" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="file://$PROJECT_DIR$/lib/MixPanel/src" />
+      </SOURCES>
+      <jarDirectory url="file://$PROJECT_DIR$/lib/MixPanel" recursive="false" />
+    </library>
+  </component>
 </project>
 
