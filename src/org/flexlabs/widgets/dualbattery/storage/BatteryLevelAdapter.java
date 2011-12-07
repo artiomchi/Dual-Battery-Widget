@@ -68,6 +68,11 @@ public class BatteryLevelAdapter {
         db = dbHelper.getWritableDatabase();
         return this;
     }
+    
+    public BatteryLevelAdapter openRead() {
+        db = dbHelper.getReadableDatabase();
+        return this;
+    }
 
     public void close() {
         db.close();

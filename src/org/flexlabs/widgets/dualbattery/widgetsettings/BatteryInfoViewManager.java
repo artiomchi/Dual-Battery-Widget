@@ -319,8 +319,10 @@ public class BatteryInfoViewManager extends BroadcastReceiver {
             case R.id.about :
                 mActivity.showDialog(DIALOG_ABOUT);
                 return true;
+            
+            default :
+                return false;
         }
-        return false;
     }
 
     private String getDeviceDetails() {
@@ -500,7 +502,7 @@ public class BatteryInfoViewManager extends BroadcastReceiver {
                 @Override
                 public void run() {
                     BatteryLevelAdapter adapter = new BatteryLevelAdapter(mActivity);
-                    adapter.open();
+                    adapter.openRead();
                     Cursor c = adapter.getRecentEntries();
                     int oldLevel = -1, oldDockLevel = -1;
                     boolean dockSupported = BatteryLevel.getCurrent().is_dockFriendly();
