@@ -345,7 +345,7 @@ public class BatteryInfoViewManager extends BroadcastReceiver {
 
     private String getDeviceDetails() {
         StringBuilder sb = new StringBuilder("<br />\n<h4>Device details:</h4>");
-        sb.append("<br />\n<b>App version:</b> ").append(Constants.getVersion(mActivity));
+        sb.append("<br />\n<b>App version:</b> ").append(Constants.VERSION);
         sb.append("<br />\n<b>Brand:</b> ").append(Build.MANUFACTURER);
         sb.append("<br />\n<b>Model:</b> ").append(Build.MODEL);
         sb.append("<br />\n<b>Device:</b> ").append(Build.DEVICE);

@@ -18,6 +18,7 @@ package org.flexlabs.widgets.dualbattery;
 
 import android.app.Application;
 import android.app.PendingIntent;
+import android.content.pm.PackageManager;
 import net.robotmedia.billing.BillingController;
 import net.robotmedia.billing.BillingRequest;
 import net.robotmedia.billing.IBillingObserver;
@@ -31,6 +32,13 @@ public class BatteryApplication extends Application {
     public void onCreate() {
         super.onCreate();
         _instance = this;
+        try {
+            String pkg = getPackageName();
+            Constants.VERSION = getPackageManager().getPackageInfo(pkg, 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            Constants.VERSION = "?";
+        }
+        
 
         BillingController.setDebug(Constants.DEBUG);
         BillingController.setConfiguration(new BillingController.IConfiguration() {

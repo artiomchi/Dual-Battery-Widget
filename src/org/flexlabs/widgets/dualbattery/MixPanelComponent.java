@@ -19,6 +19,7 @@ package org.flexlabs.widgets.dualbattery;
 import android.content.Context;
 import com.mixpanel.android.mpmetrics.MPMetrics;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class MixPanelComponent {
@@ -42,6 +43,9 @@ public class MixPanelComponent {
     
     public void event(String eventName, Map<String, String> properties) {
         if (!ENABLED || mpMetrics == null) return;
+        if (properties == null)
+            properties = new HashMap<String, String>();
+        properties.put("appVersion", Constants.VERSION);
         mpMetrics.event(eventName, properties);
     }
     
