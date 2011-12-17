@@ -1,9 +1,9 @@
 [submodule "lib/ActionBarSherlock"]
 	path = lib/ActionBarSherlock
-	url = git://github.com/JakeWharton/ActionBarSherlock.git
+	url = git://github.com/artiomchi/ActionBarSherlock.git
 [submodule "lib/MixPanel"]
 	path = lib/MixPanel
-	url = git://github.com/mixpanel/mixpanel-android.git
+	url = git://github.com/artiomchi/mixpanel-android.git
 [submodule "lib/AndroidBilling"]
 	path = lib/AndroidBilling
-	url = git://github.com/robotmedia/AndroidBillingLibrary.git
+	url = git://github.com/artiomchi/AndroidBillingLibrary.git
