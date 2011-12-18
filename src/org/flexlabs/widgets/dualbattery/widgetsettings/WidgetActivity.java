@@ -102,7 +102,7 @@ public class WidgetActivity extends FragmentActivity {
         inflater.inflate(R.menu.widget_batteryinfo, menu);
         inflater.inflate(R.menu.widget, menu);
         if (!Constants.HAS_MARKET_BILLING)
-            menu.findItem(R.id.donate_market).setEnabled(false);
+            menu.findItem(R.id.donate).getSubMenu().findItem(R.id.donate_market).setEnabled(false);
         return true;
     }
 

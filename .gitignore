@@ -1,6 +1,7 @@
 # Compiled binaries #
 #####################
 out
+bin
 *.apk
 
 # Workspace files #

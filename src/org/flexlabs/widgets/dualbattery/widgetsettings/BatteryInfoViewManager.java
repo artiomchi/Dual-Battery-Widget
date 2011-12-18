@@ -550,6 +550,7 @@ public class BatteryInfoViewManager extends BroadcastReceiver {
                                 }
                             }
                         } while (c.moveToNext());
+                    c.close();
                     adapter.close();
                     if (mainSkipped)
                         mMainSeries.add(time, oldLevel);
