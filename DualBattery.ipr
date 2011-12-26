@@ -184,6 +184,7 @@
       <module fileurl="file://$PROJECT_DIR$/lib/ActionBarSherlock/plugins/preference/ActionBarSherlock-Preference.iml" filepath="$PROJECT_DIR$/lib/ActionBarSherlock/plugins/preference/ActionBarSherlock-Preference.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib/AndroidBilling/AndroidBillingLibrary/AndroidBilling.iml" filepath="$PROJECT_DIR$/lib/AndroidBilling/AndroidBillingLibrary/AndroidBilling.iml" />
       <module fileurl="file://$PROJECT_DIR$/DualBattery.iml" filepath="$PROJECT_DIR$/DualBattery.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib/MixPanel/MixPanel.iml" filepath="$PROJECT_DIR$/lib/MixPanel/MixPanel.iml" />
     </modules>
   </component>
   <component name="ProjectResources">
@@ -197,18 +198,6 @@
   </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
-  </component>
-  <component name="libraryTable">
-    <library name="MixPanel">
-      <CLASSES>
-        <root url="file://$PROJECT_DIR$/lib/MixPanel" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="file://$PROJECT_DIR$/lib/MixPanel/src" />
-      </SOURCES>
-      <jarDirectory url="file://$PROJECT_DIR$/lib/MixPanel" recursive="false" />
-    </library>
   </component>
 </project>
 
