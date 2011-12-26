@@ -3,6 +3,7 @@
 out
 bin
 *.apk
+lib/AChartEngine/bin
 
 # Workspace files #
 ###################
