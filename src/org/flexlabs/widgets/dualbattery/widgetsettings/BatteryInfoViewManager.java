@@ -55,6 +55,8 @@ import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.MixPanelComponent;
 import org.flexlabs.widgets.dualbattery.R;
 import org.flexlabs.widgets.dualbattery.storage.BatteryLevelAdapter;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -122,9 +124,13 @@ public class BatteryInfoViewManager extends BroadcastReceiver {
                 @Override
                 public void onPurchaseStateChanged(String itemId, Transaction.PurchaseState state) {
                     if (state == Transaction.PurchaseState.PURCHASED) {
-                        HashMap<String, String> properties = new HashMap<String, String>();
-                        properties.put("item", itemId);
-                        mMixPanel.event(MixPanelComponent.DONATE_MARKET_CONFIRMED, properties);
+                        JSONObject properties = new JSONObject();
+                        try {
+                            properties.put("item", itemId);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        mMixPanel.track(MixPanelComponent.DONATE_MARKET_CONFIRMED, properties);
                         Toast.makeText(mActivity, "Thanks a lot for supporting me!", Toast.LENGTH_LONG).show();
                     }
                 }
@@ -137,7 +143,7 @@ public class BatteryInfoViewManager extends BroadcastReceiver {
 
         if (mMixPanel == null) {
             mMixPanel = new MixPanelComponent(mActivity);
-            mMixPanel.event(MixPanelComponent.BATTERY_INFO, null);
+            mMixPanel.track(MixPanelComponent.BATTERY_INFO, null);
         }
     }
     
@@ -310,7 +316,7 @@ public class BatteryInfoViewManager extends BroadcastReceiver {
                 return true;
 
             case R.id.feedback :
-                mMixPanel.event(MixPanelComponent.BATTERY_INFO_FEEDBACK, null);
+                mMixPanel.track(MixPanelComponent.BATTERY_INFO_FEEDBACK, null);
                 Intent intent = new Intent(Intent.ACTION_SEND, Uri.parse("mailto:"));
                 intent.putExtra(Intent.EXTRA_EMAIL, new String[] { Constants.FeedbackDestination });
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Dual Battery Widget Feedback");
@@ -324,17 +330,17 @@ public class BatteryInfoViewManager extends BroadcastReceiver {
                 return true;
 
             case R.id.donate_payPal :
-                mMixPanel.event(MixPanelComponent.DONATE_PAYPAL, null);
+                mMixPanel.track(MixPanelComponent.DONATE_PAYPAL, null);
                 mActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.URI_PAYPAL)));
                 return true;
 
             case R.id.donate_market :
-                mMixPanel.event(MixPanelComponent.DONATE_MARKET, null);
+                mMixPanel.track(MixPanelComponent.DONATE_MARKET, null);
                 mActivity.showDialog(DIALOG_DONATE_MARKET);
                 return true;
 
             case R.id.about :
-                mMixPanel.event(MixPanelComponent.BATTERY_INFO_ABOUT, null);
+                mMixPanel.track(MixPanelComponent.BATTERY_INFO_ABOUT, null);
                 mActivity.showDialog(DIALOG_ABOUT);
                 return true;
             
@@ -457,9 +463,13 @@ public class BatteryInfoViewManager extends BroadcastReceiver {
                                     case 2:
                                         marketItem = "donation.amount.7.77"; break;
                                 }
-                                HashMap<String, String> properties = new HashMap<String, String>();
-                                properties.put("item", marketItem);
-                                mMixPanel.event(MixPanelComponent.DONATE_MARKET_PACKAGE, properties);
+                                JSONObject properties = new JSONObject();
+                                try {
+                                    properties.put("item", marketItem);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                mMixPanel.track(MixPanelComponent.DONATE_MARKET_PACKAGE, properties);
                                 BillingController.requestPurchase(mActivity, marketItem, true);
                             }
                         })

@@ -18,6 +18,8 @@ package org.flexlabs.widgets.dualbattery;
 
 import android.content.Context;
 import com.mixpanel.android.mpmetrics.MPMetrics;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,12 +43,16 @@ public class MixPanelComponent {
             mpMetrics = new MPMetrics(context, API_KEY);
     }
     
-    public void event(String eventName, Map<String, String> properties) {
+    public void track(String eventName, JSONObject properties) {
         if (!ENABLED || mpMetrics == null) return;
         if (properties == null)
-            properties = new HashMap<String, String>();
-        properties.put("appVersion", Constants.VERSION);
-        mpMetrics.event(eventName, properties);
+            properties = new JSONObject();
+        try {
+            properties.put("appVersion", Constants.VERSION);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        mpMetrics.track(eventName, properties);
     }
     
     public void flush() {
