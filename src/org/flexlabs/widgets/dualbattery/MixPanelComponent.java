@@ -34,19 +34,20 @@ public class MixPanelComponent {
     private MPMetrics mpMetrics;
 
     public MixPanelComponent(Context context) {
-        if (ENABLED)
-            mpMetrics = new MPMetrics(context, API_KEY);
+        if (ENABLED) {
+            mpMetrics = MPMetrics.getInstance(context, API_KEY);
+            JSONObject superProperties = new JSONObject();
+            try {
+                superProperties.put("appVersion", Constants.VERSION);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            mpMetrics.registerSuperProperties(superProperties);
+        }
     }
     
     public void track(String eventName, JSONObject properties) {
         if (!ENABLED || mpMetrics == null) return;
-        if (properties == null)
-            properties = new JSONObject();
-        try {
-            properties.put("appVersion", Constants.VERSION);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
         mpMetrics.track(eventName, properties);
     }
     
