@@ -17,6 +17,7 @@
 package org.flexlabs.widgets.dualbattery.widgetsettings;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
@@ -54,25 +55,30 @@ public class FeedbackFragment extends Fragment {
         feedbackEditor = (EditText)view.findViewById(R.id.feedbackEditor);
         feedbackEditor.requestFocus();
 
-        view.findViewById(R.id.sendFeedback).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mMixPanel.track(MixPanelComponent.BATTERY_INFO_FEEDBACK, null);
-                Intent intent = new Intent(Intent.ACTION_SEND, Uri.parse("mailto:"));
-                intent.putExtra(Intent.EXTRA_EMAIL, new String[] { Constants.FeedbackDestination });
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Dual Battery Widget Feedback");
-                intent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(getDeviceDetails()));
-                intent.setType("message/rfc822");
-                getActivity().startActivity(Intent.createChooser(intent, "Email"));
-
-                feedbackEditor.setText(null);
-            }
-        });
+        view.findViewById(R.id.sendFeedback).setOnClickListener(feedbackListener);
         return view;
     }
 
-    private String getDeviceDetails() {
-        StringBuilder sb = new StringBuilder(feedbackEditor.getText());
+    private final View.OnClickListener feedbackListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            sendFeedback(mMixPanel, getActivity(), feedbackEditor.getText());
+            feedbackEditor.setText(null);
+        }
+    };
+
+    public static void sendFeedback(MixPanelComponent mMixPanel, Context context, CharSequence feedback) {
+        mMixPanel.track(MixPanelComponent.BATTERY_INFO_FEEDBACK, null);
+        Intent intent = new Intent(Intent.ACTION_SEND, Uri.parse("mailto:"));
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[] { Constants.FeedbackDestination });
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Dual Battery Widget Feedback");
+        intent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(getDeviceDetails(context, feedback)));
+        intent.setType("message/rfc822");
+        context.startActivity(Intent.createChooser(intent, "Email"));
+    }
+
+    private static String getDeviceDetails(Context context, CharSequence feedback) {
+        StringBuilder sb = new StringBuilder(feedback);
         sb.append("<br />\n<h4>Device details:</h4>");
         sb.append("<br />\n<b>App version:</b> ").append(Constants.VERSION);
         sb.append("<br />\n<b>Brand:</b> ").append(Build.MANUFACTURER);
@@ -81,7 +87,7 @@ public class FeedbackFragment extends Fragment {
         sb.append("<br />\n<b>Android version:</b> ").append(Build.VERSION.RELEASE);
         sb.append("<br />\n<b>Version details:</b> ").append(Build.VERSION.INCREMENTAL);
 
-        Intent intent = getActivity().registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        Intent intent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
         Bundle extras = intent.getExtras();
         String allKeys = TextUtils.join(", ", extras.keySet());
         sb.append("<br />\n<b>Battery intent keys:</b> ").append(allKeys);
@@ -103,7 +109,7 @@ public class FeedbackFragment extends Fragment {
         return sb.toString();
     }
 
-    private String getFormattedKernelVersion() {
+    private static String getFormattedKernelVersion() {
         String procVersionStr;
 
         try {

@@ -24,13 +24,14 @@
         </receiver>
         <!-- Widget widgetsettings activity -->
         <activity android:name=".widgetsettings.WidgetActivity" android:excludeFromRecents="true"
-                  android:label="Widget Properties" android:theme="@style/Theme.Sherlock">
+                  android:label="Widget Properties" android:theme="@style/Theme.FlexLabs">
             <intent-filter><action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" /></intent-filter>
         </activity>
         <activity android:name=".widgetsettings.WidgetSettingsActivity" android:excludeFromRecents="true"
-                          android:label="Widget Properties" android:theme="@style/Theme.Sherlock"/>
+                          android:label="Widget Properties" android:theme="@style/Theme.FlexLabs"/>
         <activity android:name=".widgetsettings.WidgetTabbedActivity" android:excludeFromRecents="true"
                   android:label="Widget Properties"/>
+        <!-- Welcome Activity -->
         <activity android:name=".WelcomeActivity" android:theme="@android:style/Theme.Holo.Light.Dialog">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

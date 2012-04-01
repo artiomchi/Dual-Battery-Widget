@@ -18,22 +18,29 @@ package org.flexlabs.widgets.dualbattery.widgetsettings;
 
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.viewpagerindicator.PageIndicator;
+import com.viewpagerindicator.TabPageIndicator;
+import com.viewpagerindicator.TitleProvider;
 import org.flexlabs.widgets.dualbattery.R;
 
 public class WidgetActivity extends SherlockFragmentActivity {
-    private int appWidgetId;
-    private IntentFilter intentFilter;
-    private BatteryInfoViewManager batteryInfoViewManager = new BatteryInfoViewManager();
+    public int appWidgetId;
+    public BatteryInfoViewManager batteryInfoViewManager = new BatteryInfoViewManager();
+
+    TabAdapter mAdapter;
+    ViewPager mPager;
+    PageIndicator mIndicator;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,22 +59,56 @@ public class WidgetActivity extends SherlockFragmentActivity {
             return;
         }
 
-        setContentView(R.layout.battery_info_table);
-        intentFilter = new IntentFilter();
-        intentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);
-        batteryInfoViewManager.loadData(this, findViewById(R.id.body), appWidgetId);
-        findViewById(R.id.batterySummary).setOnClickListener(batteryInfoViewManager.batterySummaryListener);
-        Button widgetSettings = (Button)findViewById(R.id.widgetSettings);
-        widgetSettings.setVisibility(View.VISIBLE);
-        widgetSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent newIntent = new Intent(WidgetActivity.this, WidgetSettingsActivity.class);
-                newIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-                startActivity(newIntent);
-                finish();
+        setContentView(R.layout.widgetsettings);
+        mAdapter = new TabAdapter(getSupportFragmentManager());
+        mPager = (ViewPager)findViewById(R.id.pager);
+        mPager.setAdapter(mAdapter);
+
+        mIndicator = (TabPageIndicator)findViewById(R.id.indicator);
+        mIndicator.setViewPager(mPager);
+    }
+
+    class TabAdapter extends FragmentPagerAdapter implements TitleProvider {
+        public TabAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int i) {
+            switch (i) {
+                case 0:
+                    return new SherlockBatteryInfoFragment();
+                case 1:
+                    return new SherlockFeedbackFragment();
+                case 2:
+                    return new SherlockDonateFragment();
+                case 3:
+                    return new SherlockAboutFragment();
+                default:
+                    return null;
             }
-        });
+        }
+
+        @Override
+        public int getCount() {
+            return 4;
+        }
+
+        @Override
+        public String getTitle(int position) {
+            switch(position) {
+                case 0:
+                    return getString(R.string.propTitle_General);
+                case 1:
+                    return getString(R.string.propTitle_Feedback);
+                case 2:
+                    return getString(R.string.propTitle_Donate);
+                case 3:
+                    return getString(R.string.propTitle_About);
+                default:
+                    return null;
+            }
+        }
     }
 
     @Override
@@ -77,30 +118,9 @@ public class WidgetActivity extends SherlockFragmentActivity {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        unregisterReceiver(batteryInfoViewManager);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        registerReceiver(batteryInfoViewManager, intentFilter);
-        batteryInfoViewManager.buildChart();
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getSupportMenuInflater();
-        inflater.inflate(R.menu.widget_batteryinfo, menu);
         inflater.inflate(R.menu.widget, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        menu.findItem(R.id.temperature).setTitle(batteryInfoViewManager.getMenuTitle());
         return true;
     }
 
