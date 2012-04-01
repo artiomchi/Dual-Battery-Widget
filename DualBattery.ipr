@@ -5,6 +5,14 @@
   </component>
   <component name="CompilerConfiguration">
     <option name="DEFAULT_COMPILER" value="Javac" />
+    <excludeFromCompile>
+      <directory url="file://$PROJECT_DIR$/gen" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/lib/ActionBarSherlock/plugins/preference/gen" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/lib/ActionBarSherlock/library/gen" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/lib/MixPanel/gen" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/lib/AChartEngine/gen" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/lib/AndroidBilling/AndroidBillingLibrary/gen" includeSubdirectories="true" />
+    </excludeFromCompile>
     <resourceExtensions />
     <wildcardResourcePatterns>
       <entry name="?*.properties" />
@@ -198,6 +206,9 @@
   </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/lib/ActionBarSherlock" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/lib/AndroidBilling" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/lib/MixPanel" vcs="Git" />
   </component>
 </project>
 
