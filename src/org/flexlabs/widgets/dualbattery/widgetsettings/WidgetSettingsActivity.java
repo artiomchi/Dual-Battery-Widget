@@ -18,7 +18,7 @@ package org.flexlabs.widgets.dualbattery.widgetsettings;
 
 import android.appwidget.AppWidgetManager;
 import android.os.Bundle;
-import android.support.v4.app.SherlockPreferenceActivity;
+import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import org.flexlabs.widgets.dualbattery.BatteryWidgetUpdater;
 import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.R;

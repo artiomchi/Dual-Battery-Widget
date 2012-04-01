@@ -189,7 +189,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/lib/AChartEngine/AChartEngine.iml" filepath="$PROJECT_DIR$/lib/AChartEngine/AChartEngine.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib/ActionBarSherlock/library/ActionBarSherlock.iml" filepath="$PROJECT_DIR$/lib/ActionBarSherlock/library/ActionBarSherlock.iml" />
-      <module fileurl="file://$PROJECT_DIR$/lib/ActionBarSherlock/plugins/preference/ActionBarSherlock-Preference.iml" filepath="$PROJECT_DIR$/lib/ActionBarSherlock/plugins/preference/ActionBarSherlock-Preference.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib/AndroidBilling/AndroidBillingLibrary/AndroidBilling.iml" filepath="$PROJECT_DIR$/lib/AndroidBilling/AndroidBillingLibrary/AndroidBilling.iml" />
       <module fileurl="file://$PROJECT_DIR$/DualBattery.iml" filepath="$PROJECT_DIR$/DualBattery.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib/MixPanel/MixPanel.iml" filepath="$PROJECT_DIR$/lib/MixPanel/MixPanel.iml" />

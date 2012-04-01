@@ -16,15 +16,14 @@
 
 package org.flexlabs.widgets.dualbattery.widgetsettings;
 
-import android.app.Dialog;
 import android.appwidget.AppWidgetManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import com.actionbarsherlock.app.SherlockPreferenceActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import org.flexlabs.widgets.dualbattery.BatteryLevel;
 import org.flexlabs.widgets.dualbattery.BatteryWidgetUpdater;
 import org.flexlabs.widgets.dualbattery.Constants;
@@ -32,7 +31,7 @@ import org.flexlabs.widgets.dualbattery.R;
 
 import java.util.List;
 
-public class WidgetTabbedActivity extends PreferenceActivity {
+public class WidgetTabbedActivity extends SherlockPreferenceActivity {
     public int appWidgetId;
     public BatteryInfoViewManager batteryInfoViewManager = new BatteryInfoViewManager();
 
@@ -80,7 +79,7 @@ public class WidgetTabbedActivity extends PreferenceActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
+        MenuInflater inflater = getSupportMenuInflater();
         inflater.inflate(R.menu.widget, menu);
         return true;
     }
