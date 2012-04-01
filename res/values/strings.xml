@@ -22,7 +22,7 @@
     <string name="propTitle_Other">Other</string>
     <string name="propTitle_About">About Dual Battery Widget</string>
     <string name="propTitle_Feedback">Send Feedback</string>
-    <string name="propTitle_MarketLink">View in Android Market</string>
+    <string name="propTitle_MarketLink">View in Android Play Store</string>
     <string name="propTitle_Donate">Donate :)</string>
 
     <string name="prop_batterySelection">Battery to display</string>
@@ -73,13 +73,13 @@
         to fill this gap.
         \n
         \nThe author of this widget is Artiom Chilaru, and it was initially posted on the xda-developers forum.
-        It is distributed for free on the Android Market. If you paid for it, or downloaded it from any other place,
-        I would strongly recommend uninstalling your copy, and installing it from the market. This way you can make
+        It is distributed for free on the Google Play Store. If you paid for it, or downloaded it from any other place,
+        I would strongly recommend uninstalling your copy, and installing it from the play store. This way you can make
         sure that your copy has no malware attached to it, and you will get free updates to the latest version
         as soon as it\'s released!
         \n
-        \nYou can install the widget from the marketplace here:
-        https://market.android.com/details?id=org.flexlabs.widgets.dualbattery
+        \nYou can install the widget from the google play store here:
+        https://play.google.com/store/apps/details?id=org.flexlabs.widgets.dualbattery
         \n
         \nThe widget is open source, and licensed with the Apache License 2.0
         \nFeel free to contribute to the development of the project, by forking the project on GitHub:
@@ -95,6 +95,13 @@
         \n
         \nMany thanks to all the people who helped with the translation of the project, including:
     </string>
+
+    <string name="feedback_head">
+        Thank you for taking the time to fill in this form. I value your opinion, and always want to make this widget better
+        \n
+        \nTell us what you think of the widget, or what you would like to see in future versions, and I will get back in touch with you
+    </string>
+    <string name="feedback_hint">Please enter your feedback here</string>
 
     <string name="battery_info_status_label">Battery status:</string>
     <string name="battery_info_last_charged_label">Last time charged:</string>
@@ -125,8 +132,19 @@
     <string name="battery_info_dock_status_discharging">Discharging</string>
     <string name="battery_info_dock_status_docked">Docked</string>
     <string name="battery_info_dock_status_undocked">Not docked</string>
-    
-    <string name="donation_market_1">Standard (£0.99)</string>
-    <string name="donation_market_3">Buy me a pint (£3.00)</string>
-    <string name="donation_market_7">If you really like number 7 (£7.77)</string>
+
+    <string name="donate_head">
+        Thank you for choosing to support my widget. Your help is greatly appreciated!
+        \n
+        \nPlease choose one of the options below
+    </string>
+    <string name="donate_play">Google Play</string>
+    <string name="donation_play_1">Standard (£0.99)</string>
+    <string name="donation_play_1_short">£0.99</string>
+    <string name="donation_play_3">Buy me a pint (£3.00)</string>
+    <string name="donation_play_3_short">£3.00</string>
+    <string name="donation_play_7">If you really like number 7 (£7.77)</string>
+    <string name="donation_play_7_short">£7.77</string>
+    <string name="donate_paypal">PayPal</string>
+    <string name="donation_paypal">Go to PayPal</string>
 </resources>

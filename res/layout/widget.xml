@@ -17,6 +17,12 @@
             <ImageView android:id="@+id/batteryTab"
                        android:layout_width="fill_parent" android:layout_height="fill_parent"
                        android:src="@drawable/batt_0" />
+            <ImageView android:layout_width="fill_parent" android:layout_height="fill_parent"
+                       android:src="@drawable/batt_shape" />
+            <ImageView android:id="@+id/batteryTabCharging"
+                       android:layout_width="fill_parent" android:layout_height="fill_parent"
+                       android:visibility="gone"
+                       android:src="@drawable/charging" />
             <TextView android:id="@+id/statusTabWhiteTop"
                       android:gravity="top|center_horizontal" style="@style/batteryStatusText" />
             <TextView android:id="@+id/statusTabWhiteMiddle"
@@ -52,6 +58,12 @@
             <ImageView android:id="@+id/batteryDock"
                        android:layout_width="fill_parent" android:layout_height="fill_parent"
                        android:src="@drawable/batt_0" />
+            <ImageView android:layout_width="fill_parent" android:layout_height="fill_parent"
+                       android:src="@drawable/batt_shape" />
+            <ImageView android:id="@+id/batteryDockCharging"
+                       android:layout_width="fill_parent" android:layout_height="fill_parent"
+                       android:visibility="gone"
+                       android:src="@drawable/charging" />
             <TextView android:id="@+id/statusDockWhiteTop"
                       android:gravity="top|center_horizontal" style="@style/batteryStatusText" />
             <TextView android:id="@+id/statusDockWhiteMiddle"

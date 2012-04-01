@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent" android:padding="15dp" android:paddingBottom="25dp">
+    <ImageView android:layout_height="wrap_content" android:layout_width="wrap_content"
+               android:layout_margin="5dp"
+               android:src="@drawable/icon" android:id="@+id/logo" />
+    <TextView android:layout_height="wrap_content" android:layout_width="wrap_content"
+              android:layout_alignParentRight="true"
+              android:text="@string/widget_name" android:textStyle="bold" />
+    <TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
+              android:layout_margin="10dp" android:layout_marginBottom="50dp"
+              android:layout_below="@id/logo"
+              android:text="Don't forget that this is a widget, silly!\n"/>
+</RelativeLayout>

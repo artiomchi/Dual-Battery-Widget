@@ -21,20 +21,15 @@ import com.mixpanel.android.mpmetrics.MPMetrics;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class MixPanelComponent {
     private static final String API_KEY = "bce7bb0bd38a73dc88daa8b0588138cb";
     private static boolean ENABLED = true;
 
     public static final String BATTERY_INFO = "Activity.BatteryInfo";
-    public static final String BATTERY_INFO_ABOUT = "Activity.BatteryInfo.About";
     public static final String BATTERY_INFO_FEEDBACK = "Activity.BatteryInfo.Feedback";
     public static final String DONATE_PAYPAL = "Donate.PayPal";
-    public static final String DONATE_MARKET = "Donate.Market";
-    public static final String DONATE_MARKET_PACKAGE = "Donate.Market.PackageSelected";
-    public static final String DONATE_MARKET_CONFIRMED = "Donate.Market.Confirmed";
+    public static final String DONATE_GPLAY_PACKAGE = "Donate.GooglePlay.PackageSelected";
+    public static final String DONATE_GPLAY_CONFIRMED = "Donate.GooglePlay.Confirmed";
     
     private MPMetrics mpMetrics;
 

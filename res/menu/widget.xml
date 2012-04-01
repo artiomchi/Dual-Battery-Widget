@@ -1,12 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="@string/propTitle_Feedback" android:id="@+id/feedback" />
-    <item android:title="@string/propTitle_MarketLink" android:id="@+id/marketLink" />
-    <item android:title="@string/propTitle_Donate" android:id="@+id/donate">
-        <menu>
-            <item android:title="PayPal" android:id="@+id/donate_payPal" />
-            <item android:title="Market" android:id="@+id/donate_market" />
-        </menu>
-    </item>
-    <item android:title="@string/propTitle_About" android:id="@+id/about" />
+    <item android:title="@string/propTitle_MarketLink" android:id="@+id/googlePlayLink" />
 </menu>

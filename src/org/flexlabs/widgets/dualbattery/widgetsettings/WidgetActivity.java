@@ -92,17 +92,10 @@ public class WidgetActivity extends FragmentActivity {
     }
 
     @Override
-    protected Dialog onCreateDialog(int id) {
-        return batteryInfoViewManager.onCreateDialog(this, id);
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.widget_batteryinfo, menu);
         inflater.inflate(R.menu.widget, menu);
-        if (!Constants.HAS_MARKET_BILLING)
-            menu.findItem(R.id.donate).getSubMenu().findItem(R.id.donate_market).setEnabled(false);
         return true;
     }
 

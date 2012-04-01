@@ -45,9 +45,4 @@
         <item>@string/sett_margin_Bottom</item>
         <item>@string/sett_margin_Both</item>
     </string-array>
-    <string-array name="donation_market">
-        <item>@string/donation_market_1</item>
-        <item>@string/donation_market_3</item>
-        <item>@string/donation_market_7</item>
-    </string-array>
 </resources>

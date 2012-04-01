@@ -2,6 +2,10 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
                   xmlns:flexlabs="http://schemas.android.com/apk/res/org.flexlabs.widgets.dualbattery">
     <PreferenceCategory android:title="@string/propTitle_Dock">
+        <CheckBoxPreference
+                android:key="showBatteryLabel"
+                android:title="@string/prop_showLabel" android:summary="@string/prop_showLabel_summary"
+                android:defaultValue="false" />
         <org.flexlabs.widgets.dualbattery.ui.IntegerListPreference
                 android:key="batterySelection"
                 android:title="@string/prop_batterySelection" flexlabs:summary="@string/prop_batterySelection_summary"

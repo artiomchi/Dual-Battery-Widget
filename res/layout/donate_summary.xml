@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent" android:layout_height="fill_parent"
+              android:orientation="vertical" android:padding="5dp">
+    <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:gravity="center"
+              android:text="@string/donate_head" android:id="@+id/donate_head" />
+    <ImageView android:layout_height="wrap_content" android:layout_width="fill_parent"
+               android:layout_marginRight="10dp" android:layout_marginLeft="10dp" android:layout_marginTop="20dp"
+               android:src="@drawable/google_play_logo" android:id="@+id/donate_play" />
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/donate_play_options">
+        <Button android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1"
+                android:id="@+id/donate_play_1" android:text="@string/donation_play_1_short" />
+        <Button android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1"
+                android:id="@+id/donate_play_3" android:text="@string/donation_play_3_short" />
+        <Button android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1"
+                android:id="@+id/donate_play_7" android:text="@string/donation_play_7_short" />
+    </LinearLayout>
+    <ImageView android:layout_height="wrap_content" android:layout_width="fill_parent"
+               android:layout_marginRight="10dp" android:layout_marginLeft="10dp" android:layout_marginTop="20dp"
+               android:src="@drawable/paypal_logo" />
+    <Button android:layout_width="fill_parent" android:layout_height="wrap_content"
+            android:id="@+id/donate_paypal" android:text="@string/donation_paypal" />
+</LinearLayout>

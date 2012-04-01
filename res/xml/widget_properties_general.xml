@@ -21,9 +21,5 @@
                 android:title="@string/prop_margin" flexlabs:summary="@string/prop_margin_summary"
                 flexlabs:entries="@array/margin_labels" flexlabs:entryValues="@array/margin_values"
                 android:defaultValue="0" />
-        <CheckBoxPreference
-                android:key="showBatteryLabel"
-                android:title="@string/prop_showLabel" android:summary="@string/prop_showLabel_summary"
-                android:defaultValue="false" />
     </PreferenceCategory>
 </PreferenceScreen>

@@ -31,6 +31,12 @@
                           android:label="Widget Properties" android:theme="@style/Theme.Sherlock"/>
         <activity android:name=".widgetsettings.WidgetTabbedActivity" android:excludeFromRecents="true"
                   android:label="Widget Properties"/>
+        <activity android:name=".WelcomeActivity" android:theme="@android:style/Theme.Holo.Light.Dialog">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
         <!-- Battery monitor service -->
         <service android:name=".service.MonitorService" android:label="Battery Monitor Service" />
         <receiver android:name=".service.BootUpReceiver" android:label="Monitor Service Auto Starter">
@@ -39,7 +45,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
-        <!-- In-app Market Billing -->
+        <!-- In-app Google Play Billing -->
         <service android:name="net.robotmedia.billing.BillingService" />
         <receiver android:name="net.robotmedia.billing.BillingReceiver">
             <intent-filter>

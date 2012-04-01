@@ -55,7 +55,7 @@ public class BatteryApplication extends Application {
         BillingController.registerObserver(new IBillingObserver() {
             @Override
             public void onBillingChecked(boolean supported) {
-                Constants.HAS_MARKET_BILLING = supported;
+                Constants.HAS_GPLAY_BILLING = supported;
                 BillingController.unregisterObserver(this);
             }
 

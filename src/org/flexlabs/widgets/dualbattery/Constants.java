@@ -16,13 +16,10 @@
 
 package org.flexlabs.widgets.dualbattery;
 
-import android.content.Context;
-import android.content.pm.PackageManager;
-
 public class Constants {
     public static final String LOG = "FlexLabs.DBW";
     public static final boolean DEBUG = false;
-    public static boolean HAS_MARKET_BILLING = false;
+    public static boolean HAS_GPLAY_BILLING = false;
     public static String VERSION;
 
     public static final String EXTRA_WIDGET_IDS = "widgetIds";
@@ -82,5 +79,5 @@ public class Constants {
     public static final int SETTING_TEMP_UNITS_DEFAULT = TEMP_UNIT_CELSIUS;
 
     public static final String URI_PAYPAL = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=6UHRDDAPAMSTL&lc=GB&item_name=Donation%20for%20Artiom%20Chilaru&currency_code=GBP&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted";
-    public static final String URI_MARKET = "https://market.android.com/details?id=org.flexlabs.widgets.dualbattery";
+    public static final String URI_GOOGLE_PLAY = "https://play.google.com/store/apps/details?id=org.flexlabs.widgets.dualbattery";
 }

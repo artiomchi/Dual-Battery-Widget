@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_height="fill_parent" android:layout_width="fill_parent">
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                  android:orientation="vertical">
+        <ImageView android:layout_width="fill_parent" android:layout_height="wrap_content"
+                   android:src="@drawable/get_it_on_play_logo_large" android:id="@+id/play_logo" />
+        <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:text="@string/about_full" android:textSize="17sp"
+                  android:id="@+id/about_text" />
+        <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:text="@string/about_translations" android:textSize="17sp" />
+    </LinearLayout>
+</ScrollView>

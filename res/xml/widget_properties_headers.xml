@@ -4,4 +4,10 @@
             android:title="@string/propHeader_BatteryInfo" />
     <header android:fragment="org.flexlabs.widgets.dualbattery.widgetsettings.WidgetTabbedActivity$PropertiesFragment"
             android:title="@string/propHeader_Main" />
+    <header android:fragment="org.flexlabs.widgets.dualbattery.widgetsettings.FeedbackFragment"
+            android:title="@string/propTitle_Feedback" />
+    <header android:fragment="org.flexlabs.widgets.dualbattery.widgetsettings.DonateFragment"
+            android:title="@string/propTitle_Donate" />
+    <header android:fragment="org.flexlabs.widgets.dualbattery.widgetsettings.AboutFragment"
+            android:title="@string/propTitle_About" />
 </preference-headers>
