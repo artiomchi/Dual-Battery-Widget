@@ -7,3 +7,6 @@
 [submodule "lib/AndroidBilling"]
 	path = lib/AndroidBilling
 	url = git://github.com/artiomchi/AndroidBillingLibrary.git
+[submodule "lib/ViewPagerIndicator"]
+	path = lib/ViewPagerIndicator
+	url = git://github.com/artiomchi/Android-ViewPagerIndicator.git

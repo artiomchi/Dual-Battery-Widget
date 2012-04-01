@@ -12,6 +12,7 @@
       <directory url="file://$PROJECT_DIR$/lib/MixPanel/gen" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/lib/AChartEngine/gen" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/lib/AndroidBilling/AndroidBillingLibrary/gen" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/lib/ViewPagerIndicator/library/gen" includeSubdirectories="true" />
     </excludeFromCompile>
     <resourceExtensions />
     <wildcardResourcePatterns>
@@ -192,6 +193,7 @@
       <module fileurl="file://$PROJECT_DIR$/lib/AndroidBilling/AndroidBillingLibrary/AndroidBilling.iml" filepath="$PROJECT_DIR$/lib/AndroidBilling/AndroidBillingLibrary/AndroidBilling.iml" />
       <module fileurl="file://$PROJECT_DIR$/DualBattery.iml" filepath="$PROJECT_DIR$/DualBattery.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib/MixPanel/MixPanel.iml" filepath="$PROJECT_DIR$/lib/MixPanel/MixPanel.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib/ViewPagerIndicator/library/ViewPagerIndicator.iml" filepath="$PROJECT_DIR$/lib/ViewPagerIndicator/library/ViewPagerIndicator.iml" />
     </modules>
   </component>
   <component name="ProjectResources">
@@ -208,6 +210,16 @@
     <mapping directory="$PROJECT_DIR$/lib/ActionBarSherlock" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/lib/AndroidBilling" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/lib/MixPanel" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/lib/ViewPagerIndicator" vcs="Git" />
+  </component>
+  <component name="libraryTable">
+    <library name="android-support-v4">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/lib/ActionBarSherlock/library/libs/android-support-v4.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
   </component>
 </project>
 

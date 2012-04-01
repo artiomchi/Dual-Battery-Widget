@@ -39,15 +39,8 @@
     <orderEntry type="module" module-name="AndroidBilling" />
     <orderEntry type="module" module-name="AChartEngine" />
     <orderEntry type="module" module-name="MixPanel" />
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/ActionBarSherlock/library/libs/android-support-v4.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
+    <orderEntry type="module" module-name="ViewPagerIndicator" />
+    <orderEntry type="library" name="android-support-v4" level="project" />
   </component>
 </module>
 
