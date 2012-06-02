@@ -36,7 +36,6 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.viewpagerindicator.PageIndicator;
 import com.viewpagerindicator.TabPageIndicator;
-import com.viewpagerindicator.TitleProvider;
 import org.flexlabs.widgets.dualbattery.BatteryWidgetUpdater;
 import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.R;
@@ -117,7 +116,7 @@ public class WidgetActivity extends SherlockFragmentActivity implements Preferen
         return true;
     }
 
-    class TabAdapter extends FragmentPagerAdapter implements TitleProvider {
+    class TabAdapter extends FragmentPagerAdapter {
         public TabAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -146,7 +145,7 @@ public class WidgetActivity extends SherlockFragmentActivity implements Preferen
         }
 
         @Override
-        public String getTitle(int position) {
+        public CharSequence getPageTitle(int position) {
             switch(position) {
                 case 0:
                     return getString(R.string.propTitle_General);
