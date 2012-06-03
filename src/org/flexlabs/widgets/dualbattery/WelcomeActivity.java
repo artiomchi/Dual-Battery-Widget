@@ -17,19 +17,11 @@
 package org.flexlabs.widgets.dualbattery;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import org.flexlabs.widgets.dualbattery.widgetsettings.WidgetHoneyActivity;
 
 public class WelcomeActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        startActivity(new Intent(this, WidgetHoneyActivity.class));
     }
 }

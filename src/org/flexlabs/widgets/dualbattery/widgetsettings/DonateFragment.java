@@ -16,13 +16,13 @@
 
 package org.flexlabs.widgets.dualbattery.widgetsettings;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.actionbarsherlock.app.SherlockFragment;
 import net.robotmedia.billing.BillingController;
 import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.MixPanelComponent;
@@ -30,7 +30,7 @@ import org.flexlabs.widgets.dualbattery.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class DonateFragment extends Fragment {
+public class DonateFragment extends SherlockFragment {
     private MixPanelComponent mMixPanel;
 
     @Override

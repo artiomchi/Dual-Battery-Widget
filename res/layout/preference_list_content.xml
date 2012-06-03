@@ -4,58 +4,22 @@
 **
 ** Copyright 2006, The Android Open Source Project
 **
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
+** Licensed under the Apache License, Version 2.0 (the "License"); 
+** you may not use this file except in compliance with the License. 
+** You may obtain a copy of the License at 
 **
-**     http://www.apache.org/licenses/LICENSE-2.0
+**     http://www.apache.org/licenses/LICENSE-2.0 
 **
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
+** Unless required by applicable law or agreed to in writing, software 
+** distributed under the License is distributed on an "AS IS" BASIS, 
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+** See the License for the specific language governing permissions and 
 ** limitations under the License.
 */
 -->
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="horizontal"
-              android:layout_height="match_parent"
-              android:layout_width="match_parent">
-    <LinearLayout
-            android:id="@+id/headers"
-            android:orientation="vertical"
-            android:layout_width="0px"
-            android:layout_height="match_parent"
-            android:layout_marginRight="@dimen/preference_screen_side_margin_negative"
-            android:layout_marginLeft="@dimen/preference_screen_side_margin"
-            android:layout_weight="4">
-        <ListView android:id="@android:id/list"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:paddingTop="@dimen/preference_screen_header_vertical_padding"
-                  android:clipToPadding="false"
-                  android:scrollbarStyle="insideOverlay"
-                  android:drawSelectorOnTop="false"
-                  android:cacheColorHint="@android:color/transparent"
-                  android:listPreferredItemHeight="48dp"
-                  android:scrollbarAlwaysDrawVerticalTrack="true" />
-    </LinearLayout>
-
-    <LinearLayout
-            android:id="@+id/prefs_frame"
-            android:layout_width="0px"
-            android:background="@drawable/panel_bg_holo_dark"
-            android:layout_marginLeft="@dimen/preference_screen_side_margin"
-            android:layout_marginRight="@dimen/preference_screen_side_margin"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="6">
-        <android.preference.PreferenceFrameLayout
-                android:id="@+id/prefs"
-                android:layout_width="match_parent"
-                android:layout_height="0dip"
-                android:layout_weight="1"
-                android:layout_marginTop="@dimen/preference_screen_header_vertical_padding"/>
-    </LinearLayout>
-</LinearLayout>
+<ListView xmlns:android="http://schemas.android.com/apk/res/android" android:id="@android:id/list"
+          android:layout_width="fill_parent"
+          android:layout_height="fill_parent"
+          android:drawSelectorOnTop="false"
+          android:scrollbarAlwaysDrawVerticalTrack="true"
+        />

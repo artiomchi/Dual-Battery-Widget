@@ -67,9 +67,7 @@ public class BatteryInfoViewManager extends BroadcastReceiver {
     
     private boolean tempUnitsC;
     private int temperature, appWidgetId;
-    
-    private XYMultipleSeriesDataset mDataSet;
-    private XYMultipleSeriesRenderer mRenderer;
+
     private XYSeries mMainSeries, mDockSeries;
     private GraphicalView mChartView;
     private LinearLayout mChartContainer;
@@ -317,7 +315,7 @@ public class BatteryInfoViewManager extends BroadcastReceiver {
 
     public void initChart() {
         if (mChartView == null) {
-            mRenderer = new XYMultipleSeriesRenderer();
+            XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
             mRenderer.setAxisTitleTextSize(16);
             mRenderer.setChartTitleTextSize(20);
             mRenderer.setLabelsTextSize(15);
@@ -330,7 +328,7 @@ public class BatteryInfoViewManager extends BroadcastReceiver {
             mRenderer.setShowGrid(true);
             mRenderer.setZoomButtonsVisible(false);
 
-            mDataSet = new XYMultipleSeriesDataset();
+            XYMultipleSeriesDataset mDataSet = new XYMultipleSeriesDataset();
             mMainSeries = new XYSeries(mActivity.getString(R.string.battery_main));
             mDataSet.addSeries(mMainSeries);
             XYSeriesRenderer mMainRenderer = new XYSeriesRenderer();

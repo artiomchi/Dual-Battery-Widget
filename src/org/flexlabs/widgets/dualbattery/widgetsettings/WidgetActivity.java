@@ -17,19 +17,19 @@
 package org.flexlabs.widgets.dualbattery.widgetsettings;
 
 import android.appwidget.AppWidgetManager;
-import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.PreferenceManager;
-import android.preference.PreferenceScreen;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.*;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -37,17 +37,16 @@ import com.actionbarsherlock.view.MenuItem;
 import com.viewpagerindicator.PageIndicator;
 import com.viewpagerindicator.TabPageIndicator;
 import org.flexlabs.widgets.dualbattery.BatteryWidgetUpdater;
-import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.R;
-import org.flexlabs.widgets.dualbattery.ui.PreferenceListFragment;
 
-public class WidgetActivity extends SherlockFragmentActivity implements PreferenceListFragment.OnPreferenceAttachedListener, Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
+public class WidgetActivity extends SherlockFragmentActivity {
     public int appWidgetId;
     public BatteryInfoViewManager batteryInfoViewManager = new BatteryInfoViewManager();
 
-    TabAdapter mAdapter;
-    ViewPager mPager;
-    PageIndicator mIndicator;
+    private ListView mList;
+    private int mCurrentTab = -1;
+    private Fragment[] fragments;
+    private String[] titles;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,117 +55,119 @@ public class WidgetActivity extends SherlockFragmentActivity implements Preferen
                 AppWidgetManager.EXTRA_APPWIDGET_ID,
                 AppWidgetManager.INVALID_APPWIDGET_ID);
 
+        fragments = new Fragment[5];
+        fragments[0] = new BatteryInfoFragment();
+        fragments[1] = new PropertiesFragment();
+        fragments[2] = new FeedbackFragment();
+        fragments[3] = new DonateFragment();
+        fragments[4] = new AboutFragment();
+        titles = new String[5];
+        titles[0] = getString(R.string.propTitle_General);
+        titles[1] = getString(R.string.propHeader_Main);
+        titles[2] = getString(R.string.propTitle_Feedback);
+        titles[3] = getString(R.string.propTitle_Donate);
+        titles[4] = getString(R.string.propTitle_About);
+
         int screenLayout = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB &&
                 screenLayout > Configuration.SCREENLAYOUT_SIZE_LARGE) {
-            Intent newIntent = new Intent(this, WidgetTabbedActivity.class);
-            newIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-            startActivity(newIntent);
-            finish();
-            return;
+            setContentView(R.layout.preference_list_large);
+
+            SideTabAdapter mSideAdapter = new SideTabAdapter(this, titles);
+
+            mList = (ListView)findViewById(android.R.id.list);
+            mList.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
+            mList.setOnItemClickListener(sideTabListener);
+            mList.setAdapter(mSideAdapter);
+            mList.setItemChecked(0, true);
+            mList.performClick();
+            getSupportFragmentManager().beginTransaction().add(R.id.prefs, fragments[0]).commit();
+        } else {
+            setContentView(R.layout.widgetsettings);
+            PagerTabAdapter mPagerAdapter = new PagerTabAdapter(getSupportFragmentManager());
+            ViewPager mPager = (ViewPager) findViewById(R.id.pager);
+            mPager.setAdapter(mPagerAdapter);
+
+            PageIndicator mIndicator = (TabPageIndicator) findViewById(R.id.indicator);
+            mIndicator.setViewPager(mPager);
         }
-
-        setContentView(R.layout.widgetsettings);
-        mAdapter = new TabAdapter(getSupportFragmentManager());
-        mPager = (ViewPager)findViewById(R.id.pager);
-        mPager.setAdapter(mAdapter);
-
-        mIndicator = (TabPageIndicator)findViewById(R.id.indicator);
-        mIndicator.setViewPager(mPager);
     }
 
-    private Preference filterPref;
-
-    @Override
-    public void onPreferenceAttached(PreferenceScreen root, int xmlId){
-        if(root == null)
-            return; //for whatever reason in very rare cases this is null
-        if(xmlId == R.xml.widget_properties_general){
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-            //getPreferenceManager().setSharedPreferencesName(Constants.SETTINGS_PREFIX + appWidgetId);
-            String value = prefs.getString("display_filter", "1");
-            //String[] strings = getResources().getStringArray(R.array.display_filter_array);
-            try{
-                Preference filterPref = root.findPreference("display_filter");
-                //filterPref.setSummary(strings[Integer.parseInt(value)]);
-                filterPref.setOnPreferenceChangeListener(this);
-                this.filterPref = filterPref;
-            }catch(NumberFormatException e){}
-            root.findPreference("a").setOnPreferenceClickListener(this);
-        }//else if(xmlId == R.xml.s_widget_settings){
-        //    root.findPreference("example").setOnPreferenceClickListener(this);
-        //}
-    }
-
-    @Override
-    public boolean onPreferenceChange(Preference preference, Object newValue) {
-        //String[] strings = getResources().getStringArray(R.array.display_filter_array);
-        try{
-            //filterPref.setSummary(strings[Integer.parseInt((String)newValue)]);
-        }catch(NumberFormatException e){}
-        BatteryWidgetUpdater.updateWidget(this, appWidgetId);
-        return true;
-    }
-
-    @Override
-    public boolean onPreferenceClick(Preference pref){
-        if(pref.getKey().equals("whatever")){
-            mPager.setCurrentItem(3, true);
-        }
-        return true;
-    }
-
-    class TabAdapter extends FragmentPagerAdapter {
-        public TabAdapter(FragmentManager fm) {
+    private class PagerTabAdapter extends FragmentPagerAdapter {
+        public PagerTabAdapter(FragmentManager fm) {
             super(fm);
         }
 
         @Override
         public Fragment getItem(int i) {
-            switch (i) {
-                case 0:
-                    return new SherlockBatteryInfoFragment();
-                case 1:
-                    return new PropertiesFragment();
-                case 2:
-                    return new SherlockFeedbackFragment();
-                case 3:
-                    return new SherlockDonateFragment();
-                case 4:
-                    return new SherlockAboutFragment();
-                default:
-                    return null;
-            }
+            return fragments[i];
         }
 
         @Override
         public int getCount() {
-            return 5;
+            return fragments.length;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch(position) {
-                case 0:
-                    return getString(R.string.propTitle_General);
-                case 1:
-                    return getString(R.string.propHeader_Main);
-                case 2:
-                    return getString(R.string.propTitle_Feedback);
-                case 3:
-                    return getString(R.string.propTitle_Donate);
-                case 4:
-                    return getString(R.string.propTitle_About);
-                default:
-                    return null;
-            }
+            return titles[position];
         }
     }
+
+    private static class SideTabAdapter extends ArrayAdapter<String> {
+        private LayoutInflater mInflater;
+
+        public SideTabAdapter(Context context, String[] objects) {
+            super(context, 0, objects);
+            mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View view;
+            TextView textView;
+
+            if (convertView == null) {
+                view = mInflater.inflate(android.R.layout.simple_list_item_activated_1, parent, false);
+                textView = (TextView)view.findViewById(android.R.id.text1);
+                view.setTag(textView);
+            } else {
+                view = convertView;
+                textView = (TextView)view.getTag();
+            }
+
+            String title = getItem(position);
+            textView.setText(title);
+
+            return view;
+        }
+    }
+
+    private final AdapterView.OnItemClickListener sideTabListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+            if (mCurrentTab == position)
+                return;
+
+            mCurrentTab = position;
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            transaction.replace(R.id.prefs, fragments[position]);
+            transaction.commit();
+            mList.setItemChecked(position, true);
+        }
+    };
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         batteryInfoViewManager.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        BatteryWidgetUpdater.updateWidget(this, appWidgetId);
     }
 
     @Override

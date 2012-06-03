@@ -27,10 +27,6 @@
                   android:label="Widget Properties" android:theme="@style/Theme.FlexLabs">
             <intent-filter><action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" /></intent-filter>
         </activity>
-        <activity android:name=".widgetsettings.WidgetSettingsActivity" android:excludeFromRecents="true"
-                          android:label="Widget Properties" android:theme="@style/Theme.FlexLabs"/>
-        <activity android:name=".widgetsettings.WidgetTabbedActivity" android:excludeFromRecents="true"
-                  android:label="Widget Properties"/>
         <!-- Welcome Activity -->
         <activity android:name=".WelcomeActivity" android:theme="@android:style/Theme.Holo.Light.Dialog">
             <intent-filter>
@@ -38,7 +34,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".widgetsettings.WidgetHoneyActivity" android:theme="@style/Theme.FlexLabs"></activity>
         <!-- Battery monitor service -->
         <service android:name=".service.MonitorService" android:label="Battery Monitor Service" />
         <receiver android:name=".service.BootUpReceiver" android:label="Monitor Service Auto Starter">

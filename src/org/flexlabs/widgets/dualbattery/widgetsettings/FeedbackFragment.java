@@ -16,7 +16,6 @@
 
 package org.flexlabs.widgets.dualbattery.widgetsettings;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -30,6 +29,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import com.actionbarsherlock.app.SherlockFragment;
 import org.flexlabs.widgets.dualbattery.BatteryLevel;
 import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.MixPanelComponent;
@@ -41,7 +41,7 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class FeedbackFragment extends Fragment {
+public class FeedbackFragment extends SherlockFragment {
     private EditText feedbackEditor;
     private MixPanelComponent mMixPanel;
 

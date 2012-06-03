@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Artiom Chilaru (http://flexlabs.org)
+ * Copyright 2012 Artiom Chilaru (http://flexlabs.org)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,30 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*
- * Some lines based on the android source files (Copyright (c) 2006, The Android Open Source Project)
- * See: http://android.git.kernel.org/?p=platform/packages/apps/Settings.git;a=blob;f=src/com/android/widgetsettings/BatteryInfo.java
- */
 
 package org.flexlabs.widgets.dualbattery.widgetsettings;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.*;
-import android.view.Menu;
+import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import org.flexlabs.widgets.dualbattery.R;
 
-public class BatteryInfoFragment extends Fragment {
+public class BatteryInfoFragment extends SherlockFragment {
     private IntentFilter mIntentFilter;
     private BatteryInfoViewManager _batteryInfoViewManager;
     private BatteryInfoViewManager batteryInfoViewManager() {
         if (_batteryInfoViewManager == null)
-            _batteryInfoViewManager = ((WidgetTabbedActivity)getActivity()).batteryInfoViewManager;
+            _batteryInfoViewManager = ((WidgetActivity)getSherlockActivity()).batteryInfoViewManager;
         return _batteryInfoViewManager;
     }
 
@@ -49,7 +45,7 @@ public class BatteryInfoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.battery_info_table, null);
-        WidgetTabbedActivity activity = (WidgetTabbedActivity)getActivity();
+        WidgetActivity activity = (WidgetActivity)getActivity();
         int appWidgetId = activity.appWidgetId;
         view.findViewById(R.id.batterySummary).setOnClickListener(batteryInfoViewManager().batterySummaryListener);
         batteryInfoViewManager().loadData(getActivity(), view, appWidgetId);
