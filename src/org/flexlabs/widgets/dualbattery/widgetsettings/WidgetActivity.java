@@ -31,8 +31,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.viewpagerindicator.PageIndicator;
 import com.viewpagerindicator.TabPageIndicator;
@@ -41,7 +39,6 @@ import org.flexlabs.widgets.dualbattery.R;
 
 public class WidgetActivity extends SherlockFragmentActivity {
     public int appWidgetId;
-    public BatteryInfoViewManager batteryInfoViewManager = new BatteryInfoViewManager();
 
     private ListView mList;
     private int mCurrentTab = -1;
@@ -159,27 +156,14 @@ public class WidgetActivity extends SherlockFragmentActivity {
     };
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        batteryInfoViewManager.onDestroy();
-    }
-
-    @Override
     protected void onPause() {
         super.onPause();
         BatteryWidgetUpdater.updateWidget(this, appWidgetId);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getSupportMenuInflater();
-        inflater.inflate(R.menu.widget, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return batteryInfoViewManager.onMenuItemSelected(item) ||
+        return ((BatteryInfoFragment)fragments[0]).onMenuItemSelected(item) ||
                super.onOptionsItemSelected(item);
     }
 }

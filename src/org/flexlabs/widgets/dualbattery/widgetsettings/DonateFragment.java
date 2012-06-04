@@ -24,6 +24,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.actionbarsherlock.app.SherlockFragment;
 import net.robotmedia.billing.BillingController;
+import net.robotmedia.billing.helper.AbstractBillingObserver;
+import org.flexlabs.widgets.dualbattery.BillingObserver;
 import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.MixPanelComponent;
 import org.flexlabs.widgets.dualbattery.R;
@@ -32,6 +34,7 @@ import org.json.JSONObject;
 
 public class DonateFragment extends SherlockFragment {
     private MixPanelComponent mMixPanel;
+    private AbstractBillingObserver mBillingObserver;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,7 +52,21 @@ public class DonateFragment extends SherlockFragment {
         view.findViewById(R.id.donate_play_3).setOnClickListener(playDonateListener);
         view.findViewById(R.id.donate_play_7).setOnClickListener(playDonateListener);
         view.findViewById(R.id.donate_paypal).setOnClickListener(payPalDonateListener);
+
+        if (mBillingObserver == null) {
+            mBillingObserver = new BillingObserver(getActivity());
+            BillingController.registerObserver(mBillingObserver);
+        }
         return view;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mBillingObserver != null) {
+            BillingController.unregisterObserver(mBillingObserver);
+            mBillingObserver = null;
+        }
     }
 
     private final View.OnClickListener playDonateListener = new View.OnClickListener() {
