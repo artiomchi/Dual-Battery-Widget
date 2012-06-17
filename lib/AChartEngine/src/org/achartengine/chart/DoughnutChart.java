@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2009, 2010 SC 4ViewSoft SRL
+ * Copyright (C) 2009 - 2012 SC 4ViewSoft SRL
  *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -111,7 +111,8 @@ public class DoughnutChart extends RoundChart {
         float angle = (float) (value / total * 360);
         canvas.drawArc(oval, currentAngle, angle, true, paint);
         drawLabel(canvas, mDataset.getTitles(category)[i], mRenderer, prevLabelsBounds, mCenterX,
-            mCenterY, shortRadius, longRadius, currentAngle, angle, left, right, paint);
+            mCenterY, shortRadius, longRadius, currentAngle, angle, left, right,
+            mRenderer.getLabelsColor(), paint, true);
         currentAngle += angle;
       }
       radius -= (int) mRadius * decCoef;

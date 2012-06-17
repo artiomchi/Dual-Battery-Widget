@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2009, 2010 SC 4ViewSoft SRL
+ * Copyright (C) 2009 - 2012 SC 4ViewSoft SRL
  *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +20,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.achartengine.model.XYMultipleSeriesDataset;
+import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 
 import android.graphics.Canvas;
@@ -37,6 +39,8 @@ public class TimeChart extends LineChart {
   public static final long DAY = 24 * 60 * 60 * 1000;
   /** The date format pattern to be used in formatting the X axis labels. */
   private String mDateFormat;
+  /** The starting point for labels. */
+  private Double mStartPoint;
 
   TimeChart() {
   }
@@ -91,25 +95,26 @@ public class TimeChart extends LineChart {
     int length = xLabels.size();
     if (length > 0) {
       boolean showLabels = mRenderer.isShowLabels();
-      boolean showGrid = mRenderer.isShowGrid();
+      boolean showGridY = mRenderer.isShowGridY();
       DateFormat format = getDateFormat(xLabels.get(0), xLabels.get(length - 1));
       for (int i = 0; i < length; i++) {
         long label = Math.round(xLabels.get(i));
         float xLabel = (float) (left + xPixelsPerUnit * (label - minX));
         if (showLabels) {
-          paint.setColor(mRenderer.getLabelsColor());
+          paint.setColor(mRenderer.getXLabelsColor());
           canvas
               .drawLine(xLabel, bottom, xLabel, bottom + mRenderer.getLabelsTextSize() / 3, paint);
-          drawText(canvas, format.format(new Date(label)), xLabel, bottom
-              + mRenderer.getLabelsTextSize() * 4 / 3, paint, mRenderer.getXLabelsAngle());
+          drawText(canvas, format.format(new Date(label)), xLabel,
+              bottom + mRenderer.getLabelsTextSize() * 4 / 3, paint, mRenderer.getXLabelsAngle());
         }
-        if (showGrid) {
+        if (showGridY) {
           paint.setColor(mRenderer.getGridColor());
           canvas.drawLine(xLabel, bottom, xLabel, top, paint);
         }
       }
     }
-    drawXTextLabels(xTextLabelLocations, canvas, paint, true, left, top, bottom, xPixelsPerUnit, minX, maxX);
+    drawXTextLabels(xTextLabelLocations, canvas, paint, true, left, top, bottom, xPixelsPerUnit,
+        minX, maxX);
   }
 
   /**
@@ -148,36 +153,77 @@ public class TimeChart extends LineChart {
     return TYPE;
   }
 
-    Double origin;
-    @Override
-    protected List<Double> getXLabels(double min, double max, int count) {
-      if (min >= max)
-        return super.getXLabels(min, max, count);
-      if (origin == null)
-        origin = min - (min % DAY) + DAY + new Date(Math.round(min)).getTimezoneOffset() * 60 * 1000;
-      if (count > 25)
-        count = 25;
-      final double cycleMath = (max - min) / count;
-      double cycle = DAY;
-
-      if (cycleMath <= DAY) {
-        mDateFormat = "MMM dd, HH:mm";
-        while (cycleMath < cycle / 2)
-          cycle = cycle / 2;
+  protected List<Double> getXLabels(double min, double max, int count) {
+    final List<Double> result = new ArrayList<Double>();
+    if (!mRenderer.isXRoundedLabels()) {
+      if (mDataset.getSeriesCount() > 0) {
+        XYSeries series = mDataset.getSeriesAt(0);
+        int length = series.getItemCount();
+        int intervalLength = 0;
+        int startIndex = -1;
+        for (int i = 0; i < length; i++) {
+          double value = series.getX(i);
+          if (min <= value && value <= max) {
+            intervalLength++;
+            if (startIndex < 0) {
+              startIndex = i;
+            }
+          }
+        }
+        if (intervalLength < count) {
+          for (int i = startIndex; i < startIndex + intervalLength; i++) {
+            result.add(series.getX(i));
+          }
+        } else {
+          float step = (float) intervalLength / count;
+          int intervalCount = 0;
+          for (int i = 0; i < length && intervalCount < count; i++) {
+            double value = series.getX(Math.round(i * step));
+            if (min <= value && value <= max) {
+              result.add(value);
+              intervalCount++;
+            }
+          }
+        }
+        return result;
       } else {
-        mDateFormat = "MMM dd";
-        while (cycleMath > cycle)
-          cycle = cycle * 2;
+        return super.getXLabels(min, max, count);
       }
+    }
+    if (mStartPoint == null) {
+      mStartPoint = min - (min % DAY) + DAY + new Date(Math.round(min)).getTimezoneOffset() * 60
+          * 1000;
+    }
+    if (count > 25) {
+      count = 25;
+    }
 
-      final List<Double> result = new ArrayList<Double>();
-      double val = origin - Math.floor((origin - min) / cycle) * cycle;
-      int i = 0;
-      while (val < max && i++ <= count) {
-        result.add(val);
-        val += cycle;
-      }
-
+    
+    final double cycleMath = (max - min) / count;
+    if (cycleMath <= 0) {
       return result;
     }
+    double cycle = DAY;
+
+    if (cycleMath <= DAY) {
+        mDateFormat = "MMM dd, HH:mm";
+        while (cycleMath < cycle / 2) {
+        cycle = cycle / 2;
+      }
+    } else {
+        mDateFormat = "MMM dd";
+        while (cycleMath > cycle) {
+        cycle = cycle * 2;
+      }
+    }
+
+    double val = mStartPoint - Math.floor((mStartPoint - min) / cycle) * cycle;
+    int i = 0;
+    while (val < max && i++ <= count) {
+      result.add(val);
+      val += cycle;
+    }
+
+    return result;
+  }
 }

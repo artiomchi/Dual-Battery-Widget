@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2009, 2010 SC 4ViewSoft SRL
+ * Copyright (C) 2009 - 2012 SC 4ViewSoft SRL
  *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -71,9 +71,10 @@ public class LineChart extends XYChart {
    * @param seriesRenderer the series renderer
    * @param yAxisValue the minimum value of the y axis
    * @param seriesIndex the index of the series currently being drawn
+   * @param startIndex the start index of the rendering points
    */
   public void drawSeries(Canvas canvas, Paint paint, float[] points,
-      SimpleSeriesRenderer seriesRenderer, float yAxisValue, int seriesIndex) {
+      SimpleSeriesRenderer seriesRenderer, float yAxisValue, int seriesIndex, int startIndex) {
     int length = points.length;
     XYSeriesRenderer renderer = (XYSeriesRenderer) seriesRenderer;
     float lineWidth = paint.getStrokeWidth();
@@ -88,6 +89,11 @@ public class LineChart extends XYChart {
       fillPoints[length + 1] = yAxisValue;
       fillPoints[length + 2] = fillPoints[0];
       fillPoints[length + 3] = fillPoints[length + 1];
+      for (int i = 0; i < length + 4; i += 2) {
+        if (fillPoints[i + 1] < 0) {
+          fillPoints[i + 1] = 0;
+        }
+      }
       paint.setStyle(Style.FILL);
       drawPath(canvas, fillPoints, paint, true);
     }
@@ -98,13 +104,15 @@ public class LineChart extends XYChart {
   }
 
   @Override
-  protected RectF[] clickableAreasForPoints(float[] points, float yAxisValue, int seriesIndex) {
+  protected ClickableArea[] clickableAreasForPoints(float[] points, double[] values,
+      float yAxisValue, int seriesIndex, int startIndex) {
     int length = points.length;
-    RectF[] ret = new RectF[length / 2];
+    ClickableArea[] ret = new ClickableArea[length / 2];
     for (int i = 0; i < length; i += 2) {
       int selectableBuffer = mRenderer.getSelectableBuffer();
-      ret[i / 2] = new RectF(points[i] - selectableBuffer, points[i + 1] - selectableBuffer,
-          points[i] + selectableBuffer, points[i + 1] + selectableBuffer);
+      ret[i / 2] = new ClickableArea(new RectF(points[i] - selectableBuffer, points[i + 1]
+          - selectableBuffer, points[i] + selectableBuffer, points[i + 1] + selectableBuffer),
+          values[i], values[i + 1]);
     }
     return ret;
   }

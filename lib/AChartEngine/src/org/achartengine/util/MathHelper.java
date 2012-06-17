@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2009, 2010 SC 4ViewSoft SRL
+ * Copyright (C) 2009 - 2012 SC 4ViewSoft SRL
  *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -152,6 +152,21 @@ public class MathHelper {
     float[] result = new float[length];
     for (int i = 0; i < length; i++) {
       result[i] = values.get(i).floatValue();
+    }
+    return result;
+  }
+
+  /**
+   * Transforms a list of Double values into an array of double.
+   * 
+   * @param values the list of Double
+   * @return the array of doubles
+   */
+  public static double[] getDoubles(List<Double> values) {
+    int length = values.size();
+    double[] result = new double[length];
+    for (int i = 0; i < length; i++) {
+      result[i] = values.get(i).doubleValue();
     }
     return result;
   }

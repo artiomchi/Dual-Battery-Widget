@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2009, 2010 SC 4ViewSoft SRL
+ * Copyright (C) 2009 - 2012 SC 4ViewSoft SRL
  *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -194,7 +194,7 @@ public class GraphicalView extends View {
    */
   public void zoomIn() {
     if (mZoomIn != null) {
-      mZoomIn.apply();
+      mZoomIn.apply(Zoom.ZOOM_AXIS_XY);
       repaint();
     }
   }
@@ -204,10 +204,12 @@ public class GraphicalView extends View {
    */
   public void zoomOut() {
     if (mZoomOut != null) {
-      mZoomOut.apply();
+      mZoomOut.apply(Zoom.ZOOM_AXIS_XY);
       repaint();
     }
   }
+  
+
 
   /**
    * Do a chart zoom reset / fit zoom.

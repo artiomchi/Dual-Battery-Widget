@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2009, 2010 SC 4ViewSoft SRL
+ * Copyright (C) 2009 - 2012 SC 4ViewSoft SRL
  *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -91,14 +91,34 @@ public class TouchHandler implements ITouchHandler {
           float oldDeltaX = Math.abs(oldX - oldX2);
           float oldDeltaY = Math.abs(oldY - oldY2);
           float zoomRate = 1;
-          if (Math.abs(newX - oldX) >= Math.abs(newY - oldY)) {
+
+          float tan1 = Math.abs(newY - oldY) / Math.abs(newX - oldX);
+          float tan2 = Math.abs(newY2 - oldY2) / Math.abs(newX2 - oldX2);
+          if ( tan1 <= 0.577 && tan2 <= 0.577) {
+            // horizontal pinch zoom, |deltaY| / |deltaX| is [0 ~ 0.577], 0.577 is the approximate value of tan(Pi/6)
             zoomRate = newDeltaX / oldDeltaX;
-          } else {
+            if (zoomRate > 0.909 && zoomRate < 1.1) {
+              mPinchZoom.setZoomRate(zoomRate);
+              mPinchZoom.apply(Zoom.ZOOM_AXIS_X);
+            }
+          } else if ( tan1 >= 1.732 && tan2 >= 1.732 ) {
+            // pinch zoom vertically, |deltaY| / |deltaX| is [1.732 ~ infinity], 1.732 is the approximate value of tan(Pi/3)
             zoomRate = newDeltaY / oldDeltaY;
-          }
-          if (zoomRate > 0.909 && zoomRate < 1.1) {
-            mPinchZoom.setZoomRate(zoomRate);
-            mPinchZoom.apply();
+            if (zoomRate > 0.909 && zoomRate < 1.1) {
+              mPinchZoom.setZoomRate(zoomRate);
+              mPinchZoom.apply(Zoom.ZOOM_AXIS_Y);
+            }
+          } else if ( (tan1 > 0.577 && tan1 < 1.732) && (tan2 > 0.577 && tan2 < 1.732) ){
+            // pinch zoom diagonally
+            if (Math.abs(newX - oldX) >= Math.abs(newY - oldY)) {
+              zoomRate = newDeltaX / oldDeltaX;
+            } else {
+              zoomRate = newDeltaY / oldDeltaY;
+            }
+            if (zoomRate > 0.909 && zoomRate < 1.1) {
+              mPinchZoom.setZoomRate(zoomRate);
+              mPinchZoom.apply(Zoom.ZOOM_AXIS_XY);
+            }
           }
           oldX2 = newX2;
           oldY2 = newY2;

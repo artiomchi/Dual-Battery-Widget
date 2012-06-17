@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2009, 2010 SC 4ViewSoft SRL
+ * Copyright (C) 2009 - 2012 SC 4ViewSoft SRL
  *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ import org.achartengine.renderer.DefaultRenderer;
 import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer.Orientation;
+import org.achartengine.util.MathHelper;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -31,13 +32,13 @@ import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
+import android.graphics.Rect;
 import android.graphics.RectF;
 
 /**
  * An abstract class to be implemented by the chart rendering classes.
  */
 public abstract class AbstractChart implements Serializable {
-
   /**
    * The graphical representation of the chart.
    * 
@@ -135,12 +136,32 @@ public abstract class AbstractChart implements Serializable {
         }
         if (!calculate) {
           drawLegendShape(canvas, renderer.getSeriesRendererAt(i), currentX, currentY, i, paint);
-          canvas.drawText(text, currentX + lineSize + 5, currentY + 5, paint);
+          drawString(canvas, text, currentX + lineSize + 5, currentY + 5, paint);
         }
         currentX += extraSize;
       }
     }
     return Math.round(size + renderer.getLegendTextSize());
+  }
+
+  /**
+   * Draw a multiple lines string.
+   * 
+   * @param canvas the canvas to paint to
+   * @param text the text to be painted
+   * @param x the x value of the area to draw to
+   * @param y the y value of the area to draw to
+   * @param paint the paint to be used for drawing
+   */
+  protected void drawString(Canvas canvas, String text, float x, float y, Paint paint) {
+    String[] lines = text.split("\n");
+    Rect rect = new Rect();
+    int yOff = 0;
+    for (int i = 0; i < lines.length; ++i) {
+      canvas.drawText(lines[i], x, y + yOff, paint);
+      paint.getTextBounds(lines[i], 0, lines[i].length(), rect);
+      yOff = yOff + rect.height() + 5; // space between lines is 5
+    }
   }
 
   /**
@@ -166,9 +187,97 @@ public abstract class AbstractChart implements Serializable {
    * @param renderer the renderer
    * @return if the chart is rendered as a vertical one
    */
-  protected boolean isVertical(DefaultRenderer renderer) {
+  public boolean isVertical(DefaultRenderer renderer) {
     return renderer instanceof XYMultipleSeriesRenderer
         && ((XYMultipleSeriesRenderer) renderer).getOrientation() == Orientation.VERTICAL;
+  }
+  
+  /**
+   * Makes sure the fraction digit is not displayed, if not needed.
+   * 
+   * @param label the input label value
+   * @return the label without the useless fraction digit
+   */
+  protected String getLabel(double label) {
+    String text = "";
+    if (label == Math.round(label)) {
+      text = Math.round(label) + "";
+    } else {
+      text = label + "";
+    }
+    return text;
+  }
+
+  private static float[] calculateDrawPoints(float p1x, float p1y, float p2x, float p2y,
+      int screenHeight, int screenWidth) {
+    float drawP1x;
+    float drawP1y;
+    float drawP2x;
+    float drawP2y;
+
+    if (p1y > screenHeight) {
+      // Intersection with the top of the screen
+      float m = (p2y - p1y) / (p2x - p1x);
+      drawP1x = (screenHeight - p1y + m * p1x) / m;
+      drawP1y = screenHeight;
+
+      if (drawP1x < 0) {
+        // If Intersection is left of the screen we calculate the intersection
+        // with the left border
+        drawP1x = 0;
+        drawP1y = p1y - m * p1x;
+      } else if (drawP1x > screenWidth) {
+        // If Intersection is right of the screen we calculate the intersection
+        // with the right border
+        drawP1x = screenWidth;
+        drawP1y = m * screenWidth + p1y - m * p1x;
+      }
+    } else if (p1y < 0) {
+      float m = (p2y - p1y) / (p2x - p1x);
+      drawP1x = (-p1y + m * p1x) / m;
+      drawP1y = 0;
+      if (drawP1x < 0) {
+        drawP1x = 0;
+        drawP1y = p1y - m * p1x;
+      } else if (drawP1x > screenWidth) {
+        drawP1x = screenWidth;
+        drawP1y = m * screenWidth + p1y - m * p1x;
+      }
+    } else {
+      // If the point is in the screen use it
+      drawP1x = p1x;
+      drawP1y = p1y;
+    }
+
+    if (p2y > screenHeight) {
+      float m = (p2y - p1y) / (p2x - p1x);
+      drawP2x = (screenHeight - p1y + m * p1x) / m;
+      drawP2y = screenHeight;
+      if (drawP2x < 0) {
+        drawP2x = 0;
+        drawP2y = p1y - m * p1x;
+      } else if (drawP2x > screenWidth) {
+        drawP2x = screenWidth;
+        drawP2y = m * screenWidth + p1y - m * p1x;
+      }
+    } else if (p2y < 0) {
+      float m = (p2y - p1y) / (p2x - p1x);
+      drawP2x = (-p1y + m * p1x) / m;
+      drawP2y = 0;
+      if (drawP2x < 0) {
+        drawP2x = 0;
+        drawP2y = p1y - m * p1x;
+      } else if (drawP2x > screenWidth) {
+        drawP2x = screenWidth;
+        drawP2y = m * screenWidth + p1y - m * p1x;
+      }
+    } else {
+      // If the point is in the screen use it
+      drawP2x = p2x;
+      drawP2y = p2y;
+    }
+
+    return new float[] { drawP1x, drawP1y, drawP2x, drawP2y };
   }
 
   /**
@@ -181,9 +290,28 @@ public abstract class AbstractChart implements Serializable {
    */
   protected void drawPath(Canvas canvas, float[] points, Paint paint, boolean circular) {
     Path path = new Path();
-    path.moveTo(points[0], points[1]);
-    for (int i = 2; i < points.length; i += 2) {
-      path.lineTo(points[i], points[i + 1]);
+    int height = canvas.getHeight();
+    int width = canvas.getWidth();
+
+    float[] tempDrawPoints;
+    if (points.length < 4) {
+      return;
+    }
+    tempDrawPoints = calculateDrawPoints(points[0], points[1], points[2], points[3], height, width);
+    path.moveTo(tempDrawPoints[0], tempDrawPoints[1]);
+    path.lineTo(tempDrawPoints[2], tempDrawPoints[3]);
+
+    for (int i = 4; i < points.length; i += 2) {
+      if ((points[i - 1] < 0 && points[i + 1] < 0)
+          || (points[i - 1] > height && points[i + 1] > height)) {
+        continue;
+      }
+      tempDrawPoints = calculateDrawPoints(points[i - 2], points[i - 1], points[i], points[i + 1],
+          height, width);
+      if (!circular) {
+        path.moveTo(tempDrawPoints[0], tempDrawPoints[1]);
+      }
+      path.lineTo(tempDrawPoints[2], tempDrawPoints[3]);
     }
     if (circular) {
       path.lineTo(points[0], points[1]);
@@ -268,13 +396,15 @@ public abstract class AbstractChart implements Serializable {
    * @param angle the label extra angle
    * @param left the left side
    * @param right the right side
+   * @param color the label color
    * @param paint the paint
+   * @param line if a line to the label should be drawn
    */
   protected void drawLabel(Canvas canvas, String labelText, DefaultRenderer renderer,
       List<RectF> prevLabelsBounds, int centerX, int centerY, float shortRadius, float longRadius,
-      float currentAngle, float angle, int left, int right, Paint paint) {
+      float currentAngle, float angle, int left, int right, int color, Paint paint, boolean line) {
     if (renderer.isShowLabels()) {
-      paint.setColor(renderer.getLabelsColor());
+      paint.setColor(color);
       double rAngle = Math.toRadians(90 - (currentAngle + angle / 2));
       double sinValue = Math.sin(rAngle);
       double cosValue = Math.cos(rAngle);
@@ -299,7 +429,7 @@ public abstract class AbstractChart implements Serializable {
       labelText = getFitText(labelText, width, paint);
       float widthLabel = paint.measureText(labelText);
       boolean okBounds = false;
-      while (!okBounds) {
+      while (!okBounds && line) {
         boolean intersects = false;
         int length = prevLabelsBounds.size();
         for (int j = 0; j < length && !intersects; j++) {
@@ -312,12 +442,22 @@ public abstract class AbstractChart implements Serializable {
         okBounds = !intersects;
       }
 
-      y2 = (int) (yLabel - size / 2);
-      canvas.drawLine(x1, y1, x2, y2, paint);
-      canvas.drawLine(x2, y2, x2 + extra, y2, paint);
+      if (line) {
+        y2 = (int) (yLabel - size / 2);
+        canvas.drawLine(x1, y1, x2, y2, paint);
+        canvas.drawLine(x2, y2, x2 + extra, y2, paint);
+      } else {
+        paint.setTextAlign(Align.CENTER);
+      }
       canvas.drawText(labelText, xLabel, yLabel, paint);
-      prevLabelsBounds.add(new RectF(xLabel, yLabel, xLabel + widthLabel, yLabel + size));
+      if (line) {
+        prevLabelsBounds.add(new RectF(xLabel, yLabel, xLabel + widthLabel, yLabel + size));
+      }
     }
+  }
+
+  public boolean isNullValue(double value) {
+    return Double.isNaN(value) || Double.isInfinite(value) || value == MathHelper.NULL_VALUE;
   }
 
   /**
@@ -326,7 +466,7 @@ public abstract class AbstractChart implements Serializable {
    * coordinates, null is returned.
    * 
    * @param screenPoint
-   * @return
+   * @return the series and point indexes
    */
   public SeriesSelection getSeriesAndPointForScreenCoordinate(Point screenPoint) {
     return null;

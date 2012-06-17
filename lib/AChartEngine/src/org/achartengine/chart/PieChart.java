@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2009, 2010 SC 4ViewSoft SRL
+ * Copyright (C) 2009 - 2012 SC 4ViewSoft SRL
  *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,6 @@ import android.graphics.RectF;
  * The pie chart rendering class.
  */
 public class PieChart extends RoundChart {
-
   /** Handles returning values when tapping on PieChart. */
   private PieMapper mPieMapper;
 
@@ -80,9 +79,8 @@ public class PieChart extends RoundChart {
     int bottom = y + height - legendSize;
     drawBackground(mRenderer, canvas, x, y, width, height, paint, false, DefaultRenderer.NO_COLOR);
 
-    float currentAngle = 0;
+    float currentAngle = mRenderer.getStartAngle();
     int mRadius = Math.min(Math.abs(right - left), Math.abs(bottom - top));
-
     int radius = (int) (mRadius * 0.35 * mRenderer.getScale());
 
     if (mCenterX == NO_VALUE) {
@@ -112,7 +110,13 @@ public class PieChart extends RoundChart {
       float angle = (float) (value / total * 360);
       canvas.drawArc(oval, currentAngle, angle, true, paint);
       drawLabel(canvas, mDataset.getCategory(i), mRenderer, prevLabelsBounds, mCenterX, mCenterY,
-          shortRadius, longRadius, currentAngle, angle, left, right, paint);
+          shortRadius, longRadius, currentAngle, angle, left, right, mRenderer.getLabelsColor(),
+          paint, true);
+      if (mRenderer.isDisplayValues()) {
+        drawLabel(canvas, getLabel(mDataset.getValue(i)), mRenderer, prevLabelsBounds, mCenterX,
+            mCenterY, shortRadius / 2, longRadius / 2, currentAngle, angle, left, right,
+            mRenderer.getLabelsColor(), paint, false);
+      }
 
       // Save details for getSeries functionality
       if (loadPieCfg) {

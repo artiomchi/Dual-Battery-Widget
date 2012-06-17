@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2009, 2010 SC 4ViewSoft SRL
+ * Copyright (C) 2009 - 2012 SC 4ViewSoft SRL
  *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,6 @@ import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
-import org.achartengine.util.MathHelper;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -50,6 +49,10 @@ public class BarChart extends XYChart {
   BarChart() {
   }
 
+  BarChart(Type type) {
+    mType = type;
+  }
+
   /**
    * Builds a new bar chart instance.
    * 
@@ -63,19 +66,22 @@ public class BarChart extends XYChart {
   }
 
   @Override
-  protected RectF[] clickableAreasForPoints(float[] points, float yAxisValue, int seriesIndex) {
+  protected ClickableArea[] clickableAreasForPoints(float[] points, double[] values,
+      float yAxisValue, int seriesIndex, int startIndex) {
     int seriesNr = mDataset.getSeriesCount();
     int length = points.length;
-    RectF[] ret = new RectF[length / 2];
+    ClickableArea[] ret = new ClickableArea[length / 2];
     float halfDiffX = getHalfDiffX(points, length, seriesNr);
     for (int i = 0; i < length; i += 2) {
       float x = points[i];
       float y = points[i + 1];
       if (mType == Type.STACKED) {
-        ret[i / 2] = new RectF(x - halfDiffX, y, x + halfDiffX, yAxisValue);
+        ret[i / 2] = new ClickableArea(new RectF(x - halfDiffX, y, x + halfDiffX, yAxisValue),
+            values[i], values[i + 1]);
       } else {
         float startX = x - seriesNr * halfDiffX + seriesIndex * 2 * halfDiffX;
-        ret[i / 2] = new RectF(startX, y, startX + 2 * halfDiffX, yAxisValue);
+        ret[i / 2] = new ClickableArea(new RectF(startX, y, startX + 2 * halfDiffX, yAxisValue),
+            values[i], values[i + 1]);
       }
     }
     return ret;
@@ -90,9 +96,10 @@ public class BarChart extends XYChart {
    * @param seriesRenderer the series renderer
    * @param yAxisValue the minimum value of the y axis
    * @param seriesIndex the index of the series currently being drawn
+   * @param startIndex the start index of the rendering points
    */
   public void drawSeries(Canvas canvas, Paint paint, float[] points,
-      SimpleSeriesRenderer seriesRenderer, float yAxisValue, int seriesIndex) {
+      SimpleSeriesRenderer seriesRenderer, float yAxisValue, int seriesIndex, int startIndex) {
     int seriesNr = mDataset.getSeriesCount();
     int length = points.length;
     paint.setColor(seriesRenderer.getColor());
@@ -108,6 +115,7 @@ public class BarChart extends XYChart {
 
   /**
    * Draws a bar.
+   * 
    * @param canvas the canvas
    * @param xMin the X axis minimum
    * @param yMin the Y axis minimum
@@ -129,6 +137,18 @@ public class BarChart extends XYChart {
     }
   }
 
+  /**
+   * Draws a bar.
+   * 
+   * @param canvas the canvas
+   * @param xMin the X axis minimum
+   * @param yMin the Y axis minimum
+   * @param xMax the X axis maximum
+   * @param yMax the Y axis maximum
+   * @param scale the scale index
+   * @param seriesIndex the current series index
+   * @param paint the paint
+   */
   private void drawBar(Canvas canvas, float xMin, float yMin, float xMax, float yMax, int scale,
       int seriesIndex, Paint paint) {
     SimpleSeriesRenderer renderer = mRenderer.getSeriesRendererAt(seriesIndex);
@@ -136,8 +156,8 @@ public class BarChart extends XYChart {
       float minY = (float) toScreenPoint(new double[] { 0, renderer.getGradientStopValue() }, scale)[1];
       float maxY = (float) toScreenPoint(new double[] { 0, renderer.getGradientStartValue() },
           scale)[1];
-      float gradientMinY = Math.max(minY, yMin);
-      float gradientMaxY = Math.min(maxY, yMax);
+      float gradientMinY = Math.max(minY, Math.min(yMin, yMax));
+      float gradientMaxY = Math.min(maxY, Math.max(yMin, yMax));
       int gradientMinColor = renderer.getGradientStopColor();
       int gradientMaxColor = renderer.getGradientStartColor();
       int gradientStartColor = gradientMaxColor;
@@ -165,6 +185,13 @@ public class BarChart extends XYChart {
           Math.round(gradientMaxY));
       gradient.draw(canvas);
     } else {
+      if (Math.abs(yMin - yMax) < 1) {
+        if (yMin < yMax) {
+          yMax = yMin + 1;
+        } else {
+          yMax = yMin - 1;
+        }
+      }
       canvas
           .drawRect(Math.round(xMin), Math.round(yMin), Math.round(xMax), Math.round(yMax), paint);
     }
@@ -188,20 +215,27 @@ public class BarChart extends XYChart {
    * @param paint the paint to be used for drawing
    * @param points the array of points to be used for drawing the series
    * @param seriesIndex the index of the series currently being drawn
+   * @param startIndex the start index of the rendering points
    */
   protected void drawChartValuesText(Canvas canvas, XYSeries series, SimpleSeriesRenderer renderer,
-      Paint paint, float[] points, int seriesIndex) {
+      Paint paint, float[] points, int seriesIndex, int startIndex) {
     int seriesNr = mDataset.getSeriesCount();
     float halfDiffX = getHalfDiffX(points, points.length, seriesNr);
     for (int i = 0; i < points.length; i += 2) {
-      int index = i / 2;
-      if (series.getY(index) != MathHelper.NULL_VALUE) {
+      int index = startIndex + i / 2;
+      double value = series.getY(index);
+      if (!isNullValue(value)) {
         float x = points[i];
         if (mType == Type.DEFAULT) {
           x += seriesIndex * 2 * halfDiffX - (seriesNr - 1.5f) * halfDiffX;
         }
-        drawText(canvas, getLabel(series.getY(index)), x,
-            points[i + 1] - renderer.getChartValuesSpacing(), paint, 0);
+        if (value >= 0) {
+          drawText(canvas, getLabel(value), x, points[i + 1] - renderer.getChartValuesSpacing(),
+              paint, 0);
+        } else {
+          drawText(canvas, getLabel(value), x, points[i + 1] + renderer.getChartValuesTextSize()
+              + renderer.getChartValuesSpacing() - 3, paint, 0);
+        }
       }
     }
   }
