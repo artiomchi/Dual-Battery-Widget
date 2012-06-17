@@ -68,8 +68,6 @@ public class BatteryInfoFragment extends SherlockFragment {
     private GraphicalView mChartView;
     private LinearLayout mChartContainer;
 
-    private MixPanelComponent mMixPanel;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
@@ -98,10 +96,6 @@ public class BatteryInfoFragment extends SherlockFragment {
         mChartContainer = (LinearLayout) view.findViewById(R.id.chart);
 
         view.findViewById(R.id.batterySummary).setOnClickListener(batterySummaryListener);
-        if (mMixPanel == null) {
-            mMixPanel = new MixPanelComponent(getActivity());
-            mMixPanel.track(MixPanelComponent.BATTERY_INFO, null);
-        }
         mIntentFilter = new IntentFilter();
         mIntentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);
 
@@ -119,14 +113,6 @@ public class BatteryInfoFragment extends SherlockFragment {
         super.onResume();
         getActivity().registerReceiver(batteryReceiver, mIntentFilter);
         buildChart();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (mMixPanel != null) {
-            mMixPanel.flush();
-        }
     }
 
     @Override

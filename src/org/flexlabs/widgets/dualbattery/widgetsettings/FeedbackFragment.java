@@ -32,7 +32,6 @@ import android.widget.EditText;
 import com.actionbarsherlock.app.SherlockFragment;
 import org.flexlabs.widgets.dualbattery.BatteryLevel;
 import org.flexlabs.widgets.dualbattery.Constants;
-import org.flexlabs.widgets.dualbattery.MixPanelComponent;
 import org.flexlabs.widgets.dualbattery.R;
 
 import java.io.BufferedReader;
@@ -43,15 +42,10 @@ import java.util.regex.Pattern;
 
 public class FeedbackFragment extends SherlockFragment {
     private EditText feedbackEditor;
-    private MixPanelComponent mMixPanel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.feedback_form, null);
-        if (mMixPanel == null) {
-            mMixPanel = new MixPanelComponent(getActivity());
-            mMixPanel.track(MixPanelComponent.BATTERY_INFO, null);
-        }
         feedbackEditor = (EditText)view.findViewById(R.id.feedbackEditor);
         feedbackEditor.requestFocus();
 
@@ -62,13 +56,12 @@ public class FeedbackFragment extends SherlockFragment {
     private final View.OnClickListener feedbackListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            sendFeedback(mMixPanel, getActivity(), feedbackEditor.getText());
+            sendFeedback(getActivity(), feedbackEditor.getText());
             feedbackEditor.setText(null);
         }
     };
 
-    public static void sendFeedback(MixPanelComponent mMixPanel, Context context, CharSequence feedback) {
-        mMixPanel.track(MixPanelComponent.BATTERY_INFO_FEEDBACK, null);
+    public static void sendFeedback(Context context, CharSequence feedback) {
         Intent intent = new Intent(Intent.ACTION_SEND, Uri.parse("mailto:"));
         intent.putExtra(Intent.EXTRA_EMAIL, new String[] { Constants.FeedbackDestination });
         intent.putExtra(Intent.EXTRA_SUBJECT, "Dual Battery Widget Feedback");

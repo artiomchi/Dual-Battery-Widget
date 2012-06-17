@@ -44,7 +44,6 @@ public class BillingObserver extends AbstractBillingObserver {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            //mMixPanel.track(MixPanelComponent.DONATE_GPLAY_CONFIRMED, properties);
             Toast.makeText(activity, "Thanks a lot for supporting me!", Toast.LENGTH_LONG).show();
         }
     }

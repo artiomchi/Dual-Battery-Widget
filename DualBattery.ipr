@@ -192,7 +192,6 @@
       <module fileurl="file://$PROJECT_DIR$/lib/ActionBarSherlock/library/ActionBarSherlock.iml" filepath="$PROJECT_DIR$/lib/ActionBarSherlock/library/ActionBarSherlock.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib/AndroidBilling/AndroidBillingLibrary/AndroidBilling.iml" filepath="$PROJECT_DIR$/lib/AndroidBilling/AndroidBillingLibrary/AndroidBilling.iml" />
       <module fileurl="file://$PROJECT_DIR$/DualBattery.iml" filepath="$PROJECT_DIR$/DualBattery.iml" />
-      <module fileurl="file://$PROJECT_DIR$/lib/MixPanel/MixPanel.iml" filepath="$PROJECT_DIR$/lib/MixPanel/MixPanel.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib/ViewPagerIndicator/library/ViewPagerIndicator.iml" filepath="$PROJECT_DIR$/lib/ViewPagerIndicator/library/ViewPagerIndicator.iml" />
     </modules>
   </component>
@@ -209,7 +208,6 @@
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/lib/ActionBarSherlock" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/lib/AndroidBilling" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/lib/MixPanel" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/lib/ViewPagerIndicator" vcs="Git" />
   </component>
   <component name="libraryTable">

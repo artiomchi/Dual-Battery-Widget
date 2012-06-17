@@ -27,22 +27,16 @@ import net.robotmedia.billing.BillingController;
 import net.robotmedia.billing.helper.AbstractBillingObserver;
 import org.flexlabs.widgets.dualbattery.BillingObserver;
 import org.flexlabs.widgets.dualbattery.Constants;
-import org.flexlabs.widgets.dualbattery.MixPanelComponent;
 import org.flexlabs.widgets.dualbattery.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class DonateFragment extends SherlockFragment {
-    private MixPanelComponent mMixPanel;
     private AbstractBillingObserver mBillingObserver;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.donate_summary, null);
-        if (mMixPanel == null) {
-            mMixPanel = new MixPanelComponent(getActivity());
-            mMixPanel.track(MixPanelComponent.BATTERY_INFO, null);
-        }
         if (!Constants.HAS_GPLAY_BILLING) {
             view.findViewById(R.id.donate_play).setVisibility(View.GONE);
             view.findViewById(R.id.donate_play_options).setVisibility(View.GONE);
@@ -87,7 +81,6 @@ public class DonateFragment extends SherlockFragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            mMixPanel.track(MixPanelComponent.DONATE_GPLAY_PACKAGE, properties);
             BillingController.requestPurchase(getActivity(), playItem, true);
         }
     };
@@ -95,7 +88,6 @@ public class DonateFragment extends SherlockFragment {
     private final View.OnClickListener payPalDonateListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            mMixPanel.track(MixPanelComponent.DONATE_PAYPAL, null);
             getActivity().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.URI_PAYPAL)));
         }
     };

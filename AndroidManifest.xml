@@ -5,7 +5,6 @@
           android:versionCode="22"
           android:versionName="1.0.5 pre-release">
     <uses-sdk android:targetSdkVersion="15" android:minSdkVersion="4" />
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.android.vending.BILLING" />
     <application android:icon="@drawable/icon" android:label="@string/app_name" android:hardwareAccelerated="true"
                  android:name=".BatteryApplication">
