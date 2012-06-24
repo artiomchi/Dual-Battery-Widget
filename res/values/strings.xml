@@ -46,6 +46,7 @@
     </string>
     <string name="prop_showDockHistory">Show old level</string>
     <string name="prop_showDockHistory_summary">Show the last recorded dock battery level when not docked</string>
+    <string name="prop_swapBatteries">Swap Battery icons</string>
     <string name="prop_tempUnits">Temperature units</string>
 
     <string name="sett_textPos_Invisible">Invisible</string>

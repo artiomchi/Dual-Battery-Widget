@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright 2012 Artiom Chilaru (http://flexlabs.org)
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~  http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/batteryFrame"
+              android:layout_width="fill_parent" android:layout_height="fill_parent"
+              android:orientation="vertical"
+              android:layout_weight="1">
+    <TextView android:id="@+id/batteryLabel_top" android:text=" "
+              android:layout_width="fill_parent" android:layout_height="wrap_content"
+              android:gravity="center_horizontal" style="@style/batteryStatusText" />
+    <TextView android:id="@+id/batteryLabel_top_dark" android:text=" "
+              android:layout_width="fill_parent" android:layout_height="wrap_content"
+              android:gravity="center_horizontal" style="@style/batteryStatusTextDark" />
+    <FrameLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                 android:layout_weight="1">
+        <ImageView android:id="@+id/battery"
+                   android:layout_width="fill_parent" android:layout_height="fill_parent"
+                   android:src="@drawable/batt_0" />
+        <ImageView android:layout_width="fill_parent" android:layout_height="fill_parent"
+                   android:src="@drawable/batt_shape" />
+        <ImageView android:id="@+id/batteryCharging"
+                   android:layout_width="fill_parent" android:layout_height="fill_parent"
+                   android:visibility="gone"
+                   android:src="@drawable/charging" />
+        <TextView android:id="@+id/statusWhiteTop"
+                  android:gravity="top|center_horizontal" style="@style/batteryStatusText" />
+        <TextView android:id="@+id/statusWhiteMiddle"
+                  android:gravity="center_vertical|center_horizontal" style="@style/batteryStatusText" />
+        <TextView android:id="@+id/statusWhiteBottom"
+                  android:gravity="bottom|center_horizontal" style="@style/batteryStatusText" />
+        <TextView android:id="@+id/statusDarkTop"
+                  android:gravity="top|center_horizontal" style="@style/batteryStatusTextDark" />
+        <TextView android:id="@+id/statusDarkMiddle"
+                  android:gravity="center_vertical|center_horizontal" style="@style/batteryStatusTextDark" />
+        <TextView android:id="@+id/statusDarkBottom"
+                  android:gravity="bottom|center_horizontal" style="@style/batteryStatusTextDark" />
+    </FrameLayout>
+    <TextView android:id="@+id/batteryLabel_bottom"
+              android:layout_width="fill_parent" android:layout_height="wrap_content"
+              android:gravity="center_horizontal" style="@style/batteryStatusText" />
+    <TextView android:id="@+id/batteryLabel_bottom_dark"
+              android:layout_width="fill_parent" android:layout_height="wrap_content"
+              android:gravity="center_horizontal" style="@style/batteryStatusTextDark" />
+</LinearLayout>

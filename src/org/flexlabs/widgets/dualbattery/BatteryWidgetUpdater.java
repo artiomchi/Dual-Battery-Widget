@@ -21,9 +21,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.BatteryManager;
-import android.os.Build;
 import android.view.View;
 import android.widget.RemoteViews;
 import org.flexlabs.widgets.dualbattery.widgetsettings.WidgetActivity;
@@ -53,27 +51,27 @@ public class BatteryWidgetUpdater {
         }
     }
 
-    private static final int[][][] textStyleArray = new int[][][]
+    private static final int[][] textStyleArray = new int[][]
     {
-        new int[][] { // textpos: top = 0,
-            new int[] { R.id.statusTabWhiteTop, R.id.statusDockWhiteTop }, // color: white = 1
-            new int[] { R.id.statusTabDarkTop, R.id.statusDockDarkTop }, // color: dark = 0
+        new int[] { // textpos: top = 0,
+            R.id.statusWhiteTop, // color: white = 1
+            R.id.statusDarkTop, // color: dark = 0
         },
-        new int[][] { // textpos: middle = 1
-            new int[] { R.id.statusTabWhiteMiddle, R.id.statusDockWhiteMiddle },
-            new int[] { R.id.statusTabDarkMiddle, R.id.statusDockDarkMiddle },
+        new int[] { // textpos: middle = 1
+            R.id.statusWhiteMiddle,
+            R.id.statusDarkMiddle,
         },
-        new int[][] { // textpos: bottom = 2
-            new int[] { R.id.statusTabWhiteBottom, R.id.statusDockWhiteBottom },
-            new int[] { R.id.statusTabDarkBottom, R.id.statusDockDarkBottom },
+        new int[] { // textpos: bottom = 2
+            R.id.statusWhiteBottom,
+            R.id.statusDarkBottom,
         },
-        new int[][] { // textpos: above = 4
-            new int[] { R.id.batteryLabel_main_top, R.id.batteryLabel_dock_top },
-            new int[] { R.id.batteryLabel_main_top_dark, R.id.batteryLabel_dock_top_dark },
+        new int[] { // textpos: above = 4
+            R.id.batteryLabel_top,
+            R.id.batteryLabel_top_dark,
         },
-        new int[][] { // textpos: below = 5
-            new int[] { R.id.batteryLabel_main_bottom, R.id.batteryLabel_dock_bottom },
-            new int[] { R.id.batteryLabel_main_bottom_dark, R.id.batteryLabel_dock_bottom_dark },
+        new int[] { // textpos: below = 5
+            R.id.batteryLabel_bottom,
+            R.id.batteryLabel_bottom_dark,
         }
     };
     
@@ -92,21 +90,8 @@ public class BatteryWidgetUpdater {
             return;
 
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
+        views.removeAllViews(R.id.widget);
         WidgetSettingsContainer settings = new WidgetSettingsContainer(context, widgetId);
-
-        for (int[][] aTextStyleArray : textStyleArray)
-            for (int[] bTextStyleArray : aTextStyleArray)
-                for (int cTextStyleArray : bTextStyleArray) {
-                    views.setTextViewText(cTextStyleArray, null);
-                    views.setViewVisibility(cTextStyleArray, View.GONE);
-                }
-        int textStatusTab = 0, textStatusDock = 0;
-        if (settings.getTextPosition() > 0) {
-            textStatusTab = textStyleArray[settings.getTextPosition() - 1][settings.getTextColorCode()][0];
-            textStatusDock = textStyleArray[settings.getTextPosition() - 1][settings.getTextColorCode()][1];
-            views.setViewVisibility(textStatusTab, View.VISIBLE);
-            views.setViewVisibility(textStatusDock, View.VISIBLE);
-        }
 
         // This is here just for the screenshots ;)
         //BatteryApplication.batteryTab = 15;
@@ -116,74 +101,50 @@ public class BatteryWidgetUpdater {
         //BatteryApplication.status = BatteryManager.BATTERY_STATUS_CHARGING;
         //BatteryApplication.batteryDock = 30;
 
-        if ((settings.getBatterySelection() & Constants.BATTERY_SELECTION_MAIN) > 0) {
-            views.setViewVisibility(R.id.batteryFrame_main, View.VISIBLE);
-            if ((settings.getMargin() & Constants.MARGIN_TOP) > 0) {
-                int id = textStyleArray[Constants.TEXT_POS_ABOVE - 1][settings.getTextColorCode()][0];
-                views.setViewVisibility(id, View.VISIBLE);
-                views.setFloat(id, "setTextSize", settings.getTextSize());
-                views.setTextViewText(id, " ");
-            }
-            if ((settings.getMargin() & Constants.MARGIN_BOTTOM) > 0 || settings.isShowLabel()) {
-                int id = textStyleArray[Constants.TEXT_POS_BELOW - 1][settings.getTextColorCode()][0];
-                views.setViewVisibility(id, View.VISIBLE);
-                views.setFloat(id, "setTextSize", settings.getTextSize());
-                views.setTextViewText(id, settings.isShowLabel() ? context.getString(R.string.battery_main) : " ");
-            }
-            if (settings.getTextPosition() > 0) {
-                String status = String.valueOf(batteryLevel.get_level()) + "%";
-                views.setFloat(textStatusTab, "setTextSize", settings.getTextSize());
-                if (settings.getTextPosition() <= Constants.TEXT_POS_BOTTOM)
-                    status = "\n" + status + "\n";
-                views.setTextViewText(textStatusTab, status);
-            }
+        RemoteViews viewsBattery = null, viewsDock = null;
 
-            views.setImageViewResource(R.id.batteryTab, getBatteryResource(batteryLevel.get_level(), false));
-            views.setViewVisibility(R.id.batteryTabCharging,
-                    getVisible(batteryLevel.get_status() == BatteryManager.BATTERY_STATUS_CHARGING));
-        } else {
-            views.setViewVisibility(R.id.batteryFrame_main, View.GONE);
+        if ((settings.getBatterySelection() & Constants.BATTERY_SELECTION_MAIN) > 0) {
+            String status = String.valueOf(batteryLevel.get_level()) + "%";
+            if (settings.getTextPosition() <= Constants.TEXT_POS_BOTTOM)
+                status = "\n" + status + "\n";
+            viewsBattery = loadBatteryView(
+                    context, settings, R.string.battery_main, status, batteryLevel.get_level(),
+                    false, batteryLevel.get_status() == BatteryManager.BATTERY_STATUS_CHARGING);
         }
 
-        int dockVisible = batteryLevel.is_dockFriendly() &&
+        if (batteryLevel.is_dockFriendly() &&
                 (batteryLevel.is_dockConnected() || settings.isAlwaysShow()) &&
-                ((settings.getBatterySelection() & Constants.BATTERY_SELECTION_DOCK) > 0)
-            ? View.VISIBLE
-            : View.GONE;
-        views.setViewVisibility(R.id.batteryFrame_dock, dockVisible);
-        if (batteryLevel.is_dockFriendly()) {
-            if ((settings.getMargin() & Constants.MARGIN_TOP) > 0) {
-                int id = textStyleArray[Constants.TEXT_POS_ABOVE - 1][settings.getTextColorCode()][1];
-                views.setViewVisibility(id, View.VISIBLE);
-                views.setFloat(id, "setTextSize", settings.getTextSize());
-                views.setTextViewText(id, " ");
-            }
-            if ((settings.getMargin() & Constants.MARGIN_BOTTOM) > 0 || settings.isShowLabel()) {
-                int id = textStyleArray[Constants.TEXT_POS_BELOW - 1][settings.getTextColorCode()][1];
-                views.setViewVisibility(id, View.VISIBLE);
-                views.setFloat(id, "setTextSize", settings.getTextSize());
-                views.setTextViewText(id, settings.isShowLabel() ? context.getString(R.string.battery_dock) : " ");
-            }
+                ((settings.getBatterySelection() & Constants.BATTERY_SELECTION_DOCK) > 0)) {
             Integer dockLevel = batteryLevel.get_dock_level();
             if (dockLevel == null && settings.isShowOldStatus())
                 dockLevel = BatteryLevel.lastDockLevel;
-            if (settings.getTextPosition() > 0) {
-                String status = "n/a";
-                if (dockLevel != null) {
-                    status = dockLevel.toString() + "%";
-                } else if (batteryLevel.get_dock_status() == Constants.DOCK_STATE_UNDOCKED) {
-                    status = settings.isShowNotDocked() ? context.getString(R.string.undocked) : "";
-                }
-                views.setFloat(textStatusDock, "setTextSize", settings.getTextSize());
-                if (settings.getTextPosition() <= Constants.TEXT_POS_BOTTOM)
-                    status = "\n" + status + "\n";
-                views.setTextViewText(textStatusDock, status);
+            String status = "n/a";
+            if (dockLevel != null) {
+                status = dockLevel.toString() + "%";
+            } else if (batteryLevel.get_dock_status() == Constants.DOCK_STATE_UNDOCKED) {
+                status = settings.isShowNotDocked() ? context.getString(R.string.undocked) : "";
             }
+            if (settings.getTextPosition() <= Constants.TEXT_POS_BOTTOM)
+                status = "\n" + status + "\n";
 
-            views.setImageViewResource(R.id.batteryDock,
-                    getBatteryResource(dockLevel, !batteryLevel.is_dockConnected()));
-            views.setViewVisibility(R.id.batteryDockCharging,
-                    getVisible(batteryLevel.get_dock_status() == Constants.DOCK_STATE_CHARGING));
+            viewsDock = loadBatteryView(
+                    context,  settings,  R.string.battery_dock, status,  dockLevel,
+                    batteryLevel.get_dock_level() == null,
+                    batteryLevel.get_dock_status() == Constants.DOCK_STATE_CHARGING);
+
+        }
+
+        if (settings.isSwapBatteries()) {
+            if (viewsBattery != null)
+                views.addView(R.id.widget, viewsBattery);
+            if (viewsDock != null)
+                views.addView(R.id.widget, viewsDock);
+        } else {
+            if (viewsDock != null)
+                views.addView(R.id.widget, viewsDock);
+            if (viewsBattery != null)
+                views.addView(R.id.widget, viewsBattery);
+
         }
 
         Intent intent = new Intent(context, WidgetActivity.class);
@@ -193,6 +154,39 @@ public class BatteryWidgetUpdater {
         views.setOnClickPendingIntent(R.id.widget, pendingIntent);
 
         widgetManager.updateAppWidget(widgetId, views);
+    }
+
+    private static RemoteViews loadBatteryView(Context context, WidgetSettingsContainer settings, int label, String status, Integer level, boolean disabled, boolean charging) {
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_battery);
+        for (int[] aTextStyleArray : textStyleArray)
+            for (int bTextStyleArray : aTextStyleArray) {
+                views.setTextViewText(bTextStyleArray, null);
+                views.setViewVisibility(bTextStyleArray, View.GONE);
+            }
+        if (settings.getTextPosition() > 0) {
+            int textStatus = textStyleArray[settings.getTextPosition() - 1][settings.getTextColorCode()];
+            views.setViewVisibility(textStatus, View.VISIBLE);
+            views.setFloat(textStatus, "setTextSize", settings.getTextSize());
+            views.setTextViewText(textStatus, status);
+        }
+
+        if ((settings.getMargin() & Constants.MARGIN_TOP) > 0) {
+            int id = textStyleArray[Constants.TEXT_POS_ABOVE - 1][settings.getTextColorCode()];
+            views.setViewVisibility(id, View.VISIBLE);
+            views.setFloat(id, "setTextSize", settings.getTextSize());
+            views.setTextViewText(id, " ");
+        }
+        if ((settings.getMargin() & Constants.MARGIN_BOTTOM) > 0 || settings.isShowLabel()) {
+            int id = textStyleArray[Constants.TEXT_POS_BELOW - 1][settings.getTextColorCode()];
+            views.setViewVisibility(id, View.VISIBLE);
+            views.setFloat(id, "setTextSize", settings.getTextSize());
+            views.setTextViewText(id, settings.isShowLabel() ? context.getString(label) : " ");
+        }
+
+        views.setImageViewResource(R.id.battery, getBatteryResource(level, disabled));
+        views.setViewVisibility(R.id.batteryCharging, getVisible(charging));
+
+        return views;
     }
 
     private static int getBatteryResource(Integer status, boolean alt) {

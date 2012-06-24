@@ -53,6 +53,9 @@ public class WidgetSettingsContainer {
 
     private static void updateWidgetSettings(SharedPreferences pref, int version) {
         SharedPreferences.Editor editor = pref.edit();
+        if (version == 1 && pref.getAll().size() == 0)
+            version = Constants.SETTING_VERSION_CURRENT;
+
         if (version == 1) {
             if (pref.contains(Constants.SETTING_TEXT_SIZE)) {
                 int textPosition = Integer.valueOf(pref.getString(Constants.SETTING_TEXT_SIZE, String.valueOf(Constants.SETTING_TEXT_SIZE_DEFAULT)));
@@ -74,12 +77,12 @@ public class WidgetSettingsContainer {
                 int margin = Integer.valueOf(pref.getString(Constants.SETTING_MARGIN, String.valueOf(Constants.SETTING_MARGIN_DEFAULT)));
                 editor.putInt(Constants.SETTING_MARGIN, margin);
             }
-            editor.putBoolean(Constants.SETTING_SWAP_BATTERIES, true);
+            editor.putBoolean(Constants.SETTING_SHOW_LABEL, true);
             version = 2;
         }
 
         if (version == 2) {
-            editor.putBoolean(Constants.SETTING_SWAP_BATTERIES, true);
+            editor.putBoolean(Constants.SETTING_SHOW_LABEL, true);
             version = 3;
         }
 
