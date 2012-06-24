@@ -45,4 +45,12 @@
         <item>@string/sett_margin_Bottom</item>
         <item>@string/sett_margin_Both</item>
     </string-array>
+    <string-array name="theme_values">
+        <item>Default</item>
+        <item>Default.90deg</item>
+    </string-array>
+    <string-array name="theme_labels">
+        <item>Default</item>
+        <item>Default Sideways</item>
+    </string-array>
 </resources>

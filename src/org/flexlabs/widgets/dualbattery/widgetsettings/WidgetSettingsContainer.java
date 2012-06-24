@@ -33,6 +33,7 @@ public class WidgetSettingsContainer {
     private boolean showLabel;
     private boolean showOldStatus;
     private boolean swapBatteries;
+    private String theme;
 
     public WidgetSettingsContainer(Context context, int widgetId) {
         SharedPreferences pref = context.getSharedPreferences(Constants.SETTINGS_PREFIX + widgetId, Context.MODE_PRIVATE);
@@ -49,6 +50,7 @@ public class WidgetSettingsContainer {
         batterySelection = pref.getInt(Constants.SETTING_SHOW_SELECTION, Constants.SETTING_SHOW_SELECTION_DEFAULT);
         textColorCode = pref.getInt(Constants.SETTING_TEXT_COLOR, Constants.SETTING_TEXT_COLOR_DEFAULT);
         margin = pref.getInt(Constants.SETTING_MARGIN, Constants.SETTING_MARGIN_DEFAULT);
+        theme = pref.getString(Constants.SETTING_THEME, Constants.SETTING_THEME_DEFAULT);
     }
 
     private static void updateWidgetSettings(SharedPreferences pref, int version) {
@@ -135,5 +137,9 @@ public class WidgetSettingsContainer {
 
     public boolean isSwapBatteries() {
         return swapBatteries;
+    }
+
+    public String getTheme() {
+        return theme;
     }
 }

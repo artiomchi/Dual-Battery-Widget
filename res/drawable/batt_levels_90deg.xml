@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright 2012 Artiom Chilaru (http://flexlabs.org)
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~  http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<level-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/batt_0" />
+    <item android:drawable="@drawable/batt_10_90deg" android:maxLevel="10" />
+    <item android:drawable="@drawable/batt_20_90deg" android:maxLevel="20" />
+    <item android:drawable="@drawable/batt_30_90deg" android:maxLevel="30" />
+    <item android:drawable="@drawable/batt_40_90deg" android:maxLevel="40" />
+    <item android:drawable="@drawable/batt_50_90deg" android:maxLevel="50" />
+    <item android:drawable="@drawable/batt_60_90deg" android:maxLevel="60" />
+    <item android:drawable="@drawable/batt_70_90deg" android:maxLevel="70" />
+    <item android:drawable="@drawable/batt_80_90deg" android:maxLevel="80" />
+    <item android:drawable="@drawable/batt_90_90deg" android:maxLevel="90" />
+    <item android:drawable="@drawable/batt_100_90deg" android:maxLevel="100" />
+    <item android:drawable="@drawable/batt_0" android:maxLevel="200" />
+    <item android:drawable="@drawable/batt_bw_10_90deg" android:maxLevel="210" />
+    <item android:drawable="@drawable/batt_bw_20_90deg" android:maxLevel="220" />
+    <item android:drawable="@drawable/batt_bw_30_90deg" android:maxLevel="230" />
+    <item android:drawable="@drawable/batt_bw_40_90deg" android:maxLevel="240" />
+    <item android:drawable="@drawable/batt_bw_50_90deg" android:maxLevel="250" />
+    <item android:drawable="@drawable/batt_bw_60_90deg" android:maxLevel="260" />
+    <item android:drawable="@drawable/batt_bw_70_90deg" android:maxLevel="270" />
+    <item android:drawable="@drawable/batt_bw_80_90deg" android:maxLevel="280" />
+    <item android:drawable="@drawable/batt_bw_90_90deg" android:maxLevel="290" />
+    <item android:drawable="@drawable/batt_bw_100_90deg" android:maxLevel="300" />
+</level-list>

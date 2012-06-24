@@ -2,6 +2,11 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
                   xmlns:flexlabs="http://schemas.android.com/apk/res/org.flexlabs.widgets.dualbattery">
     <PreferenceCategory android:title="@string/propTitle_General">
+        <ListPreference
+                android:key="theme"
+                android:title="Theme"
+                android:entries="@array/theme_labels" android:entryValues="@array/theme_values"
+                android:defaultValue="Default"/>
         <org.flexlabs.widgets.dualbattery.ui.SeekBarPreference
                 android:key="textSize"
                 android:title="@string/prop_textSize" flexlabs:summary="@string/prop_textSize_summary"

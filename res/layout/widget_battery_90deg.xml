@@ -31,11 +31,11 @@
                  android:layout_weight="1">
         <ImageView android:id="@+id/battery"
                    android:layout_width="fill_parent" android:layout_height="fill_parent"
-                   android:src="@drawable/batt" />
+                   android:src="@drawable/batt_90deg" />
         <ImageView android:id="@+id/batteryCharging"
                    android:layout_width="fill_parent" android:layout_height="fill_parent"
                    android:visibility="gone"
-                   android:src="@drawable/charging" />
+                   android:src="@drawable/charging_90deg" />
         <TextView android:id="@+id/statusWhiteTop"
                   android:gravity="top|center_horizontal" style="@style/batteryStatusText" />
         <TextView android:id="@+id/statusWhiteMiddle"

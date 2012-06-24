@@ -89,9 +89,9 @@ public class BatteryWidgetUpdater {
         if (batteryLevel == null)
             return;
 
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
-        views.removeAllViews(R.id.widget);
         WidgetSettingsContainer settings = new WidgetSettingsContainer(context, widgetId);
+        RemoteViews views = new RemoteViews(context.getPackageName(), settings.getTheme().equals(Constants.SETTING_THEME_DEFAULT) ? R.layout.widget : R.layout.widget_90deg);
+        views.removeAllViews(R.id.widget);
 
         // This is here just for the screenshots ;)
         //BatteryApplication.batteryTab = 15;
@@ -157,7 +157,7 @@ public class BatteryWidgetUpdater {
     }
 
     private static RemoteViews loadBatteryView(Context context, WidgetSettingsContainer settings, int label, String status, Integer level, boolean disabled, boolean charging) {
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_battery);
+        RemoteViews views = new RemoteViews(context.getPackageName(), settings.getTheme().equals(Constants.SETTING_THEME_DEFAULT) ? R.layout.widget_battery : R.layout.widget_battery_90deg);
         for (int[] aTextStyleArray : textStyleArray)
             for (int bTextStyleArray : aTextStyleArray) {
                 views.setTextViewText(bTextStyleArray, null);
@@ -183,37 +183,9 @@ public class BatteryWidgetUpdater {
             views.setTextViewText(id, settings.isShowLabel() ? context.getString(label) : " ");
         }
 
-        views.setImageViewResource(R.id.battery, getBatteryResource(level, disabled));
-        views.setViewVisibility(R.id.batteryCharging, getVisible(charging));
+        views.setInt(R.id.battery, "setImageLevel", (level != null ? level : 0) + (disabled ? 200 : 0));
+        views.setViewVisibility(R.id.batteryCharging, charging ? View.VISIBLE : View.GONE);
 
         return views;
-    }
-
-    private static int getBatteryResource(Integer status, boolean alt) {
-        if (status == null)
-            return R.drawable.batt_0;
-        if (status <= 10)
-            return !alt ? R.drawable.batt_10 : R.drawable.batt_bw_10;
-        if (status <= 20)
-            return !alt ? R.drawable.batt_20 : R.drawable.batt_bw_20;
-        if (status <= 30)
-            return !alt ? R.drawable.batt_30 : R.drawable.batt_bw_30;
-        if (status <= 40)
-            return !alt ? R.drawable.batt_40 : R.drawable.batt_bw_40;
-        if (status <= 50)
-            return !alt ? R.drawable.batt_50 : R.drawable.batt_bw_50;
-        if (status <= 60)
-            return !alt ? R.drawable.batt_60 : R.drawable.batt_bw_60;
-        if (status <= 70)
-            return !alt ? R.drawable.batt_70 : R.drawable.batt_bw_70;
-        if (status <= 80)
-            return !alt ? R.drawable.batt_80 : R.drawable.batt_bw_80;
-        if (status <= 90)
-            return !alt ? R.drawable.batt_90 : R.drawable.batt_bw_90;
-        return !alt ? R.drawable.batt_100 : R.drawable.batt_bw_100;
-    }
-
-    private static int getVisible(boolean visible) {
-        return visible ? View.VISIBLE : View.GONE;
     }
 }

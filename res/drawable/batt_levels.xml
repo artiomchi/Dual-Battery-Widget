@@ -11,4 +11,15 @@
     <item android:drawable="@drawable/batt_80" android:maxLevel="80" />
     <item android:drawable="@drawable/batt_90" android:maxLevel="90" />
     <item android:drawable="@drawable/batt_100" android:maxLevel="100" />
+    <item android:drawable="@drawable/batt_0" android:maxLevel="200" />
+    <item android:drawable="@drawable/batt_bw_10" android:maxLevel="210" />
+    <item android:drawable="@drawable/batt_bw_20" android:maxLevel="220" />
+    <item android:drawable="@drawable/batt_bw_30" android:maxLevel="230" />
+    <item android:drawable="@drawable/batt_bw_40" android:maxLevel="240" />
+    <item android:drawable="@drawable/batt_bw_50" android:maxLevel="250" />
+    <item android:drawable="@drawable/batt_bw_60" android:maxLevel="260" />
+    <item android:drawable="@drawable/batt_bw_70" android:maxLevel="270" />
+    <item android:drawable="@drawable/batt_bw_80" android:maxLevel="280" />
+    <item android:drawable="@drawable/batt_bw_90" android:maxLevel="290" />
+    <item android:drawable="@drawable/batt_bw_100" android:maxLevel="300" />
 </level-list>
