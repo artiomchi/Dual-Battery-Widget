@@ -27,6 +27,7 @@ import android.os.Build;
 import android.view.View;
 import android.widget.RemoteViews;
 import org.flexlabs.widgets.dualbattery.widgetsettings.WidgetActivity;
+import org.flexlabs.widgets.dualbattery.widgetsettings.WidgetSettingsContainer;
 
 public class BatteryWidgetUpdater {
     // Suppress default constructor for non-instantiability
@@ -85,57 +86,13 @@ public class BatteryWidgetUpdater {
         }).start();
     }
     
-    private static void updateWidgetSettings(SharedPreferences pref, int version) {
-        SharedPreferences.Editor editor = pref.edit();
-        if (version == 1) {
-            if (pref.contains(Constants.SETTING_TEXT_SIZE)) {
-                int textPosition = Integer.valueOf(pref.getString(Constants.SETTING_TEXT_SIZE, String.valueOf(Constants.SETTING_TEXT_SIZE_DEFAULT)));
-                editor.putInt(Constants.SETTING_TEXT_SIZE, textPosition);
-            }
-            if (pref.contains(Constants.SETTING_TEXT_POS)) {
-                int textPosition = Integer.valueOf(pref.getString(Constants.SETTING_TEXT_POS, String.valueOf(Constants.SETTING_TEXT_POS_DEFAULT)));
-                editor.putInt(Constants.SETTING_TEXT_POS, textPosition);
-            }
-            if (pref.contains(Constants.SETTING_SHOW_SELECTION)) {
-                int batterySelection = Integer.valueOf(pref.getString(Constants.SETTING_SHOW_SELECTION, String.valueOf(Constants.SETTING_SHOW_SELECTION_DEFAULT)));
-                editor.putInt(Constants.SETTING_SHOW_SELECTION, batterySelection);
-            }
-            if (pref.contains(Constants.SETTING_TEXT_COLOR)) {
-                int textColorCode = Integer.valueOf(pref.getString(Constants.SETTING_TEXT_COLOR, String.valueOf(Constants.SETTING_TEXT_COLOR_DEFAULT)));
-                editor.putInt(Constants.SETTING_TEXT_COLOR, textColorCode);
-            }
-            if (pref.contains(Constants.SETTING_MARGIN)) {
-                int margin = Integer.valueOf(pref.getString(Constants.SETTING_MARGIN, String.valueOf(Constants.SETTING_MARGIN_DEFAULT)));
-                editor.putInt(Constants.SETTING_MARGIN, margin);
-            }
-            version = 2;
-
-            editor.putInt(Constants.SETTING_VERSION, version);
-            if (Build.VERSION.SDK_INT < 9)
-                editor.commit();
-            else
-                editor.apply();
-        }
-    }
 
     private static void updateWidget(Context context, AppWidgetManager widgetManager, int widgetId, BatteryLevel batteryLevel) {
         if (batteryLevel == null)
             return;
 
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
-        SharedPreferences pref = context.getSharedPreferences(Constants.SETTINGS_PREFIX + widgetId, Context.MODE_PRIVATE);
-        int version = pref.getInt(Constants.SETTING_VERSION, 1);
-        if (version != Constants.SETTING_VERSION_CURRENT)
-            updateWidgetSettings(pref, version);
-        boolean alwaysShow = pref.getBoolean(Constants.SETTING_ALWAYS_SHOW_DOCK, Constants.SETTING_ALWAYS_SHOW_DOCK_DEFAULT);
-        boolean showNotDocked = pref.getBoolean(Constants.SETTING_SHOW_NOT_DOCKED, Constants.SETTING_SHOW_NOT_DOCKED_DEFAULT);
-        boolean showLabel = pref.getBoolean(Constants.SETTING_SHOW_LABEL, Constants.SETTING_SHOW_LABEL_DEFAULT);
-        boolean showOldStatus = pref.getBoolean(Constants.SETTING_SHOW_OLD_DOCK, Constants.SETTING_SHOW_OLD_DOCK_DEFAULT);
-        int textSize = pref.getInt(Constants.SETTING_TEXT_SIZE, Constants.SETTING_TEXT_SIZE_DEFAULT);
-        int textPosition = pref.getInt(Constants.SETTING_TEXT_POS, Constants.SETTING_TEXT_POS_DEFAULT);
-        int batterySelection = pref.getInt(Constants.SETTING_SHOW_SELECTION, Constants.SETTING_SHOW_SELECTION_DEFAULT);
-        int textColorCode = pref.getInt(Constants.SETTING_TEXT_COLOR, Constants.SETTING_TEXT_COLOR_DEFAULT);
-        int margin = pref.getInt(Constants.SETTING_MARGIN, Constants.SETTING_MARGIN_DEFAULT);
+        WidgetSettingsContainer settings = new WidgetSettingsContainer(context, widgetId);
 
         for (int[][] aTextStyleArray : textStyleArray)
             for (int[] bTextStyleArray : aTextStyleArray)
@@ -144,9 +101,9 @@ public class BatteryWidgetUpdater {
                     views.setViewVisibility(cTextStyleArray, View.GONE);
                 }
         int textStatusTab = 0, textStatusDock = 0;
-        if (textPosition > 0) {
-            textStatusTab = textStyleArray[textPosition - 1][textColorCode][0];
-            textStatusDock = textStyleArray[textPosition - 1][textColorCode][1];
+        if (settings.getTextPosition() > 0) {
+            textStatusTab = textStyleArray[settings.getTextPosition() - 1][settings.getTextColorCode()][0];
+            textStatusDock = textStyleArray[settings.getTextPosition() - 1][settings.getTextColorCode()][1];
             views.setViewVisibility(textStatusTab, View.VISIBLE);
             views.setViewVisibility(textStatusDock, View.VISIBLE);
         }
@@ -159,24 +116,24 @@ public class BatteryWidgetUpdater {
         //BatteryApplication.status = BatteryManager.BATTERY_STATUS_CHARGING;
         //BatteryApplication.batteryDock = 30;
 
-        if ((batterySelection & Constants.BATTERY_SELECTION_MAIN) > 0) {
+        if ((settings.getBatterySelection() & Constants.BATTERY_SELECTION_MAIN) > 0) {
             views.setViewVisibility(R.id.batteryFrame_main, View.VISIBLE);
-            if ((margin & Constants.MARGIN_TOP) > 0) {
-                int id = textStyleArray[Constants.TEXT_POS_ABOVE - 1][textColorCode][0];
+            if ((settings.getMargin() & Constants.MARGIN_TOP) > 0) {
+                int id = textStyleArray[Constants.TEXT_POS_ABOVE - 1][settings.getTextColorCode()][0];
                 views.setViewVisibility(id, View.VISIBLE);
-                views.setFloat(id, "setTextSize", textSize);
+                views.setFloat(id, "setTextSize", settings.getTextSize());
                 views.setTextViewText(id, " ");
             }
-            if ((margin & Constants.MARGIN_BOTTOM) > 0 || showLabel) {
-                int id = textStyleArray[Constants.TEXT_POS_BELOW - 1][textColorCode][0];
+            if ((settings.getMargin() & Constants.MARGIN_BOTTOM) > 0 || settings.isShowLabel()) {
+                int id = textStyleArray[Constants.TEXT_POS_BELOW - 1][settings.getTextColorCode()][0];
                 views.setViewVisibility(id, View.VISIBLE);
-                views.setFloat(id, "setTextSize", textSize);
-                views.setTextViewText(id, showLabel ? context.getString(R.string.battery_main) : " ");
+                views.setFloat(id, "setTextSize", settings.getTextSize());
+                views.setTextViewText(id, settings.isShowLabel() ? context.getString(R.string.battery_main) : " ");
             }
-            if (textPosition > 0) {
+            if (settings.getTextPosition() > 0) {
                 String status = String.valueOf(batteryLevel.get_level()) + "%";
-                views.setFloat(textStatusTab, "setTextSize", textSize);
-                if (textPosition <= Constants.TEXT_POS_BOTTOM)
+                views.setFloat(textStatusTab, "setTextSize", settings.getTextSize());
+                if (settings.getTextPosition() <= Constants.TEXT_POS_BOTTOM)
                     status = "\n" + status + "\n";
                 views.setTextViewText(textStatusTab, status);
             }
@@ -189,36 +146,36 @@ public class BatteryWidgetUpdater {
         }
 
         int dockVisible = batteryLevel.is_dockFriendly() &&
-                (batteryLevel.is_dockConnected() || alwaysShow) &&
-                ((batterySelection & Constants.BATTERY_SELECTION_DOCK) > 0)
+                (batteryLevel.is_dockConnected() || settings.isAlwaysShow()) &&
+                ((settings.getBatterySelection() & Constants.BATTERY_SELECTION_DOCK) > 0)
             ? View.VISIBLE
             : View.GONE;
         views.setViewVisibility(R.id.batteryFrame_dock, dockVisible);
         if (batteryLevel.is_dockFriendly()) {
-            if ((margin & Constants.MARGIN_TOP) > 0) {
-                int id = textStyleArray[Constants.TEXT_POS_ABOVE - 1][textColorCode][1];
+            if ((settings.getMargin() & Constants.MARGIN_TOP) > 0) {
+                int id = textStyleArray[Constants.TEXT_POS_ABOVE - 1][settings.getTextColorCode()][1];
                 views.setViewVisibility(id, View.VISIBLE);
-                views.setFloat(id, "setTextSize", textSize);
+                views.setFloat(id, "setTextSize", settings.getTextSize());
                 views.setTextViewText(id, " ");
             }
-            if ((margin & Constants.MARGIN_BOTTOM) > 0 || showLabel) {
-                int id = textStyleArray[Constants.TEXT_POS_BELOW - 1][textColorCode][1];
+            if ((settings.getMargin() & Constants.MARGIN_BOTTOM) > 0 || settings.isShowLabel()) {
+                int id = textStyleArray[Constants.TEXT_POS_BELOW - 1][settings.getTextColorCode()][1];
                 views.setViewVisibility(id, View.VISIBLE);
-                views.setFloat(id, "setTextSize", textSize);
-                views.setTextViewText(id, showLabel ? context.getString(R.string.battery_dock) : " ");
+                views.setFloat(id, "setTextSize", settings.getTextSize());
+                views.setTextViewText(id, settings.isShowLabel() ? context.getString(R.string.battery_dock) : " ");
             }
             Integer dockLevel = batteryLevel.get_dock_level();
-            if (dockLevel == null && showOldStatus)
+            if (dockLevel == null && settings.isShowOldStatus())
                 dockLevel = BatteryLevel.lastDockLevel;
-            if (textPosition > 0) {
+            if (settings.getTextPosition() > 0) {
                 String status = "n/a";
                 if (dockLevel != null) {
                     status = dockLevel.toString() + "%";
                 } else if (batteryLevel.get_dock_status() == Constants.DOCK_STATE_UNDOCKED) {
-                    status = showNotDocked ? context.getString(R.string.undocked) : "";
+                    status = settings.isShowNotDocked() ? context.getString(R.string.undocked) : "";
                 }
-                views.setFloat(textStatusDock, "setTextSize", textSize);
-                if (textPosition <= Constants.TEXT_POS_BOTTOM)
+                views.setFloat(textStatusDock, "setTextSize", settings.getTextSize());
+                if (settings.getTextPosition() <= Constants.TEXT_POS_BOTTOM)
                     status = "\n" + status + "\n";
                 views.setTextViewText(textStatusDock, status);
             }

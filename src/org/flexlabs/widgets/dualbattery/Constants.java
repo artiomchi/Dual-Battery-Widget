@@ -33,7 +33,7 @@ public class Constants {
     public static final int DOCK_STATE_DISCHARGING = 4;
 
     public static final String SETTING_VERSION = "version";
-    public static final int SETTING_VERSION_CURRENT = 2;
+    public static final int SETTING_VERSION_CURRENT = 3;
     public static final String SETTING_ALWAYS_SHOW_DOCK = "alwaysShowDock";
     public static final boolean SETTING_ALWAYS_SHOW_DOCK_DEFAULT = true;
 
@@ -77,6 +77,9 @@ public class Constants {
     public static final int TEMP_UNIT_FAHRENHEIT = 1;
     public static final String SETTING_TEMP_UNITS = "tempUnitsInt";
     public static final int SETTING_TEMP_UNITS_DEFAULT = TEMP_UNIT_CELSIUS;
+
+    public static final String SETTING_SWAP_BATTERIES = "swapBatteries";
+    public static final boolean SETTING_SWAP_BATTERIES_DEFAULT = false;
 
     public static final String URI_PAYPAL = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=6UHRDDAPAMSTL&lc=GB&item_name=Donation%20for%20Artiom%20Chilaru&currency_code=GBP&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted";
     public static final String URI_GOOGLE_PLAY = "https://play.google.com/store/apps/details?id=org.flexlabs.widgets.dualbattery";
