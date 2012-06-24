@@ -18,22 +18,46 @@ package org.flexlabs.widgets.dualbattery.service;
 
 import android.app.Notification;
 import android.content.Context;
+import android.content.SharedPreferences;
+import org.flexlabs.widgets.dualbattery.BatteryLevel;
+import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.R;
+import org.flexlabs.widgets.dualbattery.app.SettingsContainer;
 
-public class NotificationManager {
+public class NotificationManager implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final int NOTIFICATION_DOCK = 1;
 
     private android.app.NotificationManager mNotificationManager;
     private Context mContext;
     private CharSequence title;
+    private boolean enabled;
 
     public NotificationManager(Context context) {
         mNotificationManager = (android.app.NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         mContext = context;
         title = context.getString(R.string.app_name);
+
+        enabled = new SettingsContainer(context, this).isShowNotificationIcon();
     }
-    
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (Constants.SETTING_NOTIFICATION_ICON.equals(key)) {
+            enabled = new SettingsContainer(mContext).isShowNotificationIcon();
+            BatteryLevel level = BatteryLevel.getCurrent();
+            if (enabled && level.get_dock_level() != null) {
+                update(level.get_dock_level(), level.get_dock_status() == Constants.DOCK_STATE_CHARGING);
+            } else {
+                hide();
+            }
+        }
+    }
+
     public void update(int dockLevel, boolean charging) {
+        if (!enabled) {
+            return;
+        }
+
         int icon = charging
                 ? R.drawable.stat_sys_battery_charge // local copy of android.R.drawable.stat_sys_battery_charge
                 : R.drawable.stat_sys_battery;       // local copy of android.R.drawable.stat_sys_battery

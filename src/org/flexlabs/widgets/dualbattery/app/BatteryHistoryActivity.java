@@ -16,6 +16,7 @@
 
 package org.flexlabs.widgets.dualbattery.app;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Build;
@@ -24,6 +25,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.model.XYMultipleSeriesDataset;
@@ -52,6 +55,21 @@ public class BatteryHistoryActivity extends SherlockActivity {
     protected void onResume() {
         super.onResume();
         buildChart();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getSupportMenuInflater().inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+        if (item.getItemId() == R.id.settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
+            return true;
+        }
+        return super.onMenuItemSelected(featureId, item);
     }
 
     public void initChart() {
@@ -108,7 +126,7 @@ public class BatteryHistoryActivity extends SherlockActivity {
                 public void run() {
                     BatteryLevelAdapter adapter = new BatteryLevelAdapter(BatteryHistoryActivity.this);
                     adapter.openRead();
-                    Cursor c = adapter.getRecentEntries();
+                    Cursor c = adapter.getRecentEntries(21);
                     int oldLevel = -1, oldDockLevel = -1;
                     boolean dockSupported = BatteryLevel.getCurrent().is_dockFriendly();
 

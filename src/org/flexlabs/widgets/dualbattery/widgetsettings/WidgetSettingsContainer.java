@@ -36,7 +36,7 @@ public class WidgetSettingsContainer {
     private String theme;
 
     public WidgetSettingsContainer(Context context, int widgetId) {
-        SharedPreferences pref = context.getSharedPreferences(Constants.SETTINGS_PREFIX + widgetId, Context.MODE_PRIVATE);
+        SharedPreferences pref = context.getSharedPreferences(Constants.SETTINGS_WIDGET_FILE + widgetId, Context.MODE_PRIVATE);
         version = pref.getInt(Constants.SETTING_VERSION, 1);
         if (getVersion() != Constants.SETTING_VERSION_CURRENT)
             updateWidgetSettings(pref, getVersion());

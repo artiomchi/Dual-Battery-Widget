@@ -8,6 +8,7 @@
     <string name="unknown">Unknown</string>
     <string name="battery_main">Main</string>
     <string name="battery_dock">Dock</string>
+    <string name="settings">Settings</string>
 
     <string name="showBatteryInfo">Show Battery Info</string>
     <string name="showBatterySummary">Show Battery Summary</string>
@@ -48,6 +49,8 @@
     <string name="prop_showDockHistory_summary">Show the last recorded dock battery level when not docked</string>
     <string name="prop_swapBatteries">Swap Battery icons</string>
     <string name="prop_tempUnits">Temperature units</string>
+    <string name="prop_showNotificationIcon">Show notification icon</string>
+    <string name="prop_showNotificationIcon_summary">Show the dock battery level in the notification area</string>
 
     <string name="sett_textPos_Invisible">Invisible</string>
     <string name="sett_textPos_Above">Above</string>

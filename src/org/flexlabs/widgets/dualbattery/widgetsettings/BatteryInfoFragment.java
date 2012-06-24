@@ -73,7 +73,7 @@ public class BatteryInfoFragment extends SherlockFragment {
         setHasOptionsMenu(true);
         WidgetActivity activity = (WidgetActivity)getActivity();
         appWidgetId = activity.appWidgetId;
-        tempUnitsC = getActivity().getSharedPreferences(Constants.SETTINGS_PREFIX + appWidgetId, Context.MODE_PRIVATE)
+        tempUnitsC = getActivity().getSharedPreferences(Constants.SETTINGS_WIDGET_FILE + appWidgetId, Context.MODE_PRIVATE)
                 .getInt(Constants.SETTING_TEMP_UNITS, Constants.SETTING_TEMP_UNITS_DEFAULT) == Constants.TEMP_UNIT_CELSIUS;
 
         View view = inflater.inflate(R.layout.battery_info_table, null);
@@ -285,7 +285,7 @@ public class BatteryInfoFragment extends SherlockFragment {
             if (Build.VERSION.SDK_INT >= 11)
                 getActivity().invalidateOptionsMenu();
             updateTemperature();
-            getActivity().getSharedPreferences(Constants.SETTINGS_PREFIX + appWidgetId, Context.MODE_PRIVATE)
+            getActivity().getSharedPreferences(Constants.SETTINGS_WIDGET_FILE + appWidgetId, Context.MODE_PRIVATE)
                     .edit()
                     .putInt(Constants.SETTING_TEMP_UNITS, tempUnitsC
                             ? Constants.TEMP_UNIT_CELSIUS
@@ -350,7 +350,7 @@ public class BatteryInfoFragment extends SherlockFragment {
                 public void run() {
                     BatteryLevelAdapter adapter = new BatteryLevelAdapter(getActivity());
                     adapter.openRead();
-                    Cursor c = adapter.getRecentEntries();
+                    Cursor c = adapter.getRecentEntries(7);
                     int oldLevel = -1, oldDockLevel = -1;
                     boolean dockSupported = BatteryLevel.getCurrent().is_dockFriendly();
 

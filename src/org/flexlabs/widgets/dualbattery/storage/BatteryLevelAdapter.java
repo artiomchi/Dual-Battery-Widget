@@ -101,11 +101,11 @@ public class BatteryLevelAdapter {
                 null, null, null, null, null);
     }
 
-    public Cursor getRecentEntries() {
+    public Cursor getRecentEntries(int days) {
         return db.query(
                 DB_TABLE,
                 new String[] { KEY_ID, KEY_TIME, KEY_STATUS, KEY_LEVEL, KEY_DOCK_STATUS, KEY_DOCK_LEVEL, KEY_SCREEN_STATE },
-                KEY_TIME + " > " + (new Date().getTime() - 1000 * 60 * 60 * 24 * 7), null, null, null, null);
+                KEY_TIME + " > " + (new Date().getTime() - 1000 * 60 * 60 * 24 * days), null, null, null, null);
     }
 
     public Cursor query(String[] projection, String selection, String[] selectionArgs, String sort) {
