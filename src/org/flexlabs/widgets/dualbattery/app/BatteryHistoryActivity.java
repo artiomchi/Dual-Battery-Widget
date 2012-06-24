@@ -59,7 +59,9 @@ public class BatteryHistoryActivity extends SherlockActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getSupportMenuInflater().inflate(R.menu.main, menu);
+        if (BatteryLevel.getCurrent().is_dockFriendly()) {
+            getSupportMenuInflater().inflate(R.menu.main, menu);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -121,9 +123,10 @@ public class BatteryHistoryActivity extends SherlockActivity {
         } else {
             // populate chart
             chartPopulated = true;
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
+            // TODO: fix this, seriously
+            //new Thread(new Runnable() {
+            //    @Override
+            //    public void run() {
                     BatteryLevelAdapter adapter = new BatteryLevelAdapter(BatteryHistoryActivity.this);
                     adapter.openRead();
                     Cursor c = adapter.getRecentEntries(21);
@@ -160,8 +163,8 @@ public class BatteryHistoryActivity extends SherlockActivity {
                         mDockSeries.add(time, oldDockLevel);
 
                     mChartView.repaint();
-                }
-            }).start();
+            //    }
+            //}).start();
         }
     }
 }
