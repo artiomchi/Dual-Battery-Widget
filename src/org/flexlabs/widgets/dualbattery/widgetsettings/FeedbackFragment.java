@@ -16,6 +16,8 @@
 
 package org.flexlabs.widgets.dualbattery.widgetsettings;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -56,6 +58,14 @@ public class FeedbackFragment extends SherlockFragment {
     private final View.OnClickListener feedbackListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            if (feedbackEditor.getText() == null || feedbackEditor.getText().length() == 0) {
+                new AlertDialog.Builder(getActivity())
+                        .setTitle(R.string.app_name)
+                        .setMessage(R.string.feedback_hint)
+                        .setPositiveButton("OK", null)
+                        .show();
+                return;
+            }
             sendFeedback(getActivity(), feedbackEditor.getText());
             feedbackEditor.setText(null);
         }

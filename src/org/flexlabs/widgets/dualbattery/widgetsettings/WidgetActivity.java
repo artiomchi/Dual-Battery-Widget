@@ -59,11 +59,11 @@ public class WidgetActivity extends SherlockFragmentActivity {
         fragments[3] = new DonateFragment();
         fragments[4] = new AboutFragment();
         titles = new String[5];
-        titles[0] = getString(R.string.propTitle_General);
-        titles[1] = getString(R.string.propHeader_Main);
-        titles[2] = getString(R.string.propTitle_Feedback);
-        titles[3] = getString(R.string.propTitle_Donate);
-        titles[4] = getString(R.string.propTitle_About);
+        titles[0] = getString(R.string.propHeader_BatteryInfo);
+        titles[1] = getString(R.string.propHeader_Properties);
+        titles[2] = getString(R.string.propHeader_Feedback);
+        titles[3] = getString(R.string.propHeader_Donate);
+        titles[4] = getString(R.string.propHeader_About);
 
         int screenLayout = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB &&

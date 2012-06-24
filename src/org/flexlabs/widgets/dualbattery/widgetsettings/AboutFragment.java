@@ -34,14 +34,6 @@ public class AboutFragment extends SherlockFragment {
         View view = inflater.inflate(R.layout.about, null);
         TextView aboutText = (TextView)view.findViewById(R.id.about_text);
         Linkify.addLinks(aboutText, Linkify.ALL);
-        view.findViewById(R.id.play_logo).setOnClickListener(playLogoListener);
         return view;
     }
-    
-    private final View.OnClickListener playLogoListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            getActivity().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.URI_GOOGLE_PLAY)));
-        }
-    };
 }

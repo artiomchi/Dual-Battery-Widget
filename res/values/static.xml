@@ -1,7 +1,5 @@
 <resources>
-    <string name="prop_batterySelection_summary">%s</string>
-    <string name="prop_textSize_summary">%s</string>
-    <string name="prop_textColor_summary">%s</string>
+    <string name="prop_valuePlaceholder">%s</string>
 
     <string name="about_translations">
         \nFrançais: Ludovic MAILLET

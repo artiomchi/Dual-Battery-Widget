@@ -25,5 +25,5 @@
               android:id="@+id/feedbackEditor" android:hint="@string/feedback_hint" android:gravity="top" />
     <Button android:layout_width="fill_parent" android:layout_height="wrap_content"
             android:id="@+id/sendFeedback"
-            android:text="@string/propTitle_Feedback" />
+            android:text="@string/sendFeedback" />
 </LinearLayout>

@@ -8,7 +8,7 @@
                 android:defaultValue="false" />
         <org.flexlabs.widgets.dualbattery.ui.IntegerListPreference
                 android:key="batterySelection"
-                android:title="@string/prop_batterySelection" flexlabs:summary="@string/prop_batterySelection_summary"
+                android:title="@string/prop_batterySelection" flexlabs:summary="@string/prop_valuePlaceholder"
                 flexlabs:entries="@array/batterySelection_labels" flexlabs:entryValues="@array/batterySelection_values"
                 android:defaultValue="3" />
         <CheckBoxPreference android:key="swapBatteries"

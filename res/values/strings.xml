@@ -9,29 +9,22 @@
     <string name="battery_main">Main</string>
     <string name="battery_dock">Dock</string>
     <string name="settings">Settings</string>
+    <string name="sendFeedback">Send Feedback</string>
 
-    <string name="showBatteryInfo">Show Battery Info</string>
     <string name="showBatterySummary">Show Battery Summary</string>
 
     <string name="propHeader_BatteryInfo">Battery information</string>
-    <string name="propHeader_Main">Widget properties</string>
-    <string name="propHeader_Other">Other details</string>
-    <string name="propHeader_Other_summary">Feedback and error reports, about widget</string>
+    <string name="propHeader_Properties">Widget properties</string>
+    <string name="propHeader_Feedback">Feedback</string>
+    <string name="propHeader_Donate">Donate</string>
+    <string name="propHeader_About">About</string>
 
     <string name="propTitle_General">General</string>
-    <string name="propTitle_Dock">Second (dock) battery options</string>
-    <string name="propTitle_Other">Other</string>
-    <string name="propTitle_About">About Dual Battery Widget</string>
-    <string name="propTitle_Feedback">Send Feedback</string>
-    <string name="propTitle_MarketLink">View in Android Play Store</string>
-    <string name="propTitle_Donate">Donate :)</string>
+    <string name="propTitle_Dock">Dock battery options</string>
 
     <string name="prop_batterySelection">Battery to display</string>
     <string name="prop_alwaysShowDock">Always show dock battery</string>
-    <string name="prop_alwaysShowDock_summary">
-        Show the dock battery gauge even when not docked
-        \nMay be overridden by the previous setting
-    </string>
+    <string name="prop_alwaysShowDock_summary">Show the dock battery gauge even when not docked</string>
     <string name="prop_showNotDockedMsg">Show status when not docked</string>
     <string name="prop_showNotDockedMsg_summary">Show a message stating that the secondary battery is not connected when not docked</string>
     <string name="prop_textPosition">Text position</string>
@@ -76,11 +69,8 @@
         do not provide any way of displaying the status of a second battery, so this widget was created
         to fill this gap.
         \n
-        \nThe author of this widget is Artiom Chilaru, and it was initially posted on the xda-developers forum.
-        It is distributed for free on the Google Play Store. If you paid for it, or downloaded it from any other place,
-        I would strongly recommend uninstalling your copy, and installing it from the play store. This way you can make
-        sure that your copy has no malware attached to it, and you will get free updates to the latest version
-        as soon as it\'s released!
+        \nCreated by: Artiom Chilaru http://www.flexlabs.org
+        \nIt is distributed for free from the Google Play store andon GitHub
         \n
         \nYou can install the widget from the google play store here:
         https://play.google.com/store/apps/details?id=org.flexlabs.widgets.dualbattery
@@ -89,12 +79,7 @@
         \nFeel free to contribute to the development of the project, by forking the project on GitHub:
         \nhttps://github.com/artiomchi/Dual-Battery-Widget
         \n
-        \nTo find more about the author, you can check out my website http://www.flexlabs.org or my twitter account @artiom_chi
-        \nhttps://twitter.com/artiom_chi
-        \n
-        \nIf you have any issues, use the feedback option inside the application settings window, or send me an e-mail to android@flexlabs.org
-        \n
-        \nIf you want to contribute by translating this project, you can do so by visiting the project translation page:
+        \nIf you want to help translating this project, you can do so here:
         \nhttp://translate.dualbattery.flexlabs.org
         \n
         \nMany thanks to all the people who helped with the translation of the project, including:
@@ -105,7 +90,7 @@
         \n
         \nTell us what you think of the widget, or what you would like to see in future versions, and I will get back in touch with you
     </string>
-    <string name="feedback_hint">Please enter your feedback here</string>
+    <string name="feedback_hint">Please enter your feedback</string>
 
     <string name="battery_info_status_label">Battery status:</string>
     <string name="battery_info_last_charged_label">Last time charged:</string>
@@ -145,7 +130,7 @@
     <string name="donate_play">Google Play</string>
     <string name="donation_play_1">Standard (£0.99)</string>
     <string name="donation_play_1_short">£0.99</string>
-    <string name="donation_play_3">Buy me a pint (£3.00)</string>
+    <string name="donation_play_3">Buy me a drink (£3.00)</string>
     <string name="donation_play_3_short">£3.00</string>
     <string name="donation_play_7">If you really like number 7 (£7.77)</string>
     <string name="donation_play_7_short">£7.77</string>

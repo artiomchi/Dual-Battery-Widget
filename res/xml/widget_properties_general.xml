@@ -9,11 +9,11 @@
                 android:defaultValue="Default"/>
         <org.flexlabs.widgets.dualbattery.ui.SeekBarPreference
                 android:key="textSize"
-                android:title="@string/prop_textSize" flexlabs:summary="@string/prop_textSize_summary"
+                android:title="@string/prop_textSize" flexlabs:summary="@string/prop_valuePlaceholder"
                 android:defaultValue="14" android:max="100" />
         <org.flexlabs.widgets.dualbattery.ui.IntegerListPreference
                 android:key="textColor"
-                android:title="@string/prop_textColor" flexlabs:summary="@string/prop_textColor_summary"
+                android:title="@string/prop_textColor" flexlabs:summary="@string/prop_valuePlaceholder"
                 flexlabs:entries="@array/textColor_labels" flexlabs:entryValues="@array/textColor_values"
                 android:defaultValue="0" />
         <org.flexlabs.widgets.dualbattery.ui.IntegerListPreference
