@@ -153,11 +153,8 @@
     </string>
     <string name="donate_play">Google Play</string>
     <string name="donation_play_1">Standard (£0.99)</string>
-    <string name="donation_play_1_short">£0.99</string>
     <string name="donation_play_3">Buy me a drink (£3.00)</string>
-    <string name="donation_play_3_short">£3.00</string>
     <string name="donation_play_7">If you really like number 7 (£7.77)</string>
-    <string name="donation_play_7_short">£7.77</string>
     <string name="donate_paypal">PayPal</string>
     <string name="donation_paypal">Go to PayPal</string>
 </resources>
