@@ -16,45 +16,71 @@
 
 package org.flexlabs.widgets.dualbattery.app;
 
+import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Color;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import com.actionbarsherlock.app.SherlockActivity;
+import android.widget.*;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import org.achartengine.ChartFactory;
-import org.achartengine.GraphicalView;
-import org.achartengine.model.XYMultipleSeriesDataset;
-import org.achartengine.model.XYSeries;
-import org.achartengine.renderer.XYMultipleSeriesRenderer;
-import org.achartengine.renderer.XYSeriesRenderer;
+import com.viewpagerindicator.PageIndicator;
+import com.viewpagerindicator.TabPageIndicator;
 import org.flexlabs.widgets.dualbattery.BatteryLevel;
 import org.flexlabs.widgets.dualbattery.R;
-import org.flexlabs.widgets.dualbattery.storage.BatteryLevelAdapter;
 
-public class BatteryHistoryActivity extends SherlockActivity {
-    private XYSeries mMainSeries, mDockSeries;
-    private GraphicalView mChartView;
-    private LinearLayout mChartContainer;
+public class BatteryHistoryActivity extends SherlockFragmentActivity {
+    private ListView mList;
+    private int mCurrentTab = -1;
+    private Fragment[] fragments;
+    private String[] titles;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.battery_history);
-        if (mChartContainer != null)
-            mChartContainer.removeAllViews();
-        mChartContainer = (LinearLayout)findViewById(R.id.chart);
-    }
+        fragments = new Fragment[4];
+        fragments[0] = new BatteryHistoryFragment();
+        fragments[1] = new FeedbackFragment();
+        fragments[2] = new DonateFragment();
+        fragments[3] = new AboutFragment();
+        titles = new String[4];
+        titles[0] = getString(R.string.propHeader_BatteryInfo);
+        titles[1] = getString(R.string.propHeader_Feedback);
+        titles[2] = getString(R.string.propHeader_Donate);
+        titles[3] = getString(R.string.propHeader_About);
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        buildChart();
+        int screenLayout = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB &&
+                screenLayout > Configuration.SCREENLAYOUT_SIZE_LARGE) {
+            setContentView(R.layout.preference_list_large);
+
+            SideTabAdapter mSideAdapter = new SideTabAdapter(this, titles);
+
+            mList = (ListView)findViewById(android.R.id.list);
+            mList.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
+            mList.setOnItemClickListener(sideTabListener);
+            mList.setAdapter(mSideAdapter);
+            mList.setItemChecked(0, true);
+            mList.performClick();
+            getSupportFragmentManager().beginTransaction().add(R.id.prefs, fragments[0]).commit();
+        } else {
+            setContentView(R.layout.widgetsettings);
+            PagerTabAdapter mPagerAdapter = new PagerTabAdapter(getSupportFragmentManager());
+            ViewPager mPager = (ViewPager) findViewById(R.id.pager);
+            mPager.setAdapter(mPagerAdapter);
+
+            PageIndicator mIndicator = (TabPageIndicator) findViewById(R.id.indicator);
+            mIndicator.setViewPager(mPager);
+        }
     }
 
     @Override
@@ -74,97 +100,68 @@ public class BatteryHistoryActivity extends SherlockActivity {
         return super.onMenuItemSelected(featureId, item);
     }
 
-    public void initChart() {
-        if (mChartView == null) {
-            XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
-            mRenderer.setAxisTitleTextSize(16);
-            mRenderer.setChartTitleTextSize(20);
-            mRenderer.setLabelsTextSize(15);
-            mRenderer.setLegendTextSize(15);
-            mRenderer.setMargins(new int[]{20, 30, 15, 0});
-            mRenderer.setYAxisMin(0);
-            mRenderer.setYAxisMax(100);
-            mRenderer.setPanEnabled(true, false);
-            mRenderer.setZoomEnabled(true, false);
-            mRenderer.setShowGrid(true);
-            mRenderer.setZoomButtonsVisible(false);
+    private class PagerTabAdapter extends FragmentPagerAdapter {
+        public PagerTabAdapter(FragmentManager fm) {
+            super(fm);
+        }
 
-            XYMultipleSeriesDataset mDataSet = new XYMultipleSeriesDataset();
-            mMainSeries = new XYSeries(getString(R.string.battery_main));
-            mDataSet.addSeries(mMainSeries);
-            XYSeriesRenderer mMainRenderer = new XYSeriesRenderer();
-            mMainRenderer.setColor(Color.GREEN);
-            mRenderer.addSeriesRenderer(mMainRenderer);
+        @Override
+        public Fragment getItem(int i) {
+            return fragments[i];
+        }
 
-            if (BatteryLevel.getCurrent().is_dockFriendly()) {
-                mDockSeries = new XYSeries(getString(R.string.battery_dock));
-                mDataSet.addSeries(mDockSeries);
-                XYSeriesRenderer mDockRenderer = new XYSeriesRenderer();
-                mDockRenderer.setColor(Color.CYAN);
-                mRenderer.addSeriesRenderer(mDockRenderer);
+        @Override
+        public int getCount() {
+            return fragments.length;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return titles[position];
+        }
+    }
+
+    private static class SideTabAdapter extends ArrayAdapter<String> {
+        private LayoutInflater mInflater;
+
+        public SideTabAdapter(Context context, String[] objects) {
+            super(context, 0, objects);
+            mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View view;
+            TextView textView;
+
+            if (convertView == null) {
+                view = mInflater.inflate(android.R.layout.simple_list_item_activated_1, parent, false);
+                textView = (TextView)view.findViewById(android.R.id.text1);
+                view.setTag(textView);
+            } else {
+                view = convertView;
+                textView = (TextView)view.getTag();
             }
 
-            mChartView = ChartFactory.getTimeChartView(this, mDataSet, mRenderer, null);
+            String title = getItem(position);
+            textView.setText(title);
+
+            return view;
         }
     }
 
-    private boolean chartPopulated = false;
-    public void buildChart() {
-        initChart();
-        if (mChartContainer.getChildCount() == 0) {
-            mChartContainer.addView(mChartView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
-                    ViewGroup.LayoutParams.FILL_PARENT));
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-                mChartContainer.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+    private final AdapterView.OnItemClickListener sideTabListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+            if (mCurrentTab == position)
+                return;
+
+            mCurrentTab = position;
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            transaction.replace(R.id.prefs, fragments[position]);
+            transaction.commit();
+            mList.setItemChecked(position, true);
         }
-
-        if (chartPopulated) {
-            mChartView.repaint();
-        } else {
-            // populate chart
-            chartPopulated = true;
-            // TODO: fix this, seriously
-            //new Thread(new Runnable() {
-            //    @Override
-            //    public void run() {
-                    BatteryLevelAdapter adapter = new BatteryLevelAdapter(BatteryHistoryActivity.this);
-                    adapter.openRead();
-                    Cursor c = adapter.getRecentEntries(21);
-                    int oldLevel = -1, oldDockLevel = -1;
-                    boolean dockSupported = BatteryLevel.getCurrent().is_dockFriendly();
-
-                    long time = System.currentTimeMillis();
-                    boolean mainSkipped = false, dockSkipped = false;
-                    if (c.moveToFirst())
-                        do {
-                            time = c.getLong(BatteryLevelAdapter.ORD_TIME);
-                            int level = c.getInt(BatteryLevelAdapter.ORD_LEVEL);
-                            int dock_status = c.getInt(BatteryLevelAdapter.ORD_DOCK_STATUS);
-                            int dock_level = c.getInt(BatteryLevelAdapter.ORD_DOCK_LEVEL);
-
-                            mainSkipped = level == oldLevel;
-                            if (!mainSkipped) {
-                                mMainSeries.add(time, level);
-                                oldLevel = level;
-                            }
-                            if (dockSupported && dock_status > 1) {
-                                dockSkipped = dock_level == oldDockLevel;
-                                if (!dockSkipped) {
-                                    mDockSeries.add(time, dock_level);
-                                    oldDockLevel = dock_level;
-                                }
-                            }
-                        } while (c.moveToNext());
-                    c.close();
-                    adapter.close();
-                    if (mainSkipped)
-                        mMainSeries.add(time, oldLevel);
-                    if (dockSkipped)
-                        mDockSeries.add(time, oldDockLevel);
-
-                    mChartView.repaint();
-            //    }
-            //}).start();
-        }
-    }
+    };
 }

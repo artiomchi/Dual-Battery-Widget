@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.flexlabs.widgets.dualbattery.widgetsettings;
+package org.flexlabs.widgets.dualbattery.app;
 
 import android.content.Intent;
 import android.net.Uri;

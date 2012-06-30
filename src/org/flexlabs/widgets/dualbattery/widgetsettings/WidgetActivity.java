@@ -36,6 +36,9 @@ import com.viewpagerindicator.PageIndicator;
 import com.viewpagerindicator.TabPageIndicator;
 import org.flexlabs.widgets.dualbattery.BatteryWidgetUpdater;
 import org.flexlabs.widgets.dualbattery.R;
+import org.flexlabs.widgets.dualbattery.app.AboutFragment;
+import org.flexlabs.widgets.dualbattery.app.DonateFragment;
+import org.flexlabs.widgets.dualbattery.app.FeedbackFragment;
 
 public class WidgetActivity extends SherlockFragmentActivity {
     public int appWidgetId;
