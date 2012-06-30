@@ -21,9 +21,12 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -37,10 +40,11 @@ import org.flexlabs.widgets.dualbattery.BatteryLevel;
 import org.flexlabs.widgets.dualbattery.R;
 import org.flexlabs.widgets.dualbattery.storage.BatteryLevelAdapter;
 
-public class BatteryHistoryActivity extends SherlockActivity {
+public class BatteryHistoryActivity extends SherlockActivity implements ActionBar.TabListener {
     private XYSeries mMainSeries, mDockSeries;
     private GraphicalView mChartView;
     private LinearLayout mChartContainer;
+    private int days = 3;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +53,21 @@ public class BatteryHistoryActivity extends SherlockActivity {
         if (mChartContainer != null)
             mChartContainer.removeAllViews();
         mChartContainer = (LinearLayout)findViewById(R.id.chart);
+
+        initChart();
+        getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        addTab(3);
+        addTab(7);
+        addTab(30);
+    }
+
+    private ActionBar.Tab addTab(int days) {
+        ActionBar.Tab tab = getSupportActionBar().newTab();
+        tab.setText(String.format(getString(R.string.days), days));
+        tab.setTag(days);
+        tab.setTabListener(this);
+        getSupportActionBar().addTab(tab);
+        return tab;
     }
 
     @Override
@@ -70,6 +89,27 @@ public class BatteryHistoryActivity extends SherlockActivity {
             return true;
         }
         return super.onMenuItemSelected(featureId, item);
+    }
+
+    @Override
+    public void onTabReselected(Tab tab, FragmentTransaction transaction) {
+    }
+
+    @Override
+    public void onTabSelected(Tab tab, FragmentTransaction transaction) {
+        int newDays = (Integer)tab.getTag();
+        if (newDays != days) {
+            days = newDays;
+            mDockSeries.clear();
+            mMainSeries.clear();
+            chartPopulated = false;
+        }
+
+        repopulateChart();
+    }
+
+    @Override
+    public void onTabUnselected(Tab tab, FragmentTransaction transaction) {
     }
 
     public void initChart() {
@@ -119,50 +159,54 @@ public class BatteryHistoryActivity extends SherlockActivity {
         if (chartPopulated) {
             mChartView.repaint();
         } else {
-            // populate chart
-            chartPopulated = true;
-            // TODO: fix this, seriously
-            //new Thread(new Runnable() {
-            //    @Override
-            //    public void run() {
-            BatteryLevelAdapter adapter = new BatteryLevelAdapter(BatteryHistoryActivity.this);
-            adapter.openRead();
-            Cursor c = adapter.getRecentEntries(21);
-            int oldLevel = -1, oldDockLevel = -1;
-            boolean dockSupported = BatteryLevel.getCurrent().is_dockFriendly();
-
-            long time = System.currentTimeMillis();
-            boolean mainSkipped = false, dockSkipped = false;
-            if (c.moveToFirst())
-                do {
-                    time = c.getLong(BatteryLevelAdapter.ORD_TIME);
-                    int level = c.getInt(BatteryLevelAdapter.ORD_LEVEL);
-                    int dock_status = c.getInt(BatteryLevelAdapter.ORD_DOCK_STATUS);
-                    int dock_level = c.getInt(BatteryLevelAdapter.ORD_DOCK_LEVEL);
-
-                    mainSkipped = level == oldLevel;
-                    if (!mainSkipped) {
-                        mMainSeries.add(time, level);
-                        oldLevel = level;
-                    }
-                    if (dockSupported && dock_status > 1) {
-                        dockSkipped = dock_level == oldDockLevel;
-                        if (!dockSkipped) {
-                            mDockSeries.add(time, dock_level);
-                            oldDockLevel = dock_level;
-                        }
-                    }
-                } while (c.moveToNext());
-            c.close();
-            adapter.close();
-            if (mainSkipped)
-                mMainSeries.add(time, oldLevel);
-            if (dockSkipped)
-                mDockSeries.add(time, oldDockLevel);
-
-            mChartView.repaint();
-            //    }
-            //}).start();
+             repopulateChart();
         }
+    }
+
+    public void repopulateChart() {
+        // populate chart
+        chartPopulated = true;
+        // TODO: fix this, seriously
+        //new Thread(new Runnable() {
+        //    @Override
+        //    public void run() {
+        BatteryLevelAdapter adapter = new BatteryLevelAdapter(BatteryHistoryActivity.this);
+        adapter.openRead();
+        Cursor c = adapter.getRecentEntries(days);
+        int oldLevel = -1, oldDockLevel = -1;
+        boolean dockSupported = BatteryLevel.getCurrent().is_dockFriendly();
+
+        long time = System.currentTimeMillis();
+        boolean mainSkipped = false, dockSkipped = false;
+        if (c.moveToFirst())
+            do {
+                time = c.getLong(BatteryLevelAdapter.ORD_TIME);
+                int level = c.getInt(BatteryLevelAdapter.ORD_LEVEL);
+                int dock_status = c.getInt(BatteryLevelAdapter.ORD_DOCK_STATUS);
+                int dock_level = c.getInt(BatteryLevelAdapter.ORD_DOCK_LEVEL);
+
+                mainSkipped = level == oldLevel;
+                if (!mainSkipped) {
+                    mMainSeries.add(time, level);
+                    oldLevel = level;
+                }
+                if (dockSupported && dock_status > 1) {
+                    dockSkipped = dock_level == oldDockLevel;
+                    if (!dockSkipped) {
+                        mDockSeries.add(time, dock_level);
+                        oldDockLevel = dock_level;
+                    }
+                }
+            } while (c.moveToNext());
+        c.close();
+        adapter.close();
+        if (mainSkipped)
+            mMainSeries.add(time, oldLevel);
+        if (dockSkipped)
+            mDockSeries.add(time, oldDockLevel);
+
+        mChartView.repaint();
+        //    }
+        //}).start();
     }
 }
