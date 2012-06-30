@@ -110,11 +110,8 @@ Sag uns was du über das Widget denkst oder was du in den kommenden Versionen se
 \nBitte wähle eine der unten stehenden Möglichkeiten     </string>
   <string name="donate_play">Google Play</string>
   <string name="donation_play_1">Standart (£0,99)</string>
-  <string name="donation_play_1_short">£0,99</string>
   <string name="donation_play_3">Kauf mir einen Drink (£3,00)</string>
-  <string name="donation_play_3_short">£3,00</string>
   <string name="donation_play_7">Wenn du wirklich Nummer 7 magst (£7,77)</string>
-  <string name="donation_play_7_short">£7,77</string>
   <string name="donate_paypal">PayPal</string>
   <string name="donation_paypal">Zu PayPal gehen</string>
 </resources>

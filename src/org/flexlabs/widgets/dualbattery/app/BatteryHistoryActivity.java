@@ -44,7 +44,7 @@ public class BatteryHistoryActivity extends SherlockActivity implements ActionBa
     private XYSeries mMainSeries, mDockSeries;
     private GraphicalView mChartView;
     private LinearLayout mChartContainer;
-    private int days = 3;
+    private int days = 3, defaultDays;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +54,7 @@ public class BatteryHistoryActivity extends SherlockActivity implements ActionBa
             mChartContainer.removeAllViews();
         mChartContainer = (LinearLayout)findViewById(R.id.chart);
 
+        defaultDays = new SettingsContainer(this).getDefaultDaysTab();
         initChart();
         getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         addTab(3);
@@ -67,6 +68,9 @@ public class BatteryHistoryActivity extends SherlockActivity implements ActionBa
         tab.setTag(days);
         tab.setTabListener(this);
         getSupportActionBar().addTab(tab);
+
+        if (days == defaultDays)
+            getSupportActionBar().selectTab(tab);
         return tab;
     }
 

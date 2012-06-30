@@ -21,28 +21,35 @@ import android.content.SharedPreferences;
 import org.flexlabs.widgets.dualbattery.Constants;
 
 public class SettingsContainer {
-    private int version;
+    private int defaultDaysTab;
     private boolean showNotificationIcon;
 
-    public SettingsContainer(Context context) {
-        SharedPreferences pref = context.getSharedPreferences(Constants.SETTINGS_FILE, Context.MODE_PRIVATE);
-        version = pref.getInt(Constants.SETTING_VERSION, 1);
+    private static SharedPreferences getPreferences(Context context) {
+        return context.getSharedPreferences(Constants.SETTINGS_FILE, Context.MODE_PRIVATE);
+    }
+
+    private SharedPreferences init(Context context) {
+        SharedPreferences pref = getPreferences(context);
         showNotificationIcon = pref.getBoolean(Constants.SETTING_NOTIFICATION_ICON, Constants.SETTING_NOTIFICATION_ICON_DEFAULT);
+        defaultDaysTab = pref.getInt(Constants.SETTING_DEFAULT_DAYS_TAB, Constants.SETTING_DEFAULT_DAYS_TAB_DEFAULT);
+        return pref;
+    }
+
+    public SettingsContainer(Context context) {
+        init(context);
     }
 
     public SettingsContainer(Context context, SharedPreferences.OnSharedPreferenceChangeListener listener) {
-        SharedPreferences pref = context.getSharedPreferences(Constants.SETTINGS_FILE, Context.MODE_PRIVATE);
-        version = pref.getInt(Constants.SETTING_VERSION, 1);
-        showNotificationIcon = pref.getBoolean(Constants.SETTING_NOTIFICATION_ICON, Constants.SETTING_NOTIFICATION_ICON_DEFAULT);
+        SharedPreferences pref = init(context);
         if (listener != null)
             pref.registerOnSharedPreferenceChangeListener(listener);
     }
 
-    public int getVersion() {
-        return version;
-    }
-
     public boolean isShowNotificationIcon() {
         return showNotificationIcon;
+    }
+
+    public int getDefaultDaysTab() {
+        return defaultDaysTab;
     }
 }

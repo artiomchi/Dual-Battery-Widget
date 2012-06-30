@@ -30,5 +30,6 @@ public class SettingsFragment extends PreferenceListFragment {
         if (BatteryLevel.getCurrent().is_dockFriendly()) {
             addPreferencesFromResource(R.xml.settings_0_dock_notif);
         }
+        addPreferencesFromResource(R.xml.settings_1_general);
     }
 }

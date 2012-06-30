@@ -45,6 +45,7 @@
     <string name="prop_tempUnits">Temperature units</string>
     <string name="prop_showNotificationIcon">Show notification icon</string>
     <string name="prop_showNotificationIcon_summary">Show the dock battery level in the notification area</string>
+    <string name="prop_defaultDaysTab">Default history period</string>
 
     <string name="sett_textPos_Invisible">Invisible</string>
     <string name="sett_textPos_Above">Above</string>
@@ -63,6 +64,9 @@
     <string name="sett_margin_Both">Both</string>
     <string name="sett_tempUnits_C">Celsius</string>
     <string name="sett_tempUnits_F">Fahrenheit</string>
+    <string name="sett_defaultDaysTab_3">3 Days</string>
+    <string name="sett_defaultDaysTab_7">7 Days</string>
+    <string name="sett_defaultDaysTab_30">30 Days</string>
 
     <string name="about_full">
         The Dual Battery Widget was initially created for the Asus Eee Pad Transformer,
@@ -71,10 +75,9 @@
         to fill this gap.
         \n
         \nCreated by: Artiom Chilaru http://www.flexlabs.org
-        \nIt is distributed for free from the Google Play store andon GitHub
+        \nIt is distributed for free from the Google Play store and on GitHub
         \n
         \nYou can install the widget from the google play store here:
-        https://play.google.com/store/apps/details?id=org.flexlabs.widgets.dualbattery
         \n
         \nThe widget is open source, and licensed with the Apache License 2.0
         \nFeel free to contribute to the development of the project, by forking the project on GitHub:
@@ -82,6 +85,26 @@
         \n
         \nIf you want to help translating this project, you can do so here:
         \nhttp://translate.dualbattery.flexlabs.org
+        \n
+        \nMany thanks to all the people who helped with the translation of the project, including:
+    </string>
+    <string name="about_0_head">
+        The Dual Battery Widget was initially created for the Asus Eee Pad Transformer,
+        a device that has a second battery in the dock station. Unfortunately, the standard Android tools
+        do not provide any way of displaying the status of a second battery, so this widget was created
+        to fill this gap.
+        \n
+    </string>
+    <string name="about_1_author">Created by: Artiom Chilaru</string>
+    <string name="about_2_projectpage">Project page:</string>
+    <string name="about_3_source">
+        \nThe widget is open source, and licensed with the Apache License 2.0
+        \nFeel free to contribute to the development of the project, by forking the project on GitHub:
+    </string>
+    <string name="about_4_translate">
+        \nIf you want to help translating this project, you can do so here:
+    </string>
+    <string name="about_5_translators_thanks">
         \n
         \nMany thanks to all the people who helped with the translation of the project, including:
     </string>

@@ -1,5 +1,13 @@
 <resources>
+    <string name="link_flexlabs">http://www.flexlabs.org</string>
+    <string name="link_googleplus">https://plus.google.com/118074640325683351945</string>
+    <string name="link_github">https://github.com/artiomchi/Dual-Battery-Widget</string>
+    <string name="link_translate">http://translate.dualbattery.flexlabs.org</string>
     <string name="prop_valuePlaceholder">%s</string>
+
+    <string name="donation_play_1_short">£0,99</string>
+    <string name="donation_play_3_short">£3,00</string>
+    <string name="donation_play_7_short">£7,77</string>
 
     <string name="about_translations">
         \nFrançais: Ludovic MAILLET

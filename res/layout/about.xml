@@ -21,8 +21,29 @@
     <LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
                   android:orientation="vertical">
         <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
-                  android:text="@string/about_full" android:textSize="17sp"
-                  android:id="@+id/about_text" />
+                  android:text="@string/about_0_head" android:textSize="17sp" />
+        <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:text="@string/about_1_author" android:textSize="17sp" />
+        <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:text="@string/link_flexlabs" android:textSize="17sp"
+                  android:id="@+id/about_link_flexlabs" />
+        <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:text="@string/about_2_projectpage" android:textSize="17sp" />
+        <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:text="@string/link_googleplus" android:textSize="17sp"
+                  android:id="@+id/about_link_googleplus" />
+        <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:text="@string/about_3_source" android:textSize="17sp" />
+        <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:text="@string/link_github" android:textSize="17sp"
+                  android:id="@+id/about_link_github" />
+        <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:text="@string/about_4_translate" android:textSize="17sp" />
+        <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:text="@string/link_translate" android:textSize="17sp"
+                  android:id="@+id/about_link_translate" />
+        <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:text="@string/about_5_translators_thanks" android:textSize="17sp" />
         <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
                   android:text="@string/about_translations" android:textSize="17sp" />
     </LinearLayout>

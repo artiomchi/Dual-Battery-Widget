@@ -32,8 +32,10 @@ public class AboutFragment extends SherlockFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.about, null);
-        TextView aboutText = (TextView)view.findViewById(R.id.about_text);
-        Linkify.addLinks(aboutText, Linkify.ALL);
+        Linkify.addLinks((TextView)view.findViewById(R.id.about_link_flexlabs), Linkify.ALL);
+        Linkify.addLinks((TextView)view.findViewById(R.id.about_link_googleplus), Linkify.ALL);
+        Linkify.addLinks((TextView)view.findViewById(R.id.about_link_github), Linkify.ALL);
+        Linkify.addLinks((TextView)view.findViewById(R.id.about_link_translate), Linkify.ALL);
         return view;
     }
 }

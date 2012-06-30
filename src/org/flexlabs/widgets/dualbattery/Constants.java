@@ -86,7 +86,8 @@ public class Constants {
     public static final String SETTINGS_FILE = "appSettings";
     public static final String SETTING_NOTIFICATION_ICON = "showNotificationIcon";
     public static final boolean SETTING_NOTIFICATION_ICON_DEFAULT = true;
+    public static final String SETTING_DEFAULT_DAYS_TAB = "defaultDaysTab";
+    public static final int SETTING_DEFAULT_DAYS_TAB_DEFAULT = 3;
 
     public static final String URI_PAYPAL = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=6UHRDDAPAMSTL&lc=GB&item_name=Donation%20for%20Artiom%20Chilaru&currency_code=GBP&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted";
-    public static final String URI_GOOGLE_PLAY = "https://play.google.com/store/apps/details?id=org.flexlabs.widgets.dualbattery";
 }

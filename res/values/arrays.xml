@@ -53,4 +53,14 @@
         <item>Default</item>
         <item>Default Sideways</item>
     </string-array>
+    <integer-array name="defaultDaysTab_values">
+        <item>3</item>
+        <item>7</item>
+        <item>30</item>
+    </integer-array>
+    <string-array name="defaultDaysTab_labels">
+        <item>@string/sett_defaultDaysTab_3</item>
+        <item>@string/sett_defaultDaysTab_7</item>
+        <item>@string/sett_defaultDaysTab_30</item>
+    </string-array>
 </resources>
