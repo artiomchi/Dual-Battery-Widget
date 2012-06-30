@@ -69,6 +69,4 @@
     </TableLayout>
     <Button android:id="@+id/batterySummary" android:text="@string/showBatterySummary"
             android:layout_width="fill_parent" android:layout_height="wrap_content" />
-    <Button android:id="@+id/widgetSettings" android:text="@string/propHeader_Main" android:visibility="gone"
-            android:layout_width="fill_parent" android:layout_height="wrap_content" />
 </LinearLayout>
