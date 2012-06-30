@@ -73,8 +73,8 @@ public class BatteryInfoFragment extends SherlockFragment {
         setHasOptionsMenu(true);
         WidgetActivity activity = (WidgetActivity)getActivity();
         appWidgetId = activity.appWidgetId;
-        tempUnitsC = getActivity().getSharedPreferences(Constants.SETTINGS_WIDGET_FILE + appWidgetId, Context.MODE_PRIVATE)
-                .getInt(Constants.SETTING_TEMP_UNITS, Constants.SETTING_TEMP_UNITS_DEFAULT) == Constants.TEMP_UNIT_CELSIUS;
+        tempUnitsC = WidgetSettingsContainer.getTempUnits(getActivity(), appWidgetId);
+        getSherlockActivity().invalidateOptionsMenu();
 
         View view = inflater.inflate(R.layout.battery_info_table, null);
         mStatus = (TextView) view.findViewById(R.id.status);
@@ -282,15 +282,9 @@ public class BatteryInfoFragment extends SherlockFragment {
         Log.d(Constants.LOG, "menu id: " + item.getItemId());
         if (item.getItemId() == R.id.temperature) {
             tempUnitsC = !tempUnitsC;
-            if (Build.VERSION.SDK_INT >= 11)
-                getActivity().invalidateOptionsMenu();
+            getSherlockActivity().invalidateOptionsMenu();
             updateTemperature();
-            getActivity().getSharedPreferences(Constants.SETTINGS_WIDGET_FILE + appWidgetId, Context.MODE_PRIVATE)
-                    .edit()
-                    .putInt(Constants.SETTING_TEMP_UNITS, tempUnitsC
-                            ? Constants.TEMP_UNIT_CELSIUS
-                            : Constants.TEMP_UNIT_FAHRENHEIT)
-                    .commit();
+            WidgetSettingsContainer.setTempUnits(getActivity(), appWidgetId, tempUnitsC);
             return true;
         }
         return false;

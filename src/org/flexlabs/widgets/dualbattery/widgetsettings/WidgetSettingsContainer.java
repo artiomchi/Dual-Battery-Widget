@@ -22,7 +22,6 @@ import android.os.Build;
 import org.flexlabs.widgets.dualbattery.Constants;
 
 public class WidgetSettingsContainer {
-    private int version;
     private int textSize;
     private int textPosition;
     private int batterySelection;
@@ -35,11 +34,16 @@ public class WidgetSettingsContainer {
     private boolean swapBatteries;
     private String theme;
 
-    public WidgetSettingsContainer(Context context, int widgetId) {
+    private static SharedPreferences getPreferences(Context context, int widgetId) {
         SharedPreferences pref = context.getSharedPreferences(Constants.SETTINGS_WIDGET_FILE + widgetId, Context.MODE_PRIVATE);
-        version = pref.getInt(Constants.SETTING_VERSION, 1);
-        if (getVersion() != Constants.SETTING_VERSION_CURRENT)
-            updateWidgetSettings(pref, getVersion());
+        int version = pref.getInt(Constants.SETTING_VERSION, 1);
+        if (version != Constants.SETTING_VERSION_CURRENT)
+            updateWidgetSettings(pref, version);
+        return pref;
+    }
+
+    public WidgetSettingsContainer(Context context, int widgetId) {
+        SharedPreferences pref = getPreferences(context, widgetId);
         alwaysShow = pref.getBoolean(Constants.SETTING_ALWAYS_SHOW_DOCK, Constants.SETTING_ALWAYS_SHOW_DOCK_DEFAULT);
         showNotDocked = pref.getBoolean(Constants.SETTING_SHOW_NOT_DOCKED, Constants.SETTING_SHOW_NOT_DOCKED_DEFAULT);
         showLabel = pref.getBoolean(Constants.SETTING_SHOW_LABEL, Constants.SETTING_SHOW_LABEL_DEFAULT);
@@ -51,6 +55,20 @@ public class WidgetSettingsContainer {
         textColorCode = pref.getInt(Constants.SETTING_TEXT_COLOR, Constants.SETTING_TEXT_COLOR_DEFAULT);
         margin = pref.getInt(Constants.SETTING_MARGIN, Constants.SETTING_MARGIN_DEFAULT);
         theme = pref.getString(Constants.SETTING_THEME, Constants.SETTING_THEME_DEFAULT);
+    }
+
+    public static boolean getTempUnits(Context context, int widgetId) {
+        SharedPreferences pref = getPreferences(context, widgetId);
+        return pref.getInt(Constants.SETTING_TEMP_UNITS, Constants.SETTING_TEMP_UNITS_DEFAULT) == Constants.TEMP_UNIT_CELSIUS;
+    }
+
+    public static void setTempUnits(Context context, int widgetId, boolean tempUnitsC) {
+        SharedPreferences pref = getPreferences(context, widgetId);
+        pref.edit()
+            .putInt(Constants.SETTING_TEMP_UNITS, tempUnitsC
+                ? Constants.TEMP_UNIT_CELSIUS
+                : Constants.TEMP_UNIT_FAHRENHEIT)
+            .commit();
     }
 
     private static void updateWidgetSettings(SharedPreferences pref, int version) {
@@ -93,10 +111,6 @@ public class WidgetSettingsContainer {
             editor.commit();
         else
             editor.apply();
-    }
-
-    public int getVersion() {
-        return version;
     }
 
     public int getTextSize() {
