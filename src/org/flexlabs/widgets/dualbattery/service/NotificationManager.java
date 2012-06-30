@@ -17,11 +17,14 @@
 package org.flexlabs.widgets.dualbattery.service;
 
 import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import org.flexlabs.widgets.dualbattery.BatteryLevel;
 import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.R;
+import org.flexlabs.widgets.dualbattery.app.BatteryHistoryActivity;
 import org.flexlabs.widgets.dualbattery.app.SettingsContainer;
 
 public class NotificationManager implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -80,7 +83,9 @@ public class NotificationManager implements SharedPreferences.OnSharedPreference
             Notification.FLAG_ONGOING_EVENT |
             Notification.FLAG_ONLY_ALERT_ONCE |
             Notification.FLAG_NO_CLEAR;
-        notification.setLatestEventInfo(mContext, title, "Dock battery level: " + dockLevel + "%", null);
+        Intent intent = new Intent(mContext, BatteryHistoryActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(mContext, 1, intent, 0);
+        notification.setLatestEventInfo(mContext, title, "Dock battery level: " + dockLevel + "%", contentIntent);
 
         notification.tickerText = null;
         notification.contentView.setInt(android.R.id.icon, "setImageLevel", dockLevel);
