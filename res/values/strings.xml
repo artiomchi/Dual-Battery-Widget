@@ -9,8 +9,8 @@
     <string name="battery_main">Main</string>
     <string name="battery_dock">Dock</string>
     <string name="settings">Settings</string>
+    <string name="theme">Theme</string>
     <string name="sendFeedback">Send Feedback</string>
-    <string name="days">%s days</string>
 
     <string name="showBatterySummary">Show Battery Summary</string>
 

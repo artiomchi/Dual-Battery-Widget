@@ -11,6 +11,21 @@ Changelog
 
 --
 
+**Update 2012-06-01: v1.1.3**  
+\* If upgrading from older versions (pre 1.0) showing an alert when opening the widget properties, instead of changing settings  
+\* Improved the layouts in the app, according to lint suggestions  
+\* Russian translation updated  
+! Fixed the feedback layour for phones  
+
+**Update 2012-05-30: v1.1.2**  
+IMPORTANT! With this version we have switched the default order of the icons in the widget (you can change it back in the widget settings). The dock battery will now be the on the left, and the main battery on the right side, to reflect the changes in the new Asus updates!  
+[+] New and revamped interface for tablets and phones! Proper support for Ice Cream Sandwich  
+[+] Ability to swap the battery icons around  
+[+] Horizontal mode! Display the batteries on top of each other  
+[+] Notification area icon showing the dock battery level (can be turned off in the settings)  
+[+] Google in-app billing for donations  
+[!] Lots of different bugfixes  
+
 **Update 2011-11-06: v0.8.3.2**  
 [!] Possible fix for running out of memory when rendering the x axis on the chart  
 [!] Fix for the "square chart" phenomenon  

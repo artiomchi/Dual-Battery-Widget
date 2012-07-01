@@ -11,7 +11,6 @@
   <string name="battery_dock">Dock</string>
   <string name="settings">Ajustes</string>
   <string name="sendFeedback">Enviar comentario</string>
-  <string name="days">%s días</string>
   <string name="showBatterySummary">Mostrar resumen de la bateria</string>
   <string name="propHeader_BatteryInfo">Informacion de la bateria</string>
   <string name="propHeader_Properties">Propiedades del Widget</string>

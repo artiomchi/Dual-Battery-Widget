@@ -10,7 +10,6 @@ IMPORTANT! With this version we have switched the default order of the icons in 
 [!] Lots of different bugfixes
     </string>
     <string name="update_25">
-* Version bump to v1.1.3/25
 * If upgrading from older versions (pre 1.0) showing an alert when opening the widget properties, instead of changing settings
 * Improved the layouts in the app, according to lint suggestions
 * Russian translation updated

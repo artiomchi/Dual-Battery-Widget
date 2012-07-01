@@ -10,6 +10,7 @@
   <string name="battery_main">Главная</string>
   <string name="battery_dock">Докстанция</string>
   <string name="settings">Параметры</string>
+  <string name="theme">Тема</string>
   <string name="sendFeedback">Отправить отзыв</string>
   <string name="showBatterySummary">Показать cводку о батареи</string>
   <string name="propHeader_BatteryInfo">Информация о батареях</string>

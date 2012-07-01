@@ -57,14 +57,14 @@ public class BatteryHistoryActivity extends SherlockActivity implements ActionBa
         defaultDays = new SettingsContainer(this).getDefaultDaysTab();
         initChart();
         getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        addTab(3);
-        addTab(7);
-        addTab(30);
+        addTab(3, R.string.sett_defaultDaysTab_3);
+        addTab(7, R.string.sett_defaultDaysTab_7);
+        addTab(30, R.string.sett_defaultDaysTab_30);
     }
 
-    private ActionBar.Tab addTab(int days) {
+    private ActionBar.Tab addTab(int days, int label) {
         ActionBar.Tab tab = getSupportActionBar().newTab();
-        tab.setText(String.format(getString(R.string.days), days));
+        tab.setText(label);
         tab.setTag(days);
         tab.setTabListener(this);
         getSupportActionBar().addTab(tab);

@@ -10,8 +10,8 @@
   <string name="battery_main">메인</string>
   <string name="battery_dock">독</string>
   <string name="settings">설정</string>
+  <string name="theme">작문</string>
   <string name="sendFeedback">의견 보내기</string>
-  <string name="days">%s 일</string>
   <string name="showBatterySummary">배터리 요약 표시</string>
   <string name="propHeader_BatteryInfo">배터리 정보</string>
   <string name="propHeader_Properties">위젯 속성</string>
