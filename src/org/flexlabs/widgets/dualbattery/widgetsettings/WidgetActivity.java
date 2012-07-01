@@ -81,7 +81,7 @@ public class WidgetActivity extends SherlockFragmentActivity {
             mList.setAdapter(mSideAdapter);
             mList.setItemChecked(0, true);
             mList.performClick();
-            getSupportFragmentManager().beginTransaction().add(R.id.prefs, fragments[0]).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.prefs, fragments[0]).commit();
         } else {
             setContentView(R.layout.widgetsettings);
             PagerTabAdapter mPagerAdapter = new PagerTabAdapter(getSupportFragmentManager());

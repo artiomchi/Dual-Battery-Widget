@@ -40,6 +40,7 @@
   <string name="prop_tempUnits">온도 단위</string>
   <string name="prop_showNotificationIcon">알림 아이콘 보이기</string>
   <string name="prop_showNotificationIcon_summary">알림 구역에 있는 배터리 등급을 보이기</string>
+  <string name="prop_defaultDaysTab">기본 내역 기간</string>
   <string name="sett_textPos_Invisible">보이지 않는</string>
   <string name="sett_textPos_Above">위에</string>
   <string name="sett_textPos_Top">맨 위</string>
@@ -57,21 +58,17 @@
   <string name="sett_margin_Both">둘 다</string>
   <string name="sett_tempUnits_C">섭씨</string>
   <string name="sett_tempUnits_F">화씨</string>
-  <string name="about_full">듀얼 배터리 위젯은 처음엔 dock 스테이션에 있는 2번째 배터리를 가지고 있는 장치인 Asus Eee 패드 트랜스포머로 만들어졌습니다. 불행히도, 표준 안드로이드 툴은 2번째 배터리의 상태를 제공해주지 않습니다 그래서 이 위젯이 이 틈을 채우기 위해 만들어진것입니다.
-\n
-\n만든 사람: Artiom Chilaru http://www.flexlabs.org
-\n이 위젯은 구글 플레이 스토어와 andon GitHub에서 무료로 제공됩니다
-\n
-\n당신은 여기 구글 플레이 스토어에서 이 위젯을 설치할 수 있습니다:
-https://play.google.com/store/apps/details?id=org.flexlabs.widgets.dualbattery
-\n
-\n이 위젯은 오픈 소스이고 Apache License 2.0의 허가를 받았습니다
-\nGitHub에 분기함으로써 언제든지 프로젝트 발전에 기여하세요:
-\nhttps://github.com/artiomchi/Dual-Battery-Widget
-\n
-\n만약 이 프로젝트를 번역하는데 도와주고 싶다면, 여기서 하실 수 있습니다:
-\nhttp://translate.dualbattery.flexlabs.org
-\n
+  <string name="sett_defaultDaysTab_3">3 일</string>
+  <string name="sett_defaultDaysTab_7">7 일</string>
+  <string name="sett_defaultDaysTab_30">30 일</string>
+  <string name="about_0_head">듀얼 배터리 위젯은 처음엔 dock 스테이션에 있는 2번째 배터리를 가지고 있는 장치인 Asus Eee 패드 트랜스포머로 만들어졌습니다. 불행히도, 표준 안드로이드 툴은 2번째 배터리의 상태를 제공해주지 않습니다 그래서 이 위젯이 이 틈을 채우기 위해 만들어진것입니다.
+\n</string>
+  <string name="about_1_author">만든 사람: Artiom Chilaru</string>
+  <string name="about_2_projectpage">프로젝트 페이지:</string>
+  <string name="about_3_source">\n이 위젯은 오픈 소스이고 Apache License 2.0의 허가를 받았습니다
+\nGitHub에 분기함으로써 언제든지 프로젝트 발전에 기여하세요:</string>
+  <string name="about_4_translate">\n만약 이 프로젝트를 번역하는데 도와주고 싶다면, 여기서 하실 수 있습니다:</string>
+  <string name="about_5_translators_thanks">\n
 \n이 프로젝트를 번역을 해줌으로써 도와주신 모든 사람들께 감사드립니다:</string>
   <string name="feedback_head">이 양식을 작성하는데 시간을 내어주셔서 감사합니다. 저는 당신의 의견을 존중하고 항상 이 위젯을 더 좋게 만들고 싶어합니다
 \n
@@ -106,10 +103,7 @@ https://play.google.com/store/apps/details?id=org.flexlabs.widgets.dualbattery
 \n아래에 있는 옵션중에 하나를 골라주세요</string>
   <string name="donate_play">구글 플레이</string>
   <string name="donation_play_1">표준 (£0.99)</string>
-  <string name="donation_play_1_short">£0.99</string>
   <string name="donation_play_3">저에게 음료수를 사주세요 (£3.00)</string>
-  <string name="donation_play_3_short">£3.00</string>
   <string name="donation_play_7">숫자 7을 정말 좋아한다면 (£7.77)</string>
-  <string name="donation_play_7_short">£7.77</string>
   <string name="donation_paypal">PayPal로 기부</string>
 </resources>

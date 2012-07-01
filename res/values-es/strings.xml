@@ -42,6 +42,7 @@
   <string name="prop_tempUnits">Unidades de temperatura</string>
   <string name="prop_showNotificationIcon">Mostrar el icono de notificación</string>
   <string name="prop_showNotificationIcon_summary">Mostrar el nivel de la batería secundaria en las notificaciones</string>
+  <string name="prop_defaultDaysTab">Predeterminado período de la historia</string>
   <string name="sett_textPos_Invisible">Invisible</string>
   <string name="sett_textPos_Above">Arriba</string>
   <string name="sett_textPos_Top">Superior</string>
@@ -59,6 +60,9 @@
   <string name="sett_margin_Both">Ambos</string>
   <string name="sett_tempUnits_C">Celsius</string>
   <string name="sett_tempUnits_F">Fahrenheit</string>
+  <string name="sett_defaultDaysTab_3">3 Días</string>
+  <string name="sett_defaultDaysTab_7">7 Días</string>
+  <string name="sett_defaultDaysTab_30">30 Días</string>
   <string name="feedback_head">Gracias por rellenar este formulario. Valoramos tu opinión y siempre estaremos dispuestos a mejorar el widget
         \n
         \nCuéntanos lo que piensas del widget o que te gustaría ver en futuras versiones e intentaremos hacer lo posible por seguir tus consejos
@@ -94,10 +98,7 @@
     </string>
   <string name="donate_play">Google Play</string>
   <string name="donation_play_1">Estándar (£0.99)</string>
-  <string name="donation_play_1_short">£0.99</string>
   <string name="donation_play_3">Cómprame un café (£3.00)</string>
-  <string name="donation_play_3_short">£3.00</string>
   <string name="donation_play_7">Si realmente te gusta el número 7 (£7.77)</string>
-  <string name="donation_play_7_short">£7.77</string>
   <string name="donation_paypal">Ir a PayPal</string>
 </resources>

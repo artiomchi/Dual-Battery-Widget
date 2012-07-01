@@ -9,6 +9,7 @@
   <string name="unknown">Неизвестно</string>
   <string name="battery_main">Главная</string>
   <string name="battery_dock">Докстанция</string>
+  <string name="settings">Параметры</string>
   <string name="showBatterySummary">Показать cводку о батареи</string>
   <string name="propHeader_BatteryInfo">Информация о батареях</string>
   <string name="propTitle_General">Общие</string>
@@ -44,6 +45,10 @@
   <string name="sett_margin_Both">Оба</string>
   <string name="sett_tempUnits_C">По Цельсию</string>
   <string name="sett_tempUnits_F">По Фаренгейту</string>
+  <string name="sett_defaultDaysTab_3">3 Дня</string>
+  <string name="sett_defaultDaysTab_7">7 Дней</string>
+  <string name="sett_defaultDaysTab_30">30 Дней</string>
+  <string name="feedback_hint">Пожалуйста, введите ваши отзывы</string>
   <string name="battery_info_status_label">Состояние батареи:</string>
   <string name="battery_info_last_charged_label">Последняя подзарядка:</string>
   <string name="battery_info_scale_label">Шкала батареи:</string>
@@ -68,4 +73,12 @@
   <string name="battery_info_dock_status_discharging">Разрядка</string>
   <string name="battery_info_dock_status_docked">Подключена</string>
   <string name="battery_info_dock_status_undocked">Не подключена</string>
+  <string name="donate_head">Благодарю вас за поддержку моего виджета. Я очень ценю вашу помощь!
+\n
+\nПожалуйста выберите один из вариантов ниже     </string>
+  <string name="donate_play">Google Play</string>
+  <string name="donation_play_1">Стандарт (£0,99)</string>
+  <string name="donation_play_3">Купить мне выпить (£3.00)</string>
+  <string name="donation_play_7">Если вам действительно нравится номер 7 (£7.77)</string>
+  <string name="donation_paypal">Перейти к PayPal</string>
 </resources>

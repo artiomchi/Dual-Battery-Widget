@@ -74,7 +74,7 @@ public class FeedbackFragment extends SherlockFragment {
     public static void sendFeedback(Context context, CharSequence feedback) {
         Intent intent = new Intent(Intent.ACTION_SEND, Uri.parse("mailto:"));
         intent.putExtra(Intent.EXTRA_EMAIL, new String[] { Constants.FeedbackDestination });
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Dual Battery Widget Feedback");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Dual Battery Widget Feedback (v" + Constants.VERSION + ")");
         intent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(getDeviceDetails(context, feedback)));
         intent.setType("message/rfc822");
         context.startActivity(Intent.createChooser(intent, "Email"));
@@ -83,7 +83,7 @@ public class FeedbackFragment extends SherlockFragment {
     private static String getDeviceDetails(Context context, CharSequence feedback) {
         StringBuilder sb = new StringBuilder(feedback);
         sb.append("<br />\n<h4>Device details:</h4>");
-        sb.append("<br />\n<b>App version:</b> ").append(Constants.VERSION);
+        sb.append("<br />\n<b>App version:</b> v").append(Constants.VERSION);
         sb.append("<br />\n<b>Brand:</b> ").append(Build.MANUFACTURER);
         sb.append("<br />\n<b>Model:</b> ").append(Build.MODEL);
         sb.append("<br />\n<b>Device:</b> ").append(Build.DEVICE);

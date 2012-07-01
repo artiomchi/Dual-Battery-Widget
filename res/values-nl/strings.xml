@@ -40,6 +40,7 @@
   <string name="prop_tempUnits">Temperatuur eenheid</string>
   <string name="prop_showNotificationIcon">Toon notificatie icoon</string>
   <string name="prop_showNotificationIcon_summary">Toon het dock batterij niveau in het notificatie gebied</string>
+  <string name="prop_defaultDaysTab">Geschiedenis standaardperiode</string>
   <string name="sett_textPos_Invisible">Onzichtbaar</string>
   <string name="sett_textPos_Above">Boven</string>
   <string name="sett_textPos_Top">Bovenin</string>
@@ -57,23 +58,19 @@
   <string name="sett_margin_Both">Beide</string>
   <string name="sett_tempUnits_C">Celsius</string>
   <string name="sett_tempUnits_F">Fahrenheit</string>
-  <string name="about_full">Het dubbele batterij Widget werd aanvankelijk opgestart voor de Asus Eee Pad transformator, 
+  <string name="sett_defaultDaysTab_3">3 Dagen</string>
+  <string name="sett_defaultDaysTab_7">7 Dagen</string>
+  <string name="sett_defaultDaysTab_30">30 Dagen</string>
+  <string name="about_0_head">Het dubbele batterij Widget werd aanvankelijk opgestart voor de Asus Eee Pad transformator, 
 een apparaat dat een tweede accu in het dock station heeft. Helaas hebben de standaard Android tools geen manier om de status van een tweede accu weer te geven, daarom werd deze widget gemaakt om dit gat te vullen.
-\n
-\nGemaakt door: Artiom Chilaru http://www.flexlabs.org
-\nHet wordt gratis aangeboden in de Google Play winkel en op GitHub
-\n
-\nJe kan de widget installeren in de google play winkel hier: 
-https://play.google.com/store/apps/details?id=org.flexlabs.widgets.dualbattery
-\n
-\nHet widget is open source, en gebruikt de Apache License 2.0
-\nVoel je vrij om bij te dragen aan de ontwikkeling van het project, door het project te forken op GitHub:
-\nhttps://github.com/artiomchi/Dual-Battery-Widget
-\n
-\nAls u dit project wilt helpen vertalen, kunt u dit hier doen:
-\nhttp://translate.dualbattery.flexlabs.org
-\n
-\nVeel dank aan alle mensen die met de vertaling van het project hebben geholpen, met inbegrip van:     </string>
+\n</string>
+  <string name="about_1_author">Gemaakt door: Artiom Chilaru</string>
+  <string name="about_2_projectpage">Projectpagina:</string>
+  <string name="about_3_source">\nHet widget is open source, en gebruikt de Apache License 2.0
+\nVoel je vrij om bij te dragen aan de ontwikkeling van het project, door het project te forken op GitHub:</string>
+  <string name="about_4_translate">\nAls u dit project wilt helpen vertalen, kunt u dit hier doen:</string>
+  <string name="about_5_translators_thanks">\n
+\nVeel dank aan alle mensen die met de vertaling van het project hebben geholpen, met inbegrip van:</string>
   <string name="feedback_head">Dank u om de tijd te nemen om dit formulier in te vullen. Ik waardeer uw mening, en wil deze widget altijd beter maken
 \n
 \nVertel ons wat je denkt van de widget, of wat u zou willen zien in toekomstige versies, en ik zal contact met u opnemen     </string>
@@ -107,10 +104,7 @@ https://play.google.com/store/apps/details?id=org.flexlabs.widgets.dualbattery
 \nGelieve een van de onderstaande opties te kiezen     </string>
   <string name="donate_play">Google Play</string>
   <string name="donation_play_1">Standaard (£0.99)</string>
-  <string name="donation_play_1_short">£0.99</string>
   <string name="donation_play_3">Koop me een drankje (£3.00)</string>
-  <string name="donation_play_3_short">£3.00</string>
   <string name="donation_play_7">Als je echt houdt van nummer 7 (£7.77)</string>
-  <string name="donation_play_7_short">£7.77</string>
   <string name="donation_paypal">Ga naar PayPal</string>
 </resources>

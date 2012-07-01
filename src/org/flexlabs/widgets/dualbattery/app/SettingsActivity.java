@@ -56,7 +56,7 @@ public class SettingsActivity extends SherlockFragmentActivity {
 
         int screenLayout = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB &&
-                screenLayout > Configuration.SCREENLAYOUT_SIZE_LARGE) {
+                screenLayout > Configuration.SCREENLAYOUT_SIZE_LARGE && false) {
             setContentView(R.layout.preference_list_large);
 
             SideTabAdapter mSideAdapter = new SideTabAdapter(this, titles);
@@ -67,7 +67,7 @@ public class SettingsActivity extends SherlockFragmentActivity {
             mList.setAdapter(mSideAdapter);
             mList.setItemChecked(0, true);
             mList.performClick();
-            getSupportFragmentManager().beginTransaction().add(R.id.prefs, fragments[0]).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.prefs, fragments[0]).commit();
         } else {
             setContentView(R.layout.widgetsettings);
             PagerTabAdapter mPagerAdapter = new PagerTabAdapter(getSupportFragmentManager());

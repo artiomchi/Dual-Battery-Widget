@@ -42,6 +42,7 @@
   <string name="prop_tempUnits">Einheit für die Temperatur</string>
   <string name="prop_showNotificationIcon">Zeige Benachrichtigungs-Icon</string>
   <string name="prop_showNotificationIcon_summary">Zeige die Akkukapazität in der Benachrichtigungsleiste</string>
+  <string name="prop_defaultDaysTab">Standardzeitraum für Geschichte</string>
   <string name="sett_textPos_Invisible">Unsichtbar</string>
   <string name="sett_textPos_Above">Darüber</string>
   <string name="sett_textPos_Top">Oben</string>
@@ -59,22 +60,18 @@
   <string name="sett_margin_Both">Beide</string>
   <string name="sett_tempUnits_C">Celsius</string>
   <string name="sett_tempUnits_F">Fahrenheit</string>
-  <string name="about_full">Das Dual Battery Widget wurde ursprünglich für das Asus Eee Pad Transformer entwickelt, ein Gerät mit zweitem Akku in der Docking-Station. Leider bieten die standard Android-Tools keine Möglichkeit, die Kapazität des zweiten Akkus anzuzeigen. Diese App wurde daher erstellt, um diese Lücke zu füllen.
-
-Erstellt von: Artiom Chilaru http://www.flexlabs.org
-Sie wird gratis auf Google Play und über GitHub bereit gestellt.
-
-Du kannst das Widget aus Google Play heraus von hier installieren:
-https://play.google.com/store/apps/details?id=org.flexlabs.widgets.dualbattery
-
-Das Widget ist open-source und steht unter der Apache 2.0 Lizenz
-Du bist herzlich dazu eingeladen das Projekt auf GitHub zu forken:
-https://github.com/artiomchi/Dual-Battery-Widget
-
-Wenn du mit der Übersetzung des Projekts helfen möchtest, kannst du dies hier tun:
-http://translate.dualbattery.flexlabs.org
-
-Vielen Dank an all die Menschen, die bei der Übersetzung dieses Projekts geholfen haben, darunter:</string>
+  <string name="sett_defaultDaysTab_3">3 Tage</string>
+  <string name="sett_defaultDaysTab_7">7 Tage</string>
+  <string name="sett_defaultDaysTab_30">30 Tage</string>
+  <string name="about_0_head">Das Dual Battery Widget wurde ursprünglich für das Asus Eee Pad Transformer entwickelt, ein Gerät mit zweitem Akku in der Docking-Station. Leider bieten die standard Android-Tools keine Möglichkeit, die Kapazität des zweiten Akkus anzuzeigen. Diese App wurde daher erstellt, um diese Lücke zu füllen.
+\n</string>
+  <string name="about_1_author">Erstellt von: Artiom Chilaru</string>
+  <string name="about_2_projectpage">Projektseite:</string>
+  <string name="about_3_source">\nDas Widget ist open-source und steht unter der Apache 2.0 Lizenz
+\nDu bist herzlich dazu eingeladen das Projekt auf GitHub zu forken:</string>
+  <string name="about_4_translate">\nWenn du mit der Übersetzung des Projekts helfen möchtest, kannst du dies hier tun:</string>
+  <string name="about_5_translators_thanks">\n
+\nVielen Dank an all die Menschen, die bei der Übersetzung dieses Projekts geholfen haben, darunter:</string>
   <string name="feedback_head">Danke, dass du dir die Zeit für dieses Formular nimmst. Ich schätze deine Meinung und möchte das Widget immer verbessern.
 
 Sag uns was du über das Widget denkst oder was du in den kommenden Versionen sehen möchtest und ich werde auf dich zurück kommen.     </string>

@@ -42,6 +42,7 @@
   <string name="prop_tempUnits">Unités de température</string>
   <string name="prop_showNotificationIcon">Afficher l\'icône de notification</string>
   <string name="prop_showNotificationIcon_summary">Montrer le niveau de batterie dans la zone de notification</string>
+  <string name="prop_defaultDaysTab">Période de l\'histoire par défaut</string>
   <string name="sett_textPos_Invisible">Invisible</string>
   <string name="sett_textPos_Above">Au dessus</string>
   <string name="sett_textPos_Top">Haut</string>
@@ -59,20 +60,17 @@
   <string name="sett_margin_Both">Les deux</string>
   <string name="sett_tempUnits_C">Celsius</string>
   <string name="sett_tempUnits_F">Fahrenheit</string>
-  <string name="about_full">
-Le Widget Dual Battery a été initialement créé pour l\'Asus Eee Pad Transformer, un appareil ayant une deuxième batterie dans le dock clavier. Malheureusement, les outils standard Android ne fournissent pas d\'outil pour afficher le statut d\'une deuxième batterie, donc ce widget a été créé afin de combler cette lacune.
-\n 
-\nCréé par : Artiom Chilaru http://www.flexlabs.org 
-\nIl est distribué gratuitement dans le Play store de Google et sur GitHub 
-\n 
-\nVous pouvez installer le widget depuis le Play store de Google ici : https://play.google.com/store/apps/details?id=org.flexlabs.widgets.dualbattery 
-\n 
-\nCe widget est open source et avec la licence Apache 2.0 
-\nVous pouvez contribuer à l\'élaboration du projet, par récupération du projet sur GitHub : 
-\nhttps://github.com/artiomchi/Dual-Battery-Widget 
-\n 
-\nSi vous voulez aider à traduire ce projet, vous pouvez faire ici : \nhttp://translate.dualbattery.flexlabs.org
-\n 
+  <string name="sett_defaultDaysTab_3">3 Jours</string>
+  <string name="sett_defaultDaysTab_7">7 Jours</string>
+  <string name="sett_defaultDaysTab_30">30 Jours</string>
+  <string name="about_0_head">Le Widget Dual Battery a été initialement créé pour l\'Asus Eee Pad Transformer, un appareil ayant une deuxième batterie dans le dock clavier. Malheureusement, les outils standard Android ne fournissent pas d\'outil pour afficher le statut d\'une deuxième batterie, donc ce widget a été créé afin de combler cette lacune.
+\n </string>
+  <string name="about_1_author">Créé par : Artiom Chilaru</string>
+  <string name="about_2_projectpage">Page du projet :</string>
+  <string name="about_3_source">\nCe widget est open source et avec la licence Apache 2.0 
+\nVous pouvez contribuer à l\'élaboration du projet, par récupération du projet sur GitHub :</string>
+  <string name="about_4_translate">\nSi vous voulez aider à traduire ce projet, vous pouvez faire ici :</string>
+  <string name="about_5_translators_thanks">\n 
 \nMilles merci à toutes les personnes qui ont contribué à la traduction du projet, y compris:</string>
   <string name="feedback_head">Merci d\'avoir pris le temps de remplir ce formulaire. Votre avis est important, pour améliorer ce widget.
 \n 
@@ -109,11 +107,8 @@ Le Widget Dual Battery a été initialement créé pour l\'Asus Eee Pad Transfor
 \nMerci de choisir une des options ci-dessous     </string>
   <string name="donate_play">Google Play store</string>
   <string name="donation_play_1">Standard (0,99 £)</string>
-  <string name="donation_play_1_short">0,99 £</string>
   <string name="donation_play_3">Me payer une boisson (3 £)</string>
-  <string name="donation_play_3_short">3 £</string>
   <string name="donation_play_7">Si vous aimez vraiment le chiffre 7 (7,77 £)</string>
-  <string name="donation_play_7_short">7,77 £</string>
   <string name="donate_paypal">PayPal</string>
   <string name="donation_paypal">Aller sur PayPal</string>
 </resources>
