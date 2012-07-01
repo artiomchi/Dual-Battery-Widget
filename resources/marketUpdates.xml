@@ -13,6 +13,6 @@ IMPORTANT! With this version we have switched the default order of the icons in 
 * If upgrading from older versions (pre 1.0) showing an alert when opening the widget properties, instead of changing settings
 * Improved the layouts in the app, according to lint suggestions
 * Russian translation updated
-! Fixed the feedback layour for phones
+! Fixed the feedback layout for phones
     </string>
 </resources>

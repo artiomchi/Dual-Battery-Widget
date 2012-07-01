@@ -68,26 +68,6 @@
     <string name="sett_defaultDaysTab_7">7 Days</string>
     <string name="sett_defaultDaysTab_30">30 Days</string>
 
-    <string name="about_full">
-        The Dual Battery Widget was initially created for the Asus Eee Pad Transformer,
-        a device that has a second battery in the dock station. Unfortunately, the standard Android tools
-        do not provide any way of displaying the status of a second battery, so this widget was created
-        to fill this gap.
-        \n
-        \nCreated by: Artiom Chilaru http://www.flexlabs.org
-        \nIt is distributed for free from the Google Play store and on GitHub
-        \n
-        \nYou can install the widget from the google play store here:
-        \n
-        \nThe widget is open source, and licensed with the Apache License 2.0
-        \nFeel free to contribute to the development of the project, by forking the project on GitHub:
-        \nhttps://github.com/artiomchi/Dual-Battery-Widget
-        \n
-        \nIf you want to help translating this project, you can do so here:
-        \nhttp://translate.dualbattery.flexlabs.org
-        \n
-        \nMany thanks to all the people who helped with the translation of the project, including:
-    </string>
     <string name="about_0_head">
         The Dual Battery Widget was initially created for the Asus Eee Pad Transformer,
         a device that has a second battery in the dock station. Unfortunately, the standard Android tools
