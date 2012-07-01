@@ -82,6 +82,8 @@ public class Constants {
     public static final boolean SETTING_SWAP_BATTERIES_DEFAULT = false;
     public static final String SETTING_THEME = "theme";
     public static final String SETTING_THEME_DEFAULT = "Default";
+    public static final String SETTING_JUST_SWAPPED = "justSwapped";
+    public static final boolean SETTING_JUST_SWAPPED_DEFAULT = false;
 
     public static final String SETTINGS_FILE = "appSettings";
     public static final String SETTING_NOTIFICATION_ICON = "showNotificationIcon";

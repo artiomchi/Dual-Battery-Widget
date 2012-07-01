@@ -111,4 +111,5 @@
   <string name="donation_play_7">Si vous aimez vraiment le chiffre 7 (7,77 £)</string>
   <string name="donate_paypal">PayPal</string>
   <string name="donation_paypal">Aller sur PayPal</string>
+  <string name="alert_just_swapped">IMPORTANT ! Avec cette version, nous avons changé l\'ordre par défaut des icônes dans le widget (vous pouvez le modifier dans les paramètres du widget). La batterie du Dock sera désormais sur la gauche et la batterie principale du côté droit, afin de refléter les changements dans les nouvelles mises à jour Asus !</string>
 </resources>

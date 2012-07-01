@@ -20,7 +20,7 @@
               android:layout_width="fill_parent" android:layout_height="fill_parent"
               android:orientation="vertical" android:id="@+id/body">
     <LinearLayout android:id="@+id/chart"
-                  android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1" />
+                  android:layout_width="fill_parent" android:layout_height="0dip" android:layout_weight="1" />
     <TableLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
         <TableRow>
             <TextView style="@style/table_label" android:text="@string/battery_info_status_label" />

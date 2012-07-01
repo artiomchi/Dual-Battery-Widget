@@ -71,6 +71,17 @@ public class WidgetSettingsContainer {
             .commit();
     }
 
+    public static boolean getUpgradeSwappedSingle(Context context, int widgetId) {
+        SharedPreferences pref = getPreferences(context, widgetId);
+        boolean justSwapped = pref.getBoolean(Constants.SETTING_JUST_SWAPPED, Constants.SETTING_JUST_SWAPPED_DEFAULT);
+        if (justSwapped) {
+            pref.edit()
+                .remove(Constants.SETTING_JUST_SWAPPED)
+                .commit();
+        }
+        return justSwapped;
+    }
+
     private static void updateWidgetSettings(SharedPreferences pref, int version) {
         SharedPreferences.Editor editor = pref.edit();
         if (version == 1 && pref.getAll().size() == 0)
@@ -97,12 +108,12 @@ public class WidgetSettingsContainer {
                 int margin = Integer.valueOf(pref.getString(Constants.SETTING_MARGIN, String.valueOf(Constants.SETTING_MARGIN_DEFAULT)));
                 editor.putInt(Constants.SETTING_MARGIN, margin);
             }
-            editor.putBoolean(Constants.SETTING_SHOW_LABEL, true);
+            editor.putBoolean(Constants.SETTING_JUST_SWAPPED, true);
             version = 2;
         }
 
         if (version == 2) {
-            editor.putBoolean(Constants.SETTING_SHOW_LABEL, true);
+            editor.putBoolean(Constants.SETTING_JUST_SWAPPED, true);
             version = 3;
         }
 

@@ -21,21 +21,21 @@
               android:layout_width="fill_parent" android:layout_height="fill_parent"
               android:orientation="vertical"
               android:layout_weight="1">
-    <TextView android:id="@+id/batteryLabel_top" android:text=" "
+    <TextView android:id="@+id/batteryLabel_top"
               android:layout_width="fill_parent" android:layout_height="wrap_content"
               android:gravity="center_horizontal" style="@style/batteryStatusText" />
-    <TextView android:id="@+id/batteryLabel_top_dark" android:text=" "
+    <TextView android:id="@+id/batteryLabel_top_dark"
               android:layout_width="fill_parent" android:layout_height="wrap_content"
               android:gravity="center_horizontal" style="@style/batteryStatusTextDark" />
-    <FrameLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+    <FrameLayout android:layout_width="fill_parent" android:layout_height="0dip"
                  android:layout_weight="1">
         <ImageView android:id="@+id/battery"
                    android:layout_width="fill_parent" android:layout_height="fill_parent"
-                   android:src="@drawable/batt" />
+                   android:src="@drawable/batt" android:contentDescription="@string/app_name" />
         <ImageView android:id="@+id/batteryCharging"
                    android:layout_width="fill_parent" android:layout_height="fill_parent"
                    android:visibility="gone"
-                   android:src="@drawable/charging" />
+                   android:src="@drawable/charging" android:contentDescription="@string/app_name" />
         <TextView android:id="@+id/statusWhiteTop"
                   android:gravity="top|center_horizontal" style="@style/batteryStatusText" />
         <TextView android:id="@+id/statusWhiteMiddle"

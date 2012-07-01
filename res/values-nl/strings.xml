@@ -107,4 +107,5 @@ een apparaat dat een tweede accu in het dock station heeft. Helaas hebben de sta
   <string name="donation_play_3">Koop me een drankje (£3.00)</string>
   <string name="donation_play_7">Als je echt houdt van nummer 7 (£7.77)</string>
   <string name="donation_paypal">Ga naar PayPal</string>
+  <string name="alert_just_swapped">BELANGRIJK! In deze versie hebben we de standaard volgorde van de icoontjes in de widget omgewisseld (je kan dit terug veranderen in de widget instellingen). De batterij van je dock staat nu links en de hoofdbatterij staat rechts, dit om overeen te komen met de wijzigingen in de nieuwe Asus updates!</string>
 </resources>

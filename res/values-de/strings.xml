@@ -111,4 +111,5 @@ Sag uns was du über das Widget denkst oder was du in den kommenden Versionen se
   <string name="donation_play_7">Wenn du wirklich Nummer 7 magst (£7,77)</string>
   <string name="donate_paypal">PayPal</string>
   <string name="donation_paypal">Zu PayPal gehen</string>
+  <string name="alert_just_swapped">WICHTIG! Mit dieser Version haben wir die Standardreihenfolge der Widget-Icons geändert (du kannst sie wieder in den Widget-Einstellungen wechseln). Um die neuen Asus-Updates wieder zu spiegeln, werden der Dock-Akku links und die Hauptbatterie auf der rechten Seite erscheinen!</string>
 </resources>

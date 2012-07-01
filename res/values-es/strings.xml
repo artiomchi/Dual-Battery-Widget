@@ -101,4 +101,5 @@
   <string name="donation_play_3">Cómprame un café (£3.00)</string>
   <string name="donation_play_7">Si realmente te gusta el número 7 (£7.77)</string>
   <string name="donation_paypal">Ir a PayPal</string>
+  <string name="alert_just_swapped">¡IMPORTANTE! Con esta versión hemos cambiado el orden predeterminado de los iconos del widget (puedes cambiarlos de nuevo en los ajustes del widget). ¡Ahora la batería secundaria estará a la izquierda y la principal a la derecha, para reflejar los cambios en las nuevas actualizaciones de Asus!</string>
 </resources>

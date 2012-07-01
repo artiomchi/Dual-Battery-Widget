@@ -16,6 +16,7 @@
 
 package org.flexlabs.widgets.dualbattery.widgetsettings;
 
+import android.app.AlertDialog;
 import android.appwidget.AppWidgetManager;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -87,6 +88,14 @@ public class WidgetActivity extends SherlockFragmentActivity implements AdapterV
 
             PageIndicator mIndicator = (TabPageIndicator) findViewById(R.id.indicator);
             mIndicator.setViewPager(mPager);
+        }
+
+        if (WidgetSettingsContainer.getUpgradeSwappedSingle(this, appWidgetId)) {
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.app_name)
+                    .setMessage(R.string.alert_just_swapped)
+                    .setPositiveButton("OK", null)
+                    .show();
         }
     }
 

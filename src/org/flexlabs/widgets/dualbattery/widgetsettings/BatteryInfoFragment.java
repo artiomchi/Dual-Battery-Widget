@@ -339,9 +339,9 @@ public class BatteryInfoFragment extends SherlockFragment {
         } else {
             // populate chart
             chartPopulated = true;
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
+            //new Thread(new Runnable() {
+            //    @Override
+            //    public void run() {
                     BatteryLevelAdapter adapter = new BatteryLevelAdapter(getActivity());
                     adapter.openRead();
                     Cursor c = adapter.getRecentEntries(7);
@@ -378,8 +378,8 @@ public class BatteryInfoFragment extends SherlockFragment {
                         mDockSeries.add(time, oldDockLevel);
 
                     mChartView.repaint();
-                }
-            }).start();
+            //    }
+            //}).start();
         }
     }
 }

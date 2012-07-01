@@ -10,11 +10,18 @@
   <string name="battery_main">Главная</string>
   <string name="battery_dock">Докстанция</string>
   <string name="settings">Параметры</string>
+  <string name="sendFeedback">Отправить отзыв</string>
   <string name="showBatterySummary">Показать cводку о батареи</string>
   <string name="propHeader_BatteryInfo">Информация о батареях</string>
+  <string name="propHeader_Properties">Настройки виджета</string>
+  <string name="propHeader_Feedback">Оставить отзыв</string>
+  <string name="propHeader_Donate">Пожертвовать</string>
+  <string name="propHeader_About">О виджете</string>
   <string name="propTitle_General">Общие</string>
+  <string name="propTitle_Dock">Настройки для батареи дока</string>
   <string name="prop_batterySelection">Отображение батареи</string>
   <string name="prop_alwaysShowDock">Всегда показывать батарею докстанции</string>
+  <string name="prop_alwaysShowDock_summary">Всегда показывать батарею дока</string>
   <string name="prop_showNotDockedMsg">Показывать состояние, когда не подключена</string>
   <string name="prop_showNotDockedMsg_summary">Показывать сообщение о том, что вторая батарея не подключена, когда докстанция не подключена</string>
   <string name="prop_textPosition">Положение текста</string>
@@ -27,7 +34,11 @@
   <string name="prop_showLabel_summary">Показывать метку батареи в нижней панели. \nМожет стать невидимой, если статус батареи отображается в том же месте</string>
   <string name="prop_showDockHistory">Показывать прежний уровень</string>
   <string name="prop_showDockHistory_summary">Показывать последний уровень заряда батареи докстанции, когда она была подключена</string>
+  <string name="prop_swapBatteries">Обменять батареи местами</string>
   <string name="prop_tempUnits">Температурные единицы</string>
+  <string name="prop_showNotificationIcon">Отображать значок в области уведомлений</string>
+  <string name="prop_showNotificationIcon_summary">Показывать заряд батареи дока в области уведомлений</string>
+  <string name="prop_defaultDaysTab">Период истории по умолчанию</string>
   <string name="sett_textPos_Invisible">Невидимый</string>
   <string name="sett_textPos_Above">Над</string>
   <string name="sett_textPos_Top">Над</string>
@@ -48,6 +59,20 @@
   <string name="sett_defaultDaysTab_3">3 Дня</string>
   <string name="sett_defaultDaysTab_7">7 Дней</string>
   <string name="sett_defaultDaysTab_30">30 Дней</string>
+  <string name="about_0_head">Виджет двойной батареи был изначально создан для Asus Eee Pad Transformer, устройства, имеющего вторую батарею в докстанции. К сожалению, стандартными средствами Android просмотреть состояние этой батареи невозможно, и этот виджет создан, чтобы это исправить.
+\n</string>
+  <string name="about_1_author">Автор: Artiom Chilaru</string>
+  <string name="about_2_projectpage">Страница проекта:</string>
+  <string name="about_3_source">
+\nУ виджета открытый исходный код, согласно Apache License 2.0
+\nВы можете помочь разработке, создав свою ветку проекта на GitHub:</string>
+  <string name="about_4_translate">\nЕсли вы хотите помочь с переводом виджета, это можно сделать здесь:</string>
+  <string name="about_5_translators_thanks">
+\n
+\nОгромное спасибо всем, кто помог с переводом виджета, включая:</string>
+  <string name="feedback_head">Спасибо, что уделили время заполнению этой формы. Мне важно знать ваше мнение, и я всегда работаю над тем, чтобы сделать этот виджет лучше.
+\n
+\nРасскажите, что вы думаете о виджете, или что бы вам хотелось увидеть в будущих версиях, и я свяжусь с вами     </string>
   <string name="feedback_hint">Пожалуйста, введите ваши отзывы</string>
   <string name="battery_info_status_label">Состояние батареи:</string>
   <string name="battery_info_last_charged_label">Последняя подзарядка:</string>
@@ -81,4 +106,5 @@
   <string name="donation_play_3">Купить мне выпить (£3.00)</string>
   <string name="donation_play_7">Если вам действительно нравится номер 7 (£7.77)</string>
   <string name="donation_paypal">Перейти к PayPal</string>
+  <string name="alert_just_swapped">ВАЖНО! В этой версии мы поменяли порядок значков в виджете по умолчанию (вы можете изменить его обратно в настройках). Батарея док теперь будет слева, и основной аккумулятор справа, чтобы отразить изменения в последних обновлениях от Asus!</string>
 </resources>
