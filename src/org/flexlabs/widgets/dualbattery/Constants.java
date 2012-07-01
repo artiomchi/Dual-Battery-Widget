@@ -33,7 +33,7 @@ public class Constants {
     public static final int DOCK_STATE_DISCHARGING = 4;
 
     public static final String SETTING_VERSION = "version";
-    public static final int SETTING_VERSION_CURRENT = 3;
+    public static final int SETTING_VERSION_CURRENT = 4;
     public static final String SETTING_ALWAYS_SHOW_DOCK = "alwaysShowDock";
     public static final boolean SETTING_ALWAYS_SHOW_DOCK_DEFAULT = true;
 
