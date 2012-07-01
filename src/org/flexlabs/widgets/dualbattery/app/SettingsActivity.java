@@ -16,7 +16,6 @@
 
 package org.flexlabs.widgets.dualbattery.app;
 
-import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,16 +24,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.*;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.viewpagerindicator.PageIndicator;
 import com.viewpagerindicator.TabPageIndicator;
 import org.flexlabs.widgets.dualbattery.R;
 
-public class SettingsActivity extends SherlockFragmentActivity {
+public class SettingsActivity extends SherlockFragmentActivity implements AdapterView.OnItemClickListener {
     private ListView mList;
     private int mCurrentTab = -1;
     private Fragment[] fragments;
@@ -56,15 +53,15 @@ public class SettingsActivity extends SherlockFragmentActivity {
 
         int screenLayout = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB &&
-                screenLayout > Configuration.SCREENLAYOUT_SIZE_LARGE && false) {
+                screenLayout > Configuration.SCREENLAYOUT_SIZE_LARGE) {
             setContentView(R.layout.preference_list_large);
 
-            SideTabAdapter mSideAdapter = new SideTabAdapter(this, titles);
+            ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_1, titles);
 
             mList = (ListView)findViewById(android.R.id.list);
             mList.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
-            mList.setOnItemClickListener(sideTabListener);
-            mList.setAdapter(mSideAdapter);
+            mList.setOnItemClickListener(this);
+            mList.setAdapter(adapter);
             mList.setItemChecked(0, true);
             mList.performClick();
             getSupportFragmentManager().beginTransaction().replace(R.id.prefs, fragments[0]).commit();
@@ -100,47 +97,16 @@ public class SettingsActivity extends SherlockFragmentActivity {
         }
     }
 
-    private static class SideTabAdapter extends ArrayAdapter<String> {
-        private LayoutInflater mInflater;
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+        if (mCurrentTab == position)
+            return;
 
-        public SideTabAdapter(Context context, String[] objects) {
-            super(context, 0, objects);
-            mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View view;
-            TextView textView;
-
-            if (convertView == null) {
-                view = mInflater.inflate(android.R.layout.simple_list_item_activated_1, parent, false);
-                textView = (TextView)view.findViewById(android.R.id.text1);
-                view.setTag(textView);
-            } else {
-                view = convertView;
-                textView = (TextView)view.getTag();
-            }
-
-            String title = getItem(position);
-            textView.setText(title);
-
-            return view;
-        }
+        mCurrentTab = position;
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        transaction.replace(R.id.prefs, fragments[position]);
+        transaction.commit();
+        mList.setItemChecked(position, true);
     }
-
-    private final AdapterView.OnItemClickListener sideTabListener = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-            if (mCurrentTab == position)
-                return;
-
-            mCurrentTab = position;
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-            transaction.replace(R.id.prefs, fragments[position]);
-            transaction.commit();
-            mList.setItemChecked(position, true);
-        }
-    };
 }

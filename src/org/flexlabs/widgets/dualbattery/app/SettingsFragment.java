@@ -18,9 +18,6 @@ package org.flexlabs.widgets.dualbattery.app;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import org.flexlabs.widgets.dualbattery.BatteryLevel;
 import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.R;
@@ -28,20 +25,15 @@ import org.flexlabs.widgets.dualbattery.ui.PreferenceListFragment;
 
 public class SettingsFragment extends PreferenceListFragment {
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle b) {
-        View view = super.onCreateView(inflater, container, b);
-        Log.d(Constants.LOG, "onCreateView?");
-        return view;
-    }
-
-    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.d(Constants.LOG, "onActivityCreated?");
-        getPreferenceManager().setSharedPreferencesName(Constants.SETTINGS_FILE);
-        if (BatteryLevel.getCurrent().is_dockFriendly()) {
-            addPreferencesFromResource(R.xml.settings_0_dock_notif);
+
+        if (getPreferenceScreen() == null) {
+            getPreferenceManager().setSharedPreferencesName(Constants.SETTINGS_FILE);
+            if (BatteryLevel.getCurrent().is_dockFriendly()) {
+                addPreferencesFromResource(R.xml.settings_0_dock_notif);
+            }
+            addPreferencesFromResource(R.xml.settings_1_general);
         }
-        addPreferencesFromResource(R.xml.settings_1_general);
     }
 }

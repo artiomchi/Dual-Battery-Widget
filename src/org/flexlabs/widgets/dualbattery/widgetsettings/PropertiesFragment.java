@@ -29,10 +29,12 @@ public class PropertiesFragment extends PreferenceListFragment {
         WidgetActivity activity = (WidgetActivity)getActivity();
         int appWidgetId = activity.appWidgetId;
 
-        getPreferenceManager().setSharedPreferencesName(Constants.SETTINGS_WIDGET_FILE + appWidgetId);
-        addPreferencesFromResource(R.xml.widget_properties_general);
-        if (BatteryLevel.getCurrent().is_dockFriendly()) {
-            addPreferencesFromResource(R.xml.widget_properties_dock);
+        if (getPreferenceScreen() == null) {
+            getPreferenceManager().setSharedPreferencesName(Constants.SETTINGS_WIDGET_FILE + appWidgetId);
+            addPreferencesFromResource(R.xml.widget_properties_general);
+            if (BatteryLevel.getCurrent().is_dockFriendly()) {
+                addPreferencesFromResource(R.xml.widget_properties_dock);
+            }
         }
     }
 }

@@ -104,8 +104,9 @@ public class BatteryHistoryActivity extends SherlockActivity implements ActionBa
         int newDays = (Integer)tab.getTag();
         if (newDays != days) {
             days = newDays;
-            mDockSeries.clear();
             mMainSeries.clear();
+            if (mDockSeries != null)
+                mDockSeries.clear();
             chartPopulated = false;
         }
 
