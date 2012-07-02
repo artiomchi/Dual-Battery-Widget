@@ -30,7 +30,7 @@ public class SeekBarPreference extends DialogPreference implements SeekBar.OnSee
 
     private TextView mValueText;
     private String mSummary;
-    private int mDefault, mMin = 10, mMax, mValue = 0;
+    private int mDefault, mMin = 6, mMax, mValue = 0;
 
     public SeekBarPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
