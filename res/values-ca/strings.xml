@@ -3,6 +3,7 @@
 <resources>
   <string name="app_name">Giny de bateria doble</string>
   <string name="widget_name">Giny de bateria doble</string>
+  <string name="widget_name_1x1">Giny de bateria doble 1x1</string>
   <string name="widget_name_2x2">Giny de bateria doble 2x2</string>
   <string name="widget_name_3x4">Giny de bateria doble 3x4</string>
   <string name="undocked">No acoblat</string>

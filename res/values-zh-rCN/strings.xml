@@ -3,6 +3,7 @@
 <resources>
   <string name="app_name">备用电池计量插件</string>
   <string name="widget_name">备用电池计量插件</string>
+  <string name="widget_name_1x1">备用电池计量插件 1x1</string>
   <string name="widget_name_2x2">备用电池计量插件 2x2</string>
   <string name="widget_name_3x4">备用电池计量插件 3x4</string>
   <string name="undocked">不停靠</string>

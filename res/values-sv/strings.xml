@@ -3,6 +3,7 @@
 <resources>
   <string name="app_name">Dual Batteriwidget</string>
   <string name="widget_name">Dual Batteriwidget</string>
+  <string name="widget_name_1x1">Dual Batteriwidget 1x1</string>
   <string name="widget_name_2x2">Dual Batteriwidget 2x2</string>
   <string name="widget_name_3x4">Dual Batteriwidget 3x4</string>
   <string name="undocked">Inte dockad</string>

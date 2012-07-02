@@ -3,6 +3,7 @@
 <resources>
   <string name="app_name">Doppia Batteria Widget</string>
   <string name="widget_name">Doppia Batteria Widget</string>
+  <string name="widget_name_1x1">Doppia Batteria Widget 1x1</string>
   <string name="widget_name_2x2">Doppia Batteria Widget 2x2</string>
   <string name="widget_name_3x4">Doppia Batteria Widget 3x4</string>
   <string name="undocked">Non Collegato</string>

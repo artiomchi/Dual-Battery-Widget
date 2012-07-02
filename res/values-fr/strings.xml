@@ -3,6 +3,7 @@
 <resources>
   <string name="app_name">Widget Dual Battery</string>
   <string name="widget_name">Widget Dual Battery</string>
+  <string name="widget_name_1x1">Widget Dual Battery 1x1</string>
   <string name="widget_name_2x2">Widget Dual Battery 2x2</string>
   <string name="widget_name_3x4">Widget Dual Battery 3x4</string>
   <string name="undocked">Non docké</string>

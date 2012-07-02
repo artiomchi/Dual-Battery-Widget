@@ -3,6 +3,7 @@
 <resources>
   <string name="app_name">Dubbele batterij Widget</string>
   <string name="widget_name">Dubbele batterij Widget</string>
+  <string name="widget_name_1x1">Dubbele batterij Widget 1 x 1</string>
   <string name="widget_name_2x2">Dubbele batterij Widget 2 x 2</string>
   <string name="widget_name_3x4">Dual Battery Widget 3x4</string>
   <string name="undocked">Niet gedocked</string>

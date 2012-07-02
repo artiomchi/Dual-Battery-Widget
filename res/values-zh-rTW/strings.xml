@@ -3,6 +3,7 @@
 <resources>
   <string name="app_name">雙電池小工具</string>
   <string name="widget_name">雙電池小工具</string>
+  <string name="widget_name_1x1">雙電池小工具 1x1</string>
   <string name="widget_name_2x2">雙電池小工具 2x2</string>
   <string name="widget_name_3x4">雙電池小工具 3x4</string>
   <string name="undocked">未合體</string>

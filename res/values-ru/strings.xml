@@ -3,6 +3,7 @@
 <resources>
   <string name="app_name">Виджет двойной батареи</string>
   <string name="widget_name">Виджет двойной батареи</string>
+  <string name="widget_name_1x1">Виджет двойной батареи 1x1</string>
   <string name="widget_name_2x2">Виджет двойной батареи 2х2</string>
   <string name="widget_name_3x4">Виджет двойной батареи 3х4</string>
   <string name="undocked">Не подключена</string>

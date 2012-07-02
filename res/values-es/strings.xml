@@ -3,6 +3,7 @@
 <resources>
   <string name="app_name">Dual Battery Widget</string>
   <string name="widget_name">Dual Battery Widget</string>
+  <string name="widget_name_1x1">Dual Battery Widget 1x1</string>
   <string name="widget_name_2x2">Dual Battery Widget 2x2</string>
   <string name="widget_name_3x4">Dual Battery Widget 3x4</string>
   <string name="undocked">Sin dock</string>

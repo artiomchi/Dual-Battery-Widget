@@ -9,9 +9,13 @@
     <application android:icon="@drawable/icon" android:label="@string/app_name" android:hardwareAccelerated="true"
                  android:name=".BatteryApplication">
         <!-- Widgets -->
-        <receiver android:name="org.flexlabs.widgets.dualbattery.BatteryWidget" android:label="@string/widget_name">
+        <receiver android:name="org.flexlabs.widgets.dualbattery.BatteryWidget" android:label="@string/widget_name" android:enabled="@bool/afterHoneycomb">
             <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_info" />
+        </receiver>
+        <receiver android:name="org.flexlabs.widgets.dualbattery.BatteryWidget1x1" android:label="@string/widget_name_1x1" android:enabled="@bool/beforeHoneycomb">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_info_1x1" />
         </receiver>
         <receiver android:name="org.flexlabs.widgets.dualbattery.BatteryWidget2x2" android:label="@string/widget_name_2x2" android:enabled="@bool/beforeHoneycomb">
             <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
