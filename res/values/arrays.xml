@@ -50,8 +50,8 @@
         <item>Default.90deg</item>
     </string-array>
     <string-array name="theme_labels">
-        <item>Default</item>
-        <item>Default Sideways</item>
+        <item>@string/theme_default</item>
+        <item>@string/theme_default_sideways</item>
     </string-array>
     <integer-array name="defaultDaysTab_values">
         <item>3</item>

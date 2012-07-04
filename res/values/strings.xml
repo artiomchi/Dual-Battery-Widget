@@ -140,4 +140,7 @@
     <string name="donation_paypal">Go to PayPal</string>
 
     <string name="alert_just_swapped">IMPORTANT! With this version we have switched the default order of the icons in the widget (you can change it back in the widget settings). The dock battery will now be the on the left, and the main battery on the right side, to reflect the changes in the new Asus updates!</string>
+
+    <string name="theme_default">Default</string>
+    <string name="theme_default_sideways">Default Sideways</string>
 </resources>

@@ -38,12 +38,14 @@ public class BatteryWidgetUpdater {
         AppWidgetManager manager = AppWidgetManager.getInstance(context);
         if (widgets == null) {
             int[] widgets1 = manager.getAppWidgetIds(new ComponentName(context, BatteryWidget.class));
-            int[] widgets2 = manager.getAppWidgetIds(new ComponentName(context, BatteryWidget2x2.class));
-            int[] widgets3 = manager.getAppWidgetIds(new ComponentName(context, BatteryWidget3x4.class));
+            int[] widgets2 = manager.getAppWidgetIds(new ComponentName(context, BatteryWidget1x1.class));
+            int[] widgets3 = manager.getAppWidgetIds(new ComponentName(context, BatteryWidget2x2.class));
+            int[] widgets4 = manager.getAppWidgetIds(new ComponentName(context, BatteryWidget3x4.class));
             widgets = new int[widgets1.length + widgets2.length + widgets3.length];
             System.arraycopy(widgets1, 0, widgets, 0, widgets1.length);
             System.arraycopy(widgets2, 0, widgets, widgets1.length, widgets2.length);
             System.arraycopy(widgets3, 0, widgets, widgets1.length + widgets2.length, widgets3.length);
+            System.arraycopy(widgets4, 0, widgets, widgets1.length + widgets2.length + widgets3.length, widgets4.length);
         }
 
         for (int widgetId : widgets) {
