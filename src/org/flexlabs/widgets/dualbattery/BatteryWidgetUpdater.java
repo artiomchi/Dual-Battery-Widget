@@ -165,13 +165,6 @@ public class BatteryWidgetUpdater {
                 views.setTextViewText(bTextStyleArray, null);
                 views.setViewVisibility(bTextStyleArray, View.GONE);
             }
-        if (settings.getTextPosition() > 0) {
-            int textStatus = textStyleArray[settings.getTextPosition() - 1][settings.getTextColorCode()];
-            views.setViewVisibility(textStatus, View.VISIBLE);
-            views.setFloat(textStatus, "setTextSize", settings.getTextSize());
-            views.setTextViewText(textStatus, status);
-        }
-
         if ((settings.getMargin() & Constants.MARGIN_TOP) > 0) {
             int id = textStyleArray[Constants.TEXT_POS_ABOVE - 1][settings.getTextColorCode()];
             views.setViewVisibility(id, View.VISIBLE);
@@ -183,6 +176,12 @@ public class BatteryWidgetUpdater {
             views.setViewVisibility(id, View.VISIBLE);
             views.setFloat(id, "setTextSize", settings.getTextSize());
             views.setTextViewText(id, settings.isShowLabel() ? context.getString(label) : " ");
+        }
+        if (settings.getTextPosition() > 0) {
+            int textStatus = textStyleArray[settings.getTextPosition() - 1][settings.getTextColorCode()];
+            views.setViewVisibility(textStatus, View.VISIBLE);
+            views.setFloat(textStatus, "setTextSize", settings.getTextSize());
+            views.setTextViewText(textStatus, status);
         }
 
         views.setInt(R.id.battery, "setImageLevel", (level != null ? level : 0) + (disabled ? 200 : 0));
