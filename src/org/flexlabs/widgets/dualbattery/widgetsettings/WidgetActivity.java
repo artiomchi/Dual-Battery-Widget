@@ -18,6 +18,7 @@ package org.flexlabs.widgets.dualbattery.widgetsettings;
 
 import android.app.AlertDialog;
 import android.appwidget.AppWidgetManager;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ import org.flexlabs.widgets.dualbattery.R;
 import org.flexlabs.widgets.dualbattery.app.AboutFragment;
 import org.flexlabs.widgets.dualbattery.app.DonateFragment;
 import org.flexlabs.widgets.dualbattery.app.FeedbackFragment;
+import org.flexlabs.widgets.dualbattery.service.MonitorService;
 
 public class WidgetActivity extends SherlockFragmentActivity implements AdapterView.OnItemClickListener {
     public int appWidgetId;
@@ -48,6 +50,7 @@ public class WidgetActivity extends SherlockFragmentActivity implements AdapterV
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        startService(new Intent(this, MonitorService.class));
         Bundle extras = getIntent().getExtras();
         appWidgetId = extras.getInt(
                 AppWidgetManager.EXTRA_APPWIDGET_ID,

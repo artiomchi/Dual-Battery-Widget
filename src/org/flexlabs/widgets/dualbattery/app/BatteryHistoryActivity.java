@@ -38,6 +38,7 @@ import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 import org.flexlabs.widgets.dualbattery.BatteryLevel;
 import org.flexlabs.widgets.dualbattery.R;
+import org.flexlabs.widgets.dualbattery.service.MonitorService;
 import org.flexlabs.widgets.dualbattery.storage.BatteryLevelAdapter;
 
 public class BatteryHistoryActivity extends SherlockActivity implements ActionBar.TabListener {
@@ -48,6 +49,7 @@ public class BatteryHistoryActivity extends SherlockActivity implements ActionBa
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        startService(new Intent(this, MonitorService.class));
 
         setContentView(R.layout.battery_history);
         if (mChartContainer != null)
