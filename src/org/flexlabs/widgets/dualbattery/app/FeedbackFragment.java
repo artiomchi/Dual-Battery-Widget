@@ -44,6 +44,7 @@ import java.util.regex.Pattern;
 
 public class FeedbackFragment extends SherlockFragment {
     private EditText feedbackEditor;
+    private boolean resetFeedback = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,7 +59,9 @@ public class FeedbackFragment extends SherlockFragment {
     private final View.OnClickListener feedbackListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if (feedbackEditor.getText() == null || feedbackEditor.getText().length() == 0) {
+            CharSequence feedbackText = feedbackEditor.getText();
+
+            if (!isFeedbackValid(feedbackText)) {
                 new AlertDialog.Builder(getActivity())
                         .setTitle(R.string.app_name)
                         .setMessage(R.string.feedback_hint)
@@ -66,10 +69,37 @@ public class FeedbackFragment extends SherlockFragment {
                         .show();
                 return;
             }
-            sendFeedback(getActivity(), feedbackEditor.getText());
-            feedbackEditor.setText(null);
+            sendFeedback(getActivity(), feedbackText);
+            resetFeedback = true;
         }
     };
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (resetFeedback)
+            feedbackEditor.setText(null);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        resetFeedback = false;
+    }
+
+    private static boolean isFeedbackValid(CharSequence source) {
+        if (source == null || source.length() < 15)
+            return false;
+
+        int spaces = 0;
+        for(int i = 0; i < source.length(); i++) {
+            if(source.charAt(i) == ' ')
+                spaces++;
+            if (spaces > 3)
+                return true;
+        }
+        return false;
+    }
 
     public static void sendFeedback(Context context, CharSequence feedback) {
         Intent intent = new Intent(Intent.ACTION_SEND, Uri.parse("mailto:"));
