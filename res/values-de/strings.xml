@@ -13,7 +13,7 @@
   <string name="settings">Einstellungen</string>
   <string name="theme">Ausrichtung</string>
   <string name="sendFeedback">Feedback einsenden</string>
-  <string name="showBatterySummary">Zeige Akkustatus</string>
+  <string name="showBatterySummary">Zeige Batteriestatus</string>
   <string name="propHeader_BatteryInfo">Batteriestand</string>
   <string name="propHeader_Properties">Widget-Einstellungen</string>
   <string name="propHeader_Feedback">Feedback</string>
@@ -51,8 +51,8 @@
   <string name="sett_textPos_Bottom">Unten</string>
   <string name="sett_textPos_Below">Unter den Icons</string>
   <string name="sett_battSel_Both">Beide</string>
-  <string name="sett_battSel_Main">Nur den internen Akku</string>
-  <string name="sett_battSel_Dock">Nur den Dock-Akku</string>
+  <string name="sett_battSel_Main">Nur interne Batterie</string>
+  <string name="sett_battSel_Dock">Nur Dock-Batterie</string>
   <string name="sett_textColor_White">Weiß</string>
   <string name="sett_textColor_Black">Schwarz</string>
   <string name="sett_margin_None">Kein</string>
@@ -64,7 +64,7 @@
   <string name="sett_defaultDaysTab_3">3 Tage</string>
   <string name="sett_defaultDaysTab_7">7 Tage</string>
   <string name="sett_defaultDaysTab_30">30 Tage</string>
-  <string name="about_0_head">Das Dual Battery Widget wurde ursprünglich für das Asus Eee Pad Transformer entwickelt, ein Gerät mit zweitem Akku in der Docking-Station. Leider bieten die standard Android-Tools keine Möglichkeit, die Kapazität des zweiten Akkus anzuzeigen. Diese App wurde daher erstellt, um diese Lücke zu füllen.
+  <string name="about_0_head">Das Dual Battery Widget wurde ursprünglich für das Asus Eee Pad Transformer entwickelt, ein Gerät mit zweiter Batterie in der Docking-Station. Leider bieten die standard Android-Tools keine Möglichkeit, die Kapazität der zweiten Batterie anzuzeigen. Diese App wurde daher erstellt, um diese Lücke zu füllen.
 \n</string>
   <string name="about_1_author">Erstellt von: Artiom Chilaru</string>
   <string name="about_2_projectpage">Projektseite:</string>
@@ -112,7 +112,7 @@ Sag uns was du über das Widget denkst oder was du in den kommenden Versionen se
   <string name="donation_play_7">Wenn du wirklich Nummer 7 magst (£7,77)</string>
   <string name="donate_paypal">PayPal</string>
   <string name="donation_paypal">Zu PayPal gehen</string>
-  <string name="alert_just_swapped">WICHTIG! Mit dieser Version haben wir die Standardreihenfolge der Widget-Icons geändert (du kannst sie wieder in den Widget-Einstellungen wechseln). Um die neuen Asus-Updates wieder zu spiegeln, werden der Dock-Akku links und die Hauptbatterie auf der rechten Seite erscheinen!</string>
+  <string name="alert_just_swapped">WICHTIG! Mit dieser Version haben wir die Standardreihenfolge der Widget-Icons geändert (du kannst sie wieder in den Widget-Einstellungen wechseln). Um die neuen Asus-Updates wieder zu spiegeln, werden die Dock-Batterie links und die Hauptbatterie auf der rechten Seite erscheinen!</string>
 
   <string name="theme_default">Standard</string>
   <string name="theme_default_sideways">Gekippt</string>
