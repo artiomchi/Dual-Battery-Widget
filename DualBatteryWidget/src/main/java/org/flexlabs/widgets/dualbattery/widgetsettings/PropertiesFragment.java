@@ -20,9 +20,9 @@ import android.os.Bundle;
 import org.flexlabs.widgets.dualbattery.BatteryLevel;
 import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.R;
-import org.flexlabs.widgets.dualbattery.ui.PreferenceListFragment;
+import org.flexlabs.androidextensions.sherlock.preference.SherlockPreferenceListFragment;
 
-public class PropertiesFragment extends PreferenceListFragment {
+public class PropertiesFragment extends SherlockPreferenceListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

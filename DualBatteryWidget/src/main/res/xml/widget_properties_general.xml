@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-                  xmlns:flexlabs="http://schemas.android.com/apk/lib/org.flexlabs.widgets.dualbattery">
+                  xmlns:flexlabs="http://schemas.android.com/apk/lib/org.flexlabs.androidextensions">
     <PreferenceCategory android:title="@string/propTitle_General">
         <ListPreference
                 android:key="theme"
                 android:title="@string/theme" android:summary="@string/prop_valuePlaceholder"
                 android:entries="@array/theme_labels" android:entryValues="@array/theme_values"
                 android:defaultValue="Default"/>
-        <org.flexlabs.widgets.dualbattery.ui.SeekBarPreference
+        <org.flexlabs.androidextensions.preference.SeekBarPreference
                 android:key="textSize"
-                android:title="@string/prop_textSize" flexlabs:summary="@string/prop_valuePlaceholder"
-                android:defaultValue="14" android:max="100" />
-        <org.flexlabs.widgets.dualbattery.ui.IntegerListPreference
+                android:title="@string/prop_textSize" android:summary="@string/prop_valuePlaceholder"
+                android:defaultValue="14" flexlabs:min="6" android:max="100" />
+        <org.flexlabs.androidextensions.preference.IntegerListPreference
                 android:key="textColor"
-                android:title="@string/prop_textColor" flexlabs:summary="@string/prop_valuePlaceholder"
-                flexlabs:entries="@array/textColor_labels" flexlabs:entryValues="@array/textColor_values"
+                android:title="@string/prop_textColor" android:summary="@string/prop_valuePlaceholder"
+                android:entries="@array/textColor_labels" android:entryValues="@array/textColor_values"
                 android:defaultValue="0" />
-        <org.flexlabs.widgets.dualbattery.ui.IntegerListPreference
+        <org.flexlabs.androidextensions.preference.IntegerListPreference
                 android:key="textPosition"
-                android:title="@string/prop_textPosition" flexlabs:summary="@string/prop_textPosition_summary"
-                flexlabs:entries="@array/textPosition_labels" flexlabs:entryValues="@array/textPosition_values"
+                android:title="@string/prop_textPosition" android:summary="@string/prop_textPosition_summary"
+                android:entries="@array/textPosition_labels" android:entryValues="@array/textPosition_values"
                 android:defaultValue="2" />
-        <org.flexlabs.widgets.dualbattery.ui.IntegerListPreference
+        <org.flexlabs.androidextensions.preference.IntegerListPreference
                 android:key="marginLocation"
-                android:title="@string/prop_margin" flexlabs:summary="@string/prop_margin_summary"
-                flexlabs:entries="@array/margin_labels" flexlabs:entryValues="@array/margin_values"
+                android:title="@string/prop_margin" android:summary="@string/prop_margin_summary"
+                android:entries="@array/margin_labels" android:entryValues="@array/margin_values"
                 android:defaultValue="0" />
     </PreferenceCategory>
 </PreferenceScreen>

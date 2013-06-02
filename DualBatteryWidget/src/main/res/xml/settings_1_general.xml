@@ -16,11 +16,10 @@
   ~ limitations under the License.
   -->
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-                  xmlns:flexlabs="http://schemas.android.com/apk/lib/org.flexlabs.widgets.dualbattery">
-    <org.flexlabs.widgets.dualbattery.ui.IntegerListPreference
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <org.flexlabs.androidextensions.preference.IntegerListPreference
             android:key="defaultDaysTab"
-            android:title="@string/prop_defaultDaysTab" flexlabs:summary="@string/prop_valuePlaceholder"
-            flexlabs:entries="@array/defaultDaysTab_labels" flexlabs:entryValues="@array/defaultDaysTab_values"
+            android:title="@string/prop_defaultDaysTab" android:summary="@string/prop_valuePlaceholder"
+            android:entries="@array/defaultDaysTab_labels" android:entryValues="@array/defaultDaysTab_values"
             android:defaultValue="3" />
 </PreferenceScreen>
