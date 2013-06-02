@@ -3,7 +3,7 @@ Android Dual Battery Widget
 It'll show two batteries, for the standard and the dock battery. If the device doesn't have the secondary battery 
 (if it's not the Asus Eee Pad Transformer) it will hide the second battery 
 
-The widget doesn't run a service or anything else.. It will only register a broadcast receiver for the battery status 
+The widget creates a lightweight service which will only register a broadcast receiver for the battery status 
 as long as you have a widget on your screen. If you don't have one, it won't be doing anything at all (hence very battery friendly)
 
 You can install it from the android play store here: https://play.google.com/store/apps/details?id=org.flexlabs.widgets.dualbattery
@@ -19,6 +19,6 @@ Recent changes can be found in [CHANGELOG.md](https://github.com/artiomchi/Dual-
 Libraries used:
 
  * [AChartEngine](https://code.google.com/p/achartengine/)
- * JakeWharton/ActionBarSherlock
- * robotmedia/AndroidBillingLibrary
- * JakeWharton/Android-ViewPagerIndicator
+ * [JakeWharton/ActionBarSherlock](https://github.com/JakeWharton/ActionBarSherlock)
+ * [robotmedia/AndroidBillingLibrary](https://github.com/robotmedia/AndroidBillingLibrary)
+ * [JakeWharton/Android-ViewPagerIndicator](https://github.com/JakeWharton/Android-ViewPagerIndicator)
