@@ -14,8 +14,11 @@ or restart the launcher app (Settings -> Applications -> Manage applications -> 
 
 Recent changes can be found in [CHANGELOG.md](https://github.com/artiomchi/Dual-Battery-Widget/blob/master/CHANGELOG.md "Dual Battery Widget changelog")
 
-**Note:** To compile these sources you will have to pull down the linked submodules of this git repository.
-To do this run these git commands after you clone:
+**Note:** To compile these sources you will have to pull down the relevant libraries as well. Some of these may be pulled from Maven
 
-    $ git submodule init
-    $ git submodule update
+Libraries used:
+
+ * [AChartEngine](https://code.google.com/p/achartengine/)
+ * JakeWharton/ActionBarSherlock
+ * robotmedia/AndroidBillingLibrary
+ * JakeWharton/Android-ViewPagerIndicator
