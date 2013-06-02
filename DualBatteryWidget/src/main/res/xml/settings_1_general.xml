@@ -17,7 +17,7 @@
   -->
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-                  xmlns:flexlabs="http://schemas.android.com/apk/res/org.flexlabs.widgets.dualbattery">
+                  xmlns:flexlabs="http://schemas.android.com/apk/lib/org.flexlabs.widgets.dualbattery">
     <org.flexlabs.widgets.dualbattery.ui.IntegerListPreference
             android:key="defaultDaysTab"
             android:title="@string/prop_defaultDaysTab" flexlabs:summary="@string/prop_valuePlaceholder"

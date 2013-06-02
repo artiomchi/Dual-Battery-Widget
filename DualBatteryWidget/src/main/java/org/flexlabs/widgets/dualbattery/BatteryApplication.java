@@ -63,6 +63,7 @@ public class BatteryApplication extends Application {
             @Override public void onPurchaseStateChanged(String itemId, Transaction.PurchaseState state) { }
             @Override public void onRequestPurchaseResponse(String itemId, BillingRequest.ResponseCode response) { }
             @Override public void onTransactionsRestored() { }
+			@Override public void onSubscriptionChecked(boolean supported) { }
         });
         BillingController.checkBillingSupported(this);
     }

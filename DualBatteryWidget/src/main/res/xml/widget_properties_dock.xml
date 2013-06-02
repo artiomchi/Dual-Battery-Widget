@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-                  xmlns:flexlabs="http://schemas.android.com/apk/res/org.flexlabs.widgets.dualbattery">
+                  xmlns:flexlabs="http://schemas.android.com/apk/lib/org.flexlabs.widgets.dualbattery">
     <PreferenceCategory android:title="@string/propTitle_Dock">
         <CheckBoxPreference
                 android:key="showBatteryLabel"

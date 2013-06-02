@@ -47,4 +47,7 @@ public class BillingObserver extends AbstractBillingObserver {
             Toast.makeText(activity, "Thanks a lot for supporting me!", Toast.LENGTH_LONG).show();
         }
     }
+	
+	@Override 
+	public void onSubscriptionChecked(boolean supported) { }
 }

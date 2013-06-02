@@ -1,0 +1,36 @@
+apply plugin: 'android'
+
+dependencies {
+    compile project(':AChartEngine')
+    compile('com.android.support:support-v4:13.0.0')
+    compile('com.actionbarsherlock:actionbarsherlock-local:4.3.1')
+    compile('net.robotmedia:billing-local:1.0')
+    compile('com.viewpagerindicator:viewpagerindicator-local:2.4.1')
+}
+
+android {
+    compileSdkVersion 17
+    buildToolsVersion '17.0.0'
+
+    defaultConfig {
+        versionCode 30
+        versionName '1.1.8'
+    }
+    signingConfigs {
+        release
+    }
+    buildTypes {
+        debug {
+            packageNameSuffix = '.debug'
+        }
+    }
+}
+if (project.hasProperty('signingStoreLocation')) {
+    android.signingConfigs.release {
+        storeFile file(signingStoreLocation)
+        storePassword signingStorePassword
+        keyAlias signingKeyAlias
+        keyPassword signingKeyPassword
+    }
+    android.buildTypes.release.signingConfig = android.signingConfigs.release
+}

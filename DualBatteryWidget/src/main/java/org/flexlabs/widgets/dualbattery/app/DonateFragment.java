@@ -81,7 +81,7 @@ public class DonateFragment extends SherlockFragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            BillingController.requestPurchase(getActivity(), playItem, true);
+            BillingController.requestPurchase(getActivity(), playItem, true, null);
         }
     };
 
