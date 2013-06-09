@@ -31,16 +31,23 @@ import android.view.View;
 import android.widget.*;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
+import com.googlecode.androidannotations.annotations.EActivity;
+import com.googlecode.androidannotations.annotations.Extra;
 import com.viewpagerindicator.PageIndicator;
 import com.viewpagerindicator.TabPageIndicator;
 import org.flexlabs.widgets.dualbattery.BatteryWidgetUpdater;
 import org.flexlabs.widgets.dualbattery.R;
 import org.flexlabs.widgets.dualbattery.app.AboutFragment;
+import org.flexlabs.widgets.dualbattery.app.AboutFragment_;
 import org.flexlabs.widgets.dualbattery.app.DonateFragment;
+import org.flexlabs.widgets.dualbattery.app.DonateFragment_;
 import org.flexlabs.widgets.dualbattery.app.FeedbackFragment;
+import org.flexlabs.widgets.dualbattery.app.FeedbackFragment_;
 import org.flexlabs.widgets.dualbattery.service.MonitorService;
 
+@EActivity
 public class WidgetActivity extends SherlockFragmentActivity implements AdapterView.OnItemClickListener {
+    @Extra(AppWidgetManager.EXTRA_APPWIDGET_ID)
     public int appWidgetId;
 
     private ListView mList;
@@ -51,17 +58,13 @@ public class WidgetActivity extends SherlockFragmentActivity implements AdapterV
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         startService(new Intent(this, MonitorService.class));
-        Bundle extras = getIntent().getExtras();
-        appWidgetId = extras.getInt(
-                AppWidgetManager.EXTRA_APPWIDGET_ID,
-                AppWidgetManager.INVALID_APPWIDGET_ID);
 
         fragments = new Fragment[5];
-        fragments[0] = new BatteryInfoFragment();
-        fragments[1] = new PropertiesFragment();
-        fragments[2] = new FeedbackFragment();
-        fragments[3] = new DonateFragment();
-        fragments[4] = new AboutFragment();
+        fragments[0] = new BatteryInfoFragment_();
+        fragments[1] = new PropertiesFragment_();
+        fragments[2] = new FeedbackFragment_();
+        fragments[3] = new DonateFragment_();
+        fragments[4] = new AboutFragment_();
         titles = new String[5];
         titles[0] = getString(R.string.propHeader_BatteryInfo);
         titles[1] = getString(R.string.propHeader_Properties);

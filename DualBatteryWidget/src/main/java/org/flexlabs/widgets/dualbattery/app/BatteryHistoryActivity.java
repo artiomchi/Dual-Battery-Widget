@@ -30,6 +30,11 @@ import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.googlecode.androidannotations.annotations.AfterViews;
+import com.googlecode.androidannotations.annotations.EActivity;
+import com.googlecode.androidannotations.annotations.OptionsItem;
+import com.googlecode.androidannotations.annotations.OptionsMenu;
+
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.model.XYMultipleSeriesDataset;
@@ -41,17 +46,18 @@ import org.flexlabs.widgets.dualbattery.R;
 import org.flexlabs.widgets.dualbattery.service.MonitorService;
 import org.flexlabs.widgets.dualbattery.storage.BatteryLevelAdapter;
 
+@EActivity(R.layout.battery_history)
+@OptionsMenu(R.menu.main)
 public class BatteryHistoryActivity extends SherlockActivity implements ActionBar.TabListener {
     private XYSeries mMainSeries, mDockSeries;
     private GraphicalView mChartView;
     private LinearLayout mChartContainer;
     private int days = 3, defaultDays;
 
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    @AfterViews
+    public void onCreate_chart() {
         startService(new Intent(this, MonitorService.class));
 
-        setContentView(R.layout.battery_history);
         if (mChartContainer != null)
             mChartContainer.removeAllViews();
         mChartContainer = (LinearLayout)findViewById(R.id.chart);
@@ -82,19 +88,9 @@ public class BatteryHistoryActivity extends SherlockActivity implements ActionBa
         buildChart();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getSupportMenuInflater().inflate(R.menu.main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onMenuItemSelected(int featureId, MenuItem item) {
-        if (item.getItemId() == R.id.settings) {
-            startActivity(new Intent(this, SettingsActivity.class));
-            return true;
-        }
-        return super.onMenuItemSelected(featureId, item);
+    @OptionsItem(R.id.settings)
+    public void settingsClicked() {
+        SettingsActivity_.intent(this).start();
     }
 
     @Override

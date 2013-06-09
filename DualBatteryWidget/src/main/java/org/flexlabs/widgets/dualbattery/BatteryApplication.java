@@ -19,11 +19,15 @@ package org.flexlabs.widgets.dualbattery;
 import android.app.Application;
 import android.app.PendingIntent;
 import android.content.pm.PackageManager;
+
+import com.googlecode.androidannotations.annotations.EApplication;
+
 import net.robotmedia.billing.BillingController;
 import net.robotmedia.billing.BillingRequest;
 import net.robotmedia.billing.IBillingObserver;
 import net.robotmedia.billing.model.Transaction;
 
+@EApplication
 public class BatteryApplication extends Application {
     private static BatteryApplication _instance;
     public static BatteryApplication getInstance() { return _instance; }

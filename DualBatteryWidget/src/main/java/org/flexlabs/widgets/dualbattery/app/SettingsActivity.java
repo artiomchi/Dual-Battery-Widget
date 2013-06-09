@@ -27,10 +27,12 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.*;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.googlecode.androidannotations.annotations.EActivity;
 import com.viewpagerindicator.PageIndicator;
 import com.viewpagerindicator.TabPageIndicator;
 import org.flexlabs.widgets.dualbattery.R;
 
+@EActivity
 public class SettingsActivity extends SherlockFragmentActivity implements AdapterView.OnItemClickListener {
     private ListView mList;
     private int mCurrentTab = -1;
@@ -41,10 +43,10 @@ public class SettingsActivity extends SherlockFragmentActivity implements Adapte
         super.onCreate(savedInstanceState);
 
         fragments = new Fragment[4];
-        fragments[0] = new SettingsFragment();
-        fragments[1] = new FeedbackFragment();
-        fragments[2] = new DonateFragment();
-        fragments[3] = new AboutFragment();
+        fragments[0] = new SettingsFragment_();
+        fragments[1] = new FeedbackFragment_();
+        fragments[2] = new DonateFragment_();
+        fragments[3] = new AboutFragment_();
         titles = new String[4];
         titles[0] = getString(R.string.settings);
         titles[1] = getString(R.string.propHeader_Feedback);

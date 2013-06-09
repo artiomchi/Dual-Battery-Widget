@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Artiom Chilaru (http://flexlabs.org)
+ * Copyright 2013 Artiom Chilaru (http://flexlabs.org)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@
 package org.flexlabs.widgets.dualbattery.app;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -27,11 +26,13 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import com.actionbarsherlock.app.SherlockFragment;
+import com.googlecode.androidannotations.annotations.AfterViews;
+import com.googlecode.androidannotations.annotations.Click;
+import com.googlecode.androidannotations.annotations.EFragment;
+import com.googlecode.androidannotations.annotations.ViewById;
+
 import org.flexlabs.widgets.dualbattery.BatteryLevel;
 import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.R;
@@ -42,37 +43,31 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@EFragment(R.layout.feedback_form)
 public class FeedbackFragment extends SherlockFragment {
-    private EditText feedbackEditor;
+    @ViewById(R.id.feedbackEditor) EditText feedbackEditor;
     private boolean resetFeedback = false;
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.feedback_form, null);
-        feedbackEditor = (EditText)view.findViewById(R.id.feedbackEditor);
+    @AfterViews
+    public void feedbackFocus() {
         feedbackEditor.requestFocus();
-
-        view.findViewById(R.id.sendFeedback).setOnClickListener(feedbackListener);
-        return view;
     }
 
-    private final View.OnClickListener feedbackListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            CharSequence feedbackText = feedbackEditor.getText();
+    @Click(R.id.sendFeedback)
+    public void sendFeedbackClick() {
+        CharSequence feedbackText = feedbackEditor.getText();
 
-            if (!isFeedbackValid(feedbackText)) {
-                new AlertDialog.Builder(getActivity())
-                        .setTitle(R.string.app_name)
-                        .setMessage(R.string.feedback_hint)
-                        .setPositiveButton("OK", null)
-                        .show();
-                return;
-            }
-            sendFeedback(getActivity(), feedbackText);
-            resetFeedback = true;
+        if (!isFeedbackValid(feedbackText)) {
+            new AlertDialog.Builder(getActivity())
+                    .setTitle(R.string.app_name)
+                    .setMessage(R.string.feedback_hint)
+                    .setPositiveButton("OK", null)
+                    .show();
+            return;
         }
-    };
+        sendFeedback(getActivity(), feedbackText);
+        resetFeedback = true;
+    }
 
     @Override
     public void onStop() {

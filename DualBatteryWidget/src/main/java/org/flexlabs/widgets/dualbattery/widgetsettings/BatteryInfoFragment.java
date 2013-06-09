@@ -25,6 +25,7 @@ import android.graphics.Color;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +37,8 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.googlecode.androidannotations.annotations.EFragment;
+
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.model.XYMultipleSeriesDataset;
@@ -47,6 +50,7 @@ import org.flexlabs.widgets.dualbattery.storage.BatteryLevelAdapter;
 
 import java.text.DateFormat;
 
+@EFragment
 public class BatteryInfoFragment extends SherlockFragment {
     private IntentFilter mIntentFilter;
 

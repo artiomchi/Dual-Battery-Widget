@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Artiom Chilaru (http://flexlabs.org)
+ * Copyright 2013 Artiom Chilaru (http://flexlabs.org)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.actionbarsherlock.app.SherlockFragment;
+import com.googlecode.androidannotations.annotations.AfterViews;
+import com.googlecode.androidannotations.annotations.Click;
+import com.googlecode.androidannotations.annotations.EFragment;
+import com.googlecode.androidannotations.annotations.ViewById;
+
 import net.robotmedia.billing.BillingController;
 import net.robotmedia.billing.helper.AbstractBillingObserver;
 import org.flexlabs.widgets.dualbattery.BillingObserver;
@@ -31,27 +36,28 @@ import org.flexlabs.widgets.dualbattery.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+@EFragment(R.layout.donate_summary)
 public class DonateFragment extends SherlockFragment {
     private AbstractBillingObserver mBillingObserver;
 
+    @ViewById(R.id.donate_play) View donate_play;
+    @ViewById(R.id.donate_play_options) View donate_play_options;
+
+    @AfterViews
+    public void init() {
+        if (!Constants.HAS_GPLAY_BILLING) {
+            donate_play.setVisibility(View.GONE);
+            donate_play_options.setVisibility(View.GONE);
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.donate_summary, null);
-        if (!Constants.HAS_GPLAY_BILLING) {
-            view.findViewById(R.id.donate_play).setVisibility(View.GONE);
-            view.findViewById(R.id.donate_play_options).setVisibility(View.GONE);
-        }
-
-        view.findViewById(R.id.donate_play_1).setOnClickListener(playDonateListener);
-        view.findViewById(R.id.donate_play_3).setOnClickListener(playDonateListener);
-        view.findViewById(R.id.donate_play_7).setOnClickListener(playDonateListener);
-        view.findViewById(R.id.donate_paypal).setOnClickListener(payPalDonateListener);
-
         if (mBillingObserver == null) {
             mBillingObserver = new BillingObserver(getActivity());
             BillingController.registerObserver(mBillingObserver);
         }
-        return view;
+        return null;
     }
 
     @Override
@@ -63,32 +69,33 @@ public class DonateFragment extends SherlockFragment {
         }
     }
 
-    private final View.OnClickListener playDonateListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            String playItem = "donation.amount.0.99";
-            switch (view.getId()) {
-                case R.id.donate_play_3:
-                    playItem = "donation.amount.3.00";
-                    break;
-                case R.id.donate_play_7 :
-                    playItem = "donation.amount.7.77";
-                    break;
-            }
-            JSONObject properties = new JSONObject();
-            try {
-                properties.put("item", playItem);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            BillingController.requestPurchase(getActivity(), playItem, true, null);
-        }
-    };
+    @Click(R.id.donate_play_1)
+    public void donatePlay1Click(View button) {
+        donatePlay("donation.amount.0.99");
+    }
 
-    private final View.OnClickListener payPalDonateListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            getActivity().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.URI_PAYPAL)));
+    @Click(R.id.donate_play_3)
+    public void donatePlay2Click(View button) {
+        donatePlay("donation.amount.3.00");
+    }
+
+    @Click(R.id.donate_play_7)
+    public void donatePlay3Click(View button) {
+        donatePlay("donation.amount.7.77");
+    }
+
+    private void donatePlay(String playItem) {
+        JSONObject properties = new JSONObject();
+        try {
+            properties.put("item", playItem);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-    };
+        BillingController.requestPurchase(getActivity(), playItem, true, null);
+    }
+
+    @Click(R.id.donate_paypal)
+    public void donatePayPalClick() {
+        getActivity().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.URI_PAYPAL)));
+    }
 }

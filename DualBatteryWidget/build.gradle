@@ -2,6 +2,8 @@ apply plugin: 'android'
 
 dependencies {
     compile project(':AChartEngine')
+    compile('com.googlecode.androidannotations:androidannotations:2.7')
+    compile('com.googlecode.androidannotations:androidannotations-api:2.7')
     compile('com.android.support:support-v4:13.0.0')
     compile('com.actionbarsherlock:actionbarsherlock-local:4.3.1')
     compile('com.viewpagerindicator:viewpagerindicator-local:2.4.1')
@@ -9,6 +11,8 @@ dependencies {
     compile('org.flexlabs:androidextensions:0.3.1')
     compile('org.flexlabs:androidextensions-sherlock:0.3')
 }
+
+def annotationDirs = file('src/main/java-agen')
 
 android {
     compileSdkVersion 17
@@ -35,4 +39,24 @@ if (project.hasProperty('signingStoreLocation')) {
         keyPassword signingKeyPassword
     }
     android.buildTypes.release.signingConfig = android.signingConfigs.release
+}
+
+task annotationsDir {
+    outputs.dir annotationDirs
+
+    doFirst {
+        if (!annotationDirs.isDirectory()) {
+            println 'Creating: ' + annotationDirs
+            annotationDirs.mkdirs()
+        }
+    }
+}
+
+tasks.clean.dependsOn tasks.cleanAnnotationsDir
+
+android.applicationVariants.each { variant ->
+    variant.javaCompile.dependsOn annotationsDir
+    variant.javaCompile.options.compilerArgs += [
+            '-s',annotationDirs
+    ]
 }

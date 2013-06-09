@@ -5,7 +5,7 @@
     <uses-sdk android:targetSdkVersion="17" android:minSdkVersion="7" />
     <uses-permission android:name="com.android.vending.BILLING" />
     <application android:icon="@drawable/icon" android:label="@string/app_name" android:hardwareAccelerated="true"
-                 android:name=".BatteryApplication">
+                 android:name=".BatteryApplication_">
         <!-- Widgets -->
         <receiver android:name="org.flexlabs.widgets.dualbattery.BatteryWidget" android:label="@string/widget_name" android:enabled="@bool/afterHoneycomb">
             <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
@@ -24,18 +24,18 @@
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_info_3x4" />
         </receiver>
         <!-- Widget widgetsettings activity -->
-        <activity android:name=".widgetsettings.WidgetActivity" android:excludeFromRecents="true"
+        <activity android:name=".widgetsettings.WidgetActivity_" android:excludeFromRecents="true"
                   android:label="Widget Properties" android:theme="@style/Theme.FlexLabs">
             <intent-filter><action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" /></intent-filter>
         </activity>
         <!-- Welcome Activity -->
-        <activity android:name=".app.BatteryHistoryActivity" android:theme="@style/Theme.FlexLabs">
+        <activity android:name=".app.BatteryHistoryActivity_" android:theme="@style/Theme.FlexLabs">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".app.SettingsActivity" android:theme="@style/Theme.FlexLabs" />
+        <activity android:name=".app.SettingsActivity_" android:theme="@style/Theme.FlexLabs" />
         <!-- Battery monitor service -->
         <service android:name=".service.MonitorService" android:label="Battery Monitor Service" />
         <receiver android:name=".service.BootUpReceiver" android:label="Monitor Service Auto Starter">

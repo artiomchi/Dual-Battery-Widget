@@ -25,6 +25,7 @@ import android.os.BatteryManager;
 import android.view.View;
 import android.widget.RemoteViews;
 import org.flexlabs.widgets.dualbattery.widgetsettings.WidgetActivity;
+import org.flexlabs.widgets.dualbattery.widgetsettings.WidgetActivity_;
 import org.flexlabs.widgets.dualbattery.widgetsettings.WidgetSettingsContainer;
 
 public class BatteryWidgetUpdater {
@@ -149,9 +150,10 @@ public class BatteryWidgetUpdater {
 
         }
 
-        Intent intent = new Intent(context, WidgetActivity.class);
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        Intent intent = WidgetActivity_.intent(context)
+                .appWidgetId(widgetId)
+                .flags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK)
+                .get();
         PendingIntent pendingIntent = PendingIntent.getActivity(context, widgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setOnClickPendingIntent(R.id.widget, pendingIntent);
 

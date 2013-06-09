@@ -17,11 +17,15 @@
 package org.flexlabs.widgets.dualbattery.widgetsettings;
 
 import android.os.Bundle;
+
+import com.googlecode.androidannotations.annotations.EFragment;
+
 import org.flexlabs.widgets.dualbattery.BatteryLevel;
 import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.R;
 import org.flexlabs.androidextensions.sherlock.preference.SherlockPreferenceListFragment;
 
+@EFragment
 public class PropertiesFragment extends SherlockPreferenceListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
