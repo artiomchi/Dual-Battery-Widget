@@ -1,0 +1,18 @@
+apply plugin: 'java'
+
+dependencies {
+    compile('de.greenrobot:greendao-generator:1.3.0')
+}
+
+task daoGen {
+    inputs.files jar.archivePath
+    outputs.file file('dummy.txt')
+    dependsOn build
+    
+    doFirst {
+        javaexec {
+            classpath = sourceSets.main.runtimeClasspath
+            main = 'org.flexlabs.widgets.dualbattery.generator.Main'
+        }
+    }
+}

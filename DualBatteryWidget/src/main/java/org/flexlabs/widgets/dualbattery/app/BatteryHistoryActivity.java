@@ -17,10 +17,8 @@
 package org.flexlabs.widgets.dualbattery.app;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,12 +26,11 @@ import android.widget.LinearLayout;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-import com.googlecode.androidannotations.annotations.AfterViews;
-import com.googlecode.androidannotations.annotations.EActivity;
-import com.googlecode.androidannotations.annotations.OptionsItem;
-import com.googlecode.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.OptionsItem;
+import org.androidannotations.annotations.OptionsMenu;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
@@ -42,9 +39,17 @@ import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 import org.flexlabs.widgets.dualbattery.BatteryLevel;
+import org.flexlabs.widgets.dualbattery.DateUtils;
 import org.flexlabs.widgets.dualbattery.R;
 import org.flexlabs.widgets.dualbattery.service.MonitorService;
-import org.flexlabs.widgets.dualbattery.storage.BatteryLevelAdapter;
+import org.flexlabs.widgets.dualbattery.storage.BatteryLevels;
+import org.flexlabs.widgets.dualbattery.storage.BatteryLevelsDao;
+import org.flexlabs.widgets.dualbattery.storage.DaoSession;
+import org.flexlabs.widgets.dualbattery.storage.DaoSessionWrapper;
+
+import java.util.Date;
+
+import de.greenrobot.dao.query.LazyList;
 
 @EActivity(R.layout.battery_history)
 @OptionsMenu(R.menu.main)
@@ -53,6 +58,9 @@ public class BatteryHistoryActivity extends SherlockActivity implements ActionBa
     private GraphicalView mChartView;
     private LinearLayout mChartContainer;
     private int days = 3, defaultDays;
+
+    @Bean
+    DaoSessionWrapper mSessionWrapper;
 
     @AfterViews
     public void onCreate_chart() {
@@ -173,36 +181,31 @@ public class BatteryHistoryActivity extends SherlockActivity implements ActionBa
         //new Thread(new Runnable() {
         //    @Override
         //    public void run() {
-        BatteryLevelAdapter adapter = new BatteryLevelAdapter(BatteryHistoryActivity.this);
-        adapter.openRead();
-        Cursor c = adapter.getRecentEntries(days);
+        long time = System.currentTimeMillis();
+        boolean mainSkipped = false, dockSkipped = false;
         int oldLevel = -1, oldDockLevel = -1;
         boolean dockSupported = BatteryLevel.getCurrent().is_dockFriendly();
 
-        long time = System.currentTimeMillis();
-        boolean mainSkipped = false, dockSkipped = false;
-        if (c.moveToFirst())
-            do {
-                time = c.getLong(BatteryLevelAdapter.ORD_TIME);
-                int level = c.getInt(BatteryLevelAdapter.ORD_LEVEL);
-                int dock_status = c.getInt(BatteryLevelAdapter.ORD_DOCK_STATUS);
-                int dock_level = c.getInt(BatteryLevelAdapter.ORD_DOCK_LEVEL);
+        DaoSession session = mSessionWrapper.getSession();
+        LazyList<BatteryLevels> batteryLevels = session.getBatteryLevelsDao().queryBuilder()
+                .where(BatteryLevelsDao.Properties.Time.lt(DateUtils.addDays(new Date(), -days)))
+                .listLazy();
+        for (BatteryLevels batteryLevel : batteryLevels) {
+            time = batteryLevel.getTime().getTime();
+            mainSkipped = batteryLevel.getLevel() == oldLevel;
+            if (!mainSkipped) {
+                oldLevel = batteryLevel.getLevel();
+                mMainSeries.add(time, oldLevel);
+            }
+            if (dockSupported && batteryLevel.getDockStatus() > 1) {
+                dockSkipped = batteryLevel.getDockLevel() == oldDockLevel;
+                if (!dockSkipped) {
+                    oldDockLevel = batteryLevel.getDockLevel();
+                    mDockSeries.add(time, oldDockLevel);
+                }
+            }
+        }
 
-                mainSkipped = level == oldLevel;
-                if (!mainSkipped) {
-                    mMainSeries.add(time, level);
-                    oldLevel = level;
-                }
-                if (dockSupported && dock_status > 1) {
-                    dockSkipped = dock_level == oldDockLevel;
-                    if (!dockSkipped) {
-                        mDockSeries.add(time, dock_level);
-                        oldDockLevel = dock_level;
-                    }
-                }
-            } while (c.moveToNext());
-        c.close();
-        adapter.close();
         if (mainSkipped)
             mMainSeries.add(time, oldLevel);
         if (dockSkipped)

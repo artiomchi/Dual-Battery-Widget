@@ -21,16 +21,26 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.BatteryManager;
 import android.os.Build;
+
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EBean;
+
 import org.flexlabs.widgets.dualbattery.BatteryLevel;
 import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.BatteryWidgetUpdater;
-import org.flexlabs.widgets.dualbattery.storage.BatteryLevelAdapter;
+import org.flexlabs.widgets.dualbattery.storage.BatteryLevels;
+import org.flexlabs.widgets.dualbattery.storage.DaoSession;
+import org.flexlabs.widgets.dualbattery.storage.DaoSessionWrapper;
 
 import java.util.Date;
 
+@EBean
 public class IntentReceiver extends BroadcastReceiver {
     private NotificationManager mNotificationManager;
     private boolean screenOff = false;
+
+    @Bean
+    DaoSessionWrapper mSessionWrapper;
 
     public IntentReceiver(Context context) {
         // The dock notification icon will only show up on the transformer (aka Honeycomb+)
@@ -108,17 +118,13 @@ public class IntentReceiver extends BroadcastReceiver {
                 public void run() {
                     try {
                         if (_newData) {
-                            BatteryLevelAdapter.Entry entry = new BatteryLevelAdapter.Entry(
+                            DaoSession session = mSessionWrapper.getSession();
+                            BatteryLevels.createNew(session,
                                 _level.get_status(),
                                 _level.get_level(),
                                 _level.get_dock_status(),
                                 _level.get_dock_level(),
-                                screenOff);
-
-                            BatteryLevelAdapter adapter = new BatteryLevelAdapter(_context);
-                            adapter.open();
-                            adapter.insertEntry(entry);
-                            adapter.close();
+                                !screenOff);
                         }
 
                         if (!screenOff) {

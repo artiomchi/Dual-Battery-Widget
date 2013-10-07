@@ -18,7 +18,7 @@ package org.flexlabs.widgets.dualbattery.app;
 
 import android.os.Bundle;
 
-import com.googlecode.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.EFragment;
 
 import org.flexlabs.widgets.dualbattery.BatteryLevel;
 import org.flexlabs.widgets.dualbattery.Constants;

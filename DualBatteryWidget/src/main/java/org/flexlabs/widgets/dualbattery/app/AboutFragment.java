@@ -19,9 +19,9 @@ package org.flexlabs.widgets.dualbattery.app;
 import android.text.util.Linkify;
 import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockFragment;
-import com.googlecode.androidannotations.annotations.AfterViews;
-import com.googlecode.androidannotations.annotations.EFragment;
-import com.googlecode.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
 
 import org.flexlabs.widgets.dualbattery.R;
 

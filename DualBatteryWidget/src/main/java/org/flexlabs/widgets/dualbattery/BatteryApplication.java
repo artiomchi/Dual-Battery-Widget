@@ -20,7 +20,7 @@ import android.app.Application;
 import android.app.PendingIntent;
 import android.content.pm.PackageManager;
 
-import com.googlecode.androidannotations.annotations.EApplication;
+import org.androidannotations.annotations.EApplication;
 
 import net.robotmedia.billing.BillingController;
 import net.robotmedia.billing.BillingRequest;

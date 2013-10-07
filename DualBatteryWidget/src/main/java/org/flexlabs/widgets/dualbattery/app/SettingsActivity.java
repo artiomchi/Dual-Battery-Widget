@@ -27,7 +27,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.*;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.googlecode.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.EActivity;
 import com.viewpagerindicator.PageIndicator;
 import com.viewpagerindicator.TabPageIndicator;
 import org.flexlabs.widgets.dualbattery.R;

@@ -20,12 +20,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +35,8 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.googlecode.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EFragment;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
@@ -46,9 +45,15 @@ import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 import org.flexlabs.widgets.dualbattery.*;
-import org.flexlabs.widgets.dualbattery.storage.BatteryLevelAdapter;
+import org.flexlabs.widgets.dualbattery.storage.BatteryLevels;
+import org.flexlabs.widgets.dualbattery.storage.BatteryLevelsDao;
+import org.flexlabs.widgets.dualbattery.storage.DaoSession;
+import org.flexlabs.widgets.dualbattery.storage.DaoSessionWrapper;
 
 import java.text.DateFormat;
+import java.util.Date;
+
+import de.greenrobot.dao.query.LazyList;
 
 @EFragment
 public class BatteryInfoFragment extends SherlockFragment {
@@ -71,6 +76,9 @@ public class BatteryInfoFragment extends SherlockFragment {
     private XYSeries mMainSeries, mDockSeries;
     private GraphicalView mChartView;
     private LinearLayout mChartContainer;
+
+    @Bean
+    DaoSessionWrapper mSessionWrapper;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -346,42 +354,38 @@ public class BatteryInfoFragment extends SherlockFragment {
             //new Thread(new Runnable() {
             //    @Override
             //    public void run() {
-                    BatteryLevelAdapter adapter = new BatteryLevelAdapter(getActivity());
-                    adapter.openRead();
-                    Cursor c = adapter.getRecentEntries(7);
-                    int oldLevel = -1, oldDockLevel = -1;
-                    boolean dockSupported = BatteryLevel.getCurrent().is_dockFriendly();
+            int oldLevel = -1, oldDockLevel = -1;
+            boolean dockSupported = BatteryLevel.getCurrent().is_dockFriendly();
 
-                    long time = System.currentTimeMillis();
-                    boolean mainSkipped = false, dockSkipped = false;
-                    if (c.moveToFirst())
-                        do {
-                            time = c.getLong(BatteryLevelAdapter.ORD_TIME);
-                            int level = c.getInt(BatteryLevelAdapter.ORD_LEVEL);
-                            int dock_status = c.getInt(BatteryLevelAdapter.ORD_DOCK_STATUS);
-                            int dock_level = c.getInt(BatteryLevelAdapter.ORD_DOCK_LEVEL);
+            long time = System.currentTimeMillis();
+            boolean mainSkipped = false, dockSkipped = false;
 
-                            mainSkipped = level == oldLevel;
-                            if (!mainSkipped) {
-                                mMainSeries.add(time, level);
-                                oldLevel = level;
-                            }
-                            if (dockSupported && dock_status > 1) {
-                                dockSkipped = dock_level == oldDockLevel;
-                                if (!dockSkipped) {
-                                    mDockSeries.add(time, dock_level);
-                                    oldDockLevel = dock_level;
-                                }
-                            }
-                        } while (c.moveToNext());
-                    c.close();
-                    adapter.close();
-                    if (mainSkipped)
-                        mMainSeries.add(time, oldLevel);
-                    if (dockSkipped)
+            DaoSession session = mSessionWrapper.getSession();
+            LazyList<BatteryLevels> batteryLevels = session.getBatteryLevelsDao().queryBuilder()
+                    .where(BatteryLevelsDao.Properties.Time.lt(DateUtils.addDays(new Date(), -7)))
+                    .listLazy();
+            for (BatteryLevels batteryLevel : batteryLevels) {
+                time = batteryLevel.getTime().getTime();
+                mainSkipped = batteryLevel.getLevel() == oldLevel;
+                if (!mainSkipped) {
+                    oldLevel = batteryLevel.getLevel();
+                    mMainSeries.add(time, oldLevel);
+                }
+                if (dockSupported && batteryLevel.getDockStatus() > 1) {
+                    dockSkipped = batteryLevel.getDockLevel() == oldDockLevel;
+                    if (!dockSkipped) {
+                        oldDockLevel = batteryLevel.getDockLevel();
                         mDockSeries.add(time, oldDockLevel);
+                    }
+                }
+            }
 
-                    mChartView.repaint();
+            if (mainSkipped)
+                mMainSeries.add(time, oldLevel);
+            if (dockSkipped)
+                mDockSeries.add(time, oldDockLevel);
+
+            mChartView.repaint();
             //    }
             //}).start();
         }
