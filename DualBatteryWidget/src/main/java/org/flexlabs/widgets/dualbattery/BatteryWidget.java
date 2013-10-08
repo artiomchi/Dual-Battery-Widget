@@ -19,7 +19,7 @@ package org.flexlabs.widgets.dualbattery;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.*;
-import org.flexlabs.widgets.dualbattery.service.MonitorService;
+import org.flexlabs.widgets.dualbattery.service.MonitorService_;
 
 import java.io.File;
 
@@ -27,7 +27,7 @@ public class BatteryWidget extends AppWidgetProvider {
     @Override
     public void onEnabled(Context context) {
         super.onEnabled(context);
-        context.startService(new Intent(context, MonitorService.class));
+        context.startService(new Intent(context, MonitorService_.class));
     }
 
     @Override
@@ -43,7 +43,7 @@ public class BatteryWidget extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // ensuring the service is still running, even if it was killed, and updating the widget
-        Intent intent = new Intent(context, MonitorService.class);
+        Intent intent = new Intent(context, MonitorService_.class);
         intent.putExtra(Constants.EXTRA_WIDGET_IDS, appWidgetIds);
         context.startService(intent);
     }

@@ -20,24 +20,34 @@ import android.app.Service;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.IBinder;
+import android.util.Log;
+
+import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EService;
 import org.flexlabs.widgets.dualbattery.BatteryLevel;
 import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.BatteryWidgetUpdater;
 
+@EService
 public class MonitorService extends Service {
-    private IntentReceiver batteryReceiver;
+    @Bean
+    IntentReceiver batteryReceiver;
 
     public IBinder onBind(Intent intent) {
         return null;
     }
 
-    public void onCreate() {
-        super.onCreate();
-        batteryReceiver = new IntentReceiver(this);
+    @AfterInject
+    public void afterInject() {
         registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_SCREEN_ON));
         registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_SCREEN_OFF));
         registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_DOCK_EVENT));
         registerReceiver(batteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+    }
+
+    public void onCreate() {
+        super.onCreate();
     }
     
     private void processStartIntent(Intent intent) {

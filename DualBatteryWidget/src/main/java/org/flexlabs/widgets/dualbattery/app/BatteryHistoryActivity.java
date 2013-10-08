@@ -41,7 +41,7 @@ import org.achartengine.renderer.XYSeriesRenderer;
 import org.flexlabs.widgets.dualbattery.BatteryLevel;
 import org.flexlabs.widgets.dualbattery.DateUtils;
 import org.flexlabs.widgets.dualbattery.R;
-import org.flexlabs.widgets.dualbattery.service.MonitorService;
+import org.flexlabs.widgets.dualbattery.service.MonitorService_;
 import org.flexlabs.widgets.dualbattery.storage.BatteryLevels;
 import org.flexlabs.widgets.dualbattery.storage.BatteryLevelsDao;
 import org.flexlabs.widgets.dualbattery.storage.DaoSession;
@@ -64,7 +64,7 @@ public class BatteryHistoryActivity extends SherlockActivity implements ActionBa
 
     @AfterViews
     public void onCreate_chart() {
-        startService(new Intent(this, MonitorService.class));
+        startService(new Intent(this, MonitorService_.class));
 
         if (mChartContainer != null)
             mChartContainer.removeAllViews();

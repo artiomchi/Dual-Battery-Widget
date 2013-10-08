@@ -37,7 +37,7 @@
         </activity>
         <activity android:name=".app.SettingsActivity_" android:theme="@style/Theme.FlexLabs" />
         <!-- Battery monitor service -->
-        <service android:name=".service.MonitorService" android:label="Battery Monitor Service" />
+        <service android:name=".service.MonitorService_" android:label="Battery Monitor Service" />
         <receiver android:name=".service.BootUpReceiver" android:label="Monitor Service Auto Starter">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

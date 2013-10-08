@@ -139,10 +139,14 @@ public class IntentReceiver extends BroadcastReceiver {
                             }
                             BatteryWidgetUpdater.updateAllWidgets(_context, _level, null);
                         }
-                    } catch (Exception ignore) { }
+                    } catch (Exception ignore) {
+                        ignore.printStackTrace();
+                    }
                 }
             }.setData(context, level, newData);
             new Thread(runnable).start();
-        } catch (Exception ignore) {}
+        } catch (Exception ignore) {
+            ignore.printStackTrace();
+        }
     }
 }

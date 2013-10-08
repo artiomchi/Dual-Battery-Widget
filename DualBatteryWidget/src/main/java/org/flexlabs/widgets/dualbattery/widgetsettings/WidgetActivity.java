@@ -43,7 +43,7 @@ import org.flexlabs.widgets.dualbattery.app.DonateFragment;
 import org.flexlabs.widgets.dualbattery.app.DonateFragment_;
 import org.flexlabs.widgets.dualbattery.app.FeedbackFragment;
 import org.flexlabs.widgets.dualbattery.app.FeedbackFragment_;
-import org.flexlabs.widgets.dualbattery.service.MonitorService;
+import org.flexlabs.widgets.dualbattery.service.MonitorService_;
 
 @EActivity
 public class WidgetActivity extends SherlockFragmentActivity implements AdapterView.OnItemClickListener {
@@ -57,7 +57,7 @@ public class WidgetActivity extends SherlockFragmentActivity implements AdapterV
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        startService(new Intent(this, MonitorService.class));
+        startService(new Intent(this, MonitorService_.class));
 
         fragments = new Fragment[5];
         fragments[0] = new BatteryInfoFragment_();
