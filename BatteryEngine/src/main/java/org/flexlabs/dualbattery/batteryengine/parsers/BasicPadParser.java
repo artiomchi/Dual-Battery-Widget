@@ -26,7 +26,7 @@ public class BasicPadParser implements IParser {
         return new BatteryLevel(BatteryType.AsusDock, getStatus(status), level);
     }
 
-    private BatteryStatus getStatus(int status) {
+    public static BatteryStatus getStatus(int status) {
         switch (status) {
             case 2:
                 return BatteryStatus.Charging;

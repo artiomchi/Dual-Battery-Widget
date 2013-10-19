@@ -33,7 +33,7 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
-import org.flexlabs.widgets.dualbattery.BatteryLevel;
+import org.flexlabs.widgets.dualbattery.BatteryLevelMonitor;
 import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.R;
 
@@ -119,7 +119,7 @@ public class FeedbackFragment extends SherlockFragment {
         Bundle extras = intent.getExtras();
         String allKeys = TextUtils.join(", ", extras.keySet());
         sb.append("<br />\n<b>Battery intent keys:</b> ").append(allKeys);
-        sb.append("<br />\n<b>Is Dock supported:</b> ").append(BatteryLevel.getCurrent().is_dockFriendly());
+        sb.append("<br />\n<b>Is Dock supported:</b> ").append(BatteryLevelMonitor.getGotDock());
         int dockStatus = extras.getInt("dock_status", -1);
         String dockStatusStr = "";
         switch (dockStatus) {

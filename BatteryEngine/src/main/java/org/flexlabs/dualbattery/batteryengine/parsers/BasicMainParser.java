@@ -24,7 +24,7 @@ public class BasicMainParser implements IParser {
         return new BatteryLevel(BatteryType.Main, getStatus(status), level);
     }
 
-    private BatteryStatus getStatus(int status) {
+    public static BatteryStatus getStatus(int status) {
         switch (status) {
             case  BatteryManager.BATTERY_STATUS_CHARGING:
                 return BatteryStatus.Charging;

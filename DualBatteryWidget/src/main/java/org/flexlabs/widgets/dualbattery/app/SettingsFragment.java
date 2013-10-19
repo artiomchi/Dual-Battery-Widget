@@ -20,7 +20,7 @@ import android.os.Bundle;
 
 import org.androidannotations.annotations.EFragment;
 
-import org.flexlabs.widgets.dualbattery.BatteryLevel;
+import org.flexlabs.widgets.dualbattery.BatteryLevelMonitor;
 import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.R;
 import org.flexlabs.androidextensions.sherlock.preference.SherlockPreferenceListFragment;
@@ -33,7 +33,7 @@ public class SettingsFragment extends SherlockPreferenceListFragment {
 
         if (getPreferenceScreen() == null) {
             getPreferenceManager().setSharedPreferencesName(Constants.SETTINGS_FILE);
-            if (BatteryLevel.getCurrent().is_dockFriendly()) {
+            if (BatteryLevelMonitor.getGotDock()) {
                 addPreferencesFromResource(R.xml.settings_0_dock_notif);
             }
             addPreferencesFromResource(R.xml.settings_1_general);

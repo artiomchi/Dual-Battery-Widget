@@ -207,13 +207,14 @@ public class BatteryInfoFragment extends SherlockFragment {
                 }
 
                 String lastCharged;
+                // TODO: NEED SUPPORT HERE
                 if (status == BatteryManager.BATTERY_STATUS_CHARGING) {
                     lastCharged = "--";
-                } else if (BatteryLevel.lastCharged == null) {
+                } else /*if (BatteryLevel.lastCharged == null)*/ {
                     lastCharged = context.getString(R.string.unknown);
-                } else {
+                } /*else {
                     lastCharged = DateFormat.getDateTimeInstance().format(BatteryLevel.lastCharged);
-                }
+                }*/
                 mLastCharged.setText(lastCharged);
 
                 if (intent.hasExtra("dock_status")) {
@@ -243,13 +244,14 @@ public class BatteryInfoFragment extends SherlockFragment {
 
                     mRowDockLastConnected.setVisibility(View.VISIBLE);
                     String dockLastConnected;
+                    // TODO: NEED SUPPORT HERE
                     if (dockStatus >= Constants.DOCK_STATE_CHARGING) {
                         dockLastConnected = "--";
-                    } else if (BatteryLevel.dockLastConnected == null) {
+                    } else /*if (BatteryLevel.dockLastConnected == null)*/ {
                         dockLastConnected = context.getString(R.string.unknown);
-                    } else {
+                    }/* else {
                         dockLastConnected = DateFormat.getDateTimeInstance().format(BatteryLevel.dockLastConnected);
-                    }
+                    }*/
                     mDockLastConnected.setText(dockLastConnected);
                 }
             }
@@ -325,7 +327,7 @@ public class BatteryInfoFragment extends SherlockFragment {
             mMainRenderer.setColor(Color.GREEN);
             mRenderer.addSeriesRenderer(mMainRenderer);
 
-            if (BatteryLevel.getCurrent().is_dockFriendly()) {
+            if (BatteryLevelMonitor.getGotDock()) {
                 mDockSeries = new XYSeries(getString(R.string.battery_dock));
                 mDataSet.addSeries(mDockSeries);
                 XYSeriesRenderer mDockRenderer = new XYSeriesRenderer();

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="org.flexlabs.widgets.dualbattery"
           android:installLocation="internalOnly">
-    <uses-sdk android:targetSdkVersion="17" android:minSdkVersion="7" />
+    <uses-sdk android:targetSdkVersion="18" android:minSdkVersion="7" />
     <uses-permission android:name="com.android.vending.BILLING" />
     <application android:icon="@drawable/icon" android:label="@string/app_name" android:hardwareAccelerated="true"
                  android:name=".BatteryApplication_">

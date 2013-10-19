@@ -31,4 +31,11 @@ public enum BatteryStatus {
         }
         return 0;
     }
+
+    public boolean isEnabled() {
+        return
+            this == Discharging ||
+            this == Charging ||
+            this == Full;
+    }
 }

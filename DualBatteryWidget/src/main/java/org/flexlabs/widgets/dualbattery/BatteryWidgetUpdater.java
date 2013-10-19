@@ -24,9 +24,15 @@ import android.content.Intent;
 import android.os.BatteryManager;
 import android.view.View;
 import android.widget.RemoteViews;
+
+import org.flexlabs.dualbattery.batteryengine.BatteryLevel;
+import org.flexlabs.dualbattery.batteryengine.BatteryStatus;
+import org.flexlabs.dualbattery.batteryengine.BatteryType;
 import org.flexlabs.widgets.dualbattery.widgetsettings.WidgetActivity;
 import org.flexlabs.widgets.dualbattery.widgetsettings.WidgetActivity_;
 import org.flexlabs.widgets.dualbattery.widgetsettings.WidgetSettingsContainer;
+
+import java.util.List;
 
 public class BatteryWidgetUpdater {
     // Suppress default constructor for non-instantiability
@@ -34,7 +40,7 @@ public class BatteryWidgetUpdater {
         throw new AssertionError();
     }
 
-    public static void updateAllWidgets(Context context, BatteryLevel level, int[] widgets) {
+    public static void updateAllWidgets(Context context, List<BatteryLevel> batteryLevels, int[] widgets) {
         // Get all "running" widgets
         AppWidgetManager manager = AppWidgetManager.getInstance(context);
         if (widgets == null) {
@@ -50,7 +56,7 @@ public class BatteryWidgetUpdater {
         }
 
         for (int widgetId : widgets) {
-            updateWidget(context, manager, widgetId, level);
+            updateWidget(context, manager, widgetId, batteryLevels);
         }
     }
 
@@ -82,14 +88,15 @@ public class BatteryWidgetUpdater {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                updateWidget(context, AppWidgetManager.getInstance(context), widgetId, BatteryLevel.getCurrent());
+                //TODO: THIS IS SO NOT GOING TO WORK!
+                updateWidget(context, AppWidgetManager.getInstance(context), widgetId, null);
             }
         }).start();
     }
     
 
-    private static void updateWidget(Context context, AppWidgetManager widgetManager, int widgetId, BatteryLevel batteryLevel) {
-        if (batteryLevel == null)
+    private static void updateWidget(Context context, AppWidgetManager widgetManager, int widgetId, List<BatteryLevel> batteryLevels) {
+        if (batteryLevels == null)
             return;
 
         WidgetSettingsContainer settings = new WidgetSettingsContainer(context, widgetId);
@@ -106,7 +113,23 @@ public class BatteryWidgetUpdater {
 
         RemoteViews viewsBattery = null, viewsDock = null;
 
-        if ((settings.getBatterySelection() & Constants.BATTERY_SELECTION_MAIN) > 0) {
+        for (BatteryLevel level : batteryLevels) {
+            if (level.getType() == BatteryType.Main && (settings.getBatterySelection() & Constants.BATTERY_SELECTION_MAIN) == 0)
+                continue;
+            if (level.getType() == BatteryType.AsusDock && (settings.getBatterySelection() & Constants.BATTERY_SELECTION_DOCK) == 0)
+                continue;
+
+            String status = "n/a";
+            if (level.getStatus().isEnabled())
+                status = String.valueOf(level.getLevel()) + "%";
+            if (settings.getTextPosition() <= Constants.TEXT_POS_BOTTOM)
+                status = "\n" + status + "\n";
+
+            RemoteViews view = loadBatteryView(context, settings, level.getTypeName(), status, level.getLevel(), !level.getStatus().isEnabled(), level.getStatus() == BatteryStatus.Charging);
+            views.addView(R.id.widget, view);
+        }
+
+        /*if ((settings.getBatterySelection() & Constants.BATTERY_SELECTION_MAIN) > 0) {
             String status = String.valueOf(batteryLevel.get_level()) + "%";
             if (settings.getTextPosition() <= Constants.TEXT_POS_BOTTOM)
                 status = "\n" + status + "\n";
@@ -148,7 +171,7 @@ public class BatteryWidgetUpdater {
             if (viewsBattery != null)
                 views.addView(R.id.widget, viewsBattery);
 
-        }
+        }*/
 
         Intent intent = WidgetActivity_.intent(context)
                 .appWidgetId(widgetId)

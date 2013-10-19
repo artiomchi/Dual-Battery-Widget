@@ -19,7 +19,8 @@ package org.flexlabs.widgets.dualbattery.widgetsettings;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
-import org.flexlabs.widgets.dualbattery.BatteryLevel;
+
+import org.flexlabs.widgets.dualbattery.BatteryLevelMonitor;
 import org.flexlabs.widgets.dualbattery.Constants;
 
 public class WidgetSettingsContainer {
@@ -109,20 +110,20 @@ public class WidgetSettingsContainer {
                 int margin = Integer.valueOf(pref.getString(Constants.SETTING_MARGIN, String.valueOf(Constants.SETTING_MARGIN_DEFAULT)));
                 editor.putInt(Constants.SETTING_MARGIN, margin);
             }
-            if (BatteryLevel.getCurrent().is_dockFriendly())
+            if (BatteryLevelMonitor.getGotDock())
                 editor.putBoolean(Constants.SETTING_JUST_SWAPPED, true);
             version = 2;
         }
 
         if (version == 2) {
-            if (BatteryLevel.getCurrent().is_dockFriendly())
+            if (BatteryLevelMonitor.getGotDock())
                 editor.putBoolean(Constants.SETTING_JUST_SWAPPED, true);
             version = 3;
         }
 
         if (version == 3) {
             boolean showLabel = pref.getBoolean(Constants.SETTING_SHOW_LABEL, Constants.SETTING_SHOW_LABEL_DEFAULT);
-            if (showLabel && !BatteryLevel.getCurrent().is_dockFriendly())
+            if (showLabel && !BatteryLevelMonitor.getGotDock())
                 editor.remove(Constants.SETTING_SHOW_LABEL);
             version = 4;
         }

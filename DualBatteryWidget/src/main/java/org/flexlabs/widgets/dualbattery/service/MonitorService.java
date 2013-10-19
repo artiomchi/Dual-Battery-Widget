@@ -28,20 +28,16 @@ import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EService;
-import org.flexlabs.dualbattery.batteryengine.BatteryMonitor;
 import org.flexlabs.dualbattery.batteryengine.BatteryStatus;
-import org.flexlabs.dualbattery.batteryengine.BatteryType;
-import org.flexlabs.widgets.dualbattery.BatteryLevel;
+import org.flexlabs.widgets.dualbattery.BatteryLevelMonitor;
 import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.BatteryWidgetUpdater;
 import org.flexlabs.widgets.dualbattery.storage.DualBatteryDao;
 
-import java.util.List;
-
 @EService
-public class MonitorService extends Service implements BatteryMonitor.OnBatteryStatusUpdatedListener {
-    BatteryMonitor batteryMonitor;
+public class MonitorService extends Service implements BatteryLevelMonitor.OnBatteriesUpdatedListener {
     @Bean DualBatteryDao batteryDao;
+    @Bean BatteryLevelMonitor batteryMonitor;
     @Bean NotificationManager mNotificationManager;
 
     public IBinder onBind(Intent intent) {
@@ -50,7 +46,6 @@ public class MonitorService extends Service implements BatteryMonitor.OnBatteryS
 
     public void onCreate() {
         super.onCreate();
-        batteryMonitor = new BatteryMonitor(this);
     }
 
     @Override
@@ -73,8 +68,8 @@ public class MonitorService extends Service implements BatteryMonitor.OnBatteryS
 
     @AfterInject
     public void afterInject() {
-        batteryMonitor.setBatteryUpdatedListener(this);
-        batteryMonitor.startMonitoring(false);
+        batteryMonitor.setOnBatteriesUpdatedListener(this);
+        batteryMonitor.startMonitoring();
 
         registerReceiver(screenReceiver, new IntentFilter(Intent.ACTION_SCREEN_ON));
         registerReceiver(screenReceiver, new IntentFilter(Intent.ACTION_SCREEN_OFF));
@@ -92,42 +87,16 @@ public class MonitorService extends Service implements BatteryMonitor.OnBatteryS
         }
     };
 
-    private List<org.flexlabs.dualbattery.batteryengine.BatteryLevel> currentBatteryLevels = null;
     @Override
-    public void batteryLevelsUpdated(List<org.flexlabs.dualbattery.batteryengine.BatteryLevel> batteryLevels) {
-        org.flexlabs.dualbattery.batteryengine.BatteryLevel dockLevel = null;
-        for (org.flexlabs.dualbattery.batteryengine.BatteryLevel level : batteryLevels) {
-            if (level.getType() == BatteryType.AsusDock)
-                dockLevel = level;
-            boolean updated = false;
-            if (currentBatteryLevels != null) {
-                boolean foundMatch = false;
-                for (org.flexlabs.dualbattery.batteryengine.BatteryLevel currentLevel : currentBatteryLevels) {
-                    if (currentLevel.getType() != level.getType())
-                        continue;
-                    foundMatch = true;
-                    if (currentLevel.getStatus() != level.getStatus() || currentLevel.getLevel() != level.getLevel())
-                        updated = true;
-                }
-                if (!foundMatch)
-                    updated = true;
-            } else {
-                updated = true;
-            }
-
-            if (updated) {
-                batteryDao.addBatteryLevel(level.getType(), level.getStatus().getIntValue(), level.getLevel());
-                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
-                    if (dockLevel != null)
-                        mNotificationManager.update(
-                                dockLevel.getLevel(),
-                                dockLevel.getStatus() == BatteryStatus.Charging);
-                    else
-                        mNotificationManager.hide();
-                }
-            }
+    public void batteriesUpdated() {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
+            if (batteryMonitor.dockBattery != null)
+                mNotificationManager.update(
+                        batteryMonitor.dockBattery.getLevel(),
+                        batteryMonitor.dockBattery.getStatus() == BatteryStatus.Charging);
+            else
+                mNotificationManager.hide();
         }
-        currentBatteryLevels = batteryLevels;
     }
 
     private void processStartIntent(Intent intent) {
@@ -141,7 +110,7 @@ public class MonitorService extends Service implements BatteryMonitor.OnBatteryS
     @Background
     public void updateWidgets(int[] widgetIds) {
         try {
-            BatteryWidgetUpdater.updateAllWidgets(MonitorService.this, BatteryLevel.getCurrent(), widgetIds);
+            BatteryWidgetUpdater.updateAllWidgets(MonitorService.this, batteryMonitor.currentBatteryLevels, widgetIds);
         } catch (Exception ignore) {
             ignore.printStackTrace();
         }

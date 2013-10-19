@@ -25,7 +25,8 @@ import android.content.SharedPreferences;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.SystemService;
-import org.flexlabs.widgets.dualbattery.BatteryLevel;
+import org.flexlabs.dualbattery.batteryengine.BatteryStatus;
+import org.flexlabs.widgets.dualbattery.BatteryLevelMonitor;
 import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.R;
 import org.flexlabs.widgets.dualbattery.app.BatteryHistoryActivity;
@@ -36,6 +37,7 @@ public class NotificationManager implements SharedPreferences.OnSharedPreference
     private static final int NOTIFICATION_DOCK = 1;
 
     @SystemService android.app.NotificationManager mNotificationManager;
+    @Bean BatteryLevelMonitor batteryMonitor;
     Context mContext;
     private CharSequence title;
     private boolean enabled;
@@ -51,9 +53,8 @@ public class NotificationManager implements SharedPreferences.OnSharedPreference
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (Constants.SETTING_NOTIFICATION_ICON.equals(key)) {
             enabled = new SettingsContainer(mContext).isShowNotificationIcon();
-            BatteryLevel level = BatteryLevel.getCurrent();
-            if (enabled && level.get_dock_level() != null) {
-                update(level.get_dock_level(), level.get_dock_status() == Constants.DOCK_STATE_CHARGING);
+            if (enabled && batteryMonitor.dockBattery != null) {
+                update(batteryMonitor.dockBattery.getLevel(), batteryMonitor.dockBattery.getStatus() == BatteryStatus.Charging);
             } else {
                 hide();
             }

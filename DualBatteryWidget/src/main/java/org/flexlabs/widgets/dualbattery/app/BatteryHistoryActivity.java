@@ -27,6 +27,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockActivity;
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsItem;
@@ -38,8 +39,9 @@ import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
+import org.androidannotations.annotations.UiThread;
 import org.flexlabs.dualbattery.batteryengine.BatteryType;
-import org.flexlabs.widgets.dualbattery.BatteryLevel;
+import org.flexlabs.widgets.dualbattery.BatteryLevelMonitor;
 import org.flexlabs.widgets.dualbattery.DateUtils;
 import org.flexlabs.widgets.dualbattery.R;
 import org.flexlabs.widgets.dualbattery.service.MonitorService_;
@@ -146,7 +148,7 @@ public class BatteryHistoryActivity extends SherlockActivity implements ActionBa
             mMainRenderer.setColor(Color.GREEN);
             mRenderer.addSeriesRenderer(mMainRenderer);
 
-            if (BatteryLevel.getCurrent().is_dockFriendly()) {
+            if (BatteryLevelMonitor.getGotDock()) {
                 mDockSeries = new XYSeries(getString(R.string.battery_dock));
                 mDataSet.addSeries(mDockSeries);
                 XYSeriesRenderer mDockRenderer = new XYSeriesRenderer();
@@ -175,6 +177,7 @@ public class BatteryHistoryActivity extends SherlockActivity implements ActionBa
         }
     }
 
+    @Background
     public void repopulateChart() {
         // populate chart
         chartPopulated = true;
@@ -196,8 +199,13 @@ public class BatteryHistoryActivity extends SherlockActivity implements ActionBa
         }
 
 
-        mChartView.repaint();
+        repaintChart();
         //    }
         //}).start();
+    }
+
+    @UiThread
+    public void repaintChart() {
+        mChartView.repaint();
     }
 }

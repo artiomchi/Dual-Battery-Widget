@@ -16,11 +16,15 @@
 
 package org.flexlabs.widgets.dualbattery.storage;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import org.flexlabs.dualbattery.batteryengine.BatteryStatus;
 import org.flexlabs.dualbattery.batteryengine.BatteryType;
+import org.flexlabs.dualbattery.batteryengine.parsers.BasicDockParser;
+import org.flexlabs.dualbattery.batteryengine.parsers.BasicMainParser;
 
 public class DualBatteryOpenHelper extends DaoMaster.OpenHelper {
     public DualBatteryOpenHelper(Context context) {
@@ -75,7 +79,7 @@ public class DualBatteryOpenHelper extends DaoMaster.OpenHelper {
             if (status == null || status != tempStatus || level != tempLevel) {
                 status = tempStatus;
                 level = tempLevel;
-                upgradeFrom3_InsertBatteryLevel(db, time, BatteryType.Main, status, level);
+                upgradeFrom3_InsertBatteryLevel(db, time, BatteryType.Main, BasicMainParser.getStatus(status), level);
             }
 
             if (!cursor.isNull(3) && !cursor.isNull(4)) {
@@ -84,7 +88,7 @@ public class DualBatteryOpenHelper extends DaoMaster.OpenHelper {
                 if (dock_status == null || dock_status != tempStatus && dock_level != tempLevel) {
                     dock_status = tempStatus;
                     dock_level = tempLevel;
-                    upgradeFrom3_InsertBatteryLevel(db, time, BatteryType.AsusDock, dock_status, dock_level);
+                    upgradeFrom3_InsertBatteryLevel(db, time, BatteryType.AsusDock, BasicDockParser.getStatus(dock_status), dock_level);
                 }
             }
 
@@ -96,24 +100,24 @@ public class DualBatteryOpenHelper extends DaoMaster.OpenHelper {
 
             cursor.moveToNext();
         }
+
+        db.execSQL("DROP TABLE 'BATTERY_LEVELS_OLD'");
     }
 
-    private void upgradeFrom3_InsertBatteryLevel(SQLiteDatabase db, long time, BatteryType type, int status, int level) {
-        db.rawQuery(
-                "INSERT INTO " + BatteryLevelsDao.TABLENAME + " ( " +
-                        BatteryLevelsDao.Properties.Time.columnName + ", " +
-                        BatteryLevelsDao.Properties.TypeId.columnName + ", " +
-                        BatteryLevelsDao.Properties.Status.columnName + ", " +
-                        BatteryLevelsDao.Properties.Level.columnName + ")" +
-                        "VALUES (?, ?, ?, ?)", new String[] { String.valueOf(time), String.valueOf(type.getIntValue()), String.valueOf(status), String.valueOf(level) });
+    private void upgradeFrom3_InsertBatteryLevel(SQLiteDatabase db, long time, BatteryType type, BatteryStatus status, int level) {
+        ContentValues values = new ContentValues();
+        values.put(BatteryLevelsDao.Properties.Time.columnName, time);
+        values.put(BatteryLevelsDao.Properties.TypeId.columnName, type.getIntValue());
+        values.put(BatteryLevelsDao.Properties.Status.columnName, status.getIntValue());
+        values.put(BatteryLevelsDao.Properties.Level.columnName, level);
+        db.insert(BatteryLevelsDao.TABLENAME, null, values);
     }
 
     private void upgradeFrom3_InsertScreenStatus(SQLiteDatabase db, long time, boolean screenState) {
-        db.rawQuery(
-                "INSERT INTO " + ScreenStatesDao.TABLENAME + " ( " +
-                        ScreenStatesDao.Properties.Time.columnName + ", " +
-                        ScreenStatesDao.Properties.ScreenOn.columnName + ")" +
-                        "VALUES (?, ?)", new String[] { String.valueOf(time), String.valueOf(screenState ? 1l : 0l) });
+        ContentValues values = new ContentValues();
+        values.put(ScreenStatesDao.Properties.Time.columnName, time);
+        values.put(ScreenStatesDao.Properties.ScreenOn.columnName, screenState);
+        db.insert(ScreenStatesDao.TABLENAME, null, values);
     }
 
     @Override
