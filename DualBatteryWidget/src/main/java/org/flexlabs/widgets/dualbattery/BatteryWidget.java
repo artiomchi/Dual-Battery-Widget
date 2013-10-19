@@ -36,6 +36,7 @@ public class BatteryWidget extends AppWidgetProvider {
         for (int i : appWidgetIds) {
             String file = Constants.SETTINGS_WIDGET_FILE + i;
             context.getSharedPreferences(file, Context.MODE_PRIVATE).edit().clear().commit();
+            //noinspection ResultOfMethodCallIgnored
             new File(context.getFilesDir() + "/../shared_prefs/" + file + ".xml").delete();
         }
     }

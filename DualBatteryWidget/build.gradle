@@ -6,6 +6,7 @@ configurations {
 }
 
 dependencies {
+    compile project(':BatteryEngine')
     compile project(':AChartEngine')
     compile project(':ViewPagerIndicator')
     androidannotations('org.androidannotations:androidannotations:3.0-SNAPSHOT')

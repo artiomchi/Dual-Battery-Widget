@@ -5,33 +5,29 @@ package org.flexlabs.widgets.dualbattery.storage;
 // KEEP INCLUDES - put your custom includes here
 // KEEP INCLUDES END
 /**
- * Entity mapped to table BATTERY_LEVELS.
+ * Entity mapped to table SCREEN_STATES.
  */
-public class BatteryLevels {
+public class ScreenStates {
 
     private Long id;
     /** Not-null value. */
     private java.util.Date time;
-    private int typeId;
-    private int status;
-    private int level;
+    private boolean screenOn;
 
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END
 
-    public BatteryLevels() {
+    public ScreenStates() {
     }
 
-    public BatteryLevels(Long id) {
+    public ScreenStates(Long id) {
         this.id = id;
     }
 
-    public BatteryLevels(Long id, java.util.Date time, int typeId, int status, int level) {
+    public ScreenStates(Long id, java.util.Date time, boolean screenOn) {
         this.id = id;
         this.time = time;
-        this.typeId = typeId;
-        this.status = status;
-        this.level = level;
+        this.screenOn = screenOn;
     }
 
     public Long getId() {
@@ -52,28 +48,12 @@ public class BatteryLevels {
         this.time = time;
     }
 
-    public int getTypeId() {
-        return typeId;
+    public boolean getScreenOn() {
+        return screenOn;
     }
 
-    public void setTypeId(int typeId) {
-        this.typeId = typeId;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
+    public void setScreenOn(boolean screenOn) {
+        this.screenOn = screenOn;
     }
 
     // KEEP METHODS - put your custom methods here

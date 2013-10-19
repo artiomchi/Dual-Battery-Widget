@@ -21,22 +21,26 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.SystemService;
 import org.flexlabs.widgets.dualbattery.BatteryLevel;
 import org.flexlabs.widgets.dualbattery.Constants;
 import org.flexlabs.widgets.dualbattery.R;
 import org.flexlabs.widgets.dualbattery.app.BatteryHistoryActivity;
 import org.flexlabs.widgets.dualbattery.app.SettingsContainer;
 
+@EBean
 public class NotificationManager implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final int NOTIFICATION_DOCK = 1;
 
-    private android.app.NotificationManager mNotificationManager;
-    private Context mContext;
+    @SystemService android.app.NotificationManager mNotificationManager;
+    Context mContext;
     private CharSequence title;
     private boolean enabled;
 
     public NotificationManager(Context context) {
-        mNotificationManager = (android.app.NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         mContext = context;
         title = context.getString(R.string.app_name);
 

@@ -44,6 +44,7 @@ import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
+import org.flexlabs.dualbattery.batteryengine.BatteryType;
 import org.flexlabs.widgets.dualbattery.*;
 import org.flexlabs.widgets.dualbattery.storage.BatteryLevels;
 import org.flexlabs.widgets.dualbattery.storage.BatteryLevelsDao;
@@ -354,36 +355,18 @@ public class BatteryInfoFragment extends SherlockFragment {
             //new Thread(new Runnable() {
             //    @Override
             //    public void run() {
-            int oldLevel = -1, oldDockLevel = -1;
-            boolean dockSupported = BatteryLevel.getCurrent().is_dockFriendly();
-
-            long time = System.currentTimeMillis();
-            boolean mainSkipped = false, dockSkipped = false;
 
             DaoSession session = mSessionWrapper.getSession();
             LazyList<BatteryLevels> batteryLevels = session.getBatteryLevelsDao().queryBuilder()
                     .where(BatteryLevelsDao.Properties.Time.lt(DateUtils.addDays(new Date(), -7)))
                     .listLazy();
             for (BatteryLevels batteryLevel : batteryLevels) {
-                time = batteryLevel.getTime().getTime();
-                mainSkipped = batteryLevel.getLevel() == oldLevel;
-                if (!mainSkipped) {
-                    oldLevel = batteryLevel.getLevel();
-                    mMainSeries.add(time, oldLevel);
-                }
-                if (dockSupported && batteryLevel.getDockStatus() > 1) {
-                    dockSkipped = batteryLevel.getDockLevel() == oldDockLevel;
-                    if (!dockSkipped) {
-                        oldDockLevel = batteryLevel.getDockLevel();
-                        mDockSeries.add(time, oldDockLevel);
-                    }
+                if (batteryLevel.getTypeId() == BatteryType.Main.getIntValue()) {
+                    mMainSeries.add(batteryLevel.getTime().getTime(), batteryLevel.getLevel());
+                } else if (batteryLevel.getTypeId() == BatteryType.AsusDock.getIntValue()) {
+                    mDockSeries.add(batteryLevel.getTime().getTime(), batteryLevel.getLevel());
                 }
             }
-
-            if (mainSkipped)
-                mMainSeries.add(time, oldLevel);
-            if (dockSkipped)
-                mDockSeries.add(time, oldDockLevel);
 
             mChartView.repaint();
             //    }

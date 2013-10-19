@@ -1,11 +1,20 @@
 package org.flexlabs.dualbattery.batteryengine;
 
 public enum BatteryStatus {
-    Discharging,
-    Charging,
-    Full,
-    Disconnected,
-    Unknown;
+    Discharging (0),
+    Charging (1),
+    Full (2),
+    Disconnected (3),
+    Unknown (4);
+
+    private final int intValue;
+    BatteryStatus(int value) {
+        this.intValue = value;
+    }
+
+    public int getIntValue() {
+        return intValue;
+    }
 
     public int getString() {
         switch (this) {

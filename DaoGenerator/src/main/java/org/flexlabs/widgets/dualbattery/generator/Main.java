@@ -7,10 +7,11 @@ import de.greenrobot.daogenerator.Schema;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        Schema schema = new Schema(3, "org.flexlabs.widgets.dualbattery.storage");
+        Schema schema = new Schema(4, "org.flexlabs.widgets.dualbattery.storage");
         schema.enableKeepSectionsByDefault();
 
-        Entity batteryLevel = addBatteryLevel(schema);
+        addBatteryLevel(schema);
+        addScreenState(schema);
 
         new DaoGenerator().generateAll(schema, "..\\DualBatteryWidget\\src\\main\\java");
     }
@@ -25,14 +26,20 @@ public class Main {
     }
 
     private static Entity addBatteryLevel(Schema schema) {
-        Entity player = schema.addEntity("BatteryLevels");
-        player.addIdProperty().autoincrement();
-        player.addDateProperty("time").notNull();
-        player.addIntProperty("status").notNull();
-        player.addIntProperty("level").notNull();
-        player.addIntProperty("dockStatus").notNull();
-        player.addIntProperty("dockLevel");
-        player.addBooleanProperty("screenOn").notNull();
-        return player;
+        Entity batteryLevel = schema.addEntity("BatteryLevels");
+        batteryLevel.addIdProperty().autoincrement();
+        batteryLevel.addDateProperty("time").notNull();
+        batteryLevel.addIntProperty("typeId").notNull();
+        batteryLevel.addIntProperty("status").notNull();
+        batteryLevel.addIntProperty("level").notNull();
+        return batteryLevel;
+    }
+
+    private static Entity addScreenState(Schema schema) {
+        Entity screenState = schema.addEntity("ScreenStates");
+        screenState.addIdProperty().autoincrement();
+        screenState.addDateProperty("time").notNull();
+        screenState.addBooleanProperty("screenOn").notNull();
+        return screenState;
     }
 }

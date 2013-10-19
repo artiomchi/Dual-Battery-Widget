@@ -1,9 +1,18 @@
 package org.flexlabs.dualbattery.batteryengine;
 
 public enum BatteryType {
-    Main,
-    AsusDock,
-    AsusPad;
+    Main (1),
+    AsusDock (2),
+    AsusPad (3);
+
+    private final int intValue;
+    BatteryType(int value) {
+        this.intValue = value;
+    }
+
+    public int getIntValue() {
+        return intValue;
+    }
 
     public int getString() {
         switch (this) {

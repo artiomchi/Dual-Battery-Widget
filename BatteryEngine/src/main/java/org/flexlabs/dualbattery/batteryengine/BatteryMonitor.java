@@ -36,7 +36,7 @@ public class BatteryMonitor {
         this.useRoot = useRoot;
 
         mContext.registerReceiver(receiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-        mContext.registerReceiver(receiver, new IntentFilter(Intent.ACTION_DOCK_EVENT));
+        //mContext.registerReceiver(receiver, new IntentFilter(Intent.ACTION_DOCK_EVENT));
         isMonitoring = true;
     }
 
