@@ -1,15 +1,8 @@
 apply plugin: 'android'
 
-repositories {
-    maven {
-        url 'https://oss.sonatype.org/content/repositories/snapshots/'
-    }
-}
-
 configurations {
     compile
     androidannotations.extendsFrom(compile)
-    all*.exclude group: 'com.google.android', module: 'support-v4'
 }
 
 dependencies {
@@ -41,6 +34,7 @@ android {
     buildTypes {
         debug {
             packageNameSuffix = '.debug'
+            versionNameSuffix = '-PRE-RELEASE'
         }
     }
 }

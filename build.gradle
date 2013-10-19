@@ -11,5 +11,11 @@ allprojects {
     repositories {
         mavenCentral()
         mavenLocal()
+        maven {
+            url 'https://oss.sonatype.org/content/repositories/snapshots/'
+        }
+    }
+    configurations {
+        all*.exclude group: 'com.google.android', module: 'support-v4'
     }
 }

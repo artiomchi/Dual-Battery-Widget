@@ -1,1 +1,1 @@
-include ':AChartEngine', ':ViewPagerIndicator', ':DaoGenerator', ':DualBatteryWidget'
+include ':AChartEngine', ':ViewPagerIndicator', ':DaoGenerator', ':DualBatteryWidget', ':BatteryEngine'
