@@ -17,7 +17,7 @@ public class BasicDockParser implements IParser {
         if (extras == null)
             return null;
 
-        if (extras.containsKey("dock_status"))
+        if (!extras.containsKey("dock_status"))
             return null;
 
         int status = extras.getInt("dock_status");

@@ -53,8 +53,10 @@ public class BatteryMonitor {
 
             ArrayList<BatteryLevel> results = new ArrayList<BatteryLevel>();
             results.add(level);
-            results.add(padLevel);
-            results.add(dockLevel);
+            if (padLevel != null)
+                results.add(padLevel);
+            if (dockLevel != null)
+                results.add(dockLevel);
 
             listener.batteryLevelsUpdated(results);
         }

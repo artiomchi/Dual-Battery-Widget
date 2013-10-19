@@ -89,6 +89,7 @@ public class MonitorService extends Service implements BatteryLevelMonitor.OnBat
 
     @Override
     public void batteriesUpdated() {
+        updateWidgets(null);
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
             if (batteryMonitor.dockBattery != null)
                 mNotificationManager.update(

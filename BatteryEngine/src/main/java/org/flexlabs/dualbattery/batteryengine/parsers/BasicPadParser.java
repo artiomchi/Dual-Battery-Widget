@@ -17,13 +17,13 @@ public class BasicPadParser implements IParser {
         if (extras == null)
             return null;
 
-        if (extras.containsKey("pad_status"))
+        if (!extras.containsKey("pad_status"))
             return null;
 
         int status = extras.getInt("pad_status");
         int level = extras.getInt("pad_level");
 
-        return new BatteryLevel(BatteryType.AsusDock, getStatus(status), level);
+        return new BatteryLevel(BatteryType.AsusPad, getStatus(status), level);
     }
 
     public static BatteryStatus getStatus(int status) {
