@@ -5,6 +5,7 @@
     <string name="battery_type_asus_dock">Dock</string>
     <string name="battery_type_asus_pad">Pad</string>
 
+    <string name="battery_status_notcharging">Not Charging</string>
     <string name="battery_status_discharging">Discharging</string>
     <string name="battery_status_charging">Charging</string>
     <string name="battery_status_disconnected">Disconnected</string>

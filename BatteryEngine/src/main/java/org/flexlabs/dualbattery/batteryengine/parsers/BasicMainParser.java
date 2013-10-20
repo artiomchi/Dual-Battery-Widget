@@ -26,7 +26,9 @@ public class BasicMainParser implements IParser {
 
     public static BatteryStatus getStatus(int status) {
         switch (status) {
-            case  BatteryManager.BATTERY_STATUS_CHARGING:
+            case BatteryManager.BATTERY_STATUS_NOT_CHARGING:
+                return BatteryStatus.NotCharging;
+            case BatteryManager.BATTERY_STATUS_CHARGING:
                 return BatteryStatus.Charging;
             case BatteryManager.BATTERY_STATUS_DISCHARGING:
                 return BatteryStatus.Discharging;

@@ -1,11 +1,12 @@
 package org.flexlabs.dualbattery.batteryengine;
 
 public enum BatteryStatus {
-    Discharging (0),
-    Charging (1),
-    Full (2),
-    Disconnected (3),
-    Unknown (4);
+    NotCharging(0),
+    Discharging (1),
+    Charging (2),
+    Full (3),
+    Disconnected (4),
+    Unknown (100);
 
     private final int intValue;
     BatteryStatus(int value) {
@@ -18,6 +19,8 @@ public enum BatteryStatus {
 
     public int getString() {
         switch (this) {
+            case NotCharging:
+                return R.string.battery_status_notcharging;
             case Discharging:
                 return R.string.battery_status_discharging;
             case Charging:
@@ -34,6 +37,7 @@ public enum BatteryStatus {
 
     public boolean isEnabled() {
         return
+            this == NotCharging ||
             this == Discharging ||
             this == Charging ||
             this == Full;
