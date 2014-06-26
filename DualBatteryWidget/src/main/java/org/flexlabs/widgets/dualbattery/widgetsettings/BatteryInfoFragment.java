@@ -360,7 +360,7 @@ public class BatteryInfoFragment extends SherlockFragment {
 
             DaoSession session = mSessionWrapper.getSession();
             LazyList<BatteryLevels> batteryLevels = session.getBatteryLevelsDao().queryBuilder()
-                    .where(BatteryLevelsDao.Properties.Time.lt(DateUtils.addDays(new Date(), -7)))
+                    .where(BatteryLevelsDao.Properties.Time.gt(DateUtils.addDays(new Date(), -7)))
                     .listLazy();
             for (BatteryLevels batteryLevel : batteryLevels) {
                 if (batteryLevel.getTypeId() == BatteryType.Main.getIntValue()) {
