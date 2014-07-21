@@ -42,4 +42,8 @@ public enum BatteryStatus {
             this == Charging ||
             this == Full;
     }
+
+    public static BatteryStatus[] activeValues() {
+        return new BatteryStatus[] { NotCharging, Discharging, Charging, Full };
+    }
 }

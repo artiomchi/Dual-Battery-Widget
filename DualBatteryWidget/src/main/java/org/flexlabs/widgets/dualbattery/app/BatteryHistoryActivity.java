@@ -188,7 +188,7 @@ public class BatteryHistoryActivity extends SherlockActivity implements ActionBa
 
         DaoSession session = mSessionWrapper.getSession();
         LazyList<BatteryLevels> batteryLevels = session.getBatteryLevelsDao().queryBuilder()
-                .where(BatteryLevelsDao.Properties.Time.gt(DateUtils.addDays(new Date(), -7)))
+                .where(BatteryLevelsDao.Properties.Time.gt(DateUtils.addDays(new Date(), -days)))
                 .listLazy();
         for (BatteryLevels batteryLevel : batteryLevels) {
             if (batteryLevel.getTypeId() == BatteryType.Main.getIntValue()) {

@@ -122,6 +122,12 @@ public class BatteryWidgetUpdater {
             String status = "n/a";
             if (level.getStatus().isEnabled())
                 status = String.valueOf(level.getLevel()) + "%";
+            else if (settings.isShowOldStatus()) {
+                Integer oldLevel = BatteryLevelMonitor.getOldLevel(level.getType());
+                if (oldLevel != null)
+                    status = String.valueOf(oldLevel) + "%";
+            }
+
             if (settings.getTextPosition() <= Constants.TEXT_POS_BOTTOM)
                 status = "\n" + status + "\n";
 

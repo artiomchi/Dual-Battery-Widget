@@ -2,12 +2,15 @@ package org.flexlabs.widgets.dualbattery;
 
 import android.content.Context;
 
+import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 import org.flexlabs.dualbattery.batteryengine.BatteryLevel;
 import org.flexlabs.dualbattery.batteryengine.BatteryMonitor;
 import org.flexlabs.dualbattery.batteryengine.BatteryType;
+import org.flexlabs.widgets.dualbattery.storage.BatteryLevels;
 import org.flexlabs.widgets.dualbattery.storage.DualBatteryDao;
 
 import java.util.List;
@@ -15,8 +18,7 @@ import java.util.List;
 @EBean(scope = EBean.Scope.Singleton)
 public class BatteryLevelMonitor implements BatteryMonitor.OnBatteryStatusUpdatedListener {
     private BatteryMonitor monitor;
-    @Bean
-    DualBatteryDao batteryDao;
+    @Bean DualBatteryDao batteryDao;
     @RootContext Context mContext;
 
     public interface OnBatteriesUpdatedListener {
@@ -26,6 +28,36 @@ public class BatteryLevelMonitor implements BatteryMonitor.OnBatteryStatusUpdate
     private OnBatteriesUpdatedListener listener;
     public void setOnBatteriesUpdatedListener(OnBatteriesUpdatedListener listener) {
         this.listener = listener;
+    }
+
+    @AfterInject
+    @Background
+    public void loadOldLevels() {
+        BatteryLevels level = batteryDao.getLatestActiveBatteryLevel(BatteryType.Main);
+        if (level != null && lastKnownLevel_Main != null)
+            lastKnownLevel_Main = level.getLevel();
+
+        level = batteryDao.getLatestActiveBatteryLevel(BatteryType.AsusDock);
+        if (level != null && lastKnownLevel_Dock != null)
+            lastKnownLevel_Dock = level.getLevel();
+
+        level = batteryDao.getLatestActiveBatteryLevel(BatteryType.AsusPad);
+        if (level != null && lastKnownLevel_Pad != null)
+            lastKnownLevel_Pad = level.getLevel();
+    }
+
+    public static Integer lastKnownLevel_Main = null;
+    public static Integer lastKnownLevel_Dock = null;
+    public static Integer lastKnownLevel_Pad = null;
+
+    public static Integer getOldLevel(BatteryType batteryType) {
+        if (batteryType == BatteryType.Main)
+            return lastKnownLevel_Main;
+        if (batteryType == BatteryType.AsusDock)
+            return lastKnownLevel_Dock;
+        if (batteryType == BatteryType.AsusPad)
+            return lastKnownLevel_Pad;
+        return null;
     }
 
     public void startMonitoring() {
