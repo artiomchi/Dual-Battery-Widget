@@ -22,21 +22,27 @@ dependencies {
 def annotationDirs = file('src/main/java-agen')
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion '19.1'
+    compileSdkVersion 20
+    buildToolsVersion '20'
 
     defaultConfig {
         versionCode 31
-        versionName '2.0'
+        versionName '2.0.1'
     }
     signingConfigs {
         release
     }
     buildTypes {
         debug {
-            packageNameSuffix = '.debug'
+            applicationIdSuffix = '.debug'
             versionNameSuffix = '-PRE-RELEASE'
         }
+    }
+    dexOptions {
+        preDexLibraries = false
+    }
+    lintOptions {
+        abortOnError false
     }
 }
 if (project.hasProperty('signingStoreLocation')) {
