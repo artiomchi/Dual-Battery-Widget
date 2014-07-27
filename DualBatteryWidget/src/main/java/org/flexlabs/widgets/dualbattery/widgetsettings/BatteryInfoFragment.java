@@ -74,7 +74,7 @@ public class BatteryInfoFragment extends SherlockFragment {
     private boolean tempUnitsC;
     private int temperature, appWidgetId;
 
-    private XYSeries mMainSeries, mDockSeries;
+    private XYSeries mMainSeries, mDockSeries, mPadSeries;
     private GraphicalView mChartView;
     private LinearLayout mChartContainer;
 
@@ -335,6 +335,14 @@ public class BatteryInfoFragment extends SherlockFragment {
                 mRenderer.addSeriesRenderer(mDockRenderer);
             }
 
+            if (BatteryLevelMonitor.getGotPad()) {
+                mPadSeries = new XYSeries("Pad");
+                mDataSet.addSeries(mPadSeries);
+                XYSeriesRenderer mPadRenderer = new XYSeriesRenderer();
+                mPadRenderer.setColor(Color.YELLOW);
+                mRenderer.addSeriesRenderer(mPadRenderer);
+            }
+
             mChartView = ChartFactory.getTimeChartView(getActivity(), mDataSet, mRenderer, null);
         }
     }
@@ -365,8 +373,10 @@ public class BatteryInfoFragment extends SherlockFragment {
             for (BatteryLevels batteryLevel : batteryLevels) {
                 if (batteryLevel.getTypeId() == BatteryType.Main.getIntValue()) {
                     mMainSeries.add(batteryLevel.getTime().getTime(), batteryLevel.getLevel());
-                } else if (batteryLevel.getTypeId() == BatteryType.AsusDock.getIntValue()) {
+                } else if (batteryLevel.getTypeId() == BatteryType.AsusDock.getIntValue() && mDockSeries != null) {
                     mDockSeries.add(batteryLevel.getTime().getTime(), batteryLevel.getLevel());
+                } else if (batteryLevel.getTypeId() == BatteryType.AsusPad.getIntValue() && mPadSeries != null) {
+                    mPadSeries.add(batteryLevel.getTime().getTime(), batteryLevel.getLevel());
                 }
             }
 

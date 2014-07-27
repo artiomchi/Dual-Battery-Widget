@@ -92,11 +92,18 @@ public class MonitorService extends Service implements BatteryLevelMonitor.OnBat
         updateWidgets(null);
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
             if (batteryMonitor.dockBattery != null)
-                mNotificationManager.update(
+                mNotificationManager.updateDock(
                         batteryMonitor.dockBattery.getLevel(),
                         batteryMonitor.dockBattery.getStatus() == BatteryStatus.Charging);
             else
-                mNotificationManager.hide();
+                mNotificationManager.hideDock();
+
+            if (batteryMonitor.padBattery != null)
+                mNotificationManager.updatePad(
+                        batteryMonitor.padBattery.getLevel(),
+                        batteryMonitor.padBattery.getStatus() == BatteryStatus.Charging);
+            else
+                mNotificationManager.hidePad();
         }
     }
 

@@ -26,8 +26,8 @@ android {
     buildToolsVersion '20'
 
     defaultConfig {
-        versionCode 31
-        versionName '2.0.1'
+        versionCode 33
+        versionName '2.0.3'
     }
     signingConfigs {
         release

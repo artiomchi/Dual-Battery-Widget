@@ -57,7 +57,7 @@ import de.greenrobot.dao.query.LazyList;
 @EActivity(R.layout.battery_history)
 @OptionsMenu(R.menu.main)
 public class BatteryHistoryActivity extends SherlockActivity implements ActionBar.TabListener {
-    private XYSeries mMainSeries, mDockSeries;
+    private XYSeries mMainSeries, mDockSeries, mPadSeries;
     private GraphicalView mChartView;
     private LinearLayout mChartContainer;
     private int days = 3, defaultDays;
@@ -156,6 +156,14 @@ public class BatteryHistoryActivity extends SherlockActivity implements ActionBa
                 mRenderer.addSeriesRenderer(mDockRenderer);
             }
 
+            if (BatteryLevelMonitor.getGotPad()) {
+                mPadSeries = new XYSeries("Pad");
+                mDataSet.addSeries(mPadSeries);
+                XYSeriesRenderer mPadRenderer = new XYSeriesRenderer();
+                mPadRenderer.setColor(Color.YELLOW);
+                mRenderer.addSeriesRenderer(mPadRenderer);
+            }
+
             mChartView = ChartFactory.getTimeChartView(this, mDataSet, mRenderer, null);
         }
     }
@@ -193,8 +201,10 @@ public class BatteryHistoryActivity extends SherlockActivity implements ActionBa
         for (BatteryLevels batteryLevel : batteryLevels) {
             if (batteryLevel.getTypeId() == BatteryType.Main.getIntValue()) {
                 mMainSeries.add(batteryLevel.getTime().getTime(), batteryLevel.getLevel());
-            } else if (batteryLevel.getTypeId() == BatteryType.AsusDock.getIntValue()) {
+            } else if (batteryLevel.getTypeId() == BatteryType.AsusDock.getIntValue() && mDockSeries != null) {
                 mDockSeries.add(batteryLevel.getTime().getTime(), batteryLevel.getLevel());
+            } else if (batteryLevel.getTypeId() == BatteryType.AsusPad.getIntValue() && mPadSeries != null) {
+                mPadSeries.add(batteryLevel.getTime().getTime(), batteryLevel.getLevel());
             }
         }
 

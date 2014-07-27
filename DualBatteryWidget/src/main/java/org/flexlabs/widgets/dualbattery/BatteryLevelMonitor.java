@@ -82,6 +82,11 @@ public class BatteryLevelMonitor implements BatteryMonitor.OnBatteryStatusUpdate
         return gotDock;
     }
 
+    private static boolean gotPad = false;
+    public static boolean getGotPad() {
+        return gotPad;
+    }
+
     @Override
     public void batteryLevelsUpdated(List<BatteryLevel> batteryLevels) {
         for (BatteryLevel level : batteryLevels) {
@@ -96,6 +101,7 @@ public class BatteryLevelMonitor implements BatteryMonitor.OnBatteryStatusUpdate
             } else if (level.getType() == BatteryType.AsusPad) {
                 oldValue = padBattery;
                 padBattery = level;
+                gotPad = true;
             } else continue;
 
             if (oldValue == null || oldValue.getStatus() != level.getStatus() || oldValue.getLevel() != level.getLevel()) {

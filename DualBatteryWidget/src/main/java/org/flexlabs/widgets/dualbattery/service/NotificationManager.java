@@ -35,6 +35,7 @@ import org.flexlabs.widgets.dualbattery.app.SettingsContainer;
 @EBean
 public class NotificationManager implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final int NOTIFICATION_DOCK = 1;
+    private static final int NOTIFICATION_PAD = 2;
 
     @SystemService android.app.NotificationManager mNotificationManager;
     @Bean BatteryLevelMonitor batteryMonitor;
@@ -53,15 +54,29 @@ public class NotificationManager implements SharedPreferences.OnSharedPreference
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (Constants.SETTING_NOTIFICATION_ICON.equals(key)) {
             enabled = new SettingsContainer(mContext).isShowNotificationIcon();
-            if (enabled && batteryMonitor.dockBattery != null) {
-                update(batteryMonitor.dockBattery.getLevel(), batteryMonitor.dockBattery.getStatus() == BatteryStatus.Charging);
-            } else {
-                hide();
+            if (enabled) {
+                if (batteryMonitor.dockBattery != null)
+                    updateDock(batteryMonitor.dockBattery.getLevel(), batteryMonitor.dockBattery.getStatus() == BatteryStatus.Charging);
+                else
+                    hideDock();
+
+                if (batteryMonitor.padBattery != null)
+                    updatePad(batteryMonitor.padBattery.getLevel(), batteryMonitor.padBattery.getStatus() == BatteryStatus.Charging);
+                else
+                    hidePad();
             }
         }
     }
 
-    public void update(int dockLevel, boolean charging) {
+    public void updateDock(int dockLevel, boolean charging) {
+        update(NOTIFICATION_DOCK, "Dock", dockLevel, charging);
+    }
+
+    public void updatePad(int padLevel, boolean charging) {
+        update(NOTIFICATION_PAD, "Pad", padLevel, charging);
+    }
+
+    private void update(int notificationType, String batteryName, int dockLevel, boolean charging) {
         if (!enabled) {
             return;
         }
@@ -90,14 +105,18 @@ public class NotificationManager implements SharedPreferences.OnSharedPreference
             Notification.FLAG_NO_CLEAR;
         Intent intent = new Intent(mContext, BatteryHistoryActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(mContext, 1, intent, 0);
-        notification.setLatestEventInfo(mContext, title, "Dock battery level: " + dockLevel + "%", contentIntent);
+        notification.setLatestEventInfo(mContext, title, batteryName + " battery level: " + dockLevel + "%", contentIntent);
 
         notification.tickerText = null;
         notification.contentView.setInt(android.R.id.icon, "setImageLevel", dockLevel);
-        mNotificationManager.notify(NOTIFICATION_DOCK, notification);
+        mNotificationManager.notify(notificationType, notification);
     }
     
-    public void hide() {
+    public void hideDock() {
         mNotificationManager.cancel(NOTIFICATION_DOCK);
+    }
+
+    public void hidePad() {
+        mNotificationManager.cancel(NOTIFICATION_PAD);
     }
 }
