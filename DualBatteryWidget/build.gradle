@@ -26,8 +26,8 @@ android {
     buildToolsVersion '20'
 
     defaultConfig {
-        versionCode 33
-        versionName '2.0.3'
+        versionCode 34
+        versionName '2.0.4'
     }
     signingConfigs {
         release
@@ -69,7 +69,7 @@ task annotationsDir {
 tasks.clean.dependsOn tasks.cleanAnnotationsDir
 
 android.applicationVariants.all { variant ->
-    variant.javaCompile.dependsOn project.project(':DaoGenerator').tasks.daoGen
+    variant.javaCompile.dependsOn project.project(':DaoGenerator').tasks['daoGen']
     variant.javaCompile.dependsOn annotationsDir
     variant.javaCompile.options.compilerArgs += [
             '-processorpath', configurations.androidannotations.asPath,

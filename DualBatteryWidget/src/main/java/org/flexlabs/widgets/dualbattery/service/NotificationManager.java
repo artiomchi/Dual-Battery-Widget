@@ -55,12 +55,12 @@ public class NotificationManager implements SharedPreferences.OnSharedPreference
         if (Constants.SETTING_NOTIFICATION_ICON.equals(key)) {
             enabled = new SettingsContainer(mContext).isShowNotificationIcon();
             if (enabled) {
-                if (batteryMonitor.dockBattery != null)
+                if (batteryMonitor.dockBattery != null && batteryMonitor.dockBattery.getStatus().isEnabled())
                     updateDock(batteryMonitor.dockBattery.getLevel(), batteryMonitor.dockBattery.getStatus() == BatteryStatus.Charging);
                 else
                     hideDock();
 
-                if (batteryMonitor.padBattery != null)
+                if (batteryMonitor.padBattery != null && batteryMonitor.padBattery.getStatus().isEnabled())
                     updatePad(batteryMonitor.padBattery.getLevel(), batteryMonitor.padBattery.getStatus() == BatteryStatus.Charging);
                 else
                     hidePad();

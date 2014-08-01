@@ -33,7 +33,7 @@ public class SettingsFragment extends SherlockPreferenceListFragment {
 
         if (getPreferenceScreen() == null) {
             getPreferenceManager().setSharedPreferencesName(Constants.SETTINGS_FILE);
-            if (BatteryLevelMonitor.getGotDock()) {
+            if (BatteryLevelMonitor.getGotDock() || BatteryLevelMonitor.getGotPad()) {
                 addPreferencesFromResource(R.xml.settings_0_dock_notif);
             }
             addPreferencesFromResource(R.xml.settings_1_general);
